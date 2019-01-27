@@ -1,0 +1,52 @@
+{
+  "name": "TonyKaravasilev/CryptoManana",
+  "description": "CryptoManana is a cryptography framework for boosting your project's security.",
+  "type": "library",
+  "keywords": [
+    "cryptomanana",
+    "cryptography",
+    "security",
+    "secure",
+    "hashing",
+    "digest",
+    "encryption",
+    "decryption",
+    "randomness",
+    "random-numbers",
+    "random-strings",
+    "random generators"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tony Karavasilev",
+      "homepage": "http://karavasilev.info"
+    }
+  ],
+  "require": {
+    "php": "^5.5 || ^5.6 || ^7.0",
+    "ext-hash": "*",
+    "ext-openssl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "suggest": {
+    "ext-apcu": "Recommended for Composer autoloading optimization level 2/B.",
+    "ext-zend-opcache": "Recommended for high speed execution and memory optimizations.",
+    "ext-libsodium": "PHP < 7.0.0: Cryptography library loaded as a PHP extensions.",
+    "ext-sodium": "PHP >= 7.0.0: Cryptography library used by newest PHP core features."
+  },
+  "autoload": {
+    "psr-4": {
+      "CryptoManana\\": "src/CryptoManana"
+    },
+    "files": [
+      "src/compatibility.php"
+    ]
+  },
+  "minimum-stability": "stable",
+  "scripts": {
+    "install-dev": "php composer.phar install"
+  }
+}

@@ -1,0 +1,17 @@
+# Composer Package Manager Related
+vendor/
+composer.lock
+composer.phar
+
+# IDE Related Files and Folders
+.idea/
+nbproject/
+*.sublime-workspace
+*.sublime-project
+
+# Local Backup Files
+*.7z
+*.zip
+*.tar.gz
+*.tgz
+*.bak
