@@ -1,2 +1,2 @@
-# CryptoManana
+# CryptoMañana
 Advanced PHP Cryptography Framework.
