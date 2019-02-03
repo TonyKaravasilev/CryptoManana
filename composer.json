@@ -32,10 +32,13 @@
     "phpunit/phpunit": "*"
   },
   "suggest": {
-    "ext-apcu": "Recommended for Composer autoloading optimization level 2/B.",
-    "ext-zend-opcache": "Recommended for high speed execution and memory optimizations.",
     "ext-libsodium": "PHP < 7.0.0: Cryptography library loaded as a PHP extensions.",
-    "ext-sodium": "PHP >= 7.0.0: Cryptography library used by newest PHP core features."
+    "ext-sodium": "PHP >= 7.0.0: Cryptography library used by newest PHP core features.",
+    "ext-zend-opcache": "Recommended for high speed execution and memory optimizations.",
+    "ext-apcu": "Recommended for Composer autoloading optimization level 2/B and caching.",
+    "ext-mbstring": "Use only for multi-byte string encodings support and implementations.",
+    "ext-event": "Interface for the libevent library and a port to the PHP infrastructure.",
+    "ext-xdebug": "Useful for Web/CLI debugging and profiling, plus needed for Code Coverage."
   },
   "autoload": {
     "psr-4": {
@@ -46,7 +49,13 @@
     ]
   },
   "minimum-stability": "stable",
+  "config": {
+    "sort-packages": true
+  },
   "scripts": {
-    "install-dev": "php composer.phar install"
+    "install-sys": "composer install --profile -vv",
+    "autoload-sys": "composer dump-autoload --profile -vv",
+    "install-dev": "php composer.phar install --profile -vv",
+    "autoload-dev": "php composer.phar dump-autoload --profile -vv"
   }
 }
