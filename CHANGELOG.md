@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.0.5, 2018-02-09
+------------------
+
+- Added PHPUnit and CodeCoverage integration to project;
+- Created new Composer script aliases for development purposes;
+- Created internal class hierarchy for tests and some debug functions.
+
 v0.0.4, 2018-02-09
 ------------------
 

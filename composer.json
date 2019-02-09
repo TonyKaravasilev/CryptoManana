@@ -3,7 +3,8 @@
   "description": "CryptoManana is a cryptography framework for boosting your project's security.",
   "type": "library",
   "keywords": [
-    "cryptomanana",
+    "CryptoManana",
+    "Crypto Manana",
     "cryptography",
     "security",
     "secure",
@@ -24,12 +25,14 @@
     }
   ],
   "require": {
-    "php": "^5.5 || ^5.6 || ^7.0",
+    "php": "^5.6 || ^7.0",
     "ext-hash": "*",
     "ext-openssl": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "*"
+    "ext-mbstring": "*",
+    "phpunit/phpunit": "^5.7 || ^7.0",
+    "squizlabs/php_codesniffer": "^3.0"
   },
   "suggest": {
     "ext-libsodium": "PHP < 7.0.0: Cryptography library loaded as a PHP extensions.",
@@ -48,14 +51,32 @@
       "src/compatibility.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "CryptoManana\\Tests\\": "tests/CryptoManana/Tests"
+    },
+    "files": [
+      "tests/settings.php"
+    ]
+  },
   "minimum-stability": "stable",
   "config": {
     "sort-packages": true
   },
   "scripts": {
-    "install-sys": "composer install --profile -vv",
-    "autoload-sys": "composer dump-autoload --profile -vv",
-    "install-dev": "php composer.phar install --profile -vv",
-    "autoload-dev": "php composer.phar dump-autoload --profile -vv"
+    "install-dev": "composer install --profile -vv",
+    "install-phar": "php composer.phar install --profile -vv",
+    "autoload-dev": "composer dump-autoload --profile -vv",
+    "autoload-phar": "php composer.phar dump-autoload --profile -vv",
+    "execute-tests": "vendor/bin/phpunit --verbose --report-useless-tests",
+    "execute-tests-phar": "php phpunit.phar --verbose --report-useless-tests",
+    "scan-coverage": "vendor/bin/phpunit --coverage-text --verbose --stop-on-failure",
+    "scan-coverage-phar": "php phpunit.phar --coverage-text --verbose --stop-on-failure",
+    "export-coverage": "vendor/bin/phpunit --coverage-html ./coverage/",
+    "export-coverage-phar": "php phpunit.phar --coverage-html ./coverage/",
+    "check-source-psr": "vendor/bin/phpcs --standard=PSR2 src/ -n -p",
+    "check-source-psr-phar": "php phpcs.phar --standard=PSR2 src/ -n -p",
+    "check-tests-psr": "vendor/bin/phpcs --ignore=config.php --standard=PSR2 tests/ -n -p",
+    "check-tests-psr-phar": "php phpcs.phar --ignore=config.php --standard=PSR2 tests/ -n -p"
   }
 }

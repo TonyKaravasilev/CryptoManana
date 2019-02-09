@@ -1,7 +1,25 @@
 # Composer Package Manager Related
 vendor/
+vendor.bak/
 composer.lock
 composer.phar
+
+# PHPUnit Related Files and Folders
+tests/config.php
+phpunit.phar
+phpunit.xml
+coverage/
+index.php
+
+# Files for PHP Code Sniffer
+phpcs.phar
+phpcbf.phar
+
+# Files for PHP Documentor
+phpDocumentor.phar
+phpdoc.phar
+output/
+docs/
 
 # IDE Related Files and Folders
 .idea/
@@ -14,4 +32,6 @@ nbproject/
 *.zip
 *.tar.gz
 *.tgz
+*.tar
 *.bak
+*.BAK
