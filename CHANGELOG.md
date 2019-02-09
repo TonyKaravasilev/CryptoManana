@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.4, 2018-02-09
+------------------
+
+- Added a Makefile and an attribute list for Git when exporting.
+
 v0.0.3, 2018-02-03
 ------------------
 
