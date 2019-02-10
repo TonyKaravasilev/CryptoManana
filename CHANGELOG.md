@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+
+v0.0.6, 2018-02-10
+------------------
+
+- Updated the Composer JSON schema keywords to match with the GitHub topics.
+
 v0.0.5, 2018-02-09
 ------------------
 

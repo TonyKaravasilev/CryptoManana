@@ -4,7 +4,7 @@
   "type": "library",
   "keywords": [
     "CryptoManana",
-    "Crypto Manana",
+    "crypto-manana",
     "cryptography",
     "security",
     "secure",
@@ -12,10 +12,16 @@
     "digest",
     "encryption",
     "decryption",
+    "multibyte",
     "randomness",
     "random-numbers",
     "random-strings",
-    "random generators"
+    "random-generators",
+    "hashing-library",
+    "encryption-library",
+    "php-cryptography-framework",
+    "php-framework",
+    "php-library"
   ],
   "license": "MIT",
   "authors": [
