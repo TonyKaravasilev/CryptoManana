@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.9, 2018-02-16
+------------------
+
+- Updated the XML configuration for PHPUnit and CodeCoverage testing.
+
 v0.0.8, 2018-02-16
 ------------------
 

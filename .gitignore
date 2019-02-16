@@ -5,6 +5,7 @@ composer.lock
 composer.phar
 
 # PHPUnit Related Files and Folders
+.phpunit.result.cache
 tests/config.php
 phpunit.phar
 phpunit.xml

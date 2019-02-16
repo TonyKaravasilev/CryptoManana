@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./vendor/autoload.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="./vendor/autoload.php"
          backupGlobals="false"
          backupStaticAttributes="false"
-         verbose="true"
          colors="true"
+         cacheResult="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
+         stopOnFailure="false"
+         timeoutForSmallTests="10"
+         timeoutForMediumTests="30"
+         timeoutForLargeTests="120"
+         verbose="true">
 
+    <!-- Change some runtime PHP settings: -->
     <php>
         <ini name="default_charset" value="UTF-8"/>
         <ini name="intl.default_locale" value="en"/>
@@ -24,14 +31,23 @@
         <ini name="memory_limit" value="-1"/>
     </php>
 
+    <!-- Test suite name and location: -->
     <testsuite name="CryptoManana - Unit Test Suite">
         <directory suffix="Test.php">./tests/CryptoManana/Tests/TestSuite/</directory>
     </testsuite>
 
+    <!-- Include directory paths for scanning: -->
     <filter>
         <whitelist>
             <directory>./src/CryptoManana</directory>
         </whitelist>
     </filter>
+
+    <!-- Code coverage output formats and settings: -->
+    <logging>
+        <log type="coverage-html" target="coverage/report" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="coverage/clover.xml"/>
+        <log type="junit" target="coverage/junit.xml"/>
+    </logging>
 
 </phpunit>
