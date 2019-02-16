@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v0.0.7, 2018-02-16
+------------------
+
+- Added XML configuration for PHP Code Sniffer and PHP Documentor binaries.
 
 v0.0.6, 2018-02-10
 ------------------

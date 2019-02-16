@@ -12,12 +12,14 @@ coverage/
 index.php
 
 # Files for PHP Code Sniffer
+phpcs.xml
 phpcs.phar
 phpcbf.phar
 
 # Files for PHP Documentor
 phpDocumentor.phar
 phpdoc.phar
+phpdoc.xml
 output/
 docs/
 

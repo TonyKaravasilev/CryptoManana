@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpdoc>
+
+    <!-- Project ruleset description: -->
+    <title>PHPDoc scanning for the CryptoManana Framework.</title>
+
+    <!-- Code scanning options: -->
+    <parser>
+        <target>docs/api</target>
+        <encoding>UTF-8</encoding>
+        <markers>
+            <item>TODO</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+    </parser>
+
+    <!-- Documentation transformation options: -->
+    <transformer>
+        <target>docs/api</target>
+    </transformer>
+
+    <!-- Internal error and logging options: -->
+    <logging>
+        <level>err</level>
+    </logging>
+
+    <!-- Settings for output transformation format: -->
+    <transformations>
+        <template name="clean"/>
+    </transformations>
+
+    <!-- Include or ignore directory/file paths for scanning: -->
+    <files>
+        <directory>src</directory>
+        <directory>tests</directory>
+        <ignore>src/compatibility.php</ignore>
+        <ignore>tests/settings.php</ignore>
+        <ignore>tests/config.php</ignore>
+    </files>
+
+</phpdoc>

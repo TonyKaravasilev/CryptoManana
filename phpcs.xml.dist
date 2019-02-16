@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="CryptoManana Project"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <!-- Project ruleset description: -->
+    <description>Use the PSR-1/PSR-2 set of rules for the CryptoManana Framework.</description>
+
+    <!-- Set other running settings: -->
+    <arg name="extensions" value="php"/>
+    <arg name="encoding" value="UTF-8"/>
+    <arg name="basepath" value="./"/>
+    <arg name="parallel" value="32"/>
+    <arg name="no-colors"/>
+    <arg name="no-cache"/>
+
+    <!-- Ignore warnings and show progress of the run: -->
+    <arg value="np"/>
+
+    <!-- Change some runtime PHP settings: -->
+    <ini name="default_charset" value="UTF-8"/>
+    <ini name="intl.default_locale" value="en"/>
+    <ini name="intl.error_level" value="0"/>
+    <ini name="error_reporting" value="-1"/>
+    <ini name="report_memleaks" value="1"/>
+    <ini name="display_errors" value="1"/>
+    <ini name="display_startup_errors" value="1"/>
+    <ini name="max_execution_time" value="-1"/>
+    <ini name="memory_limit" value="-1"/>
+
+    <!-- Include directory paths for scanning: -->
+    <file>./src</file>
+    <file>./tests</file>
+
+    <!-- Exclude some local testing files: -->
+    <exclude-pattern>./tests/config.php*</exclude-pattern>
+
+    <!-- Include the whole PSR-1/PSR-2 standard: -->
+    <rule ref="PSR2"/>
+
+</ruleset>

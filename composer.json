@@ -83,6 +83,9 @@
     "check-source-psr": "vendor/bin/phpcs --standard=PSR2 src/ -n -p",
     "check-source-psr-phar": "php phpcs.phar --standard=PSR2 src/ -n -p",
     "check-tests-psr": "vendor/bin/phpcs --ignore=config.php --standard=PSR2 tests/ -n -p",
-    "check-tests-psr-phar": "php phpcs.phar --ignore=config.php --standard=PSR2 tests/ -n -p"
+    "check-tests-psr-phar": "php phpcs.phar --ignore=config.php --standard=PSR2 tests/ -n -p",
+    "check-psr": "vendor/bin/phpcs",
+    "check-psr-phar": "php phpcs.phar",
+    "export-docs-phar": "php phpdoc.phar"
   }
 }
