@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.8, 2018-02-16
+------------------
+
+- Added a Composer branch alias for latest master development version.
+
 v0.0.7, 2018-02-16
 ------------------
 

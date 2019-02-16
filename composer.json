@@ -87,5 +87,10 @@
     "check-psr": "vendor/bin/phpcs",
     "check-psr-phar": "php phpcs.phar",
     "export-docs-phar": "php phpdoc.phar"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "v0.x-dev"
+    }
   }
 }
