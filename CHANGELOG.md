@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.11, 2018-02-17
+------------------
+
+- Added a PSR-4 autoloader for the project's loading without Composer.
+
 v0.0.10, 2018-02-17
 ------------------
 
