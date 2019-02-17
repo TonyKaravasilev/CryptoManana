@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.12, 2018-02-17
+------------------
+
+- Updated the project's description at the README.md file.
+
 v0.0.11, 2018-02-17
 ------------------
 
