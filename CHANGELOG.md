@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.10, 2018-02-17
+------------------
+
+- Added a backward compatibility snippet for running under PHP 5.x versions.
+
 v0.0.9, 2018-02-16
 ------------------
 
