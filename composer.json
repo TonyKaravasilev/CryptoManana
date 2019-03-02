@@ -31,14 +31,15 @@
     }
   ],
   "require": {
-    "php": "^5.6 || ^7.0",
+    "php": "^5.5 || ^7.0",
     "ext-hash": "*",
     "ext-openssl": "*"
   },
   "require-dev": {
     "ext-mbstring": "*",
-    "phpunit/phpunit": "^5.7 || ^7.0",
-    "squizlabs/php_codesniffer": "^3.0"
+    "ext-reflection": "*",
+    "squizlabs/php_codesniffer": "^3.0",
+    "phpunit/phpunit": "^8 || ^7 || ^6.5 || ^5.7 || ^4.8"
   },
   "suggest": {
     "ext-libsodium": "PHP < 7.0.0: Cryptography library loaded as a PHP extensions.",
@@ -74,8 +75,8 @@
     "install-phar": "php composer.phar install --profile -vv",
     "autoload-dev": "composer dump-autoload --profile -vv",
     "autoload-phar": "php composer.phar dump-autoload --profile -vv",
-    "execute-tests": "vendor/bin/phpunit --verbose --report-useless-tests",
-    "execute-tests-phar": "php phpunit.phar --verbose --report-useless-tests",
+    "execute-tests": "vendor/bin/phpunit --verbose --testdox --no-coverage",
+    "execute-tests-phar": "php phpunit.phar --verbose --testdox --no-coverage",
     "scan-coverage": "vendor/bin/phpunit --coverage-text --verbose --stop-on-failure",
     "scan-coverage-phar": "php phpunit.phar --coverage-text --verbose --stop-on-failure",
     "export-coverage": "vendor/bin/phpunit --coverage-html ./coverage/",
@@ -84,8 +85,14 @@
     "check-source-psr-phar": "php phpcs.phar --standard=PSR2 src/ -n -p",
     "check-tests-psr": "vendor/bin/phpcs --ignore=config.php --standard=PSR2 tests/ -n -p",
     "check-tests-psr-phar": "php phpcs.phar --ignore=config.php --standard=PSR2 tests/ -n -p",
+    "fix-source-psr": "vendor/bin/phpcbf --standard=PSR2 src/ -n -p",
+    "fix-source-psr-phar": "php phpcbf.phar --standard=PSR2 src/ -n -p",
+    "fix-tests-psr": "vendor/bin/phpcbf --ignore=config.php --standard=PSR2 tests/ -n -p",
+    "fix-tests-psr-phar": "php phpcbf.phar --ignore=config.php --standard=PSR2 tests/ -n -p",
     "check-psr": "vendor/bin/phpcs",
     "check-psr-phar": "php phpcs.phar",
+    "fix-psr": "vendor/bin/phpcbf",
+    "fix-psr-phar": "php phpcbf.phar",
     "export-docs-phar": "php phpdoc.phar"
   },
   "extra": {

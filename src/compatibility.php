@@ -191,7 +191,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
                 $retries++;
 
                 if ($retries > 128) {
-                    throw new Exception(
+                    throw new \Exception(
                         'random_int(): The secure pseudo-randomness source is broken (too many rejections).'
                     );
                 }

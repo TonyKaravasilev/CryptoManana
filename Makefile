@@ -12,7 +12,7 @@ psr: vendor/autoload.php
 
 .PHONY: tests
 tests: vendor/autoload.php
-	vendor/bin/phpunit --verbose
+	vendor/bin/phpunit --verbose --no-coverage
 
 .PHONY: check-build
 check-build: vendor/autoload.php

@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.0.13, 2018-03-02
+------------------
+
+- Updated the testing settings for PHPUnit and CodeCoverage;
+- Added a few new development Composer script aliases.
+
 v0.0.12, 2018-02-17
 ------------------
 

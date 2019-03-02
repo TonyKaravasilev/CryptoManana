@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Tests\TestSuite;
 
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 
 /**
  * Class FirstTest - First unit test.

@@ -91,6 +91,8 @@ if (!function_exists('dump') && !function_exists('dd')) {
 if (PHP_SAPI === 'cli') {
     // Local settings that were not included at phpunit.xml.dist/phpunit.xml file
     date_default_timezone_set('UTC');
+    ini_set('serialize_precision', '17');
+    ini_set('precision', '14');
     clearstatcache();
 
     // Check if the mbstring extension is loaded

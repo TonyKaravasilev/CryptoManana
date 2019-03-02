@@ -3,6 +3,7 @@ vendor/
 vendor.bak/
 composer.lock
 composer.phar
+composer
 
 # PHPUnit Related Files and Folders
 .phpunit.result.cache
@@ -11,13 +12,18 @@ phpunit.phar
 phpunit.xml
 coverage/
 index.php
+phpunit
 
 # Files for PHP Code Sniffer
+phpcs
+phpcbf
 phpcs.xml
 phpcs.phar
 phpcbf.phar
 
 # Files for PHP Documentor
+phpdoc
+phpDocumentor
 phpDocumentor.phar
 phpdoc.phar
 phpdoc.xml
@@ -36,5 +42,6 @@ nbproject/
 *.tar.gz
 *.tgz
 *.tar
+*.tmp
 *.bak
 *.BAK
