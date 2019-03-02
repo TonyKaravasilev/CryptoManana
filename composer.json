@@ -1,9 +1,10 @@
 {
-  "name": "TonyKaravasilev/CryptoManana",
+  "name": "karavasilev/crypto-manana",
   "description": "CryptoManana is a cryptography framework for boosting your project's security.",
   "type": "library",
   "keywords": [
     "CryptoManana",
+    "cryptomanana",
     "crypto-manana",
     "cryptography",
     "security",
@@ -21,7 +22,8 @@
     "encryption-library",
     "php-cryptography-framework",
     "php-framework",
-    "php-library"
+    "php-library",
+    "karavasilev"
   ],
   "license": "MIT",
   "authors": [
@@ -32,6 +34,7 @@
   ],
   "require": {
     "php": "^5.5 || ^7.0",
+    "ext-spl": "*",
     "ext-hash": "*",
     "ext-openssl": "*"
   },
@@ -52,7 +55,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CryptoManana\\": "src/CryptoManana"
+      "CryptoManana\\": "src/CryptoManana/"
     },
     "files": [
       "src/compatibility.php"
@@ -60,7 +63,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "CryptoManana\\Tests\\": "tests/CryptoManana/Tests"
+      "CryptoManana\\Tests\\": "tests/CryptoManana/Tests/"
     },
     "files": [
       "tests/settings.php"

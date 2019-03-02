@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.0.14, 2018-03-02
+------------------
+
+- Updated the Composer JSON schema and renamed for easier future Packagist loading;
+- Moved the development and testing functions implementation to a seconds file;
+- Fixed a semantic language typo in the README.md file's description section.
+
 v0.0.13, 2018-03-02
 ------------------
 
