@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.15, 2018-03-03
+------------------
+
+- Added a core class abstraction for the Singleton design pattern.
+
 v0.0.14, 2018-03-02
 ------------------
 
