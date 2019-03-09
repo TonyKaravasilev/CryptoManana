@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.16, 2018-03-09
+------------------
+
+- Added a core class abstraction for the Factory design pattern.
+
 v0.0.15, 2018-03-03
 ------------------
 
