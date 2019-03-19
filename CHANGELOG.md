@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.0.18, 2018-03-19
+------------------
+
+- Rearranged the namespacing and the folder hierarchy for abstractions;
+- Added a core StringBuilder class for Unicode string manipulations;
+- Added a unit test for the StringBuilder core class;
+- Removed the firstly added dummy unit test.
+
 v0.0.17, 2018-03-19
 ------------------
 
