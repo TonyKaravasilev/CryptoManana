@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+v0.0.19, 2018-03-19
+------------------
+
+- Added an abstraction for the framework’s internal exceptions;
+- Added some framework exceptions for easier error handling;
+- Added unit tests for all the framework exception objects;
+- Added an ExceptionFactory for easier error instancing;
+- Added a unit test for the ExceptionFactory class.
+
 v0.0.18, 2018-03-19
 ------------------
 
