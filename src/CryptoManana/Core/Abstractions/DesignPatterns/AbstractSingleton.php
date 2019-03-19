@@ -4,12 +4,12 @@
  * Abstraction for the singleton design pattern.
  */
 
-namespace CryptoManana\Core\DesignPatterns\Abstractions;
+namespace CryptoManana\Core\Abstractions\DesignPatterns;
 
 /**
  * Class AbstractSingleton - Abstraction for the singleton design pattern.
  *
- * @package CryptoManana\Core\DesignPatterns\Abstractions
+ * @package CryptoManana\Core\Abstractions\DesignPatterns
  */
 abstract class AbstractSingleton
 {

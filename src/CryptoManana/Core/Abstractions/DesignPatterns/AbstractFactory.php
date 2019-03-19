@@ -4,14 +4,14 @@
  * Abstraction for the factory design pattern.
  */
 
-namespace CryptoManana\Core\DesignPatterns\Abstractions;
+namespace CryptoManana\Core\Abstractions\DesignPatterns;
 
-use \CryptoManana\Core\DesignPatterns\Interfaces\InterfaceStaticCallInstancing as StaticCalls;
+use \CryptoManana\Core\Interfaces\DesignPatterns\InterfaceStaticCallInstancing as StaticCalls;
 
 /**
  * Class AbstractFactory - Abstraction for the factory design pattern.
  *
- * @package CryptoManana\Core\DesignPatterns\Abstractions
+ * @package CryptoManana\Core\Abstractions\DesignPatterns
  */
 abstract class AbstractFactory implements StaticCalls
 {
@@ -28,6 +28,7 @@ abstract class AbstractFactory implements StaticCalls
      * Dynamic call method for object instancing.
      *
      * @param string|int|null $type Object type.
+     *
      * @return object|null Instance of an object.
      */
     abstract public function create($type);

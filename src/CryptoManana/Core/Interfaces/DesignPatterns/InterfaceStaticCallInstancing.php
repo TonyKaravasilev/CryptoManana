@@ -4,14 +4,14 @@
  * Interface for static calls, used at factory objects.
  */
 
-namespace CryptoManana\Core\DesignPatterns\Interfaces;
+namespace CryptoManana\Core\Interfaces\DesignPatterns;
 
 /**
  * Interface InterfaceStaticCallInstancing - Static calls to object instancing.
  *
- * @package CryptoManana\Core\DesignPatterns\Interfaces
+ * @package CryptoManana\Core\Interfaces\DesignPatterns
  *
- * @see \CryptoManana\Core\DesignPatterns\Abstractions\AbstractFactory For Usage.
+ * @see \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory For Usage.
  */
 interface InterfaceStaticCallInstancing
 {
@@ -19,6 +19,7 @@ interface InterfaceStaticCallInstancing
      * Static call method for object instancing.
      *
      * @param string|int|null $type Object type.
+     *
      * @return object|null Instance of an object.
      */
     public static function createInstance($type);
