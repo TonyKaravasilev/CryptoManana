@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.0.20, 2018-03-20
+------------------
+
+- Updated the Composer JSON schema and renamed the package for Packagist usage;
+- Registered the first online DOI number via Zenodo and CERN integration;
+- Registered the package at Packagist, the Composer main repository;
+- Added badges to the README.md file's description.
+
 v0.0.19, 2018-03-19
 ------------------
 
