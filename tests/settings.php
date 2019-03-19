@@ -20,8 +20,9 @@ if (PHP_SAPI === 'cli') {
     // Check if the mbstring extension is loaded
     if (extension_loaded('mbstring')) {
         /**
-         * @api All test cases are written for UTF-8 (ASCII compatible).
-         * @internal The developer can use the framework with another encoding.
+         * All test cases are written for UTF-8 (ASCII compatible).
+         *
+         * {@internal The developer can use the framework with another encoding. }}
          */
         mb_regex_encoding('UTF-8');
         mb_internal_encoding('UTF-8');

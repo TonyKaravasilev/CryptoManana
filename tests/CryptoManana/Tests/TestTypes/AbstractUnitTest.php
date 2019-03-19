@@ -11,6 +11,7 @@ use \CryptoManana\Tests\TestInterfaces\TestDebuggingInterface as Dumping;
 
 /**
  * Class AbstractUnitTest - Main class for unit test case creation.
+ *
  * @package CryptoManana\Tests\TestTypes
  */
 abstract class AbstractUnitTest extends FrameworkUnitTest implements Dumping

@@ -8,6 +8,7 @@ namespace CryptoManana\Tests\TestInterfaces;
 
 /**
  * Interface TestDebuggingInterface - Interface defining debugging methods.
+ *
  * @package CryptoManana\Tests\TestInterfaces
  */
 interface TestDebuggingInterface

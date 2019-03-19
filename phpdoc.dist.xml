@@ -35,7 +35,9 @@
     <files>
         <directory>src</directory>
         <directory>tests</directory>
+        <ignore>src/autoload.php</ignore>
         <ignore>src/compatibility.php</ignore>
+        <ignore>tests/debugging.php</ignore>
         <ignore>tests/settings.php</ignore>
         <ignore>tests/config.php</ignore>
     </files>

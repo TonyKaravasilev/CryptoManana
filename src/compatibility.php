@@ -3,7 +3,7 @@
 /**
  * This file defines needed PHP 5.x backward compatible functions, constants, classes, etc.
  *
- * @internal Define a global constant `CRYPTO_MANANA_COMPATIBILITY_OFF` to suppress this feature.
+ * {@internal Define a global constant `CRYPTO_MANANA_COMPATIBILITY_OFF` to suppress this feature. }}
  */
 
 // Compatibility checks and simple mitigation
@@ -15,7 +15,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
          * Usually int(-2147483648) in 32 bit systems and int(-9223372036854775808) in 64 bit systems.
          * Available since PHP 7.0.0. Usually, PHP_INT_MIN === ~PHP_INT_MAX.
          *
-         * @api define ('PHP_INT_MIN', ~PHP_INT_MAX)
+         * @internal define ('PHP_INT_MIN', ~PHP_INT_MAX)
          *
          * @return int The smallest supported integer.
          */
@@ -28,8 +28,8 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
          * Generates cryptographically secure pseudo-random bytes.
          *
          * @param int $length The length of the random string that should be returned in bytes.
-         * @return string Returns a string containing the requested number of cryptographically secure random bytes.
          *
+         * @return string Returns a string containing the requested number of cryptographically secure random bytes.
          * @throws \Exception If the input parameter is less than 1 or no source is available.
          */
         function random_bytes($length)
@@ -51,7 +51,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
                 /**
                  * Function does not allow more than 2147483647 bytes to be generated in one invocation.
                  *
-                 * @api The 32-bit systems limitation constrain.
+                 * {@internal The 32-bit systems limitation constrain. }}
                  */
                 if ($length > 2147483647) {
                     $buffer = '';
@@ -81,6 +81,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
 
                         if ($length > $tmpLength) {
                             $tmpLength = $length - $tmpLength;
+
                             return $buffer . \Sodium\randombytes_buf($tmpLength);
                         } else { // < case
                             if (function_exists('mb_substr')) {
@@ -120,8 +121,8 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
          *
          * @param int $min The lowest value to be returned, which must be PHP_INT_MIN or higher.
          * @param int $max The highest value to be returned, which must be less than or equal to PHP_INT_MAX.
-         * @return int Returns a cryptographically secure random integer in the range min to max, inclusive.
          *
+         * @return int Returns a cryptographically secure random integer in the range min to max, inclusive.
          * @throws \Exception If the input parameters are invalid, max is less than min or the random source is broken.
          */
         function random_int($min, $max)
@@ -208,6 +209,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
          *
          * @param string $known_string The string of known length to compare against
          * @param string $user_input The user-supplied string
+         *
          * @return bool Returns TRUE when the two strings are equal, FALSE otherwise.
          */
         function hash_equals($known_string, $user_input)

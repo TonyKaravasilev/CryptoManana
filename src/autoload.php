@@ -18,6 +18,7 @@ require 'compatibility.php';
  * @link https://github.com/php-fig/fig-standards/tree/master/accepted
  *
  * @param string $className The fully-qualified class name.
+ *
  * @return void
  */
 spl_autoload_register(function ($className) {
@@ -39,7 +40,7 @@ spl_autoload_register(function ($className) {
     // Get the relative class name
     $relativeClass = substr($className, $len);
 
-    // Build the autoloding path to file
+    // Build the autoloading path to file
     $file = $baseDir . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
 
     // If the file exists then require it

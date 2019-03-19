@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.0.17, 2018-03-19
+------------------
+
+- Updated the testing settings for PHPUnit, CodeCoverage and PHP Documentor;
+- Updated some of the PHPDoc comments at development files.
+
 v0.0.16, 2018-03-09
 ------------------
 
