@@ -1,0 +1,43 @@
+# CryptoManana Framework Travis CI YAML Configuration
+
+language: php
+
+dist: trusty
+
+sudo: false
+
+before_install:
+  - sudo apt-get update -y -qq > /dev/null 2>&1
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4snapshot
+# - nightly # <- PHP 8.0.0-dev, No support for PHPUnit yet
+# - master  # <- PHP 8.0.0-dev, No support for PHPUnit yet
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: 7.4snapshot # <- PHP 7.4.0-dev (Zend Engine v3.4.0-dev)
+
+cache:
+  timeout: 900
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+git:
+  depth: 1
+
+before_script:
+  - uname -r
+  - php -v
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-dist
+
+script: make check-build

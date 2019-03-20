@@ -2,6 +2,7 @@
 [![Latest Stable Version](https://poser.pugx.org/karavasilev/cryptomanana/v/stable)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=License&style=flat-square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2598768.svg)](https://doi.org/10.5281/zenodo.2598768)
+[![Build Status](https://travis-ci.org/TonyKaravasilev/CryptoManana.svg?branch=master)](https://travis-ci.org/TonyKaravasilev/CryptoManana)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-RebeccaPurple.svg?style=flat&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BFKJXWRLFTFQA&currency_code=USD&source=url) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![CryptoManana Logo](http://karavasilev.info/images/CryptoMananaLogo.jpg)
 
