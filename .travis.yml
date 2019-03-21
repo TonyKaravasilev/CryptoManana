@@ -40,4 +40,10 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
 
-script: make check-build
+script:
+  - make check-build
+  - make coverage
+
+after_script:
+  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml; fi

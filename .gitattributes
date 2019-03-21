@@ -4,6 +4,7 @@
 /phpcs.xml.dist export-ignore
 /phpunit.xml.dist export-ignore
 /phpdoc.dist.xml export-ignore
+/.scrutinizer.yml export-ignore
 /.travis.yml export-ignore
 /Makefile export-ignore
 /tests export-ignore

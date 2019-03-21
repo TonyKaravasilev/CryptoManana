@@ -17,3 +17,7 @@ tests: vendor/autoload.php
 .PHONY: check-build
 check-build: vendor/autoload.php
 	make psr tests
+
+.PHONY: coverage
+coverage: vendor/autoload.php
+	vendor/bin/phpunit --testdox --coverage-text
