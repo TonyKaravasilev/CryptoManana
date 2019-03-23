@@ -3,7 +3,7 @@
 [![PHP from Travis config](https://img.shields.io/travis/php-v/TonyKaravasilev/CryptoManana.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![PHP from Travis config](https://img.shields.io/badge/php-%3C%3D7.4-blue.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=flat-square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2598768.svg)](https://doi.org/10.5281/zenodo.2598768)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2604328.svg)](https://doi.org/10.5281/zenodo.2604328)
 [![Code Coverage](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
 [![Build Status](https://travis-ci.org/TonyKaravasilev/CryptoManana.svg?branch=master)](https://travis-ci.org/TonyKaravasilev/CryptoManana)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-RebeccaPurple.svg?style=flat&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BFKJXWRLFTFQA&currency_code=USD&source=url) <br><br>
