@@ -1,7 +1,7 @@
 # CryptoManana Framework Scrutinizer CI YAML Configuration
 
 filter:
-  paths: [src/*]
+  paths: [src/CryptoManana/*]
   excluded_paths: [tests/*]
 
 checks:
@@ -11,5 +11,5 @@ tools:
   php_sim: true
   php_pdepend: true
   php_analyzer: true
-  external_code_coverage: true
-  sensiolabs_security_checker: true
+  external_code_coverage:
+    timeout: 900

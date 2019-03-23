@@ -7,7 +7,7 @@ dist: trusty
 sudo: false
 
 before_install:
-  - sudo apt-get update -y -qq > /dev/null 2>&1
+  - if [ "$TRAVIS_PHP_VERSION" == "7.4snapshot" ]; then sudo apt-get update -y -qq > /dev/null 2>&1; fi
 
 php:
   - 5.5
@@ -28,6 +28,7 @@ matrix:
 cache:
   timeout: 900
   directories:
+    - /tmp
     - vendor
     - $HOME/.composer/cache
 
@@ -35,8 +36,8 @@ git:
   depth: 1
 
 before_script:
-  - uname -r
   - php -v
+  - php -m
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
 
