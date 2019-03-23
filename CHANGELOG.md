@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+v0.1.0, 2018-03-23
+------------------
+
+- Added three randomness generator objects for quasi, pseudo and cryptography secure sources.
+- Added unit tests for the QuasiRandom, the PseudoRandom and the CryptoRandom objects;
+- Added and configured Travis integration, unit testing and coverage reporting;
+- Added and configured Scrutinizer integration and automated code reviews;
+- Updated the README.md information about the project installation;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Added badges to the project description and updated Packagist;
+- Updated the Composer JSON schema and suggestions information;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.0.20, 2018-03-20
 ------------------
 
