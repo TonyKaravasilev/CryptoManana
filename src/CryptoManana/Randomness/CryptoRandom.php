@@ -92,7 +92,7 @@ class CryptoRandom extends RandomnessSource implements SeedAction
      *
      * @internal This type of generator does not support controllable seeding.
      *
-     * @param null $seed Auto-seeding.
+     * @param null|int $seed Auto-seeding.
      *
      * @throws \Exception|\CryptoManana\Exceptions\CryptographyException On seed with other value than `null`.
      */

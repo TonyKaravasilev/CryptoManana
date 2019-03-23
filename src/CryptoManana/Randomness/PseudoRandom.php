@@ -115,8 +115,6 @@ class PseudoRandom extends RandomnessSource implements SeedAction
                     "The provided seed value is of invalid type or is out of the supported range."
                 );
             }
-
-            $seed = (int)$seed;
         } else {
             // Get time information
             list($microSeconds, $seconds) = explode(' ', microtime());
@@ -127,6 +125,8 @@ class PseudoRandom extends RandomnessSource implements SeedAction
             // A 32bit integer overflow  workaround for the UNIX timestamp format
             $seed = (PHP_MAJOR_VERSION === 5) ? abs($seconds - $seed) : $seconds + $seed;
         }
+
+        $seed = (int)$seed;
 
         // Set the used seed value for history
         self::$seed = $seed;

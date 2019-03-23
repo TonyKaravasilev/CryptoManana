@@ -122,8 +122,8 @@ abstract class AbstractGenerator extends RandomnessRepresentation implements
     /**
      * Internal method for double range validation.
      *
-     * @param int $from The minimum number in the wanted range.
-     * @param int $to The maximum number in the wanted range.
+     * @param int|float $from The minimum number in the wanted range.
+     * @param int|float $to The maximum number in the wanted range.
      * @param null|int $precision The used precision for comparison.
      *
      * @throws \Exception Validation errors.
@@ -361,13 +361,10 @@ abstract class AbstractGenerator extends RandomnessRepresentation implements
             switch ($ternary) {
                 case 1:
                     return true;
-                    break;
                 case -1:
                     return null;
-                    break;
                 default: // case 0:
                     return false;
-                    break;
             }
         }
     }
@@ -472,7 +469,7 @@ abstract class AbstractGenerator extends RandomnessRepresentation implements
      * Generate a random ASCII (American Standard Code) string containing only printable characters.
      *
      * @param int $length The output string length (default => 1).
-     * @param bool $includeSpace Flag for including the space character (default => true).
+     * @param bool|int $includeSpace Flag for including the space character (default => true).
      *
      * @return string Randomly generated ASCII string.
      * @throws \Exception Validation errors.

@@ -211,7 +211,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     public static function setSeed($seed = null)
     {
         // If the seed is the same, just reset internal counters
-        if (!is_bool($seed) && self::$seed === $seed) {
+        if (!is_bool(self::$seed) && self::$seed === $seed) {
             self::$lastNumberIndex = 0;
             self::$lastByteIndex = 0;
 
