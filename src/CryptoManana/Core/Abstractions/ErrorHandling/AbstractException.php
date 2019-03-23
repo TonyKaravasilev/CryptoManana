@@ -31,13 +31,15 @@ abstract class AbstractException extends PhpException implements EditablePropert
     /**
      * Change the exception's error message via a fluent interface call.
      *
-     * @param string $message Set a different error message.
+     * @param string|mixed $message Set a different error message.
      *
      * @return $this The exception object.
      */
     public function setMessage($message)
     {
-        $this->message = is_string($message) ? $message : $this->message;
+        if (is_string($message)) {
+            $this->message = $message;
+        }
 
         return $this;
     }
@@ -59,13 +61,15 @@ abstract class AbstractException extends PhpException implements EditablePropert
     /**
      * Change the file location where the exception occurred via a fluent interface call.
      *
-     * @param string $file Set a different file path for the exception.
+     * @param string|mixed $file Set a different file path for the exception.
      *
      * @return $this The exception object.
      */
     public function setFile($file)
     {
-        $this->file = is_string($file) ? $file : $this->file;
+        if (is_string($file)) {
+            $this->file = $file;
+        }
 
         return $this;
     }
@@ -73,7 +77,7 @@ abstract class AbstractException extends PhpException implements EditablePropert
     /**
      * Change the file location where the exception occurred via a fluent interface call.
      *
-     * @param $line $file Set a different file line for the exception.
+     * @param int $line Set a different file line for the exception.
      *
      * @return $this The exception object.
      */

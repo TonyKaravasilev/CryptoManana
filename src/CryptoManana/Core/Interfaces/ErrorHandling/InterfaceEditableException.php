@@ -16,7 +16,7 @@ interface InterfaceEditableException
     /**
      * Change the exception's error message via a fluent interface call.
      *
-     * @param string $message Set a different error message.
+     * @param string|mixed $message Set a different error message.
      *
      * @return $this The exception object.
      */
@@ -34,7 +34,7 @@ interface InterfaceEditableException
     /**
      * Change the file location where the exception occurred via a fluent interface call.
      *
-     * @param string $file Set a different file path for the exception.
+     * @param string|mixed $file Set a different file path for the exception.
      *
      * @return $this The exception object.
      */
@@ -43,7 +43,7 @@ interface InterfaceEditableException
     /**
      * Change the file location where the exception occurred via a fluent interface call.
      *
-     * @param $line $file Set a different file line for the exception.
+     * @param int $line Set a different file line for the exception.
      *
      * @return $this The exception object.
      */

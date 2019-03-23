@@ -108,21 +108,21 @@ final class StringBuilderTest extends AbstractUnitTest
     public function testGettingOfCharacterSymbol()
     {
         StringBuilder::useMbString(true);
-        $this->assertEquals('T', StringBuilder::getChar(84));
+        $this->assertEquals('T', StringBuilder::getChr(84));
 
         // Available in PHP >= 7.2.0
         if (function_exists('mb_chr')) {
-            $this->assertEquals('Ā', StringBuilder::getChar(256));
+            $this->assertEquals('Ā', StringBuilder::getChr(256));
         } else {
-            $this->assertEquals("\0", StringBuilder::getChar(256));
+            $this->assertEquals("\0", StringBuilder::getChr(256));
         }
 
-        $this->assertFalse(StringBuilder::getChar(-1024));
+        $this->assertFalse(StringBuilder::getChr(-1024));
 
         StringBuilder::useMbString(false);
-        $this->assertEquals('T', StringBuilder::getChar(84));
-        $this->assertEquals("\0", StringBuilder::getChar(256));
-        $this->assertFalse(StringBuilder::getChar(-1024));
+        $this->assertEquals('T', StringBuilder::getChr(84));
+        $this->assertEquals("\0", StringBuilder::getChr(256));
+        $this->assertFalse(StringBuilder::getChr(-1024));
     }
 
     /**

@@ -36,7 +36,6 @@ git:
   depth: 1
 
 before_script:
-  - php -v
   - php -m
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist

@@ -37,7 +37,7 @@ class StringBuilder extends SingletonPattern
      *
      * @internal Use the `mbstring` extension only when you need custom encoding support.
      *
-     * @param bool $bool Flag for enabling or disabling the `mbstring` usage.
+     * @param bool|int $bool Flag for enabling or disabling the `mbstring` usage.
      */
     public static function useMbString($bool = true)
     {
@@ -51,7 +51,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Get the string's length.
      *
-     * @param string $string The string for length measuring.
+     * @param string|mixed $string The string for length measuring.
      *
      * @return int|false The string length or false on invalid parameter given.
      */
@@ -67,7 +67,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Make a string uppercase.
      *
-     * @param string $string The string for uppercase conversion.
+     * @param string|mixed $string The string for uppercase conversion.
      *
      * @return string|false The string converted to uppercase or false on invalid parameter given.
      */
@@ -83,7 +83,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Make a string lowercase.
      *
-     * @param string $string The string for lowercase conversion.
+     * @param string|mixed $string The string for lowercase conversion.
      *
      * @return string|false The string converted to lowercase or false on invalid parameter given.
      */
@@ -103,7 +103,7 @@ class StringBuilder extends SingletonPattern
      *
      * @return string|false The wanted character string or false on invalid parameter given.
      */
-    public static function getChar($byteValue)
+    public static function getChr($byteValue)
     {
         $byteValue = filter_var(
             $byteValue,
@@ -131,7 +131,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Get a character's encoding integer code by its string representation.
      *
-     * @param string $string The character string value for integer code conversion.
+     * @param string|mixed $string The character string value for integer code conversion.
      *
      * @return int|false The wanted character code or false on invalid parameter given.
      */
@@ -152,7 +152,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Reverse a string.
      *
-     * @param string $string The string for reversing.
+     * @param string|mixed $string The string for reversing.
      *
      * @return string|false The reversed string or false on invalid parameter given.
      */
@@ -182,7 +182,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Convert a string to an array.
      *
-     * @param string $string The string for conversion to array.
+     * @param string|mixed $string The string for conversion to array.
      * @param int $chunkLength The chunk length for string splitting.
      *
      * @return array|false The string converted to an array or false on invalid parameter given.
@@ -236,8 +236,8 @@ class StringBuilder extends SingletonPattern
                 $replacements = is_array($replace) ? array_values($replace) : [$replace];
                 $replacements = array_pad($replacements, count($searches), '');
 
-                foreach ($searches as $key => $search) {
-                    $parts = mb_split(preg_quote($search), $subject);
+                foreach ($searches as $key => $searched) {
+                    $parts = mb_split(preg_quote($searched), $subject);
                     $count += count($parts) - 1;
                     $subject = implode($replacements[$key], $parts);
                 }
@@ -253,7 +253,7 @@ class StringBuilder extends SingletonPattern
     /**
      * Fully strip whitespace from every position of a string.
      *
-     * @param string $string The string for full trimming.
+     * @param string|mixed $string The string for full trimming.
      *
      * @return string|false The fully trimmed string or false on invalid parameter given.
      */
