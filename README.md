@@ -1,5 +1,5 @@
 # CryptoMañana Framework
- &nbsp;[![Latest Stable Version](https://poser.pugx.org/karavasilev/cryptomanana/v/stable)](https://packagist.org/packages/karavasilev/cryptomanana)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/tonykaravasilev/cryptomanana.svg?color=blue&label=stable&style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![PHP from Travis config](https://img.shields.io/travis/php-v/TonyKaravasilev/CryptoManana.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![PHP from Travis config](https://img.shields.io/badge/php-%3C%3D7.4-blue.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=flat-square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
