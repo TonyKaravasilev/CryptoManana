@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\Randomness;
 
 /**
- * Interface InterfaceArbitraryBaseOutput - Interface for arbitrary base number generation.
+ * Interface ArbitraryBaseOutputInterface - Interface for arbitrary base number generation.
  *
  * @package CryptoManana\Core\Interfaces\Randomness
  */
-interface InterfaceArbitraryBaseOutput
+interface ArbitraryBaseOutputInterface
 {
     /**
      * Generate a random boolean.

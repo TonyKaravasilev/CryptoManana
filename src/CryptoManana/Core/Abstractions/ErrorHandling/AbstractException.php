@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Abstractions\ErrorHandling;
 
-use \CryptoManana\Core\Interfaces\ErrorHandling\InterfaceEditableException as EditableProperties;
+use \CryptoManana\Core\Interfaces\ErrorHandling\EditableExceptionInterface as EditableProperties;
 use \Exception as PhpException;
 
 /**

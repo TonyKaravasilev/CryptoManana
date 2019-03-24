@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\Randomness;
 
 /**
- * Interface InterfaceRgbOutput - Interface for random RGB colour generation.
+ * Interface RgbOutputInterface - Interface for random RGB colour generation.
  *
  * @package CryptoManana\Core\Interfaces\Randomness
  */
-interface InterfaceRgbOutput
+interface RgbOutputInterface
 {
     /**
      * Generate a random Red-Green-Blue (RGB) colour combination using all colours.

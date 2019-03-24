@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.1.2, 2018-03-24
+------------------
+
+- Renamed all interfaces to follow the PSR Naming Convention standards.
+
 v0.1.1, 2018-03-24
 ------------------
 

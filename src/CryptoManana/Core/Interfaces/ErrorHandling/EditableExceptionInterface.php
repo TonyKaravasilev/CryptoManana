@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\ErrorHandling;
 
 /**
- * Interface InterfaceEditableException - Interface allowing exceptions to have property setter methods.
+ * Interface EditableExceptionInterface - Interface allowing exceptions to have property setter methods.
  *
  * @package CryptoManana\Core\Interfaces\ErrorHandling
  */
-interface InterfaceEditableException
+interface EditableExceptionInterface
 {
     /**
      * Change the exception's error message via a fluent interface call.

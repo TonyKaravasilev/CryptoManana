@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\Randomness;
 
 /**
- * Interface InterfaceFloatOutput - Interface for random floating number generation.
+ * Interface FloatOutputInterface - Interface for random floating number generation.
  *
  * @package CryptoManana\Core\Interfaces\Randomness
  */
-interface InterfaceFloatOutput
+interface FloatOutputInterface
 {
     /**
      * Generate a probability format float number between 0.0 and 1.0.

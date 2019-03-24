@@ -7,13 +7,13 @@
 namespace CryptoManana\Core\Interfaces\DesignPatterns;
 
 /**
- * Interface InterfaceStaticCallInstancing - Static calls to object instancing.
+ * Interface StaticCallInstancingInterface - Static calls to object instancing.
  *
  * @package CryptoManana\Core\Interfaces\DesignPatterns
  *
  * @see \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory For Usage.
  */
-interface InterfaceStaticCallInstancing
+interface StaticCallInstancingInterface
 {
     /**
      * Static call method for object instancing.

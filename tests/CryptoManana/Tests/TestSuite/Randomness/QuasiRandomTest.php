@@ -96,7 +96,9 @@ final class QuasiRandomTest extends AbstractUnitTest
         $randomness = $this->getRandomnessSourceForTesting();
 
         // Check if interface is implemented
-        $this->assertTrue($randomness instanceof \CryptoManana\Core\Interfaces\Randomness\InterfaceSeedableGenerator);
+        $this->assertTrue(
+            $randomness instanceof \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface
+        );
 
         $reflection = new \ReflectionProperty(QuasiRandom::class, 'seed');
         $reflection->setAccessible(true);

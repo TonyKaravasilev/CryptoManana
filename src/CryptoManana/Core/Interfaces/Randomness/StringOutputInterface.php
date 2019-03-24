@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\Randomness;
 
 /**
- * Interface InterfaceStringOutput - Interface for random string generation.
+ * Interface StringOutputInterface - Interface for random string generation.
  *
  * @package CryptoManana\Core\Interfaces\Randomness
  */
-interface InterfaceStringOutput
+interface StringOutputInterface
 {
     /**
      * Generate a random digit character.

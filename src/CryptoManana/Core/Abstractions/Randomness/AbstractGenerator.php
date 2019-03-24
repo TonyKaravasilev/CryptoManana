@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Abstractions\Randomness;
 
 use \CryptoManana\Core\Abstractions\Randomness\AbstractRandomness as RandomnessRepresentation;
-use \CryptoManana\Core\Interfaces\Randomness\InterfaceFloatOutput as FloatOutput;
-use \CryptoManana\Core\Interfaces\Randomness\InterfaceArbitraryBaseOutput as BaseOutput;
-use \CryptoManana\Core\Interfaces\Randomness\InterfaceStringOutput as StringOutput;
-use \CryptoManana\Core\Interfaces\Randomness\InterfaceIdentifierOutput as UuidOutput;
-use \CryptoManana\Core\Interfaces\Randomness\InterfaceRgbOutput as RgbOutput;
+use \CryptoManana\Core\Interfaces\Randomness\FloatOutputInterface as FloatOutput;
+use \CryptoManana\Core\Interfaces\Randomness\ArbitraryBaseOutputInterface as BaseOutput;
+use \CryptoManana\Core\Interfaces\Randomness\StringOutputInterface as StringOutput;
+use \CryptoManana\Core\Interfaces\Randomness\IdentifierOutputInterface as UuidOutput;
+use \CryptoManana\Core\Interfaces\Randomness\RgbOutputInterface as RgbOutput;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**

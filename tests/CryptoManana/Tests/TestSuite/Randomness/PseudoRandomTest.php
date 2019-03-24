@@ -94,7 +94,9 @@ final class PseudoRandomTest extends AbstractUnitTest
         $randomness = $this->getRandomnessSourceForTesting();
 
         // Check if interface is implemented
-        $this->assertTrue($randomness instanceof \CryptoManana\Core\Interfaces\Randomness\InterfaceSeedableGenerator);
+        $this->assertTrue(
+            $randomness instanceof \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface
+        );
 
         // Auto seed procedure
         $this->assertNull($randomness::setSeed());

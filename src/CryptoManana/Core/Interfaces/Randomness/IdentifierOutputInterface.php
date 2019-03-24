@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\Randomness;
 
 /**
- * Interface InterfaceIdentifierOutput - Interface for random unique string identifier generation.
+ * Interface IdentifierOutputInterface - Interface for random unique string identifier generation.
  *
  * @package CryptoManana\Core\Interfaces\Randomness
  */
-interface InterfaceIdentifierOutput
+interface IdentifierOutputInterface
 {
     /**
      * Generate a random version 4 Globally Unique Identifier (GUID) standard string.

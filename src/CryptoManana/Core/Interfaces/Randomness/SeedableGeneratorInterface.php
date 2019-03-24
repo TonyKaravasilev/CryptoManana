@@ -7,11 +7,11 @@
 namespace CryptoManana\Core\Interfaces\Randomness;
 
 /**
- * Interface InterfaceSeedableGenerator - Interface specification for seeding pseudo-random generators.
+ * Interface SeedableGeneratorInterface - Interface specification for seeding pseudo-random generators.
  *
  * @package CryptoManana\Core\Interfaces\Randomness
  */
-interface InterfaceSeedableGenerator
+interface SeedableGeneratorInterface
 {
     /**
      * Seed the pseudo-randomness generator.
