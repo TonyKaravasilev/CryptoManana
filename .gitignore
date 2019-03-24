@@ -36,6 +36,30 @@ nbproject/
 *.sublime-workspace
 *.sublime-project
 
+# Docker Related Files
+Dockerfile
+Dockerfile-tmp
+Dockerfile-dev
+Dockerfile-stag
+Dockerfile-prod
+docker-compose.yaml
+docker-compose.yml
+.gitlab-ci.yaml
+.gitlab-ci.yml
+credentials.json
+requirements.json
+configuration.json
+credentials.txt
+requirements.txt
+configuration.txt
+common.env
+app.env
+.env
+build/
+dist/
+test/
+tmp/
+
 # Local Backup Files
 *.7z
 *.zip

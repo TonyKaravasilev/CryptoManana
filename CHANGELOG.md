@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.1.1, 2018-03-24
+------------------
+
+- Added the ignoring of Docker related build and image files;
+- Updated some of the badges at the README.md file.
+
 v0.1.0, 2018-03-23
 ------------------
 

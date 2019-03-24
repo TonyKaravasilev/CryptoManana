@@ -1,0 +1,34 @@
+# Git, Environment and Caches
+.env
+.git
+.cache
+.phpunit.result.cache
+
+# Portable Executables
+*.phar
+!composer.phar
+
+# Composer Package Manager
+vendor
+vendor.bak
+composer.lock
+
+# Development Files
+*/config.php
+coverage
+output
+build
+docs
+dist
+test
+tmp
+
+# Local Backup Files
+*.7z
+*.zip
+*.tar.gz
+*.tgz
+*.tar
+*.tmp
+*.bak
+*.BAK
