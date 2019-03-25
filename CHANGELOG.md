@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.1.3, 2018-03-25
+------------------
+
+- Updated the coverage export formats for PHPUnit and CodeCoverage;
+- Updated the configuration of Travis CI and of Scrutinizer CI.
+
 v0.1.2, 2018-03-24
 ------------------
 

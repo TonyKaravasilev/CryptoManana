@@ -1,8 +1,14 @@
 # CryptoManana Framework Scrutinizer CI YAML Configuration
 
+build:
+  environment:
+    php:
+      version: "7.3"
+
 filter:
   paths: [src/CryptoManana/*]
-  excluded_paths: [tests/*]
+  excluded_paths: [tests/*, vendor/*]
+  dependency_paths: [src/compatibility.php]
 
 checks:
   php: true
@@ -11,5 +17,8 @@ tools:
   php_sim: true
   php_pdepend: true
   php_analyzer: true
+  php_code_sniffer:
+    config:
+      standard: "PSR2"
   external_code_coverage:
     timeout: 900

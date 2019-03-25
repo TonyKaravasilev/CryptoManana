@@ -7,7 +7,10 @@ dist: trusty
 sudo: false
 
 before_install:
-  - if [ "$TRAVIS_PHP_VERSION" == "7.4snapshot" ]; then sudo apt-get update -y -qq > /dev/null 2>&1; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ]; then sudo apt-get update -qq > /dev/null 2>&1; fi
+
+env:
+  - CLOVER=coverage/clover.xml
 
 php:
   - 5.5
@@ -28,12 +31,12 @@ matrix:
 cache:
   timeout: 900
   directories:
-    - /tmp
     - vendor
     - $HOME/.composer/cache
 
 git:
-  depth: 1
+  depth: 3
+  quiet: true
 
 before_script:
   - php -m
@@ -46,4 +49,4 @@ script:
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml; fi
+  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then php ocular.phar code-coverage:upload --format=php-clover ${CLOVER}; fi

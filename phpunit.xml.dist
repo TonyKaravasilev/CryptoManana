@@ -47,7 +47,6 @@
     <logging>
         <log type="coverage-html" target="coverage/report" lowUpperBound="35" highLowerBound="70"/>
         <log type="coverage-clover" target="coverage/clover.xml"/>
-        <log type="junit" target="coverage/junit.xml"/>
     </logging>
 
 </phpunit>
