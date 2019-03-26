@@ -14,6 +14,26 @@ namespace CryptoManana\Core\Abstractions\Randomness;
 abstract class AbstractRandomness
 {
     /**
+     * Internal method for integer range validation.
+     *
+     * @param int $from The minimum number in the wanted range.
+     * @param int $to The maximum number in the wanted range.
+     *
+     * @throws \Exception Validation errors.
+     */
+    abstract protected function validateIntegerRange($from, $to);
+
+    /**
+     * Internal method for validation of positive integers.
+     *
+     * @param int $integer The positive integer value.
+     * @param bool $includeZero Flag for enabling the zero as a valid value.
+     *
+     * @throws \Exception Validation errors.
+     */
+    abstract protected function validatePositiveInteger($integer, $includeZero = false);
+
+    /**
      * The maximum supported integer.
      *
      * @return int The upper integer generation border.
