@@ -6,15 +6,26 @@
 
 namespace CryptoManana\Core\Traits\Randomness;
 
+use \CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
+
 /**
  * Trait RgbOutputTrait - Reusable implementation of `RgbOutputInterface`.
  *
  * @see \CryptoManana\Core\Interfaces\Randomness\RgbOutputInterface The abstract specification.
  *
  * @package CryptoManana\Core\Traits\Randomness
+ *
+ * @mixin RandomnessSpecification
  */
 trait RgbOutputTrait
 {
+    /**
+     * Forcing the implementation of the software abstract randomness.
+     *
+     * {@internal Forcing the implementation of `AbstractRandomness`. }}
+     */
+    use RandomnessSpecification;
+
     /**
      * Internal method for converting RGB integer colours to HEX notations.
      *

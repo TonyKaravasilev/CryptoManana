@@ -6,15 +6,26 @@
 
 namespace CryptoManana\Core\Traits\Randomness;
 
+use \CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
+
 /**
  * Trait FloatOutputTrait - Reusable implementation of `FloatOutputInterface`.
  *
  * @see \CryptoManana\Core\Interfaces\Randomness\FloatOutputInterface The abstract specification.
  *
  * @package CryptoManana\Core\Traits\Randomness
+ *
+ * @mixin RandomnessSpecification
  */
 trait FloatOutputTrait
 {
+    /**
+     * Forcing the implementation of the software abstract randomness.
+     *
+     * {@internal Forcing the implementation of `AbstractRandomness`. }}
+     */
+    use RandomnessSpecification;
+
     /**
      * Internal method for calculating the machine epsilon value based on the used precision.
      *

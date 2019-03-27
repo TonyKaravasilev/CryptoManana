@@ -6,6 +6,7 @@
 
 namespace CryptoManana\Core\Traits\Randomness;
 
+use \CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
@@ -14,9 +15,18 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * @see \CryptoManana\Core\Interfaces\Randomness\IdentifierOutputInterface The abstract specification.
  *
  * @package CryptoManana\Core\Traits\Randomness
+ *
+ * @mixin RandomnessSpecification
  */
 trait IdentifierOutputTrait
 {
+    /**
+     * Forcing the implementation of the software abstract randomness.
+     *
+     * {@internal Forcing the implementation of `AbstractRandomness`. }}
+     */
+    use RandomnessSpecification;
+
     /**
      * Generate a random version 4 Globally Unique Identifier (GUID) standard string.
      *
