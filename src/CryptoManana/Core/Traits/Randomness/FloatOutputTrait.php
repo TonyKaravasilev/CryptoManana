@@ -39,6 +39,46 @@ trait FloatOutputTrait
     }
 
     /**
+     * Generate a low quality percentage format float number between 0.0 and 100.0.
+     *
+     * @param int $max The upper scope number used for internal generation.
+     *
+     * @return float Randomly generated low quality percentage value.
+     */
+    protected function calculateLowQualityPercent($max)
+    {
+        $number = $this->getInt(0, $max);
+
+        $isNotRangeBoarders = ($number !== 0 && $number !== $max);
+
+        $number = ($number === 0) ? 0.00 : ($number === $max) ? 100.00 : $number;
+
+        $number = $isNotRangeBoarders ? ($number / $max) * 100.00 : $number;
+
+        return $number;
+    }
+
+    /**
+     * Internal method for double range supported types validation.
+     *
+     * @param int|float|null $from The minimum number in the wanted range.
+     * @param int|float|null $to The maximum number in the wanted range.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validateNumericOrDefault($from, $to)
+    {
+        $fromInvalidType = !in_array(gettype($from), ['integer', 'double', 'NULL']);
+        $toInvalidType = !in_array(gettype($to), ['integer', 'double', 'NULL']);
+
+        if ($fromInvalidType || $toInvalidType) {
+            throw new \DomainException(
+                "The provided values are of invalid type."
+            );
+        }
+    }
+
+    /**
      * Internal method for double range validation.
      *
      * @param int|float $from The minimum number in the wanted range.
@@ -119,14 +159,7 @@ trait FloatOutputTrait
 
         $this->validatePositiveInteger($precision, true);
 
-        $fromInvalidType = !in_array(gettype($from), ['integer', 'double', 'NULL']);
-        $toInvalidType = !in_array(gettype($to), ['integer', 'double', 'NULL']);
-
-        if ($fromInvalidType || $toInvalidType) {
-            throw new \DomainException(
-                "The provided values are of invalid type."
-            );
-        }
+        $this->validateNumericOrDefault($from, $to);
 
         $from = ($from === null) ? 0.0 : (float)$from;
         $to = ($to === null) ? (float)$this->getMaxNumber() : (float)$to;
@@ -172,15 +205,7 @@ trait FloatOutputTrait
         $this->validatePositiveInteger($precision, true);
 
         if ($lowerTheScope) {
-            $max = 9999; // 0-9999
-
-            $number = $this->getInt(0, $max);
-
-            $isNotRangeBoarders = ($number !== 0 && $number !== $max);
-
-            $number = ($number === 0) ? 0.00 : ($number === $max) ? 100.00 : $number;
-
-            $number = $isNotRangeBoarders ? ($number / $max) * 100.00 : $number;
+            $number = $this->calculateLowQualityPercent(9999); // 0-9999
         } else {
             // Minimum precision for probability fetching
             $scope = ($precision > 14) ? $precision : 14;

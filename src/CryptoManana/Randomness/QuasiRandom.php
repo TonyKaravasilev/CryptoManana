@@ -94,6 +94,49 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     }
 
     /**
+     * Reset internal pointers to the first element of each internal set.
+     */
+    protected static function resetQuasiIndexes()
+    {
+        self::$lastNumberIndex = 0;
+        self::$lastByteIndex = 0;
+    }
+
+    /**
+     * Generate an internal quasi-random numerical sequence.
+     *
+     * @param string $setName The internal static set name as a string.
+     * @param int $seed The used seed value for the internal generator.
+     * @param int $from The starting value in the range.
+     * @param int $to The ending value in the range.
+     * @param int $leapStep The leap step used.
+     * @param int $skipStep The skip step used.
+     */
+    protected static function createQuasiSequence($setName, $seed, $from, $to, $leapStep, $skipStep)
+    {
+        // Set the seed value used for shuffling operations
+        self::$seed = $seed;
+
+        // Generate range with leap step
+        self::${$setName} = range($from, $to, $leapStep);
+
+        // Shuffle/scramble the numeric set
+        $count = count(self::${$setName});
+        $lastIndex = $count - 1;
+
+        for ($currentIndex = 0; $currentIndex < $count; $currentIndex++) {
+            $randomIndex = self::internalNumberGenerator(0, $lastIndex);
+
+            $tmp = self::${$setName}[$currentIndex];
+            self::${$setName}[$currentIndex] = self::${$setName}[$randomIndex];
+            self::${$setName}[$randomIndex] = $tmp;
+        }
+
+        // Skip a few points
+        array_splice(self::${$setName}, 0, $skipStep);
+    }
+
+    /**
      * Internal static method for single point consumption of the randomness source that outputs integers.
      *
      * @param int $minimum The lowest value to be returned.
@@ -111,11 +154,10 @@ class QuasiRandom extends RandomnessSource implements SeedAction
         }
 
         $count = count(self::$randomNumbers);
+        $tmpNumber = null;
 
         // Search for proper number in the supported range
         do {
-            $tmpNumber = null;
-
             if (self::$lastNumberIndex === $count) {
                 self::$lastNumberIndex = 0; // Start over
             }
@@ -130,7 +172,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
                 if ($number >= $minimum && $number <= $maximum) {
                     $tmpNumber = $number;
 
-                    break;
+                    break 2; // Exit both loops faster
                 }
             }
         } while ($tmpNumber === null);
@@ -212,8 +254,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     {
         // If the seed is the same, just reset internal counters
         if (!is_bool(self::$seed) && self::$seed === $seed) {
-            self::$lastNumberIndex = 0;
-            self::$lastByteIndex = 0;
+            self::resetQuasiIndexes();
 
             return;
         }
@@ -253,51 +294,28 @@ class QuasiRandom extends RandomnessSource implements SeedAction
         // Calculate the skip step for usage
         $skipStep = (abs($originalSeedValue) % 2 === 0) ? self::QUASI_SKIP_STEP : 0;
 
-        // Set the seed value used for shuffling operations
-        self::$seed = $seed;
-
         // Generate range with leap step, from -32768 to 32767 => 16 bits
-        self::$randomNumbers = range(self::QUASI_INT_MIN, self::QUASI_INT_MAX, self::QUASI_LEAP_STEP);
-
-        // Shuffle/scramble the numeric set
-        $count = count(self::$randomNumbers);
-        $lastIndex = $count - 1;
-
-        for ($currentIndex = 0; $currentIndex < $count; ++$currentIndex) {
-            $randomIndex = self::internalNumberGenerator(0, $lastIndex);
-
-            $tmp = self::$randomNumbers[$currentIndex];
-            self::$randomNumbers[$currentIndex] = self::$randomNumbers[$randomIndex];
-            self::$randomNumbers[$randomIndex] = $tmp;
-        }
-
-        // Skip a few points
-        array_splice(self::$randomNumbers, 0, $skipStep);
-
-        // Reset the seed for the next shuffling operation
-        self::$seed = $seed;
+        self::createQuasiSequence(
+            'randomNumbers', /** @see QuasiRandom::$randomNumbers */
+            $seed,
+            self::QUASI_INT_MIN,
+            self::QUASI_INT_MAX,
+            self::QUASI_LEAP_STEP,
+            $skipStep
+        );
 
         // Generate range with leap step, from 0 to 255 => 8 bits
-        self::$randomBytes = range(0, 255, self::QUASI_LEAP_STEP);
-
-        // Shuffle/scramble the numeric set
-        $count = count(self::$randomBytes);
-        $lastIndex = $count - 1;
-
-        for ($currentIndex = 0; $currentIndex < $count; ++$currentIndex) {
-            $randomIndex = self::internalNumberGenerator(0, $lastIndex);
-
-            $tmp = self::$randomBytes[$currentIndex];
-            self::$randomBytes[$currentIndex] = self::$randomBytes[$randomIndex];
-            self::$randomBytes[$randomIndex] = $tmp;
-        }
-
-        // Skip a few points
-        array_splice(self::$randomBytes, 0, $skipStep);
+        self::createQuasiSequence(
+            'randomBytes', /** @see QuasiRandom::$randomBytes */
+            $seed,
+            0,
+            255,
+            self::QUASI_LEAP_STEP,
+            $skipStep
+        );
 
         // Reset to always start from the first element of both internal sets
-        self::$lastNumberIndex = 0;
-        self::$lastByteIndex = 0;
+        self::resetQuasiIndexes();
 
         // Set the used seed value for history
         self::$seed = $originalSeedValue;
