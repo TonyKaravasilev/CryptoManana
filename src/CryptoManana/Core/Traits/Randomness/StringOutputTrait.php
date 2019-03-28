@@ -21,6 +21,34 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
 trait StringOutputTrait
 {
     /**
+     * Internal method for character map validation.
+     *
+     * @param array $charMap The character map array.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validateCharacterMap(array $charMap)
+    {
+        foreach ($charMap as $char) {
+            if (!is_string($char)) {
+                throw new \InvalidArgumentException(
+                    'The provided symbol map must contain only elements of type string.'
+                );
+            } elseif (StringBuilder::stringLength($char) != 1) {
+                throw new \LengthException(
+                    'The provided symbol map\'s values must only be of 1 character length.'
+                );
+            }
+        }
+
+        if (count($charMap) < 2) {
+            throw new \LengthException(
+                'You must supply a set of at least 2 characters for the output string generation.'
+            );
+        }
+    }
+
+    /**
      * Forcing the implementation of the software abstract randomness.
      *
      * {@internal Forcing the implementation of `AbstractRandomness`. }}
@@ -124,25 +152,9 @@ trait StringOutputTrait
         if (empty($characters)) {
             return $this->getAscii($length, true);
         } else {
-            foreach ($characters as $char) {
-                if (!is_string($char)) {
-                    throw new \InvalidArgumentException(
-                        'The provided symbol map must contain only elements of type string.'
-                    );
-                } elseif (StringBuilder::stringLength($char) != 1) {
-                    throw new \LengthException(
-                        'The provided symbol map\'s values must only be of 1 character length.'
-                    );
-                }
-            }
-
-            if (count($characters) < 2) {
-                throw new \LengthException(
-                    'You must supply a set of at least 2 characters for the output string generation.'
-                );
-            }
-
             $this->validatePositiveInteger($length);
+
+            $this->validateCharacterMap($characters);
 
             $passwordString = '';
             $lastIndex = count($characters) - 1;

@@ -126,6 +126,31 @@ trait FloatOutputTrait
     }
 
     /**
+     * Improve the quality of the algorithm used for floating numbers generation.
+     *
+     * @param float $from The lowest value to be returned.
+     * @param float $to The highest value to be returned.
+     * @param int $precision Rounding precision for epsilon calculation.
+     */
+    protected function improvePoorFloatOutput(&$from, &$to, &$precision)
+    {
+        $epsilon = $this->calculateEpsilon($precision);
+
+        $toIsTheMaximum = abs($this->getMaxNumber() - $to) < $epsilon;
+        $fromIsTheZero = abs(0.0 - $from) < $epsilon;
+
+        $fromIsTheMinimumPlusOne = abs(($this->getMinNumber() + 1.0) - $from) < $epsilon;
+        $toIsTheZero = abs(0.0 - $to) < $epsilon;
+
+        // Improves the overall calculation quality for range calls
+        if ($toIsTheMaximum && $fromIsTheZero) {
+            $from = 0.01;
+        } elseif ($toIsTheZero && $fromIsTheMinimumPlusOne) {
+            $to = 0.01;
+        }
+    }
+
+    /**
      * Generate a probability format float number between 0.0 and 1.0.
      *
      * Note: Passing `null` will use the global system precision value.
@@ -177,20 +202,7 @@ trait FloatOutputTrait
 
         $this->validateDoubleRange($from, $to, $precision);
 
-        $epsilon = $this->calculateEpsilon($precision);
-
-        $toIsTheMaximum = abs($this->getMaxNumber() - $to) < $epsilon;
-        $fromIsTheZero = abs(0.0 - $from) < $epsilon;
-
-        $fromIsTheMinimumPlusOne = abs(($this->getMinNumber() + 1.0) - $from) < $epsilon;
-        $toIsTheZero = abs(0.0 - $to) < $epsilon;
-
-        // Improves the overall calculation quality for range calls
-        if ($toIsTheMaximum && $fromIsTheZero) {
-            $from = 0.01;
-        } elseif ($toIsTheZero && $fromIsTheMinimumPlusOne) {
-            $to = 0.01;
-        }
+        $this->improvePoorFloatOutput($from, $to, $precision);
 
         // Minimum precision for probability fetching
         $scope = ($precision > 14) ? $precision : 14;

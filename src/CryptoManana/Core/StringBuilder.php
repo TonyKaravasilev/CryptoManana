@@ -23,6 +23,32 @@ class StringBuilder extends SingletonPattern
     protected static $usingMbString = false;
 
     /**
+     * Replace all occurrences of the search string with the replacement string.
+     *
+     * @param string|array|mixed $search The string for searching or an array with multiple values.
+     * @param string|array|mixed $replace The replacement string or an array with multiple values.
+     * @param string $subject The string being searched and replaced on.
+     * @param null|int $count This will hold the number of matched and replaced values.
+     *
+     * @return string|array Returns a string with the replaced values.
+     */
+    protected static function multiByteStringReplace($search, $replace, $subject, &$count = null)
+    {
+        $searches = is_array($search) ? array_values($search) : [$search];
+
+        $replacements = is_array($replace) ? array_values($replace) : [$replace];
+        $replacements = array_pad($replacements, count($searches), '');
+
+        foreach ($searches as $key => $searched) {
+            $parts = mb_split(preg_quote($searched), $subject);
+            $count += count($parts) - 1;
+            $subject = implode($replacements[$key], $parts);
+        }
+
+        return $subject;
+    }
+
+    /**
      * Check if the the `mbstring` extension usage is enabled or not.
      *
      * @return bool Is the component using `mbstring`.
@@ -231,16 +257,7 @@ class StringBuilder extends SingletonPattern
                     $subject[$key] = self::stringReplace($search, $replace, $value, $count);
                 }
             } else {
-                $searches = is_array($search) ? array_values($search) : [$search];
-
-                $replacements = is_array($replace) ? array_values($replace) : [$replace];
-                $replacements = array_pad($replacements, count($searches), '');
-
-                foreach ($searches as $key => $searched) {
-                    $parts = mb_split(preg_quote($searched), $subject);
-                    $count += count($parts) - 1;
-                    $subject = implode($replacements[$key], $parts);
-                }
+                $subject = self::multiByteStringReplace($search, $replace, $subject, $count);
             }
 
             return $subject;

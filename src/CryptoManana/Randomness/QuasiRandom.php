@@ -94,6 +94,35 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     }
 
     /**
+     * Validates the the given seed value and converts it to integer.
+     *
+     * @param mixed|int $seed The initialization value.
+     *
+     * @return int The valid initialization value.
+     */
+    protected static function validateSeedValue($seed)
+    {
+        $seed = filter_var(
+            $seed,
+            FILTER_VALIDATE_INT,
+            [
+                "options" => [
+                    "min_range" => self::QUASI_INT_MIN,
+                    "max_range" => self::QUASI_INT_MAX,
+                ],
+            ]
+        );
+
+        if ($seed === false) {
+            throw new \DomainException(
+                "The provided seed value is of invalid type or is out of the supported range."
+            );
+        }
+
+        return $seed;
+    }
+
+    /**
      * Reset internal pointers to the first element of each internal set.
      */
     protected static function resetQuasiIndexes()
@@ -137,6 +166,74 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     }
 
     /**
+     * Generate all needed quasi-random internal sequences.
+     *
+     * @param int $seed The used seed value for the internal generator.
+     */
+    protected static function generateSequences($seed)
+    {
+        // Calculate the skip step for usage
+        $skipStep = (abs($seed) % 2 === 0) ? self::QUASI_SKIP_STEP : 0;
+
+        // Generate range with leap step, from -32768 to 32767 => 16 bits
+        self::createQuasiSequence(
+            'randomNumbers', /** @see QuasiRandom::$randomNumbers */
+            $seed,
+            self::QUASI_INT_MIN,
+            self::QUASI_INT_MAX,
+            self::QUASI_LEAP_STEP,
+            $skipStep
+        );
+
+        // Generate range with leap step, from 0 to 255 => 8 bits
+        self::createQuasiSequence(
+            'randomBytes', /** @see QuasiRandom::$randomBytes */
+            $seed,
+            0,
+            255,
+            self::QUASI_LEAP_STEP,
+            $skipStep
+        );
+
+        // Reset to always start from the first element of both internal sets
+        self::resetQuasiIndexes();
+    }
+
+    /**
+     * Lookup method for searching in the internal integer set.
+     *
+     * @param int $minimum The lowest value to be returned.
+     * @param int $maximum The highest value to be returned.
+     *
+     * @return int|null An proper integer number or `null` if not found.
+     */
+    protected static function lookupSequence($minimum, $maximum)
+    {
+        // Get the internal set size
+        $internalCount = count(self::$randomNumbers);
+
+        // If the whole sequence has been iterated at last call
+        if (self::$lastNumberIndex === $internalCount) {
+            self::$lastNumberIndex = 0; // Start over
+        }
+
+        // Lookup the sequence
+        for ($i = self::$lastNumberIndex; $i < $internalCount; $i++) {
+            // Update the lookup index and fetch the next number
+            $number = self::$randomNumbers[$i];
+            self::$lastNumberIndex = $i + 1;
+
+            // If the number is in range, then return it
+            if ($number >= $minimum && $number <= $maximum) {
+                return $number;
+            }
+        }
+
+        // Mark as not found on this iteration
+        return null;
+    }
+
+    /**
      * Internal static method for single point consumption of the randomness source that outputs integers.
      *
      * @param int $minimum The lowest value to be returned.
@@ -150,31 +247,12 @@ class QuasiRandom extends RandomnessSource implements SeedAction
         if ($minimum === 0 && $maximum === 255) {
             $integer = unpack('C', self::getEightBits(1));
 
-            return reset($integer);
+            return reset($integer); // Always an integer
         }
 
-        $count = count(self::$randomNumbers);
-        $tmpNumber = null;
-
-        // Search for proper number in the supported range
         do {
-            if (self::$lastNumberIndex === $count) {
-                self::$lastNumberIndex = 0; // Start over
-            }
-
-            // Lookup the sequence
-            for ($i = self::$lastNumberIndex; $i < $count; $i++) {
-                // Update the lookup index and fetch the number
-                $number = self::$randomNumbers[$i];
-                self::$lastNumberIndex = $i + 1;
-
-                // If the number is in range, then return it
-                if ($number >= $minimum && $number <= $maximum) {
-                    $tmpNumber = $number;
-
-                    break 2; // Exit both loops faster
-                }
-            }
+            // Searches for a proper number in the supported range
+            $tmpNumber = self::lookupSequence($minimum, $maximum);
         } while ($tmpNumber === null);
 
         return $tmpNumber;
@@ -195,6 +273,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
 
         // Lookup the sequence
         for ($i = 1; $i <= $count; $i++) {
+            // If the whole sequence has been iterated at last call
             if (self::$lastByteIndex === $internalCount) {
                 self::$lastByteIndex = 0; // Start over
             }
@@ -252,7 +331,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
      */
     public static function setSeed($seed = null)
     {
-        // If the seed is the same, just reset internal counters
+        // If the seed is the same, just reset internal pointers
         if (!is_bool(self::$seed) && self::$seed === $seed) {
             self::resetQuasiIndexes();
 
@@ -261,28 +340,14 @@ class QuasiRandom extends RandomnessSource implements SeedAction
 
         // Seed the internal generator used for shuffling
         if (!is_null($seed)) {
-            $seed = filter_var(
-                $seed,
-                FILTER_VALIDATE_INT,
-                [
-                    "options" => [
-                        "min_range" => self::QUASI_INT_MIN,
-                        "max_range" => self::QUASI_INT_MAX,
-                    ],
-                ]
-            );
-
-            if ($seed === false) {
-                throw new \DomainException(
-                    "The provided seed value is of invalid type or is out of the supported range."
-                );
-            }
+            // Validate the input seed value
+            $seed = self::validateSeedValue($seed);
 
             // Save original value before transformations
             $originalSeedValue = $seed;
 
             // Allow negative values and use them as initial for the internal shuffling
-            $seed = ($seed < 0) ? QuasiRandom::QUASI_INT_MAX + abs($seed) : (int)$seed;
+            $seed = ($seed < 0) ? QuasiRandom::QUASI_INT_MAX + 1 + abs($seed) : (int)$seed;
         } else {
             // Get the seed value in the supported range
             $seed = (time() + 42) % (QuasiRandom::QUASI_INT_MAX + 1);
@@ -291,31 +356,8 @@ class QuasiRandom extends RandomnessSource implements SeedAction
             $originalSeedValue = $seed;
         }
 
-        // Calculate the skip step for usage
-        $skipStep = (abs($originalSeedValue) % 2 === 0) ? self::QUASI_SKIP_STEP : 0;
-
-        // Generate range with leap step, from -32768 to 32767 => 16 bits
-        self::createQuasiSequence(
-            'randomNumbers', /** @see QuasiRandom::$randomNumbers */
-            $seed,
-            self::QUASI_INT_MIN,
-            self::QUASI_INT_MAX,
-            self::QUASI_LEAP_STEP,
-            $skipStep
-        );
-
-        // Generate range with leap step, from 0 to 255 => 8 bits
-        self::createQuasiSequence(
-            'randomBytes', /** @see QuasiRandom::$randomBytes */
-            $seed,
-            0,
-            255,
-            self::QUASI_LEAP_STEP,
-            $skipStep
-        );
-
-        // Reset to always start from the first element of both internal sets
-        self::resetQuasiIndexes();
+        // Generate internal sequences
+        self::generateSequences($seed);
 
         // Set the used seed value for history
         self::$seed = $originalSeedValue;
