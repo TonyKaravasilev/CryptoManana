@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.1.4, 2018-03-28
+------------------
+
+- Reduced the complexity of the AbstractGenerator class via traits;
+- Improved the code reuse in some of the longest methods.
+
 v0.1.3, 2018-03-25
 ------------------
 
