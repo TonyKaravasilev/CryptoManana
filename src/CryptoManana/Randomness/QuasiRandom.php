@@ -94,11 +94,12 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     }
 
     /**
-     * Validates the the given seed value and converts it to integer.
+     * Validates the the given seed value and converts it to an integer.
      *
-     * @param mixed|int $seed The initialization value.
+     * @param int|mixed $seed The initialization value.
      *
      * @return int The valid initialization value.
+     * @throws \Exception Validation errors.
      */
     protected static function validateSeedValue($seed)
     {
@@ -328,6 +329,8 @@ class QuasiRandom extends RandomnessSource implements SeedAction
      * Note: Invokes auto-seeding if the `null` value is passed.
      *
      * @param null|int $seed The initialization value.
+     *
+     * @throws \Exception Validation errors.
      */
     public static function setSeed($seed = null)
     {
@@ -347,7 +350,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
             $originalSeedValue = $seed;
 
             // Allow negative values and use them as initial for the internal shuffling
-            $seed = ($seed < 0) ? QuasiRandom::QUASI_INT_MAX + 1 + abs($seed) : (int)$seed;
+            $seed = ($seed < 0) ? QuasiRandom::QUASI_INT_MAX + 1 + (int)abs($seed) : (int)$seed;
         } else {
             // Get the seed value in the supported range
             $seed = (time() + 42) % (QuasiRandom::QUASI_INT_MAX + 1);

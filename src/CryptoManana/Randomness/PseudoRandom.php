@@ -25,6 +25,36 @@ class PseudoRandom extends RandomnessSource implements SeedAction
     protected static $seed = false;
 
     /**
+     * Validates the the given seed value and converts it to an integer.
+     *
+     * @param int|mixed $seed The initialization value.
+     *
+     * @return int The valid initialization value.
+     * @throws \Exception Validation errors.
+     */
+    protected static function validateSeedValue($seed)
+    {
+        $seed = filter_var(
+            $seed,
+            FILTER_VALIDATE_INT,
+            [
+                "options" => [
+                    "min_range" => -mt_getrandmax() - 1,
+                    "max_range" => mt_getrandmax(),
+                ],
+            ]
+        );
+
+        if ($seed === false) {
+            throw new \DomainException(
+                "The provided seed value is of invalid type or is out of the supported range."
+            );
+        }
+
+        return $seed;
+    }
+
+    /**
      * Internal static method for single point consumption of the randomness source that outputs integers.
      *
      * @param int $minimum The lowest value to be returned.
@@ -95,26 +125,13 @@ class PseudoRandom extends RandomnessSource implements SeedAction
      * Note: Invokes auto-seeding if the `null` value is passed.
      *
      * @param null|int $seed The initialization value.
+     *
+     * @throws \Exception Validation errors.
      */
     public static function setSeed($seed = null)
     {
         if (!is_null($seed)) {
-            $seed = filter_var(
-                $seed,
-                FILTER_VALIDATE_INT,
-                [
-                    "options" => [
-                        "min_range" => -mt_getrandmax() - 1,
-                        "max_range" => mt_getrandmax(),
-                    ],
-                ]
-            );
-
-            if ($seed === false) {
-                throw new \DomainException(
-                    "The provided seed value is of invalid type or is out of the supported range."
-                );
-            }
+            $seed = self::validateSeedValue($seed);
         } else {
             // Get time information
             list($microSeconds, $seconds) = explode(' ', microtime());
