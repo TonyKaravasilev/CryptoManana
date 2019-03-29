@@ -40,10 +40,12 @@ git:
 
 before_script:
   - php -m
+  - php -i | grep -i 'OpenSSL Library'
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
 
 script:
+  - make check-system
   - make check-build
   - make coverage
 

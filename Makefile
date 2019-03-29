@@ -14,6 +14,10 @@ psr: vendor/autoload.php
 tests: vendor/autoload.php
 	vendor/bin/phpunit --verbose --no-coverage
 
+.PHONY: check-system
+check-system:
+	php check.php
+
 .PHONY: check-build
 check-build: vendor/autoload.php
 	make psr tests

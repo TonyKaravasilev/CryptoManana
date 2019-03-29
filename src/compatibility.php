@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file defines needed PHP 5.x backward compatible functions, constants, classes, etc.
+ * This file defines needed PHP 5.x/7.x backward compatible functions, constants, classes, etc.
  *
  * {@internal Define a global constant `CRYPTO_MANANA_COMPATIBILITY_OFF` to suppress this feature. }}
  */

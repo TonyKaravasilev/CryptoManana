@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.1.7, 2018-03-29
+------------------
+
+- Updated the PHP 5.x/7.x backward compatible snippet, autoloaded via Composer;
+- Added a low-level CLI check of the PHP requirements for CryptoManana;
+- Updated the configuration of Travis CI to use the new CLI script.
+
 v0.1.6, 2018-03-29
 ------------------
 

@@ -71,6 +71,7 @@
     "sort-packages": true
   },
   "scripts": {
+    "check-system": "php check.php",
     "install-dev": "composer install --profile -vv",
     "install-phar": "php composer.phar install --profile -vv",
     "autoload-dev": "composer dump-autoload --profile -vv",
