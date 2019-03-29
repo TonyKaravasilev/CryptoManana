@@ -7,13 +7,14 @@
 namespace CryptoManana\Core;
 
 use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use \CryptoManana\Core\Interfaces\DesignPatterns\CoreStringBuilderInterface as StringManipulations;
 
 /**
  * Class StringBuilder - The core component for string manipulations and encoding support.
  *
  * @package CryptoManana\Core
  */
-class StringBuilder extends SingletonPattern
+class StringBuilder extends SingletonPattern implements StringManipulations
 {
     /**
      * Internal flag to enable or disable the `mbstring` extension usage.

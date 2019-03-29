@@ -7,6 +7,7 @@
 namespace CryptoManana\Tests\TestSuite\Core;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use \CryptoManana\Core\Interfaces\DesignPatterns\CoreStringBuilderInterface;
 use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
 use \CryptoManana\Core\StringBuilder;
 
@@ -289,6 +290,7 @@ final class StringBuilderTest extends AbstractUnitTest
     {
         $tmp = StringBuilder::getInstance();
 
+        $this->assertTrue($tmp instanceof CoreStringBuilderInterface);
         $this->assertTrue($tmp instanceof AbstractSingleton);
         $this->assertTrue($tmp instanceof StringBuilder);
 
