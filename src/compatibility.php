@@ -6,7 +6,7 @@
  * {@internal Define a global constant `CRYPTO_MANANA_COMPATIBILITY_OFF` to suppress this feature. }}
  */
 
-// Compatibility checks and simple mitigation
+// Compatibility checks and simple mitigation for PHP < 7.0.0
 if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
     // Set constant for minimum integer
     if (!defined('PHP_INT_MIN')) {
@@ -42,7 +42,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
 
             if ($length < 1) {
                 throw new \Exception(
-                    'Length must be greater than 0.'
+                    'random_bytes(): Length must be greater than 0.'
                 );
             }
 
@@ -141,7 +141,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
 
             if ($min > $max) {
                 throw new \Exception(
-                    'Minimum value must be less than or equal to the maximum value.'
+                    'random_int(): Minimum value must be less than or equal to the maximum value.'
                 );
             }
 
@@ -202,7 +202,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
         }
     }
 
-    // Optional, used only if someone is manually attempting to run the project at PHP <= 5.6.x
+    // Used only if someone is attempting to run the project at PHP <= 5.6.x
     if (!function_exists('hash_equals')) {
         /**
          * Timing attack safe string comparison.
@@ -216,7 +216,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
         {
             if (!is_string($known_string)) {
                 trigger_error(
-                    'Expected the $known_string parameter to be a string, ' .
+                    'hash_equals: Expected the $known_string parameter to be a string, ' .
                     gettype($known_string) . ' given instead.',
                     E_USER_WARNING
                 );
@@ -226,15 +226,18 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
 
             if (!is_string($user_input)) {
                 trigger_error(
-                    'Expected the $user_input parameter to be a string, ' . gettype($user_input) . ' given instead. ',
+                    'hash_equals: Expected the $user_input parameter to be a string, ' .
+                    gettype($user_input) . ' given instead. ',
                     E_USER_WARNING
                 );
 
                 return false;
             }
 
-            $knownLength = function_exists('mb_strlen') ? mb_strlen($known_string, '8bit') : strlen($known_string);
-            $userLength = function_exists('mb_strlen') ? mb_strlen($user_input, '8bit') : strlen($user_input);
+            $hasMb = function_exists('mb_strlen');
+
+            $knownLength = $hasMb ? mb_strlen($known_string, '8bit') : strlen($known_string);
+            $userLength = $hasMb ? mb_strlen($user_input, '8bit') : strlen($user_input);
 
             if ($knownLength !== $userLength) {
                 return false;
@@ -247,7 +250,298 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
                 $areEqual |= ord($known_string[$i]) ^ ord($user_input[$i]);
             }
 
-            return 0 === $areEqual;
+            return (0 === $areEqual);
+        }
+    }
+
+    // Used only if someone is attempting to run the project at PHP <= 5.6.x (compilation bug for some builds)
+    if (!function_exists('hash_pbkdf2')) {
+        /**
+         * Generate a PBKDF2 key derivation of a supplied password.
+         *
+         * @param string $algo Name of selected hashing algorithm. See hash_algos() for a list of supported algorithms.
+         * @param string $password The password to use for the derivation.
+         * @param string $salt The salt to use for the derivation. This value should be generated randomly.
+         * @param int $iterations The number of internal iterations to perform for the derivation.
+         * @param int $length The length of the output string.
+         *                    If raw_output is TRUE this corresponds to the byte-length of the derived key,
+         *                    if raw_output is FALSE this corresponds to twice the byte-length of the derived key
+         *                    (as every byte of the key is returned as two hexits).
+         *                    If 0 is passed, the entire output of the supplied algorithm is used.
+         * @param bool $raw_output When set to TRUE, outputs raw binary data. FALSE outputs lowercase hexits.
+         *
+         * @return string|false Returns a string containing the derived key as lowercase hexits unless raw_output is
+         *                      set to TRUE in which case the raw binary representation of the derived key is returned.
+         */
+        function hash_pbkdf2($algo, $password, $salt, $iterations, $length = 0, $raw_output = false)
+        {
+            if (!in_array($algo, hash_algos(), true)) {
+                trigger_error(
+                    "hash_pbkdf2(): The internal algorithm is not found: {$algo}.",
+                    E_WARNING
+                );
+
+                return false;
+            }
+
+            if ($iterations <= 0) {
+                trigger_error(
+                    'hash_pbkdf2(): The iteration count must be greater than 0.',
+                    E_WARNING
+                );
+
+                return false;
+            }
+
+            if ($length < 0) {
+                trigger_error(
+                    'hash_pbkdf2(): The key length must be greater or equal 0.',
+                    E_WARNING
+                );
+
+                return false;
+            }
+
+            $hasMb = function_exists('mb_strlen');
+
+            $saltLength = $hasMb ? mb_strlen($salt, '8bit') : strlen($salt);
+
+            if (strlen($saltLength) > PHP_INT_MAX - 4) {
+                trigger_error(
+                    'hash_pbkdf2(): The salt string is too long.',
+                    E_WARNING
+                );
+
+                return false;
+            }
+
+            $hashLength = hash($algo, '', true);
+            $hashLength = $hasMb ? mb_strlen($hashLength, '8bit') : strlen($hashLength);
+
+            if (0 === $length) {
+                $length = $hashLength;
+            }
+
+            $blockCount = ceil($length / $hashLength);
+            $output = '';
+
+            for ($i = 1; $i <= $blockCount; ++$i) {
+                $last = $salt . pack('N', $i);
+
+                $last = $xorSum = hash_hmac($algo, $last, $password, true);
+
+                for ($j = 1; $j < $iterations; ++$j) {
+                    $xorSum ^= ($last = hash_hmac($algo, $last, $password, true));
+                }
+
+                $output .= $xorSum;
+            }
+
+            if (!$raw_output) {
+                $output = bin2hex($output);
+            }
+
+            $hasMb = function_exists('mb_substr');
+
+            return $hasMb ? mb_substr($output, 0, $length, '8bit') : substr($output, 0, $length);
+        }
+    }
+}
+
+// Compatibility checks and simple mitigation for PHP < 7.2.0
+if (PHP_VERSION_ID < 70200 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
+    // Set the HMAC supported hashing list
+    if (!function_exists('hash_hmac_algos')) {
+        /**
+         * Return a list of registered hashing algorithms suitable for hash_hmac.
+         *
+         * @return array Returns a numerically indexed array containing the list of supported
+         *               hashing algorithms suitable for hash_hmac().
+         */
+        function hash_hmac_algos()
+        {
+            return hash_algos(); // The older versions used this directly
+        }
+    }
+
+    // Set the HKDF hashing algorithm
+    if (!function_exists('hash_hkdf')) {
+        /**
+         * Generate a HKDF key derivation of a supplied key input.
+         *
+         * @param string $algo Name of selected hashing algorithm. See hash_algos() for a list of supported algorithms.
+         * @param string $ikm Input keying material (raw binary). Cannot be empty.
+         * @param int $length Desired output length in bytes. Cannot be greater than 255 times the chosen hash function
+         *                    size. If length is 0, the output length will default to the chosen hash function size.
+         * @param string $info Application/context-specific info string.
+         * @param string $salt Salt to use during derivation. While optional, adding random salt significantly
+         *                     improves the strength of HKDF.
+         *
+         * @return string|false Returns a string containing a raw binary representation of the derived key
+         *                      (also known as output keying material - OKM); or FALSE on failure.
+         */
+        function hash_hkdf($algo, $ikm, $length = 0, $info = '', $salt = '')
+        {
+            if (!is_string($algo)) {
+                trigger_error(
+                    'hash_hkdf(): Expects parameter $algo to be string, ' . gettype($algo) . " given",
+                    E_USER_WARNING
+                );
+
+                return false;
+            }
+
+            if (!is_string($ikm)) {
+                trigger_error(
+                    'hash_hkdf(): Expects parameter $ikm to be string, ' . gettype($ikm) . " given",
+                    E_USER_WARNING
+                );
+
+                return false;
+            }
+
+            if (!is_string($info)) {
+                trigger_error(
+                    'hash_hkdf(): Expects parameter $info to be string, ' . gettype($info) . " given",
+                    E_USER_WARNING
+                );
+
+                return false;
+            }
+
+            if (!is_string($salt)) {
+                trigger_error(
+                    'hash_hkdf(): Expects parameter $salt to be string, ' . gettype($salt) . " given",
+                    E_USER_WARNING
+                );
+
+                return false;
+            }
+
+            $sizes = array_intersect_key(
+                array(
+                    'md2' => 16,
+                    'md4' => 16,
+                    'md5' => 16,
+                    'sha1' => 20,
+                    'sha224' => 28,
+                    'sha256' => 32,
+                    'sha384' => 48,
+                    'sha512/224' => 28,
+                    'sha512/256' => 32,
+                    'sha512' => 64,
+                    'ripemd128' => 16,
+                    'ripemd160' => 20,
+                    'ripemd256' => 32,
+                    'ripemd320' => 40,
+                    'whirlpool' => 64,
+                    'tiger128,3' => 16,
+                    'tiger160,3' => 20,
+                    'tiger192,3' => 24,
+                    'tiger128,4' => 16,
+                    'tiger160,4' => 20,
+                    'tiger192,4' => 24,
+                    'snefru' => 32,
+                    'snefru256' => 32,
+                    'gost' => 32,
+                    'gost-crypto' => 32,
+                    'haval128,3' => 16,
+                    'haval160,3' => 20,
+                    'haval192,3' => 24,
+                    'haval224,3' => 28,
+                    'haval256,3' => 32,
+                    'haval128,4' => 16,
+                    'haval160,4' => 20,
+                    'haval192,4' => 24,
+                    'haval224,4' => 28,
+                    'haval256,4' => 32,
+                    'haval128,5' => 16,
+                    'haval160,5' => 20,
+                    'haval192,5' => 24,
+                    'haval224,5' => 28,
+                    'haval256,5' => 32,
+                ),
+                array_flip(hash_hmac_algos())
+            );
+
+            if (PHP_VERSION_ID >= 70100) {
+                $sizes = array_merge(
+                    $sizes,
+                    [
+                        'sha3-224' => 28,
+                        'sha3-256' => 32,
+                        'sha3-384' => 48,
+                        'sha3-512' => 64,
+                    ]
+                );
+            }
+
+            if (!array_key_exists($algo, $sizes)) {
+                trigger_error(
+                    "hash_hkdf(): The internal algorithm is not found {$algo}.",
+                    E_USER_WARNING
+                );
+
+                return false;
+            }
+
+            if (empty($ikm)) {
+                trigger_error(
+                    "hash_hkdf(): Input keying material cannot be empty.",
+                    E_USER_WARNING
+                );
+
+                return false;
+            }
+
+            $length = filter_var($length, FILTER_VALIDATE_INT);
+
+            if ($length === false) {
+                trigger_error(
+                    'hash_hkdf(): Expects parameter $length to be integer.',
+                    E_USER_WARNING
+                );
+
+                return false;
+            } elseif ($length < 0) {
+                trigger_error(
+                    "hash_hkdf(): Length must be greater than or equal to 0.",
+                    E_USER_WARNING
+                );
+
+                return false;
+            } elseif ($length > (255 * $sizes[$algo])) {
+                trigger_error(
+                    sprintf(
+                        "hash_hkdf(): Length must be less than or equal to %d: %d.",
+                        255 * $sizes[$algo],
+                        $length
+                    ),
+                    E_USER_WARNING
+                );
+
+                return false;
+            } elseif ($length === 0) {
+                $length = $sizes[$algo];
+            }
+
+            if (empty($salt)) {
+                $salt = str_repeat("\x0", $sizes[$algo]);
+            }
+
+            $prk = hash_hmac($algo, $ikm, $salt, true);
+            $okm = '';
+
+            for ($keyBlock = '', $blockIndex = 1; !isset($okm[$length - 1]); $blockIndex++) {
+                // Note: mb_chr() is available only in PHP >= 7.2, so using chr() in ASCII 8-bit codes
+                $keyBlock = hash_hmac($algo, $keyBlock . $info . chr($blockIndex), $prk, true);
+
+                $okm .= $keyBlock;
+            }
+
+            $hasMb = function_exists('mb_substr');
+
+            return $hasMb ? mb_substr($okm, 0, $length, '8bit') : substr($okm, 0, $length);
         }
     }
 }
