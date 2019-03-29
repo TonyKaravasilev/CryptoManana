@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.1.5, 2018-03-29
+------------------
+
+- Added an interface for the StringBuilder Singleton to enforce the substitution principle;
+- Improved the seeding capabilities of the PseudoRandom and QuasiRandom objects.
+
 v0.1.4, 2018-03-28
 ------------------
 
