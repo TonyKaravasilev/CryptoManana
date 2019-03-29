@@ -35,7 +35,7 @@ cache:
     - $HOME/.composer/cache
 
 git:
-  depth: 3
+  depth: 5
   quiet: true
 
 before_script:

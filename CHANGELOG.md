@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.1.6, 2018-03-29
+------------------
+
+- Improved the unit test abstraction and added temporary file manipulation methods;
+- Updated the configuration of Travis CI to fetch with Git depth of 5 commits;
+- Updated the testing settings for PHPUnit, CodeCoverage and PHP Documentor;
+- Added a few new development Composer script aliases.
+
 v0.1.5, 2018-03-29
 ------------------
 

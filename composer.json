@@ -79,6 +79,8 @@
     "execute-tests-phar": "php phpunit.phar --verbose --testdox --no-coverage",
     "scan-coverage": "vendor/bin/phpunit --coverage-text --verbose --stop-on-failure",
     "scan-coverage-phar": "php phpunit.phar --coverage-text --verbose --stop-on-failure",
+    "export-testdox": "vendor/bin/phpunit --no-coverage --testdox-html coverage/agile.html",
+    "export-testdox-phar": "php phpunit.phar --no-coverage --testdox-html coverage/agile.html",
     "export-coverage": "vendor/bin/phpunit --coverage-html coverage/report/",
     "export-coverage-phar": "php phpunit.phar --coverage-html coverage/report/",
     "check-source-psr": "vendor/bin/phpcs --standard=PSR2 src/ -n -p",

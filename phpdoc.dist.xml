@@ -34,7 +34,7 @@
     <!-- Include or ignore directory/file paths for scanning: -->
     <files>
         <directory>src</directory>
-        <directory>tests</directory>
+        <!--<directory>tests</directory>-->
         <ignore>src/autoload.php</ignore>
         <ignore>src/compatibility.php</ignore>
         <ignore>tests/debugging.php</ignore>

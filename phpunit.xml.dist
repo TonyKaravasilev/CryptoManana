@@ -45,7 +45,7 @@
 
     <!-- Code coverage output formats and settings: -->
     <logging>
-        <log type="coverage-html" target="coverage/report" lowUpperBound="35" highLowerBound="70"/>
+        <!--<log type="coverage-html" target="coverage/report" lowUpperBound="40" highLowerBound="80"/>-->
         <log type="coverage-clover" target="coverage/clover.xml"/>
     </logging>
 
