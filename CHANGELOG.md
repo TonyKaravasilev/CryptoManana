@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.1.8, 2018-03-30
+------------------
+
+- Added four new framework exceptions for easier error handling and usage;
+- Added unit tests for all the new framework exception objects;
+- Added the new exceptions to the ExceptionFactory object;
+- Updated the unit test for the ExceptionFactory class.
+
 v0.1.7, 2018-03-29
 ------------------
 

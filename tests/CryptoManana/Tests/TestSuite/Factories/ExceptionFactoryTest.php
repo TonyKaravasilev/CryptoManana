@@ -14,6 +14,10 @@ use \CryptoManana\Exceptions\CryptographyException;
 use \CryptoManana\Exceptions\IncompatibleException;
 use \CryptoManana\Exceptions\UnsupportedException;
 use \CryptoManana\Factories\ExceptionFactory;
+use \CryptoManana\Exceptions\AccessDeniedException;
+use \CryptoManana\Exceptions\BreachAttemptException;
+use \CryptoManana\Exceptions\MaliciousPayloadException;
+use \CryptoManana\Exceptions\BotDetectedException;
 
 /**
  * Class ExceptionFactoryTest - Tests the framework exception factory class.
@@ -113,6 +117,26 @@ final class ExceptionFactoryTest extends AbstractUnitTest
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 
+        $tmp = $factory->create(ExceptionFactory::ACCESS_DENIED);
+        $this->assertTrue($tmp instanceof AccessDeniedException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = $factory->create(ExceptionFactory::BREACH_ATTEMPT);
+        $this->assertTrue($tmp instanceof BreachAttemptException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = $factory->create(ExceptionFactory::MALICIOUS_PAYLOAD);
+        $this->assertTrue($tmp instanceof MaliciousPayloadException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = $factory->create(ExceptionFactory::BOT_DETECTED);
+        $this->assertTrue($tmp instanceof BotDetectedException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
         $this->assertNull($factory->create(\DomainException::class));
     }
 
@@ -138,6 +162,26 @@ final class ExceptionFactoryTest extends AbstractUnitTest
 
         $tmp = ExceptionFactory::createInstance(ExceptionFactory::UNSUPPORTED_ALGORITHM);
         $this->assertTrue($tmp instanceof UnsupportedException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = ExceptionFactory::createInstance(ExceptionFactory::ACCESS_DENIED);
+        $this->assertTrue($tmp instanceof AccessDeniedException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = ExceptionFactory::createInstance(ExceptionFactory::BREACH_ATTEMPT);
+        $this->assertTrue($tmp instanceof BreachAttemptException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = ExceptionFactory::createInstance(ExceptionFactory::MALICIOUS_PAYLOAD);
+        $this->assertTrue($tmp instanceof MaliciousPayloadException);
+        $this->assertTrue($tmp instanceof AbstractException);
+        $this->assertTrue($tmp instanceof \Exception);
+
+        $tmp = ExceptionFactory::createInstance(ExceptionFactory::BOT_DETECTED);
+        $this->assertTrue($tmp instanceof BotDetectedException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

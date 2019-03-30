@@ -12,6 +12,10 @@ use \CryptoManana\Exceptions\BadPracticeException as BadPractice;
 use \CryptoManana\Exceptions\CryptographyException as CryptographyProblem;
 use \CryptoManana\Exceptions\IncompatibleException as BackwardIncompatible;
 use \CryptoManana\Exceptions\UnsupportedException as UnsupportedAlgorithm;
+use \CryptoManana\Exceptions\AccessDeniedException as AccessDenied;
+use \CryptoManana\Exceptions\BreachAttemptException as BreachAttempt;
+use \CryptoManana\Exceptions\MaliciousPayloadException as MaliciousPayload;
+use \CryptoManana\Exceptions\BotDetectedException as BotDetected;
 
 /**
  * Class ExceptionFactory - Factory object for framework exception instancing.
@@ -39,6 +43,26 @@ class ExceptionFactory extends FactoryPattern
      * The `backward incompatible` exception type.
      */
     const BACKWARD_INCOMPATIBLE = BackwardIncompatible::class;
+
+    /**
+     * The `access denied` exception type.
+     */
+    const ACCESS_DENIED = AccessDenied::class;
+
+    /**
+     * The `breach attempt` exception type.
+     */
+    const BREACH_ATTEMPT = BreachAttempt::class;
+
+    /**
+     * The `malicious payload` exception type.
+     */
+    const MALICIOUS_PAYLOAD = MaliciousPayload::class;
+
+    /**
+     * The `bot detected` exception type.
+     */
+    const BOT_DETECTED = BotDetected::class;
 
     /**
      * Create a framework exception.
@@ -87,6 +111,10 @@ class ExceptionFactory extends FactoryPattern
             self::class . '::CRYPTOGRAPHY_PROBLEM' => self::CRYPTOGRAPHY_PROBLEM,
             self::class . '::BACKWARD_INCOMPATIBLE' => self::BACKWARD_INCOMPATIBLE,
             self::class . '::UNSUPPORTED_ALGORITHM' => self::UNSUPPORTED_ALGORITHM,
+            self::class . '::ACCESS_DENIED' => self::ACCESS_DENIED,
+            self::class . '::BREACH_ATTEMPT' => self::BREACH_ATTEMPT,
+            self::class . '::MALICIOUS_PAYLOAD' => self::MALICIOUS_PAYLOAD,
+            self::class . '::BOT_DETECTED' => self::BOT_DETECTED,
         ];
     }
 }
