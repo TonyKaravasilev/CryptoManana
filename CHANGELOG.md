@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.1.9, 2018-03-30
+------------------
+- Added a RandomnessFactory for easier data generator instancing;
+- Added a unit test for the RandomnessFactory object.
+
 v0.1.8, 2018-03-30
 ------------------
 
