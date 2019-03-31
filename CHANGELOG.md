@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+v0.1.10, 2018-03-31
+------------------
+
+- Updated the installation information at the README.md file;
+- Created a documentation website for the project's usage;
+- Updated the XML configuration for PHP Documentor;
+- Added more badges to the README.md file;
+- Created a staging branch for tests.
+
 v0.1.9, 2018-03-30
 ------------------
 - Added a RandomnessFactory for easier data generator instancing;
