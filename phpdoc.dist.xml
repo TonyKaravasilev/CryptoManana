@@ -29,6 +29,7 @@
     <!-- Settings for output transformation format: -->
     <transformations>
         <template name="clean"/>
+        <!--<template name="responsive-twig"/>-->
     </transformations>
 
     <!-- Include or ignore directory/file paths for scanning: -->
