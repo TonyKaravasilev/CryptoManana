@@ -7,6 +7,7 @@
 namespace CryptoManana\Core\Abstractions\Containers;
 
 use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessGenerator;
 use \CryptoManana\Core\Interfaces\Randomness\SeedableContainerInterface as SeedableService;
 use \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedableGenerator;
 use \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface as SetterInjectable;
@@ -32,7 +33,7 @@ abstract class AbstractRandomnessInjectable implements SetterInjectable, Seedabl
     /**
      * The pseudo-random generator service property storage.
      *
-     * @var RandomnessSource|null The pseudo-random generator service.
+     * @var RandomnessSource|RandomnessGenerator|null The pseudo-random generator service.
      */
     protected $randomnessSource = null;
 

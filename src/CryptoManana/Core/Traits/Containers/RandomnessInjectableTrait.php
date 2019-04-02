@@ -14,6 +14,8 @@ use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSo
  * @see \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface The abstract specification.
  *
  * @package CryptoManana\Core\Traits\Containers
+ *
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
  */
 trait RandomnessInjectableTrait
 {

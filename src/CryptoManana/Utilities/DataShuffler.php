@@ -14,6 +14,8 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * Class DataShuffler - Utility class for data shuffling.
  *
  * @package CryptoManana\Utilities
+ *
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
  */
 class DataShuffler extends RandomnessContainer implements Shuffling
 {
@@ -23,6 +25,7 @@ class DataShuffler extends RandomnessContainer implements Shuffling
      * @param string $string The string for shuffling.
      *
      * @return string The output shuffled/scrambled string.
+     * @throws \Exception Validation errors.
      */
     public function shuffleString($string = '')
     {
@@ -39,7 +42,7 @@ class DataShuffler extends RandomnessContainer implements Shuffling
         $array = StringBuilder::stringSplit($string, 1);
 
         // Reuse the code for array shuffling and convert result to string
-        return implode('', static::shuffleArray($array));
+        return implode('', $this->shuffleArray($array));
     }
 
     /**

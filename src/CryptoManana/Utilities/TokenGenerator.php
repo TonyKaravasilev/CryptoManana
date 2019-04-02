@@ -16,6 +16,8 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * Class TokenGenerator - Utility class for cryptography token generation.
  *
  * @package CryptoManana\Utilities
+ *
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
  */
 class TokenGenerator extends RandomnessContainer implements
     TokenStringGeneration,
@@ -46,6 +48,29 @@ class TokenGenerator extends RandomnessContainer implements
             throw new \LengthException(
                 'The length of the desired output data must me at least 1 character long.'
             );
+        }
+    }
+
+    /**
+     * Internal method for generation of characters used for secure password string building.
+     *
+     * @param int|mixed $case Generation case as integer.
+     *
+     * @return string Password character.
+     * @throws \Exception Validation Errors.
+     */
+    protected function getPasswordCharacter($case)
+    {
+        switch ($case) {
+            case 1:
+                return $this->randomnessSource->getDigit(true);
+            case 2:
+                return $this->randomnessSource->getLetter(false);
+            case 3:
+                return StringBuilder::stringToUpper($this->randomnessSource->getLetter(false));
+
+            default:
+                return $this->randomnessSource->getString(1, ['!', '@', '#', '$', '%', '^']);
         }
     }
 
@@ -94,22 +119,9 @@ class TokenGenerator extends RandomnessContainer implements
             $password = '';
 
             for ($i = 1; $i <= $length; $i++) {
-                $tmp = $this->randomnessSource->getInt(1, 4);
+                $case = $this->randomnessSource->getInt(1, 4);
 
-                switch ($tmp) {
-                    case 1:
-                        $password .= $this->randomnessSource->getDigit(true);
-                        break;
-                    case 2:
-                        $password .= $this->randomnessSource->getLetter(false);
-                        break;
-                    case 3:
-                        $password .= StringBuilder::stringToUpper($this->randomnessSource->getLetter(false));
-                        break;
-                    default:
-                        $password .= $this->randomnessSource->getString(1, ['!', '@', '#', '$', '%', '^']);
-                        break;
-                }
+                $password .= $this->getPasswordCharacter($case);
             }
         }
 

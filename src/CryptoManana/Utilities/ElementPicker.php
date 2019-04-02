@@ -14,6 +14,8 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * Class ElementPicker - Utility class for random element picking.
  *
  * @package CryptoManana\Utilities
+ *
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
  */
 class ElementPicker extends RandomnessContainer implements ElementChoosing
 {
@@ -23,6 +25,7 @@ class ElementPicker extends RandomnessContainer implements ElementChoosing
      * @param string $string The string with characters for choosing from.
      *
      * @return string The chosen character string.
+     * @throws \Exception Validation errors.
      */
     public function pickCharacterElement($string = '')
     {
@@ -39,7 +42,7 @@ class ElementPicker extends RandomnessContainer implements ElementChoosing
         $array = StringBuilder::stringSplit($string, 1);
 
         // Reuse the code for array element choosing
-        return static::pickArrayElement($array);
+        return $this->pickArrayElement($array);
     }
 
     /**
