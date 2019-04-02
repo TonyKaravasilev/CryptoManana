@@ -1,13 +1,18 @@
 <?php
 
 /**
- * This file defines needed PHP 5.x/7.x backward compatible functions, constants, classes, etc.
+ * This file defines needed PHP 5.x/7.x backward compatible (polyfill) functions, constants, classes, etc.
  *
  * {@internal Define a global constant `CRYPTO_MANANA_COMPATIBILITY_OFF` to suppress this feature. }}
  */
 
+// Check if override global constant is defined
+$disableCompatibilityScript = (
+    defined('CRYPTO_MANANA_COMPATIBILITY_OFF') && CRYPTO_MANANA_COMPATIBILITY_OFF == true
+);
+
 // Compatibility checks and simple mitigation for PHP < 7.0.0
-if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
+if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
     // Set constant for minimum integer
     if (!defined('PHP_INT_MIN')) {
         /**
@@ -349,7 +354,7 @@ if (PHP_VERSION_ID < 70000 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
 }
 
 // Compatibility checks and simple mitigation for PHP < 7.2.0
-if (PHP_VERSION_ID < 70200 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
+if (PHP_VERSION_ID < 70200 && !$disableCompatibilityScript) {
     // Set the HMAC supported hashing list
     if (!function_exists('hash_hmac_algos')) {
         /**
@@ -545,3 +550,6 @@ if (PHP_VERSION_ID < 70200 && !defined('CRYPTO_MANANA_COMPATIBILITY_OFF')) {
         }
     }
 }
+
+// Clear global variable for polyfill compatibility status
+unset($disableCompatibilityScript);
