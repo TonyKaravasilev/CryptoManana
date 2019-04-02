@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+v0.2.0, 2018-04-02
+------------------
+
+- Added an abstract dependency injection container for randomness services;
+- Added a data shuffler object that can inject any randomness generator service;
+- Added an element picker object that can inject any randomness generator service;
+- Added a token generator object that can inject any randomness generator service;
+- Added unit tests for the DataShuffler, the ElementPicker and the TokenGenerator objects;
+- Updated the polyfill/compatibility logic for disabling via constant definition;
+- Updated the README.md information about the project installation and usage;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.1.10, 2018-03-31
 ------------------
 
