@@ -3,10 +3,10 @@
 [![PHP from Travis config](https://img.shields.io/travis/php-v/TonyKaravasilev/CryptoManana.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![PHP from Travis config](https://img.shields.io/badge/php-%3C%3D%207.4-blue.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=flat-square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2604328.svg)](https://doi.org/10.5281/zenodo.2604328) <br>
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2621937.svg)](https://doi.org/10.5281/zenodo.2621937) <br>
 [![Build Status](https://travis-ci.org/TonyKaravasilev/CryptoManana.svg?branch=master)](https://travis-ci.org/TonyKaravasilev/CryptoManana)
 [![Code Coverage](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
-[![PHPDoc Coverage](https://img.shields.io/badge/PHPDoc-100%25-success.svg?style=flat)](https://cryptomanana.karavasilev.info/api/)
+[![PHPDoc Coverage](https://img.shields.io/badge/PHPDoc-100%20%25-success.svg?style=flat)](https://cryptomanana.karavasilev.info/api/)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-Success.svg?style=flat&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BFKJXWRLFTFQA&currency_code=USD&source=url) <br>
 &nbsp;[![CryptoManana Logo](http://karavasilev.info/images/CryptoMananaLogo.jpg)](https://cryptomanana.karavasilev.info)
@@ -42,6 +42,7 @@ php vendor/karavasilev/cryptomanana/check.php
 - [**Technical API Documentation**](https://cryptomanana.karavasilev.info/api/).
 
 ## Project Citation via DOI
+- **v0.2.0** - [DOI 10.5281/zenodo.2621937](https://doi.org/10.5281/zenodo.2621937)
 - **v0.1.0** - [DOI 10.5281/zenodo.2604329](http://doi.org/10.5281/zenodo.2604329)
 
 ## Running The Tests Locally (OPTIONAL)
@@ -71,6 +72,16 @@ mb_http_input('UTF-8');
 // Start coding hard...
 ```
 *Note: The framework works without the extension and does not enable the usage of it by default for performance reasons.*
+
+## PHP Backward Compatibility (OPTIONAL)
+By default, the CryptoManana Framework provides compatibility for different older PHP versions (polyfill).
+You can disable the compatibility check (located at `src/compatibility.php`) via a constant definition.
+There are not a lot of reasons for disabling this, but you may want your own/others Polyfill logic, etc.
+The global constant must be defined before autoloading or before the first class usage (access), like:
+```php
+define('CRYPTO_MANANA_COMPATIBILITY_OFF', true); // const CRYPTO_MANANA_COMPATIBILITY_OFF = 1;
+```
+*Note: In most cases you do NOT need to do this. The script is called only once per HTTP request (or CLI execution).*
 
 ## Performance And Security Tips (OPTIONAL)
 - Always update your OpenSSL Library to the latest version;
