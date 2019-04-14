@@ -269,6 +269,26 @@ if ($none) {
 
 dump_a_delimiter();
 
+// PHP randomness source and system build check
+if (PHP_VERSION_ID < 70100) {
+    $strong = null;
+
+    $bytes = openssl_random_pseudo_bytes(8, $strong);
+
+    /**
+     * Check if build is broken or the OpenSSL library has defects.
+     *
+     * {@internal Build is broken if function returns empty output or the reference variable is false. }
+     */
+    if ($strong === false || empty($bytes) || $bytes === str_repeat("\0", 8)/** 1.00/2^64 */) {
+        dump('Broken system build or randomness source, please upgrade your system!', 'red');
+
+        dump_an_error();
+    }
+
+    unset($strong, $bytes);
+}
+
 // PHP constants check
 $constantsList = [
     'PHP_INT_MIN',
