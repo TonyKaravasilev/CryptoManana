@@ -42,9 +42,7 @@ php vendor/karavasilev/cryptomanana/check.php
 - [**Technical API Documentation**](https://cryptomanana.karavasilev.info/api/).
 
 ## Project Citation via DOI
-- **The Framework** - [DOI 10.5281/zenodo.2604693](https://doi.org/10.5281/zenodo.2604693) *(concept)*
-- **v0.2.0** - [DOI 10.5281/zenodo.2621937](https://doi.org/10.5281/zenodo.2621937)
-- **v0.1.0** - [DOI 10.5281/zenodo.2604329](http://doi.org/10.5281/zenodo.2604329)
+**The CryptoMañana Framework** - [DOI 10.5281/zenodo.2604693](https://doi.org/10.5281/zenodo.2604693) *(as a concept)*
 
 ## Running The Tests Locally (OPTIONAL)
 ```bash
