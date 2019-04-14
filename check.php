@@ -100,11 +100,11 @@ function dump($data = PHP_EOL, $colour = 'green')
 /**
  * The check script output delimiter.
  *
- * @see dump() Script outputting function.
- *
  * @param int $length The length of the delimiter.
  * @param string $char The character used for building.
  * @param string $colour The colour for outputting.
+ *
+ * @see dump() Script outputting function.
  */
 function dump_a_delimiter($length = DEFAULT_LENGTH, $char = '*', $colour = 'blue')
 {

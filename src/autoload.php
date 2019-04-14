@@ -12,14 +12,14 @@ require 'compatibility.php';
 /**
  * Simple project autoloader implementation for the PSR-4 PHP standard.
  *
- * @internal Code inspired by PHP Framework Interop Group PHP Standard Recommendation.
- *
- * @link https://www.php-fig.org/psr/psr-4/examples/#closure-example
- * @link https://github.com/php-fig/fig-standards/tree/master/accepted
- *
  * @param string $className The fully-qualified class name.
  *
  * @return void
+ * @link https://github.com/php-fig/fig-standards/tree/master/accepted
+ *
+ * @internal Code inspired by PHP Framework Interop Group PHP Standard Recommendation.
+ *
+ * @link https://www.php-fig.org/psr/psr-4/examples/#closure-example
  */
 spl_autoload_register(function ($className) {
 
