@@ -62,9 +62,10 @@ class StringBuilder extends SingletonPattern implements StringManipulations
     /**
      * Enable or disable the `mbstring` extension usage.
      *
+     * @param bool|int $bool Flag for enabling or disabling the `mbstring` usage.
+     *
      * @internal Use the `mbstring` extension only when you need custom encoding support.
      *
-     * @param bool|int $bool Flag for enabling or disabling the `mbstring` usage.
      */
     public static function useMbString($bool = true)
     {

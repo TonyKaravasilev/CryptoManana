@@ -1,6 +1,7 @@
 /.github export-ignore
 /.gitignore export-ignore
 /.gitattributes export-ignore
+/.dockerignore export-ignore
 /phpcs.xml.dist export-ignore
 /phpunit.xml.dist export-ignore
 /phpdoc.dist.xml export-ignore

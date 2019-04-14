@@ -22,11 +22,11 @@ trait RandomnessInjectableTrait
     /**
      * Setter for the pseudo-random generator service.
      *
-     * @see \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface::setRandomGenerator() Specification.
-     *
      * @param RandomnessSource|null $generator The pseudo-random generator service.
      *
      * @return $this The container object.
+     * @see \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface::setRandomGenerator() Specification.
+     *
      */
     public function setRandomGenerator(RandomnessSource $generator)
     {
@@ -40,9 +40,9 @@ trait RandomnessInjectableTrait
     /**
      * Getter for the pseudo-random generator service.
      *
+     * @return RandomnessSource The currently injected pseudo-random generator service.
      * @see \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface::getRandomGenerator() Specification.
      *
-     * @return RandomnessSource The currently injected pseudo-random generator service.
      */
     public function getRandomGenerator()
     {

@@ -20,9 +20,9 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
          * Usually int(-2147483648) in 32 bit systems and int(-9223372036854775808) in 64 bit systems.
          * Available since PHP 7.0.0. Usually, PHP_INT_MIN === ~PHP_INT_MAX.
          *
+         * @return int The smallest supported integer.
          * @internal define ('PHP_INT_MIN', ~PHP_INT_MAX)
          *
-         * @return int The smallest supported integer.
          */
         define('PHP_INT_MIN', ~PHP_INT_MAX);
     }

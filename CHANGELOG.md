@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+v0.2.1, 2018-04-14
+------------------
+
+- Updated all PHPDoc comments to follow the correct structure of the PSR-5 standard;
+- Updated the attribute list for Git when exporting or downloading the project;
+- Updated the DOI badge to point to the overall concept reference;
+- Updated the citation information at the README.md file;
+- Reviewed and profiled all the framework objects.
+
 v0.2.0, 2018-04-02
 ------------------
 

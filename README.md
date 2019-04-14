@@ -3,7 +3,7 @@
 [![PHP from Travis config](https://img.shields.io/travis/php-v/TonyKaravasilev/CryptoManana.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![PHP from Travis config](https://img.shields.io/badge/php-%3C%3D%207.4-blue.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=flat-square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2621937.svg)](https://doi.org/10.5281/zenodo.2621937) <br>
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2604693.svg)](https://doi.org/10.5281/zenodo.2604693) <br>
 [![Build Status](https://travis-ci.org/TonyKaravasilev/CryptoManana.svg?branch=master)](https://travis-ci.org/TonyKaravasilev/CryptoManana)
 [![Code Coverage](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
 [![PHPDoc Coverage](https://img.shields.io/badge/PHPDoc-100%20%25-success.svg?style=flat)](https://cryptomanana.karavasilev.info/api/)
@@ -42,8 +42,7 @@ php vendor/karavasilev/cryptomanana/check.php
 - [**Technical API Documentation**](https://cryptomanana.karavasilev.info/api/).
 
 ## Project Citation via DOI
-- **v0.2.0** - [DOI 10.5281/zenodo.2621937](https://doi.org/10.5281/zenodo.2621937)
-- **v0.1.0** - [DOI 10.5281/zenodo.2604329](http://doi.org/10.5281/zenodo.2604329)
+**The CryptoMañana Framework** - [DOI 10.5281/zenodo.2604693](https://doi.org/10.5281/zenodo.2604693) *(as a concept)*
 
 ## Running The Tests Locally (OPTIONAL)
 ```bash
