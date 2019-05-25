@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.2.2, 2019-04-25
+------------------
+
+- Improved the performance of the unit test for the QuasiRandom object;
+- Fixed the wrong timestamp year information at all changelog records;
+- Updated the Composer JSON schema with new keywords and information;
+- Fixed a few simple typos at existing PHPDoc comments.
+
 v0.2.1, 2019-04-14
 ------------------
 
