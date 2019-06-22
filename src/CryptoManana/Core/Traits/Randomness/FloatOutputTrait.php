@@ -62,7 +62,7 @@ trait FloatOutputTrait
 
         $isNotRangeBoarders = ($number !== 0 && $number !== $max);
 
-        $number = ($number === 0) ? 0.00 : ($number === $max) ? 100.00 : $number;
+        $number = ($number === 0) ? 0.00 : ($number === $max ? 100.00 : $number);
 
         $number = $isNotRangeBoarders ? ($number / $max) * 100.00 : $number;
 
@@ -170,7 +170,7 @@ trait FloatOutputTrait
 
         $isNotRangeBoarders = ($number !== 0 && $number !== $this->getMaxNumber());
 
-        $number = ($number === 0) ? 0.00 : ($number === $this->getMaxNumber()) ? 100.00 : (float)$number;
+        $number = ($number === 0) ? 0.00 : ($number === $this->getMaxNumber() ? 100.00 : (float)$number);
 
         $number = $isNotRangeBoarders ? round($number / (float)$this->getMaxNumber(), $precision) : $number;
 
