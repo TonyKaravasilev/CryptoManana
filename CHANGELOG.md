@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.2.3, 2019-06-22
+------------------
+- Fixed compatibility issues with PHP 7.4 and PHP 8.0 features;
+- Updated the configuration of Travis CI to use the valid build names.
+
 v0.2.2, 2019-04-25
 ------------------
 
