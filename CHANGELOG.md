@@ -1,16 +1,30 @@
 CHANGELOG
 =========
 
-v0.2.1, 2018-04-14
+v0.2.3, 2019-06-22
+------------------
+- Fixed compatibility issues with PHP 7.4 and PHP 8.0 features;
+- Updated the configuration of Travis CI to use the valid build names.
+
+v0.2.2, 2019-04-25
+------------------
+
+- Improved the performance of the unit test for the QuasiRandom object;
+- Fixed the wrong timestamp year information at all changelog records;
+- Updated the Composer JSON schema with new keywords and information;
+- Fixed a few simple typos at existing PHPDoc comments.
+
+v0.2.1, 2019-04-14
 ------------------
 
 - Updated all PHPDoc comments to follow the correct structure of the PSR-5 standard;
 - Updated the attribute list for Git when exporting or downloading the project;
+- Updated the CLI check script for the framework requirements scanning;
 - Updated the DOI badge to point to the overall concept reference;
 - Updated the citation information at the README.md file;
 - Reviewed and profiled all the framework objects.
 
-v0.2.0, 2018-04-02
+v0.2.0, 2019-04-02
 ------------------
 
 - Added an abstract dependency injection container for randomness services;
@@ -25,7 +39,7 @@ v0.2.0, 2018-04-02
 - Purged the image caches for the GitHub repository;
 - Release is signed with a GitHub GPG signature.
 
-v0.1.10, 2018-03-31
+v0.1.10, 2019-03-31
 ------------------
 
 - Updated the installation information at the README.md file;
@@ -34,12 +48,12 @@ v0.1.10, 2018-03-31
 - Added more badges to the README.md file;
 - Created a staging branch for tests.
 
-v0.1.9, 2018-03-30
+v0.1.9, 2019-03-30
 ------------------
 - Added a RandomnessFactory for easier data generator instancing;
 - Added a unit test for the RandomnessFactory object.
 
-v0.1.8, 2018-03-30
+v0.1.8, 2019-03-30
 ------------------
 
 - Added four new framework exceptions for easier error handling and usage;
@@ -47,14 +61,14 @@ v0.1.8, 2018-03-30
 - Added the new exceptions to the ExceptionFactory object;
 - Updated the unit test for the ExceptionFactory class.
 
-v0.1.7, 2018-03-29
+v0.1.7, 2019-03-29
 ------------------
 
 - Updated the PHP 5.x/7.x backward compatible snippet, autoloaded via Composer;
 - Added a low-level CLI check of the PHP requirements for CryptoManana;
 - Updated the configuration of Travis CI to use the new CLI script.
 
-v0.1.6, 2018-03-29
+v0.1.6, 2019-03-29
 ------------------
 
 - Improved the unit test abstraction and added temporary file manipulation methods;
@@ -62,36 +76,36 @@ v0.1.6, 2018-03-29
 - Updated the testing settings for PHPUnit, CodeCoverage and PHP Documentor;
 - Added a few new development Composer script aliases.
 
-v0.1.5, 2018-03-29
+v0.1.5, 2019-03-29
 ------------------
 
 - Added an interface for the StringBuilder Singleton to enforce the substitution principle;
 - Improved the seeding capabilities of the PseudoRandom and QuasiRandom objects.
 
-v0.1.4, 2018-03-28
+v0.1.4, 2019-03-28
 ------------------
 
 - Reduced the complexity of the AbstractGenerator class via traits;
 - Improved the code reuse in some of the longest methods.
 
-v0.1.3, 2018-03-25
+v0.1.3, 2019-03-25
 ------------------
 
 - Updated the coverage export formats for PHPUnit and CodeCoverage;
 - Updated the configuration of Travis CI and of Scrutinizer CI.
 
-v0.1.2, 2018-03-24
+v0.1.2, 2019-03-24
 ------------------
 
 - Renamed all interfaces to follow the PSR Naming Convention standards.
 
-v0.1.1, 2018-03-24
+v0.1.1, 2019-03-24
 ------------------
 
 - Added the ignoring of Docker related build and image files;
 - Updated some of the badges at the README.md file.
 
-v0.1.0, 2018-03-23
+v0.1.0, 2019-03-23
 ------------------
 
 - Added three randomness generator objects for quasi, pseudo and cryptography secure sources.
@@ -105,7 +119,7 @@ v0.1.0, 2018-03-23
 - Purged the image caches for the GitHub repository;
 - Release is signed with a GitHub GPG signature.
 
-v0.0.20, 2018-03-20
+v0.0.20, 2019-03-20
 ------------------
 
 - Updated the Composer JSON schema and renamed the package for Packagist usage;
@@ -113,7 +127,7 @@ v0.0.20, 2018-03-20
 - Registered the package at Packagist, the Composer main repository;
 - Added badges to the README.md file's description.
 
-v0.0.19, 2018-03-19
+v0.0.19, 2019-03-19
 ------------------
 
 - Added an abstraction for the framework’s internal exceptions;
@@ -122,7 +136,7 @@ v0.0.19, 2018-03-19
 - Added an ExceptionFactory for easier error instancing;
 - Added a unit test for the ExceptionFactory class.
 
-v0.0.18, 2018-03-19
+v0.0.18, 2019-03-19
 ------------------
 
 - Rearranged the namespacing and the folder hierarchy for abstractions;
@@ -130,94 +144,94 @@ v0.0.18, 2018-03-19
 - Added a unit test for the StringBuilder core class;
 - Removed the firstly added dummy unit test.
 
-v0.0.17, 2018-03-19
+v0.0.17, 2019-03-19
 ------------------
 
 - Updated the testing settings for PHPUnit, CodeCoverage and PHP Documentor;
 - Updated some of the PHPDoc comments at development files.
 
-v0.0.16, 2018-03-09
+v0.0.16, 2019-03-09
 ------------------
 
 - Added a core class abstraction for the Factory design pattern.
 
-v0.0.15, 2018-03-03
+v0.0.15, 2019-03-03
 ------------------
 
 - Added a core class abstraction for the Singleton design pattern.
 
-v0.0.14, 2018-03-02
+v0.0.14, 2019-03-02
 ------------------
 
 - Updated the Composer JSON schema and renamed for easier future Packagist loading;
 - Moved the development and testing functions implementation to a seconds file;
 - Fixed a semantic language typo in the README.md file's description section.
 
-v0.0.13, 2018-03-02
+v0.0.13, 2019-03-02
 ------------------
 
 - Updated the testing settings for PHPUnit and CodeCoverage;
 - Added a few new development Composer script aliases.
 
-v0.0.12, 2018-02-17
+v0.0.12, 2019-02-17
 ------------------
 
 - Updated the project's description at the README.md file.
 
-v0.0.11, 2018-02-17
+v0.0.11, 2019-02-17
 ------------------
 
 - Added a PSR-4 autoloader for the project's loading without Composer.
 
-v0.0.10, 2018-02-17
+v0.0.10, 2019-02-17
 ------------------
 
 - Added a backward compatibility snippet for running under PHP 5.x versions.
 
-v0.0.9, 2018-02-16
+v0.0.9, 2019-02-16
 ------------------
 
 - Updated the XML configuration for PHPUnit and CodeCoverage testing.
 
-v0.0.8, 2018-02-16
+v0.0.8, 2019-02-16
 ------------------
 
 - Added a Composer branch alias for latest master development version.
 
-v0.0.7, 2018-02-16
+v0.0.7, 2019-02-16
 ------------------
 
 - Added XML configuration for PHP Code Sniffer and PHP Documentor binaries.
 
-v0.0.6, 2018-02-10
+v0.0.6, 2019-02-10
 ------------------
 
 - Updated the Composer JSON schema keywords to match with the GitHub topics.
 
-v0.0.5, 2018-02-09
+v0.0.5, 2019-02-09
 ------------------
 
 - Added PHPUnit and CodeCoverage integration to project;
 - Created new Composer script aliases for development purposes;
 - Created internal class hierarchy for tests and some debug functions.
 
-v0.0.4, 2018-02-09
+v0.0.4, 2019-02-09
 ------------------
 
 - Added a Makefile and an attribute list for Git when exporting.
 
-v0.0.3, 2018-02-03
+v0.0.3, 2019-02-03
 ------------------
 
 - Added a project logo and updated the README.md file.
 
-v0.0.2, 2018-02-03
+v0.0.2, 2019-02-03
 ------------------
 
 - Updated the composer.json suggested packages and extensions;
 - Added a few new development Composer script aliases.
 
-v0.0.1, 2018-01-27
+v0.0.1, 2019-01-27
 ------------------
 
 - Repository creation and setting up the initial project structure.

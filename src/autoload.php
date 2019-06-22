@@ -5,7 +5,7 @@
  */
 
 /**
- * Requires the PHP 5.x compatibility snippet before setting the autoloader.
+ * Requires the PHP 5.x/7.x compatibility polyfill snippet before setting the autoloader.
  */
 require 'compatibility.php';
 

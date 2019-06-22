@@ -337,6 +337,10 @@ final class QuasiRandomTest extends AbstractUnitTest
         $hexUpperCasePattern = '/^[A-F0-9]+$/';
         $alphaNumericPattern = '/^[a-zA-Z0-9]+$/';
 
+        $lastGuid = '';
+        $lastUuidOne = '';
+        $lastUuidTwo = '';
+
         for ($i = 1; $i <= self::REPEATED_TESTS_COUNT; $i++) {
             $guid = $randomness->getGloballyUniqueId();
             $this->assertEquals(1, preg_match($guidPattern, $guid));
@@ -360,22 +364,17 @@ final class QuasiRandomTest extends AbstractUnitTest
             $uuidFormatTwo = $randomness->getStrongUniqueId('', true);
             $this->assertTrue(strlen($uuidFormatTwo) === 128);
             $this->assertEquals(1, preg_match($alphaNumericPattern, $uuidFormatTwo));
+
+            // Simple uniqueness test for identifiers (has low-quality for quasi-randomness)
+            $this->assertNotEquals($guid, $lastGuid);
+            $this->assertNotEquals($uuidFormatOne, $lastUuidOne);
+            $this->assertNotEquals($uuidFormatTwo, $lastUuidTwo);
+
+            // Save the last unique identifiers
+            $lastGuid = $guid;
+            $lastUuidOne = $uuidFormatOne;
+            $lastUuidTwo = $uuidFormatTwo;
         }
-
-        // Simple uniqueness test for identifiers
-        $identifiersOne = [];
-        $identifiersTwo = [];
-        $identifiersThree = [];
-
-        for ($i = 1; $i <= self::REPEATED_TESTS_COUNT; $i++) {
-            $identifiersOne[] = $randomness->getGloballyUniqueId();
-            $identifiersTwo[] = $randomness->getStrongUniqueId();
-            $identifiersThree[] = $randomness->getStrongUniqueId('', true);
-        }
-
-        $this->assertTrue(count($identifiersOne) == count(array_unique($identifiersOne)));
-        $this->assertTrue(count($identifiersTwo) == count(array_unique($identifiersTwo)));
-        $this->assertTrue(count($identifiersThree) == count(array_unique($identifiersThree)));
     }
 
     /**

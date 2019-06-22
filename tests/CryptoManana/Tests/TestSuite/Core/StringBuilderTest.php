@@ -104,7 +104,7 @@ final class StringBuilderTest extends AbstractUnitTest
     }
 
     /**
-     * Testing THE converting of an integer to a character.
+     * Testing the converting of an integer to a character.
      */
     public function testGettingOfCharacterSymbol()
     {
