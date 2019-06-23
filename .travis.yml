@@ -7,7 +7,8 @@ dist: trusty
 sudo: false
 
 env:
-  - CLOVER=coverage/clover.xml
+  - USE_OPCACHE=0
+  - USE_OPCACHE=1
 
 php:
   - '5.5'
@@ -37,7 +38,12 @@ git:
 
 before_script:
   - php -m
+  - if [ "$USE_OPCACHE" == 1 ]; then
+      echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
+    fi
   - php -i | grep -i 'OpenSSL Library'
+  - php -i | grep -i 'opcache.enable'
+  - travis_retry composer validate
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
 
@@ -47,5 +53,8 @@ script:
   - make coverage
 
 after_script:
-  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then php ocular.phar code-coverage:upload --format=php-clover ${CLOVER}; fi
+  - if [ "$TRAVIS_PHP_VERSION" == "7.3" ]; then
+      CLOVER=coverage/clover.xml;
+      wget https://scrutinizer-ci.com/ocular.phar;
+      php ocular.phar code-coverage:upload --format=php-clover ${CLOVER};
+    fi
