@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.2.4, 2019-06-23
+------------------
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Configured testing with and without Zend OPcache for CI checks.
+
 v0.2.3, 2019-06-22
 ------------------
 - Fixed compatibility issues with PHP 7.4 and PHP 8.0 features;
