@@ -18,7 +18,7 @@ error_reporting(E_ALL);
 set_time_limit(120);
 clearstatcache();
 
-// Require the default framework comparability script
+// Require the default framework compatibility script
 require 'src' . DIRECTORY_SEPARATOR . 'compatibility.php';
 
 // Define the script constants
@@ -278,7 +278,7 @@ if (PHP_VERSION_ID < 70100) {
     /**
      * Check if build is broken or the OpenSSL library has defects.
      *
-     * {@internal Build is broken if function returns empty output or the reference variable is false. }
+     * {@internal Build is broken if function returns empty output or the reference variable is false. }}
      */
     if ($strong === false || empty($bytes) || $bytes === str_repeat("\0", 8)/** 1.00/2^64 */) {
         dump('Broken system build or randomness source, please upgrade your system!', 'red');
