@@ -34,7 +34,6 @@ class AccessDeniedException extends FrameworkException
      *
      * @return int The exception's error code.
      * @see UnsupportedException::INTERNAL_CODE Default error code.
-     *
      */
     public function getFrameworkErrorCode()
     {

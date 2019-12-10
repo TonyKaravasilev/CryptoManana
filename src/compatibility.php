@@ -22,7 +22,6 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
          *
          * @return int The smallest supported integer.
          * @internal define ('PHP_INT_MIN', ~PHP_INT_MAX)
-         *
          */
         define('PHP_INT_MIN', ~PHP_INT_MAX);
     }
