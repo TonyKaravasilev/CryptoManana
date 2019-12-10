@@ -75,7 +75,7 @@ abstract class AbstractUnitTest extends FrameworkUnitTest implements DataDumping
     public function getTemporaryFilename($filename = '')
     {
         // Gets the operating system or web server temporary storage location with proper rights
-        $path = (string)ini_get('upload_tmp_dir');
+        $path = trim(sys_get_temp_dir()) ?: (string)ini_get('upload_tmp_dir');
 
         if (is_string($filename) && !empty($filename)) {
             $filename = str_replace([" ", "\n", "\r", "\x09", "\x0B", "\0"], '', $filename);
