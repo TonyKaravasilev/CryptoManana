@@ -7,6 +7,7 @@
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
 use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionFormatsInterface as DigestionFormatsSpecification;
+use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait DigestionFormatsTrait - Reusable implementation of `DigestionFormatsInterface`.
@@ -34,14 +35,14 @@ trait DigestionFormatsTrait
             case self::DIGEST_OUTPUT_HEX_LOWER:
                 break; // Comes already in lower, can be skipped
             case self::DIGEST_OUTPUT_HEX_UPPER:
-                $digest = strtoupper($digest);
+                $digest = StringBuilder::stringToUpper($digest);
                 break;
             case self::DIGEST_OUTPUT_BASE_64:
                 $digest = base64_encode(pack('H*', $digest));
                 break;
             case self::DIGEST_OUTPUT_BASE_64_URL:
                 $digest = base64_encode(pack('H*', $digest));
-                $digest = str_replace(['+', '/', '='], ['-', '_', ''], $digest);
+                $digest = StringBuilder::stringReplace(['+', '/', '='], ['-', '_', ''], $digest);
                 break;
             default: // case self::DIGEST_OUTPUT_RAW:
                 break;

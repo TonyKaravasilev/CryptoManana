@@ -9,6 +9,7 @@ namespace CryptoManana\Core\Abstractions\MessageDigestion;
 use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
+use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Class AbstractUnkeyedHashFunction - Abstraction for unkeyed hash classes.
@@ -28,6 +29,29 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
      * @var bool Flag to force native realizations.
      */
     protected $useNative = false;
+
+    /**
+     * Internal method for location and filename validation.
+     *
+     * @param string $filename The filename and location.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validateFileNamePath($filename)
+    {
+        $filename = StringBuilder::stringReplace("\0", '', $filename); // (ASCII 0 (0x00))
+        $filename = realpath($filename); // Path traversal escape and absolute path fetching
+
+        // Clear path cache
+        if (!empty($filename)) {
+            clearstatcache(true, $filename);
+        }
+
+        // Check if path is valid and the file is readable
+        if ($filename === false || !file_exists($filename) || !is_readable($filename) || !is_file($filename)) {
+            throw new \RuntimeException('File is not found or can not be accessed.');
+        }
+    }
 
     /**
      * Unkeyed hash algorithm constructor.
@@ -74,18 +98,7 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
             throw new \InvalidArgumentException('The file path must be of type string.');
         }
 
-        $filename = str_replace("\0", '', $filename); // (ASCII 0 (0x00))
-        $filename = realpath($filename); // Path traversal escape and absolute path fetching
-
-        // Clear path cache
-        if (!empty($filename)) {
-            clearstatcache(true, $filename);
-        }
-
-        // Check if path is valid and the file is readable
-        if ($filename === false || !file_exists($filename) || !is_readable($filename) || !is_file($filename)) {
-            throw new \RuntimeException('File is not found or can not be accessed.');
-        }
+        $this->validateFileNamePath($filename);
 
         if ($this->useNative) {
             $data = file_get_contents($filename);
@@ -93,13 +106,11 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
             $oldSalt = $this->getSalt();
             $oldMode = $this->getSaltingMode();
 
-            $this->setSalt('');
-            $this->setSaltingMode(self::SALTING_MODE_NONE);
+            $this->setSalt('')->setSaltingMode(self::SALTING_MODE_NONE);
 
             $digest = $this->hashData($data);
 
-            $this->setSalt($oldSalt);
-            $this->setSaltingMode($oldMode);
+            $this->setSalt($oldSalt)->setSaltingMode($oldMode);
         } else {
             $digest = hash_file(static::ALGORITHM_NAME, $filename, ($this->digestFormat === self::DIGEST_OUTPUT_RAW));
 

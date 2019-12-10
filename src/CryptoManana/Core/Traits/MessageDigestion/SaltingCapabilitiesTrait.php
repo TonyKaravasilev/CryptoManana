@@ -7,6 +7,7 @@
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
 use \CryptoManana\Core\Interfaces\MessageDigestion\SaltingCapabilitiesInterface as SaltingCapabilitiesSpecification;
+use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait SaltingCapabilitiesTrait - Reusable implementation of `SaltingCapabilitiesInterface`.
@@ -23,6 +24,106 @@ use \CryptoManana\Core\Interfaces\MessageDigestion\SaltingCapabilitiesInterface 
 trait SaltingCapabilitiesTrait
 {
     /**
+     * List of salting modes that add the salt at the front side of the input data.
+     *
+     * @var array Salting mode codes.
+     */
+    private $inFrontCases = [
+        self::SALTING_MODE_PREPEND,
+        self::SALTING_MODE_REVERSE_PREPEND,
+        self::SALTING_MODE_DUPLICATE_PREFIX
+    ];
+
+    /**
+     * List of salting modes that add the salt at the back side of the input data.
+     *
+     * @var array Salting mode codes.
+     */
+    private $inBackCases = [
+        self::SALTING_MODE_APPEND,
+        self::SALTING_MODE_REVERSE_APPEND,
+        self::SALTING_MODE_DUPLICATE_SUFFIX
+    ];
+
+    /**
+     * List of salting modes that use complex salt and input data manipulation procedures.
+     *
+     * @var array Salting mode codes.
+     */
+    private $inSpecialCases = [
+        self::SALTING_MODE_INFIX_INPUT,
+        self::SALTING_MODE_INFIX_SALT,
+        self::SALTING_MODE_PALINDROME_MIRRORING
+    ];
+
+    /**
+     * Internal method for grouping salting modes that add to the front of the input data.
+     *
+     * @param string $data The input data for hashing.
+     *
+     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     */
+    private function saltAtFront(&$data)
+    {
+        switch ($this->saltingMode) {
+            case self::SALTING_MODE_PREPEND: // SALTpassword
+                $data = $this->salt . $data;
+                break;
+            case self::SALTING_MODE_REVERSE_PREPEND: // TLASpassword
+                $data = StringBuilder::stringReverse($this->salt) . $data;
+                break;
+            case self::SALTING_MODE_DUPLICATE_PREFIX: // SALTTLASpassword
+                $data = $this->salt . StringBuilder::stringReverse($this->salt) . $data;
+                break;
+        }
+    }
+
+    /**
+     * Internal method for grouping salting modes that add to the back of the input data.
+     *
+     * @param string $data The input data for hashing.
+     *
+     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     */
+    private function saltAtBack(&$data)
+    {
+        switch ($this->saltingMode) {
+            case self::SALTING_MODE_APPEND: // passwordSALT
+                $data .= $this->salt;
+                break;
+            case self::SALTING_MODE_REVERSE_APPEND: // passwordTLAS
+                $data .= StringBuilder::stringReverse($this->salt);
+                break;
+            case self::SALTING_MODE_DUPLICATE_SUFFIX: // passwordSALTTLAS
+                $data = $data . $this->salt . StringBuilder::stringReverse($this->salt);
+                break;
+        }
+    }
+
+    /**
+     * Internal method for grouping salting modes that use complex manipulations of the salt and input data.
+     *
+     * @param string $data The input data for hashing.
+     *
+     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     */
+    private function saltAtSpecial(&$data)
+    {
+        switch ($this->saltingMode) {
+            case self::SALTING_MODE_INFIX_INPUT: // SALTpasswordTLAS
+                $data = $this->salt . $data . StringBuilder::stringReverse($this->salt);
+                break;
+            case self::SALTING_MODE_INFIX_SALT: // passwordSALTdrowssap
+                $data = $data . $this->salt . StringBuilder::stringReverse($data);
+                break;
+            case self::SALTING_MODE_PALINDROME_MIRRORING: // SALTpassworddrowssapTLAS
+                $data = $this->salt . $data . StringBuilder::stringReverse($data);
+                $data .= StringBuilder::stringReverse($this->salt);
+                break;
+        }
+    }
+
+    /**
      * Internal method for adding the salt string to the input data via the chosen salting mode.
      *
      * @param string $data The input data for hashing.
@@ -31,36 +132,16 @@ trait SaltingCapabilitiesTrait
      */
     protected function addSaltString($data)
     {
-        switch ($this->getSaltingMode()) {
-            case self::SALTING_MODE_APPEND: // passwordSALT
-                $data .= $this->salt;
-                break;
-            case self::SALTING_MODE_PREPEND: // SALTpassword
-                $data = $this->salt . $data;
-                break;
-            case self::SALTING_MODE_INFIX_INPUT: // SALTpasswordTLAS
-                $data = $this->salt . $data . strrev($this->salt);
-                break;
-            case self::SALTING_MODE_INFIX_SALT: // passwordSALTdrowssap
-                $data = $data . $this->salt . strrev($data);
-                break;
-            case self::SALTING_MODE_REVERSE_APPEND: // passwordTLAS
-                $data .= strrev($this->salt);
-                break;
-            case self::SALTING_MODE_REVERSE_PREPEND: // TLASpassword
-                $data = strrev($this->salt) . $data;
-                break;
-            case self::SALTING_MODE_DUPLICATE_SUFFIX: // passwordSALTTLAS
-                $data = $data . $this->salt . strrev($this->salt);
-                break;
-            case self::SALTING_MODE_DUPLICATE_PREFIX: // SALTTLASpassword
-                $data = $this->salt . strrev($this->salt) . $data;
-                break;
-            case self::SALTING_MODE_PALINDROME_MIRRORING: // SALTpassworddrowssapTLAS
-                $data = $this->salt . $data . strrev($data) . strrev($this->salt);
-                break;
-            default: // case self::SALTING_MODE_NONE:
-                break;
+        if ($this->saltingMode === self::SALTING_MODE_NONE) {
+            return $data;
+        }
+
+        if (in_array($this->saltingMode, $this->inBackCases)) {
+            $this->saltAtBack($data);
+        } elseif (in_array($this->saltingMode, $this->inFrontCases)) {
+            $this->saltAtFront($data);
+        } elseif (in_array($this->saltingMode, $this->inSpecialCases)) {
+            $this->saltAtSpecial($data);
         }
 
         return $data;
