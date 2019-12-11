@@ -24,7 +24,7 @@ final class ShaTwo224Test extends AbstractUnitTest
      * Creates new instances for testing.
      *
      * @return ShaTwo224 Testing instance.
-     * @throws \Exception If system does not support algorithm.
+     * @throws \Exception If the system does not support the algorithm.
      */
     private function getHashAlgorithmInstanceForTesting()
     {
@@ -89,7 +89,7 @@ final class ShaTwo224Test extends AbstractUnitTest
     /**
      * Testing if the algorithm never returns an empty output digest.
      *
-     * @throws \Exception If the randomness source is not available.
+     * @throws \Exception If the system does not support the algorithm.
      */
     public function testTheOutputDigestIsNeverEmpty()
     {
@@ -119,6 +119,24 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals(
             '116e9830fa46bf3661977a83738bb4260f8fb5fd0a1fee644e268b69',
             $hasher->hashData('я1Й\`.a$#!x')
+        );
+    }
+
+    /**
+     * Testing if the generation of a digest twice with the same input returns the same result.
+     *
+     * @throws \Exception If system does not support the algorithm or the randomness source is not available.
+     */
+    public function testCalculatingTheSameDigestTwice()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+
+        $randomData = random_bytes(32);
+
+        $this->assertEquals(
+            $hasher->hashData($randomData),
+            $hasher->hashData($randomData)
         );
     }
 

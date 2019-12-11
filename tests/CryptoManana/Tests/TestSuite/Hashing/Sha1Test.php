@@ -24,7 +24,7 @@ final class Sha1Test extends AbstractUnitTest
      * Creates new instances for testing.
      *
      * @return Sha1 Testing instance.
-     * @throws \Exception If system does not support algorithm.
+     * @throws \Exception If the system does not support the algorithm.
      */
     private function getHashAlgorithmInstanceForTesting()
     {
@@ -89,7 +89,7 @@ final class Sha1Test extends AbstractUnitTest
     /**
      * Testing if the algorithm never returns an empty output digest.
      *
-     * @throws \Exception If the randomness source is not available.
+     * @throws \Exception If the system does not support the algorithm.
      */
     public function testTheOutputDigestIsNeverEmpty()
     {
@@ -104,6 +104,24 @@ final class Sha1Test extends AbstractUnitTest
         $this->assertTrue($hasher instanceof Sha1);
 
         $this->assertNotEmpty($hasher->hashData(''));
+    }
+
+    /**
+     * Testing if the generation of a digest twice with the same input returns the same result.
+     *
+     * @throws \Exception If system does not support the algorithm or the randomness source is not available.
+     */
+    public function testCalculatingTheSameDigestTwice()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+
+        $randomData = random_bytes(32);
+
+        $this->assertEquals(
+            $hasher->hashData($randomData),
+            $hasher->hashData($randomData)
+        );
     }
 
     /**
