@@ -34,7 +34,6 @@ class IncompatibleException extends FrameworkException
      *
      * @return int The exception's error code.
      * @see IncompatibleException::INTERNAL_CODE Default error code.
-     *
      */
     public function getFrameworkErrorCode()
     {

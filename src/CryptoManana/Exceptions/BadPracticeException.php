@@ -34,7 +34,6 @@ class BadPracticeException extends FrameworkException
      *
      * @return int The exception's error code.
      * @see BadPracticeException::INTERNAL_CODE Default error code.
-     *
      */
     public function getFrameworkErrorCode()
     {

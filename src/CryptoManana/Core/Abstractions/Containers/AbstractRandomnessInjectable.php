@@ -44,7 +44,6 @@ abstract class AbstractRandomnessInjectable implements SetterInjectable, Seedabl
      *
      * @throws \Exception Initialization validation.
      * @internal The default service is always the most secure one available.
-     *
      */
     public function __construct(RandomnessSource $generator = null)
     {
@@ -83,7 +82,7 @@ abstract class AbstractRandomnessInjectable implements SetterInjectable, Seedabl
     {
         if ($this->randomnessSource instanceof SeedableGenerator) {
             /**
-             * {@internal Back-ward comparability way of calling a static method (`::`) via dynamic operator (`->`). }
+             * {@internal Backward compatibility way of calling a static method (`::`) via dynamic operator (`->`). }}
              */
             $this->randomnessSource->setSeed($seed);
         }

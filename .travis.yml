@@ -43,6 +43,8 @@ before_script:
     fi
   - php -i | grep -i 'OpenSSL Library'
   - php -i | grep -i 'opcache.enable'
+  - echo 'sys_temp_dir=/tmp' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo 'upload_tmp_dir=/tmp' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer validate
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist

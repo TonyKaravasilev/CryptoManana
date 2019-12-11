@@ -34,7 +34,6 @@ class CryptographyException extends FrameworkException
      *
      * @return int The exception's error code.
      * @see CryptographyException::INTERNAL_CODE Default error code.
-     *
      */
     public function getFrameworkErrorCode()
     {

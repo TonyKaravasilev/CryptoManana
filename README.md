@@ -51,15 +51,19 @@ cd CryptoManana && composer install --profile
 vendor/bin/phpunit --testdox --no-coverage
 vendor/bin/phpcs
 ```
+*Note: Do not forget to set the `sys_temp_dir` or `upload_tmp_dir` location at your php.ini configuration file.*
 
-## Enable Unicode Support (OPTIONAL)
+## Enable 8-bit Unicode Transformation Format Support via 3rd Party Extension (OPTIONAL)
 - Install and enable the `mbstring` PHP extension;
 - Configure the encoding and enable CryptoManana to use it:
 ```php
 // Autoload packages via Composer class autoloader
 require 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-// Configure `mbstring` to use your favourite encoding
+// Configure PHP internal encoding (default is `UTF-8` for PHP >= 5.6)
+ini_set('default_charset', 'UTF-8');
+
+// Configure `mbstring` to use your favourite UTF-8 encoding
 mb_regex_encoding('UTF-8');
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');

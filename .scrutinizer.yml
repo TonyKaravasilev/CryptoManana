@@ -8,7 +8,7 @@ build:
 filter:
   paths: [src/CryptoManana/*]
   excluded_paths: [tests/*, vendor/*]
-  dependency_paths: [src/compatibility.php]
+  dependency_paths: [src/compatibility.php, src/CryptoManana/Compatibility/*]
 
 checks:
   php: true

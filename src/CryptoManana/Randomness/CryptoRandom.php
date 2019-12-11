@@ -94,7 +94,6 @@ class CryptoRandom extends RandomnessSource implements SeedAction
      *
      * @throws \Exception|\CryptoManana\Exceptions\CryptographyException On seed with other value than `null`.
      * @internal This type of generator does not support controllable seeding.
-     *
      */
     public static function setSeed($seed = null)
     {

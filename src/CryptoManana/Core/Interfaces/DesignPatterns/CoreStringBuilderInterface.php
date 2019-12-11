@@ -28,7 +28,6 @@ interface CoreStringBuilderInterface
      * @param bool|int $bool Flag for enabling or disabling the `mbstring` usage.
      *
      * @internal Use the `mbstring` extension only when you need custom encoding support.
-     *
      */
     public static function useMbString($bool = true);
 

@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+v0.3.0, 2019-12-11
+------------------
+- Changed the creation location of all temporary files related to unit testing;
+- Added an abstraction for the framework’s representation of hash algorithms;
+- Added a few standardized unkeyed hash algorithm objects for digest generation;
+- Added unit tests for all newly added hash algorithm object realizations;
+- Added a SHA-3 native realization for older versions of PHP or ext-hash;
+- Added a unit test for the NativeSha3 polyfill object realization;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Updated the project's description at the README.md file;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.2.4, 2019-06-23
 ------------------
 - Updated the configuration of Travis CI and of Scrutinizer CI;
