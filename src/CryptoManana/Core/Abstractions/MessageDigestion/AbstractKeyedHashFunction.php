@@ -1,23 +1,34 @@
 <?php
 
 /**
- * Abstraction for unkeyed hash objects like checksums and plain cryptographic hash functions.
+ * Abstraction for keyed hash objects like HMAC functions (keyed-hash message authentication code hash).
  */
 
 namespace CryptoManana\Core\Abstractions\MessageDigestion;
 
 use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
+use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionKeyInterface as KeyedHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
+use \CryptoManana\Core\Traits\MessageDigestion\DigestionKeyTrait as DigestionKey;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
- * Class AbstractUnkeyedHashFunction - Abstraction for unkeyed hash classes.
+ * Class AbstractKeyedHashFunction - Abstraction for keyed hash classes.
  *
  * @package CryptoManana\Core\Abstractions\MessageDigestion
+ *
+ * @mixin DigestionKey
  */
-abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements ObjectHashing, FileHashing
+abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedHashing, ObjectHashing, FileHashing
 {
+    /**
+     * Data salting capabilities.
+     *
+     * {@internal Reusable implementation of `DigestionKeyInterface`. }}
+     */
+    use DigestionKey;
+
     /**
      * The internal name of the algorithm.
      */
@@ -29,6 +40,13 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
      * @var bool Flag to force native realizations.
      */
     protected $useNative = false;
+
+    /**
+     * The key string property storage.
+     *
+     * @var string The digestion key string value.
+     */
+    protected $key = '';
 
     /**
      * Internal method for location and filename validation.
@@ -76,9 +94,10 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
 
         $data = $this->addSaltString($data);
 
-        $digest = hash(
+        $digest = hash_hmac(
             static::ALGORITHM_NAME,
             $data,
+            $this->key,
             ($this->digestFormat === self::DIGEST_OUTPUT_RAW)
         );
 
@@ -114,9 +133,10 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
 
             $this->setSalt($oldSalt)->setSaltingMode($oldMode);
         } else {
-            $digest = hash_file(
+            $digest = hash_hmac_file(
                 static::ALGORITHM_NAME,
                 $filename,
+                $this->key,
                 ($this->digestFormat === self::DIGEST_OUTPUT_RAW)
             );
 
@@ -154,7 +174,8 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
     {
         return [
             'standard' => static::ALGORITHM_NAME,
-            'type' => 'unkeyed digestion or checksum',
+            'type' => 'keyed digestion or HMAC',
+            'key' => $this->key,
             'salt' => $this->salt,
             'mode' => $this->saltingMode,
         ];
