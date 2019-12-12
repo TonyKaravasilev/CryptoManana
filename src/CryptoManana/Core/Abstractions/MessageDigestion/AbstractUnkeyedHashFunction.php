@@ -9,15 +9,25 @@ namespace CryptoManana\Core\Abstractions\MessageDigestion;
 use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
+use \CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Class AbstractUnkeyedHashFunction - Abstraction for unkeyed hash classes.
  *
  * @package CryptoManana\Core\Abstractions\MessageDigestion
+ *
+ * @mixin HashObjects
  */
 abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements ObjectHashing, FileHashing
 {
+    /**
+     * Object hashing capabilities.
+     *
+     * {@internal Reusable implementation of `ObjectHashingInterface`. }}
+     */
+    use HashObjects;
+
     /**
      * The internal name of the algorithm.
      */
@@ -124,25 +134,6 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
         }
 
         return $digest;
-    }
-
-    /**
-     * Calculates a hash value for the serialized value of the given object.
-     *
-     * @param object|\stdClass $object The full path and name of the file for hashing.
-     *
-     * @return string The digest.
-     * @throws \Exception Validation errors.
-     */
-    public function hashObject($object)
-    {
-        if (is_object($object)) {
-            $object = serialize($object);
-        } else {
-            throw new \InvalidArgumentException('The data for hashing must be an object instance.');
-        }
-
-        return $this->hashData($object);
     }
 
     /**

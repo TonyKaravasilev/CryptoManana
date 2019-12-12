@@ -11,6 +11,7 @@ use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionKeyInterface as Keye
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
 use \CryptoManana\Core\Traits\MessageDigestion\DigestionKeyTrait as DigestionKey;
+use \CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
@@ -19,6 +20,7 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * @package CryptoManana\Core\Abstractions\MessageDigestion
  *
  * @mixin DigestionKey
+ * @mixin HashObjects
  */
 abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedHashing, ObjectHashing, FileHashing
 {
@@ -28,6 +30,13 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
      * {@internal Reusable implementation of `DigestionKeyInterface`. }}
      */
     use DigestionKey;
+
+    /**
+     * Object hashing capabilities.
+     *
+     * {@internal Reusable implementation of `ObjectHashingInterface`. }}
+     */
+    use HashObjects;
 
     /**
      * The internal name of the algorithm.
@@ -144,25 +153,6 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
         }
 
         return $digest;
-    }
-
-    /**
-     * Calculates a hash value for the serialized value of the given object.
-     *
-     * @param object|\stdClass $object The full path and name of the file for hashing.
-     *
-     * @return string The digest.
-     * @throws \Exception Validation errors.
-     */
-    public function hashObject($object)
-    {
-        if (is_object($object)) {
-            $object = serialize($object);
-        } else {
-            throw new \InvalidArgumentException('The data for hashing must be an object instance.');
-        }
-
-        return $this->hashData($object);
     }
 
     /**
