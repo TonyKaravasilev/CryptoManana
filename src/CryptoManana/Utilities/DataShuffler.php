@@ -29,7 +29,6 @@ class DataShuffler extends RandomnessContainer implements Shuffling
      */
     public function shuffleString($string = '')
     {
-        // Validate input
         if (!is_string($string)) {
             throw new \InvalidArgumentException('The supplied argument is not of type string.');
         }
@@ -54,7 +53,6 @@ class DataShuffler extends RandomnessContainer implements Shuffling
      */
     public function shuffleArray(array $array = [])
     {
-        // Validate input
         if (empty($array)) {
             return $array;
         }

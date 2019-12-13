@@ -29,7 +29,6 @@ class ElementPicker extends RandomnessContainer implements ElementChoosing
      */
     public function pickCharacterElement($string = '')
     {
-        // Validate input
         if (!is_string($string)) {
             throw new \InvalidArgumentException('The supplied argument is not of type string.');
         }
@@ -54,7 +53,6 @@ class ElementPicker extends RandomnessContainer implements ElementChoosing
      */
     public function pickArrayElement(array $array = [])
     {
-        // Validate input
         if (empty($array)) {
             return $array;
         }

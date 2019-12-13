@@ -81,6 +81,26 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
     }
 
     /**
+     * Internal method for checking if native file hashing should be used by force.
+     *
+     * @return bool Is native hashing needed for the current salting mode.
+     */
+    protected function isFileSaltingForcingNativeHashing()
+    {
+        return (
+            (
+                // If there is an non-empty salt string set and salting is enabled
+                $this->salt !== '' &&
+                $this->saltingMode !== self::SALTING_MODE_NONE
+            ) || (
+                // If there is an empty salt string set and the salting mode duplicates/manipulates the input
+                $this->salt === '' &&
+                in_array($this->saltingMode, [self::SALTING_MODE_INFIX_SALT, self::SALTING_MODE_PALINDROME_MIRRORING])
+            )
+        );
+    }
+
+    /**
      * Unkeyed hash algorithm constructor.
      */
     public function __construct()
@@ -125,43 +145,24 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
      */
     public function hashFile($filename)
     {
-        // Validate input type
         if (!is_string($filename)) {
             throw new \InvalidArgumentException('The file path must be of type string.');
         }
 
         $this->validateFileNamePath($filename);
 
-        $useFileSalting = (
-            (
-                // If there is an non-empty salt string set and salting is enabled
-                $this->salt !== '' &&
-                $this->saltingMode !== self::SALTING_MODE_NONE
-            ) || (
-                // If there is an empty salt string set and the salting mode duplicates/manipulates the input
-                $this->salt === '' &&
-                in_array($this->saltingMode, [self::SALTING_MODE_INFIX_SALT, self::SALTING_MODE_PALINDROME_MIRRORING])
-            )
-        );
+        $useFileSalting = $this->isFileSaltingForcingNativeHashing();
 
         if ($this->useNative || $useFileSalting) {
-            /**
-             * {@internal An optimization for native performance that spears string manipulations and function calls. }}
-             */
-            if (!$useFileSalting) {
-                $oldSalt = $this->salt;
-                $oldMode = $this->saltingMode;
+            $oldSalt = $this->salt;
+            $oldMode = $this->saltingMode;
 
-                $this->salt = '';
-                $this->saltingMode = self::SALTING_MODE_NONE;
-            }
+            $this->salt = ($useFileSalting) ? $this->salt : '';
+            $this->saltingMode = ($useFileSalting) ? $this->saltingMode : self::SALTING_MODE_NONE;
 
             $digest = $this->hashData(file_get_contents($filename));
 
-            if (!$useFileSalting && isset($oldSalt, $oldMode)) {
-                $this->salt = $oldSalt;
-                $this->saltingMode = $oldMode;
-            }
+            $this->setSalt($oldSalt)->setSaltingMode($oldMode);
         } else {
             $digest = hash_hmac_file(
                 static::ALGORITHM_NAME,
