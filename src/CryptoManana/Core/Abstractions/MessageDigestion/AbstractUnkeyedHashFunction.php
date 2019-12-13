@@ -114,15 +114,36 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
 
         $this->validateFileNamePath($filename);
 
-        if ($this->useNative) {
-            $oldSalt = $this->getSalt();
-            $oldMode = $this->getSaltingMode();
+        $useFileSalting = (
+            (
+                // If there is an non-empty salt string set and salting is enabled
+                $this->salt !== '' &&
+                $this->saltingMode !== self::SALTING_MODE_NONE
+            ) || (
+                // If there is an empty salt string set and the salting mode duplicates/manipulates the input
+                $this->salt === '' &&
+                in_array($this->saltingMode, [self::SALTING_MODE_INFIX_SALT, self::SALTING_MODE_PALINDROME_MIRRORING])
+            )
+        );
 
-            $this->setSalt('')->setSaltingMode(self::SALTING_MODE_NONE);
+        if ($this->useNative || $useFileSalting) {
+            /**
+             * {@internal An optimization for native performance that spears string manipulations and function calls. }}
+             */
+            if (!$useFileSalting) {
+                $oldSalt = $this->salt;
+                $oldMode = $this->saltingMode;
+
+                $this->salt = '';
+                $this->saltingMode = self::SALTING_MODE_NONE;
+            }
 
             $digest = $this->hashData(file_get_contents($filename));
 
-            $this->setSalt($oldSalt)->setSaltingMode($oldMode);
+            if (!$useFileSalting && isset($oldSalt, $oldMode)) {
+                $this->salt = $oldSalt;
+                $this->saltingMode = $oldMode;
+            }
         } else {
             $digest = hash_file(
                 static::ALGORITHM_NAME,
