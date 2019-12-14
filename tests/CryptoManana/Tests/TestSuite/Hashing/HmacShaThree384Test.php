@@ -1,34 +1,34 @@
 <?php
 
 /**
- * Testing the SHA-2 family SHA-224 realization used for digest generation.
+ * Testing the SHA-3 family HMAC-SHA-384 realization used for digest generation.
  */
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
+use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
-use \CryptoManana\Hashing\ShaTwo224;
+use \CryptoManana\Hashing\HmacShaThree384;
 
 /**
- * Class ShaTwo224Test - Testing the SHA-2 family SHA-224 class.
+ * Class HmacShaThree384Test - Testing the SHA-3 family HMAC-SHA-384 class.
  *
  * @package CryptoManana\Tests\TestSuite\Hashing
  */
-final class ShaTwo224Test extends AbstractUnitTest
+final class HmacShaThree384Test extends AbstractUnitTest
 {
     /**
      * Creates new instances for testing.
      *
-     * @return ShaTwo224 Testing instance.
+     * @return HmacShaThree384 Testing instance.
      * @throws \Exception If the system does not support the algorithm.
      */
     private function getHashAlgorithmInstanceForTesting()
     {
-        return new ShaTwo224();
+        return new HmacShaThree384();
     }
 
     /**
@@ -95,31 +95,18 @@ final class ShaTwo224Test extends AbstractUnitTest
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
-        $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER)
-            ->setSaltingMode($hasher::SALTING_MODE_PREPEND)
-            ->setSalt('');
+        $hasher->setKey('manana');
+        $this->assertEquals('manana', $hasher->getKey());
+
+        $hasher->setKey('')
+            ->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER)
+            ->setSaltingMode($hasher::SALTING_MODE_PREPEND);
 
         $this->assertTrue($hasher instanceof AbstractHashAlgorithm);
-        $this->assertTrue($hasher instanceof AbstractUnkeyedHashFunction);
-        $this->assertTrue($hasher instanceof ShaTwo224);
+        $this->assertTrue($hasher instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($hasher instanceof HmacShaThree384);
 
         $this->assertNotEmpty($hasher->hashData(''));
-    }
-
-    /**
-     * Testing if the digest generation of an UTF-8 string produces the proper output.
-     *
-     * @throws \Exception If the tested class or property does not exist.
-     */
-    public function testUnicodeStringHashing()
-    {
-        $hasher = $this->getHashAlgorithmInstanceForTesting();
-        $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
-
-        $this->assertEquals(
-            '116e9830fa46bf3661977a83738bb4260f8fb5fd0a1fee644e268b69',
-            $hasher->hashData('я1Й\`.a$#!x')
-        );
     }
 
     /**
@@ -133,10 +120,27 @@ final class ShaTwo224Test extends AbstractUnitTest
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
 
         $randomData = random_bytes(32);
+        $randomKey = random_bytes(32);
 
         $this->assertEquals(
-            $hasher->hashData($randomData),
-            $hasher->hashData($randomData)
+            $hasher->setKey($randomKey)->hashData($randomData),
+            $hasher->setKey($randomKey)->hashData($randomData)
+        );
+    }
+
+    /**
+     * Testing if the digest generation of an UTF-8 string produces the proper output.
+     *
+     * @throws \Exception If the tested class or property does not exist.
+     */
+    public function testUnicodeStringHashing()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setKey('test')->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+
+        $this->assertEquals(
+            '7e89440647491f78db2dd7c59c636eff7bf2d7ef3773bd289fbbf16e82061515710cc26fc5e2f2ac25eba3c961fd9f9e',
+            $hasher->hashData('я1Й\`.a$#!x')
         );
     }
 
@@ -148,39 +152,42 @@ final class ShaTwo224Test extends AbstractUnitTest
     public function testDigestGenerationAndOutputFormatsActions()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
 
         $this->assertEquals(
-            hex2bin('d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f'),
+            hex2bin(
+                '52cc09670eb96a16a894559378b122c877bb7aa3eb7a79c4672f3a5efbe2c0f874526a1bcabfee094febc82cc385bb49'
+            ),
             $hasher->hashData('')
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
 
         $this->assertEquals(
-            'D14A028C2A3A2BC9476102BB288234C415A2B01F828EA62AC5B3E42F',
+            '52CC09670EB96A16A894559378B122C877BB7AA3EB7A79C4672F3A5EFBE2C0F874526A1BCABFEE094FEBC82CC385BB49',
             $hasher->hashData('')
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
 
         $this->assertEquals(
-            'd14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f',
+            '52cc09670eb96a16a894559378b122c877bb7aa3eb7a79c4672f3a5efbe2c0f874526a1bcabfee094febc82cc385bb49',
             $hasher->hashData('')
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
 
         $this->assertEquals(
-            '0UoCjCo6K8lHYQK7KII0xBWisB+CjqYqxbPkLw==',
+            'UswJZw65ahaolFWTeLEiyHe7eqPrennEZy86XvviwPh0Umobyr/uCU/ryCzDhbtJ',
             $hasher->hashData('')
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
 
         $this->assertEquals(
-            '0UoCjCo6K8lHYQK7KII0xBWisB-CjqYqxbPkLw',
+            'UswJZw65ahaolFWTeLEiyHe7eqPrennEZy86XvviwPh0Umobyr_uCU_ryCzDhbtJ',
             $hasher->hashData('')
         );
     }
@@ -193,6 +200,7 @@ final class ShaTwo224Test extends AbstractUnitTest
     public function testSaltingCapabilitiesForHashingActions()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setKey('xxx');
 
         $data = 'test';
         $hasher->setSalt('1234');
@@ -203,7 +211,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_NONE, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '90A3ED9E32B2AAF4C61C410EB925426119E1A9DC53D4286ADE99A809',
+            '5F5BE77484C69423E42652DFECC9D9A3B89676361BAFE15AC45577F4DE01A3E8D768DF00E782302141581A5FBA3C90BF',
             $hasher->hashData($data)
         );
 
@@ -211,7 +219,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_APPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            'FE53BE35763BCCD7295B7225ED41F5C508440E8C4CC2A6B52725105A',
+            '256C8FEDB0D116EDDEA1F304B2CA7DDA063C8344AE4EB612C46666528EB61AC183407E87ACB47FDADA1D460F4FB2DE45',
             $hasher->hashData($data)
         );
 
@@ -219,7 +227,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_PREPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '0B03DD6B0FC60D5B2DD5E87B5D33BB41BA4B495DA0384C97A0EBEA68',
+            'BAE945B5B4A480F85F73A6EA0541B1C105C23F3D531CC92FBD1ADF7412BCB76A0864C5762F279F4EB0A56CA74EB541C9',
             $hasher->hashData($data)
         );
 
@@ -227,7 +235,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_INFIX_INPUT, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '4869515BE5706A0A3403043CBDB55882E76E9BFDAD710E1853CFB7AD',
+            '4EC29EEAB87D1B5D795D81F10A0C709FF9E96BEA4CEA43316113194F3EAB3831AA30DAFC017C8E1A1493B14A2944DAA9',
             $hasher->hashData($data)
         );
 
@@ -235,7 +243,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_INFIX_SALT, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '57E527BA4FC29A07D14A62E48FBB26DBB61C7CDD8A5D18DC101FF6C2',
+            '501E0CBF03738017C6E9A74DB4D24EE65689ACD553D782C697FF5A251F3191C9CE8D1DC3FD9D4517780D1447A51BD81E',
             $hasher->hashData($data)
         );
 
@@ -243,7 +251,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_REVERSE_APPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '7A9F203CB2A52E62406B605D0B1053D28AB60F1FF3B1D53EA417418C',
+            'EE606B0BC8B65082F11ED595C4786663D6060CCDF8C494E481D5F6590781F4F478D39A0F68CECAF953A3B8E00B5748FA',
             $hasher->hashData($data)
         );
 
@@ -251,7 +259,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_REVERSE_PREPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '4C3BD699D1F5016AFB27032CFE16184F7FF0942B3ED2F5A1903FBA7D',
+            '604B0D44F242E2B5A1BD0EA6E56B4DC46D4CD596C4228B71F9C14A777576C7CEACAF96B8C614F770F569E7D3D768E978',
             $hasher->hashData($data)
         );
 
@@ -259,7 +267,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_DUPLICATE_SUFFIX, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '542256236C7212251E6F941D564E292A8A53C5C1444EFBF739CC734F',
+            '5A9C94CD300F759C260161458D303E156724EB833E90090702F17260061DDC308135676E20EAC913E1E808850C300FBC',
             $hasher->hashData($data)
         );
 
@@ -267,7 +275,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_DUPLICATE_PREFIX, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            'AC9CB645CBA85F61495054D0A64F208F4F10E74EBE49445A4D0751D9',
+            '8591608A9EB40DB9B90EFECD65D0193DF9BAEA4AF9E5E25824CCEADDAF624A8D1207E40B0113E86B9E894DA9BDCD8508',
             $hasher->hashData($data)
         );
 
@@ -275,7 +283,7 @@ final class ShaTwo224Test extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_PALINDROME_MIRRORING, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            'D02742E32D4A271288020B6E7BA737492387B89CBC2708B956F9FA22',
+            '84F451BE06ECDBF237BB65ED40B82F6D0F793A8C82C3E603455B681EF04A1FDB3FEDBB835F71062CDE27415BFAC70AE3',
             $hasher->hashData($data)
         );
     }
@@ -288,6 +296,7 @@ final class ShaTwo224Test extends AbstractUnitTest
     public function testObjectHashingFeatureActions()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setKey('xxx');
 
         $this->assertTrue($hasher instanceof ObjectHashingInterface);
 
@@ -308,6 +317,7 @@ final class ShaTwo224Test extends AbstractUnitTest
     public function testFileHashingFeatureActions()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setKey('xxx');
 
         $this->assertTrue($hasher instanceof FileHashingInterface);
 
@@ -315,11 +325,11 @@ final class ShaTwo224Test extends AbstractUnitTest
 
         $this->writeToFile($fileName, 'test');
 
-        $testCases = [true, false];
+        $testCases = in_array('sha3-384', hash_algos(), true) ? [true, false] : [true];
 
         foreach ($testCases as $toUse) {
             $reflectionUseProperty = new \ReflectionProperty(
-                ShaTwo224::class,
+                HmacShaThree384::class,
                 'useNative'
             );
 
@@ -464,6 +474,37 @@ final class ShaTwo224Test extends AbstractUnitTest
 
             try {
                 $hasher->hashData(['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for invalid key used for hashing.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidKeyForHashing()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $hasher->setKey(['wrong']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $hasher->setKey(['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {

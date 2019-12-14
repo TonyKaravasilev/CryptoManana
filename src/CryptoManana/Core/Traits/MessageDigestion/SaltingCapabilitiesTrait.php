@@ -28,7 +28,7 @@ trait SaltingCapabilitiesTrait
      *
      * @var array Salting mode codes.
      */
-    private $inFrontCases = [
+    protected $inFrontCases = [
         self::SALTING_MODE_PREPEND,
         self::SALTING_MODE_REVERSE_PREPEND,
         self::SALTING_MODE_DUPLICATE_PREFIX
@@ -39,7 +39,7 @@ trait SaltingCapabilitiesTrait
      *
      * @var array Salting mode codes.
      */
-    private $inBackCases = [
+    protected $inBackCases = [
         self::SALTING_MODE_APPEND,
         self::SALTING_MODE_REVERSE_APPEND,
         self::SALTING_MODE_DUPLICATE_SUFFIX
@@ -50,7 +50,7 @@ trait SaltingCapabilitiesTrait
      *
      * @var array Salting mode codes.
      */
-    private $inSpecialCases = [
+    protected $inSpecialCases = [
         self::SALTING_MODE_INFIX_INPUT,
         self::SALTING_MODE_INFIX_SALT,
         self::SALTING_MODE_PALINDROME_MIRRORING
@@ -63,7 +63,7 @@ trait SaltingCapabilitiesTrait
      *
      * @internal The parameter is passed via reference from the main logical method for performance reasons.
      */
-    private function saltAtFront(&$data)
+    protected function saltAtFront(&$data)
     {
         switch ($this->saltingMode) {
             case self::SALTING_MODE_PREPEND: // SALTpassword
@@ -85,7 +85,7 @@ trait SaltingCapabilitiesTrait
      *
      * @internal The parameter is passed via reference from the main logical method for performance reasons.
      */
-    private function saltAtBack(&$data)
+    protected function saltAtBack(&$data)
     {
         switch ($this->saltingMode) {
             case self::SALTING_MODE_APPEND: // passwordSALT
@@ -107,7 +107,7 @@ trait SaltingCapabilitiesTrait
      *
      * @internal The parameter is passed via reference from the main logical method for performance reasons.
      */
-    private function saltAtSpecial(&$data)
+    protected function saltAtSpecial(&$data)
     {
         switch ($this->saltingMode) {
             case self::SALTING_MODE_INFIX_INPUT: // SALTpasswordTLAS

@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+v0.4.0, 2019-12-14
+------------------
+- Added salting capabilities when hashing files for all digest algorithms and updated the unit tests;
+- Added a few standardized keyed hash algorithm (HMAC) objects for digest generation;
+- Added unit tests for all newly added keyed hash algorithm object realizations;
+- Added a HMAC-SHA-3 native realization for older versions of PHP or ext-hash;
+- Added a unit test for the NativeHmacSha3 polyfill object realization;
+- Improved the code reuse in some lasses that define the same methods;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.3.0, 2019-12-11
 ------------------
 - Changed the creation location of all temporary files related to unit testing;

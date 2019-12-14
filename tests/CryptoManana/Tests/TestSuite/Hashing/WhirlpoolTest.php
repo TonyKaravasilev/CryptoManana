@@ -24,7 +24,7 @@ final class WhirlpoolTest extends AbstractUnitTest
      * Creates new instances for testing.
      *
      * @return Whirlpool Testing instance.
-     * @throws \Exception If system does not support algorithm.
+     * @throws \Exception If the system does not support the algorithm.
      */
     private function getHashAlgorithmInstanceForTesting()
     {
@@ -89,7 +89,7 @@ final class WhirlpoolTest extends AbstractUnitTest
     /**
      * Testing if the algorithm never returns an empty output digest.
      *
-     * @throws \Exception If the randomness source is not available.
+     * @throws \Exception If the system does not support the algorithm.
      */
     public function testTheOutputDigestIsNeverEmpty()
     {
@@ -104,6 +104,24 @@ final class WhirlpoolTest extends AbstractUnitTest
         $this->assertTrue($hasher instanceof Whirlpool);
 
         $this->assertNotEmpty($hasher->hashData(''));
+    }
+
+    /**
+     * Testing if the generation of a digest twice with the same input returns the same result.
+     *
+     * @throws \Exception If system does not support the algorithm or the randomness source is not available.
+     */
+    public function testCalculatingTheSameDigestTwice()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+        $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+
+        $randomData = random_bytes(32);
+
+        $this->assertEquals(
+            $hasher->hashData($randomData),
+            $hasher->hashData($randomData)
+        );
     }
 
     /**
@@ -324,13 +342,26 @@ final class WhirlpoolTest extends AbstractUnitTest
             $reflectionUseProperty->setAccessible(true);
             $reflectionUseProperty->setValue($hasher, $toUse);
 
-            foreach ([$hasher::DIGEST_OUTPUT_RAW, $hasher::DIGEST_OUTPUT_HEX_UPPER] as $formatCode) {
-                $hasher->setDigestFormat($formatCode);
+            $saltingCases = [
+                ['', $hasher::SALTING_MODE_NONE], // No salting, use ext-hash
+                ['69', $hasher::SALTING_MODE_NONE], // No salting, use ext-hash
+                ['', $hasher::SALTING_MODE_REVERSE_PREPEND], // With salting, use ext-hash
+                ['123', $hasher::SALTING_MODE_INFIX_SALT], // With salting, use native
+                ['zzя', $hasher::SALTING_MODE_APPEND] // With salting, use native
+            ];
 
-                $this->assertEquals(
-                    $hasher->hashData($this->readFromFile($fileName)),
-                    $hasher->hashFile($fileName)
-                );
+            foreach ($saltingCases as $saltingCase) {
+                list($salt, $saltingMode) = $saltingCase;
+                $hasher->setSalt($salt)->setSaltingMode($saltingMode);
+
+                foreach ([$hasher::DIGEST_OUTPUT_RAW, $hasher::DIGEST_OUTPUT_HEX_UPPER] as $formatCode) {
+                    $hasher->setDigestFormat($formatCode);
+
+                    $this->assertEquals(
+                        $hasher->hashData($this->readFromFile($fileName)),
+                        $hasher->hashFile($fileName)
+                    );
+                }
             }
         }
 
