@@ -430,13 +430,11 @@ class QuasiRandom extends RandomnessSource implements SeedAction
      */
     public function __debugInfo()
     {
-        return array_merge(
-            parent::__debugInfo(),
-            [
-                'quasiNumbersCount' => count(self::$randomNumbers),
-                'quasiBytesCount' => count(self::$randomBytes),
-                'seed' => self::$seed,
-            ]
-        );
+        return [
+            'systemPrecision' => self::$systemPrecision,
+            'quasiNumbersCount' => count(self::$randomNumbers),
+            'quasiBytesCount' => count(self::$randomBytes),
+            'seed' => self::$seed,
+        ];
     }
 }

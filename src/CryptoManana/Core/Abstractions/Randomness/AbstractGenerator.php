@@ -168,16 +168,4 @@ abstract class AbstractGenerator extends RandomnessRepresentation implements
         // Ensures randomness is reinitialized and auto-seeded
         $this->__construct();
     }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'systemPrecision' => self::$systemPrecision,
-        ];
-    }
 }

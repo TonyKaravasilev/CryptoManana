@@ -173,11 +173,9 @@ class CryptoRandom extends RandomnessSource implements SeedAction
      */
     public function __debugInfo()
     {
-        return array_merge(
-            parent::__debugInfo(),
-            [
-                'seed' => 'NOT SUPPORTED',
-            ]
-        );
+        return [
+            'systemPrecision' => self::$systemPrecision,
+            'seed' => 'NOT SUPPORTED',
+        ];
     }
 }

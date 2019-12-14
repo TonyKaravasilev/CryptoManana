@@ -199,11 +199,9 @@ class PseudoRandom extends RandomnessSource implements SeedAction
      */
     public function __debugInfo()
     {
-        return array_merge(
-            parent::__debugInfo(),
-            [
-                'seed' => self::$seed,
-            ]
-        );
+        return [
+            'systemPrecision' => self::$systemPrecision,
+            'seed' => self::$seed,
+        ];
     }
 }
