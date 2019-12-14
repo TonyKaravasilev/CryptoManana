@@ -12,7 +12,7 @@ use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as Obj
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
 use \CryptoManana\Core\Traits\MessageDigestion\DigestionKeyTrait as DigestionKey;
 use \CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use \CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
 
 /**
  * Class AbstractKeyedHashFunction - Abstraction for keyed hash classes.
@@ -21,6 +21,7 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  *
  * @mixin DigestionKey
  * @mixin HashObjects
+ * @mixin HashFiles
  */
 abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedHashing, ObjectHashing, FileHashing
 {
@@ -37,6 +38,13 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
      * {@internal Reusable implementation of `ObjectHashingInterface`. }}
      */
     use HashObjects;
+
+    /**
+     * File hashing capabilities.
+     *
+     * {@internal Reusable implementation of `FileHashingInterface`. }}
+     */
+    use HashFiles;
 
     /**
      * The internal name of the algorithm.
@@ -56,49 +64,6 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
      * @var string The digestion key string value.
      */
     protected $key = '';
-
-    /**
-     * Internal method for location and filename validation.
-     *
-     * @param string $filename The filename and location.
-     *
-     * @throws \Exception Validation errors.
-     */
-    protected function validateFileNamePath($filename)
-    {
-        $filename = StringBuilder::stringReplace("\0", '', $filename); // (ASCII 0 (0x00))
-        $filename = realpath($filename); // Path traversal escape and absolute path fetching
-
-        // Clear path cache
-        if (!empty($filename)) {
-            clearstatcache(true, $filename);
-        }
-
-        // Check if path is valid and the file is readable
-        if ($filename === false || !file_exists($filename) || !is_readable($filename) || !is_file($filename)) {
-            throw new \RuntimeException('File is not found or can not be accessed.');
-        }
-    }
-
-    /**
-     * Internal method for checking if native file hashing should be used by force.
-     *
-     * @return bool Is native hashing needed for the current salting mode.
-     */
-    protected function isFileSaltingForcingNativeHashing()
-    {
-        return (
-            (
-                // If there is an non-empty salt string set and salting is enabled
-                $this->salt !== '' &&
-                $this->saltingMode !== self::SALTING_MODE_NONE
-            ) || (
-                // If there is an empty salt string set and the salting mode duplicates/manipulates the input
-                $this->salt === '' &&
-                in_array($this->saltingMode, [self::SALTING_MODE_INFIX_SALT, self::SALTING_MODE_PALINDROME_MIRRORING])
-            )
-        );
-    }
 
     /**
      * Unkeyed hash algorithm constructor.
