@@ -232,7 +232,7 @@ class StringBuilder extends SingletonPattern implements StringManipulations
             do {
                 $tmp[] = mb_substr($string, 0, $chunkLength);
                 $string = mb_substr($string, $chunkLength);
-            } while (!empty($string));
+            } while ($string !== '');
 
             return $tmp;
         } else {

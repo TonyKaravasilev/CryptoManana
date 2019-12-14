@@ -177,6 +177,8 @@ final class StringBuilderTest extends AbstractUnitTest
         $this->assertEquals(['#b', 'A1'], StringBuilder::stringSplit('#bA1', 2));
         $this->assertEquals(['2⺓', '⺔Я'], StringBuilder::stringSplit('2⺓⺔Я', 2));
         $this->assertEquals(['2⺓⺔Я'], StringBuilder::stringSplit('2⺓⺔Я', 10));
+        $this->assertEquals(['12', '34', '5Я', '78'], StringBuilder::stringSplit('12345Я78', 2));
+        $this->assertEquals(['2', '⺓', '⺔', 'Я'], StringBuilder::stringSplit('2⺓⺔Я', 1));
         $this->assertFalse(StringBuilder::stringSplit('', -1024));
         $this->assertFalse(StringBuilder::stringSplit(new \stdClass()));
 
@@ -185,6 +187,8 @@ final class StringBuilderTest extends AbstractUnitTest
         $this->assertEquals(['#b', 'A1'], StringBuilder::stringSplit('#bA1', 2));
         $this->assertNotEquals(['2⺓', '⺔Я'], StringBuilder::stringSplit('2⺓⺔Я', 2));
         $this->assertEquals(['2⺓⺔Я'], StringBuilder::stringSplit('2⺓⺔Я', 10));
+        $this->assertEquals(['12', '34', '56', '78'], StringBuilder::stringSplit('12345678', 2));
+        $this->assertEquals(['1', '2', '3', '4'], StringBuilder::stringSplit('1234', 1));
         $this->assertFalse(StringBuilder::stringSplit('', -1024));
         $this->assertFalse(StringBuilder::stringSplit(new \stdClass()));
     }
