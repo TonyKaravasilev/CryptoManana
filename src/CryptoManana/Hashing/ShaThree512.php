@@ -49,7 +49,7 @@ class ShaThree512 extends UnkeyedHashAlgorithm
         $rawOutput = ($this->digestFormat === self::DIGEST_OUTPUT_RAW);
 
         /**
-         * {@internal Backward compatibility algorithm for seed must be used. }}
+         * {@internal Backward compatibility native realization for SHA-3 must be used. }}
          */
         $digest = ($this->useNative) ?
             \CryptoManana\Compatibility\NativeSha3::digest512($data, $rawOutput)

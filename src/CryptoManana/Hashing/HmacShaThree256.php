@@ -21,7 +21,7 @@ class HmacShaThree256 extends KeyedHashAlgorithm
     const ALGORITHM_NAME = 'sha3-256';
 
     /**
-     * Checksum digestion algorithm constructor.
+     * Keyed digestion algorithm constructor.
      */
     public function __construct()
     {
@@ -49,7 +49,7 @@ class HmacShaThree256 extends KeyedHashAlgorithm
         $rawOutput = ($this->digestFormat === self::DIGEST_OUTPUT_RAW);
 
         /**
-         * {@internal Backward compatibility algorithm for seed must be used. }}
+         * {@internal Backward compatibility native realization for SHA-3 must be used. }}
          */
         $digest = ($this->useNative) ?
             \CryptoManana\Compatibility\NativeHmacSha3::digest256($data, $this->key, $rawOutput)
