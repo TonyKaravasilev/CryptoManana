@@ -155,6 +155,7 @@ final class HmacShaThree384Test extends AbstractUnitTest
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin(
@@ -164,6 +165,7 @@ final class HmacShaThree384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '52CC09670EB96A16A894559378B122C877BB7AA3EB7A79C4672F3A5EFBE2C0F874526A1BCABFEE094FEBC82CC385BB49',
@@ -171,6 +173,7 @@ final class HmacShaThree384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '52cc09670eb96a16a894559378b122c877bb7aa3eb7a79c4672f3a5efbe2c0f874526a1bcabfee094febc82cc385bb49',
@@ -178,6 +181,7 @@ final class HmacShaThree384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'UswJZw65ahaolFWTeLEiyHe7eqPrennEZy86XvviwPh0Umobyr/uCU/ryCzDhbtJ',
@@ -185,6 +189,7 @@ final class HmacShaThree384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'UswJZw65ahaolFWTeLEiyHe7eqPrennEZy86XvviwPh0Umobyr_uCU_ryCzDhbtJ',
@@ -325,7 +330,7 @@ final class HmacShaThree384Test extends AbstractUnitTest
 
         $this->writeToFile($fileName, 'test');
 
-        $testCases = in_array('sha3-384', hash_algos(), true) ? [true, false] : [true];
+        $testCases = in_array('sha3-384', hash_hmac_algos(), true) ? [true, false] : [true];
 
         foreach ($testCases as $toUse) {
             $reflectionUseProperty = new \ReflectionProperty(

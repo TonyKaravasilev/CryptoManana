@@ -133,6 +133,7 @@ final class WhirlpoolTest extends AbstractUnitTest
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '2f0e137cc8c68f0e405037fb303f79fb589db994a366275eded3595dc04eca990' .
@@ -151,6 +152,7 @@ final class WhirlpoolTest extends AbstractUnitTest
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin(
@@ -161,6 +163,7 @@ final class WhirlpoolTest extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '19FA61D75522A4669B44E39C1D2E1726C530232130D407F89AFEE0964' .
@@ -169,6 +172,7 @@ final class WhirlpoolTest extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '19fa61d75522a4669b44e39c1d2e1726c530232130d407f89afee0' .
@@ -177,6 +181,7 @@ final class WhirlpoolTest extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'Gfph11UipGabROOcHS4XJsUwIyEw1Af4mv7glkmX96c+g75piyiP68+I4+A8TwdX6olk5Ztj2TcIsTjMQqZusw==',
@@ -184,6 +189,7 @@ final class WhirlpoolTest extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'Gfph11UipGabROOcHS4XJsUwIyEw1Af4mv7glkmX96c-g75piyiP68-I4-A8TwdX6olk5Ztj2TcIsTjMQqZusw',

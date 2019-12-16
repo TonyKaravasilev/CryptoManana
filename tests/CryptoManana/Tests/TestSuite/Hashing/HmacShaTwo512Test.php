@@ -156,6 +156,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin(
@@ -166,6 +167,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '01917BF85BE0C998598A2332F75C2FE6F662C0900D4391123CA2BC61F073EDE360AF8F3A' .
@@ -174,6 +176,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '01917bf85be0c998598a2332f75c2fe6f662c0900d4391123ca2bc61f073ede360af8f3a' .
@@ -182,6 +185,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'AZF7+FvgyZhZiiMy91wv5vZiwJANQ5ESPKK8YfBz7eNgr486/W5dPyjf9LV8wiiQqnt0mM9' .
@@ -190,6 +194,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'AZF7-FvgyZhZiiMy91wv5vZiwJANQ5ESPKK8YfBz7eNgr486_W5dPyjf9LV8wiiQqnt0mM9' .

@@ -155,6 +155,7 @@ final class HmacShaTwo384Test extends AbstractUnitTest
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin(
@@ -164,6 +165,7 @@ final class HmacShaTwo384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'BDA08A334994873233C844D24F0E7CF8C76C6E9FEEB9C25CE97B9446E8EFE3E06C261741CA21580360F20F1FD2190E0A',
@@ -171,6 +173,7 @@ final class HmacShaTwo384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'bda08a334994873233c844d24f0e7cf8c76c6e9feeb9c25ce97b9446e8efe3e06c261741ca21580360f20f1fd2190e0a',
@@ -178,6 +181,7 @@ final class HmacShaTwo384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'vaCKM0mUhzIzyETSTw58+Mdsbp/uucJc6XuURujv4+BsJhdByiFYA2DyDx/SGQ4K',
@@ -185,6 +189,7 @@ final class HmacShaTwo384Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'vaCKM0mUhzIzyETSTw58-Mdsbp_uucJc6XuURujv4-BsJhdByiFYA2DyDx_SGQ4K',

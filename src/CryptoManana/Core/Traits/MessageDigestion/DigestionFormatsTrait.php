@@ -31,7 +31,7 @@ trait DigestionFormatsTrait
      */
     protected function changeOutputFormat($digest)
     {
-        switch ($this->getDigestFormat()) {
+        switch ($this->digestFormat) {
             case self::DIGEST_OUTPUT_HEX_LOWER:
                 break; // Comes already in lower, can be skipped
             case self::DIGEST_OUTPUT_HEX_UPPER:

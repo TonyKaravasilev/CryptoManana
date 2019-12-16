@@ -155,6 +155,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin('d30278220969497275016b0287903d08d0274e1afe57cc9729204b31'),
@@ -162,6 +163,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'D30278220969497275016B0287903D08D0274E1AFE57CC9729204B31',
@@ -169,6 +171,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'd30278220969497275016b0287903d08d0274e1afe57cc9729204b31',
@@ -176,6 +179,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '0wJ4IglpSXJ1AWsCh5A9CNAnThr+V8yXKSBLMQ==',
@@ -183,6 +187,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '0wJ4IglpSXJ1AWsCh5A9CNAnThr-V8yXKSBLMQ',
@@ -323,7 +328,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
 
         $this->writeToFile($fileName, 'test');
 
-        $testCases = in_array('sha3-256', hash_algos(), true) ? [true, false] : [true];
+        $testCases = in_array('sha3-256', hash_hmac_algos(), true) ? [true, false] : [true];
 
         foreach ($testCases as $toUse) {
             $reflectionUseProperty = new \ReflectionProperty(
