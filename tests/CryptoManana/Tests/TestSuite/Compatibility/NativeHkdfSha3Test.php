@@ -338,10 +338,10 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
     public function testSpaceStringHashing()
     {
         $digestCollection = [
-            224 => 'a4ef0e7f62a68f618d201350eb9ac8367ba57080',
-            256 => 'a6a865f98bd0786aee9ed8d1da310800fe44f506',
-            384 => 'ffc7a2d0bcadcdc53391c6426f4c990c147990e5',
-            512 => '4771fc504ff5d38e7c32c724de96ef00576a0f71'
+            224 => 'a4ef0e7f62a68f618d201350eb9ac8367ba570803a45f57df4db8c761460fa2ab73fcc3ffe1cba72',
+            256 => 'a6a865f98bd0786aee9ed8d1da310800fe44f506dcfe2f2f1323d0e159141e9a4d5f3b4171a96d6e',
+            384 => 'ffc7a2d0bcadcdc53391c6426f4c990c147990e57aae4815cb96c5a823f6791871bfb660464a2d24',
+            512 => '4771fc504ff5d38e7c32c724de96ef00576a0f71a11ddc740f07752d7343d47c0f1b59afd7d95c59'
         ];
 
         foreach ([true, false] as $useMbString) {
@@ -362,7 +362,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::SPACE_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[224], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[224], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest256(
                 self::SPACE_STRING,
@@ -379,7 +379,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::SPACE_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[256], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[256], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest384(
                 self::SPACE_STRING,
@@ -396,7 +396,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::SPACE_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[384], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[384], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest512(
                 self::SPACE_STRING,
@@ -413,7 +413,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::SPACE_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[512], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[512], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
         }
     }
 
@@ -425,10 +425,10 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
     public function testNullByteHashing()
     {
         $digestCollection = [
-            224 => '849c06494db1012926f6f70c82d667ac1702ff9f',
-            256 => '749b09cf1804d6425cc7c9361df78ffd2c9058b8',
-            384 => '18936d3317d6ab6e5391868333fcc0b78432b68d',
-            512 => '4696604916dd9cb65066f0d5c24bbb29c1d0df98'
+            224 => '849c06494db1012926f6f70c82d667ac1702ff9ffa7189d37914fed05ea2469a9a5db43430b7cbde',
+            256 => '749b09cf1804d6425cc7c9361df78ffd2c9058b8a602c8e79b43ec178f5392f62b72134dfe986940',
+            384 => '18936d3317d6ab6e5391868333fcc0b78432b68df204fcffff444134e9bdf8cc2f48175811d50d26',
+            512 => '4696604916dd9cb65066f0d5c24bbb29c1d0df986c75f71a374f16360a0bb4cabdfa7c8cf494def8'
         ];
 
         foreach ([true, false] as $useMbString) {
@@ -449,7 +449,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::THE_NUL_BYTE,
                 true
             );
-            $this->assertEquals($digestCollection[224], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[224], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest256(
                 self::THE_NUL_BYTE,
@@ -466,7 +466,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::THE_NUL_BYTE,
                 true
             );
-            $this->assertEquals($digestCollection[256], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[256], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest384(
                 self::THE_NUL_BYTE,
@@ -483,7 +483,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::THE_NUL_BYTE,
                 true
             );
-            $this->assertEquals($digestCollection[384], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[384], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest512(
                 self::THE_NUL_BYTE,
@@ -500,7 +500,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::THE_NUL_BYTE,
                 true
             );
-            $this->assertEquals($digestCollection[512], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[512], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
         }
     }
 
@@ -512,10 +512,10 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
     public function testPlainStringHashing()
     {
         $digestCollection = [
-            224 => 'a5c489267ac0826aca54a780ef8ee273f2e901fd',
-            256 => 'cb32962ab8267b3af55a317e3e2787271ab99933',
-            384 => '4c585008cd7e390e81349b841e0861cff1f1fa25',
-            512 => '21cd1e9dd25c566f25a66170efccca15c5273445'
+            224 => 'a5c489267ac0826aca54a780ef8ee273f2e901fd7915afacea32620eabb40778283be6837a7d8774',
+            256 => 'cb32962ab8267b3af55a317e3e2787271ab99933df333d08c9101ac2e3ea6f0ee1a6e298aac55c8d',
+            384 => '4c585008cd7e390e81349b841e0861cff1f1fa25a968e25ba2d9001c91db718e8072a80282cfd189',
+            512 => '21cd1e9dd25c566f25a66170efccca15c52734459ed3d0662acda043287ab08c3a962397d2015bee'
         ];
 
         foreach ([true, false] as $useMbString) {
@@ -536,7 +536,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::ASCII_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[224], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[224], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest256(
                 self::ASCII_STRING,
@@ -553,7 +553,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::ASCII_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[256], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[256], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest384(
                 self::ASCII_STRING,
@@ -570,7 +570,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::ASCII_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[384], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[384], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest512(
                 self::ASCII_STRING,
@@ -587,7 +587,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::ASCII_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[512], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[512], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
         }
     }
 
@@ -599,10 +599,10 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
     public function testUnicodeStringHashing()
     {
         $digestCollection = [
-            224 => '0acb24d6a0f84bc866b1fd67f5ece2c47998fd5a',
-            256 => 'a427165b10f396771ff0bd4c7d735fe488f30037',
-            384 => 'b41a18b98312e28a89a6d074a213d3f7cafa52fd',
-            512 => 'cb3a9a485b9af36468ae3f1027bccdd21c970d39'
+            224 => '0acb24d6a0f84bc866b1fd67f5ece2c47998fd5a6accabff86cad4dabc763d657f4c07495bcade28',
+            256 => 'a427165b10f396771ff0bd4c7d735fe488f3003753cc11ce3bb819d30983dbacdb1a7dfbca410116',
+            384 => 'b41a18b98312e28a89a6d074a213d3f7cafa52fd45204eead0723846370a885304931fee9dc8af09',
+            512 => 'cb3a9a485b9af36468ae3f1027bccdd21c970d39f0566121b500e8962662cb7ef1fd3a4d334b5076'
         ];
 
         foreach ([true, false] as $useMbString) {
@@ -623,7 +623,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::UTF_8_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[224], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[224], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest256(
                 self::UTF_8_STRING,
@@ -640,7 +640,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::UTF_8_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[256], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[256], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest384(
                 self::UTF_8_STRING,
@@ -657,7 +657,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::UTF_8_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[384], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[384], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
 
             $digest = NativeHkdfSha3::digest512(
                 self::UTF_8_STRING,
@@ -674,7 +674,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 self::UTF_8_STRING,
                 true
             );
-            $this->assertEquals($digestCollection[512], substr(bin2hex($digest), 0, self::OUTPUT_LENGTH));
+            $this->assertEquals($digestCollection[512], bin2hex(substr($digest, 0, self::OUTPUT_LENGTH)));
         }
     }
 
@@ -702,18 +702,18 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
 
             if ($nativeSupport) {
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             hash_hkdf(
                                 'sha3-224',
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest224(
                         $randomData,
@@ -735,18 +735,18 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 );
 
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             hash_hkdf(
                                 'sha3-256',
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest256(
                         $randomData,
@@ -768,18 +768,18 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 );
 
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             hash_hkdf(
                                 'sha3-384',
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest384(
                         $randomData,
@@ -801,18 +801,18 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 );
 
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             hash_hkdf(
                                 'sha3-512',
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest512(
                         $randomData,
@@ -834,18 +834,18 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                 );
             } else {
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             NativeHkdfSha3::digest224(
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt,
                                 true
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest224(
                         $randomData,
@@ -864,36 +864,32 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                             $randomSalt
                         )
                     ),
-                    hex2bin(
-                        substr(
-                            bin2hex(
-                                NativeHkdfSha3::digest224(
-                                    $randomData,
-                                    self::OUTPUT_LENGTH,
-                                    self::APPLICATION_NAME,
-                                    $randomSalt,
-                                    true
-                                )
-                            ),
-                            0,
-                            self::OUTPUT_LENGTH
-                        )
+                    substr(
+                        NativeHkdfSha3::digest224(
+                            $randomData,
+                            self::OUTPUT_LENGTH,
+                            self::APPLICATION_NAME,
+                            $randomSalt,
+                            true
+                        ),
+                        0,
+                        self::OUTPUT_LENGTH
                     )
                 );
 
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             NativeHkdfSha3::digest256(
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt,
                                 true
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest256(
                         $randomData,
@@ -912,36 +908,32 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                             $randomSalt
                         )
                     ),
-                    hex2bin(
-                        substr(
-                            bin2hex(
-                                NativeHkdfSha3::digest256(
-                                    $randomData,
-                                    self::OUTPUT_LENGTH,
-                                    self::APPLICATION_NAME,
-                                    $randomSalt,
-                                    true
-                                )
-                            ),
-                            0,
-                            self::OUTPUT_LENGTH
-                        )
+                    substr(
+                        NativeHkdfSha3::digest256(
+                            $randomData,
+                            self::OUTPUT_LENGTH,
+                            self::APPLICATION_NAME,
+                            $randomSalt,
+                            true
+                        ),
+                        0,
+                        self::OUTPUT_LENGTH
                     )
                 );
 
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             NativeHkdfSha3::digest384(
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt,
                                 true
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest384(
                         $randomData,
@@ -960,36 +952,32 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                             $randomSalt
                         )
                     ),
-                    hex2bin(
-                        substr(
-                            bin2hex(
-                                NativeHkdfSha3::digest384(
-                                    $randomData,
-                                    self::OUTPUT_LENGTH,
-                                    self::APPLICATION_NAME,
-                                    $randomSalt,
-                                    true
-                                )
-                            ),
-                            0,
-                            self::OUTPUT_LENGTH
-                        )
+                    substr(
+                        NativeHkdfSha3::digest384(
+                            $randomData,
+                            self::OUTPUT_LENGTH,
+                            self::APPLICATION_NAME,
+                            $randomSalt,
+                            true
+                        ),
+                        0,
+                        self::OUTPUT_LENGTH
                     )
                 );
 
                 $this->assertEquals(
-                    substr(
-                        bin2hex(
+                    bin2hex(
+                        substr(
                             NativeHkdfSha3::digest512(
                                 $randomData,
                                 self::OUTPUT_LENGTH,
                                 self::APPLICATION_NAME,
                                 $randomSalt,
                                 true
-                            )
-                        ),
-                        0,
-                        self::OUTPUT_LENGTH
+                            ),
+                            0,
+                            self::OUTPUT_LENGTH
+                        )
                     ),
                     NativeHkdfSha3::digest512(
                         $randomData,
@@ -1008,20 +996,16 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
                             $randomSalt
                         )
                     ),
-                    hex2bin(
-                        substr(
-                            bin2hex(
-                                NativeHkdfSha3::digest512(
-                                    $randomData,
-                                    self::OUTPUT_LENGTH,
-                                    self::APPLICATION_NAME,
-                                    $randomSalt,
-                                    true
-                                )
-                            ),
-                            0,
-                            self::OUTPUT_LENGTH
-                        )
+                    substr(
+                        NativeHkdfSha3::digest512(
+                            $randomData,
+                            self::OUTPUT_LENGTH,
+                            self::APPLICATION_NAME,
+                            $randomSalt,
+                            true
+                        ),
+                        0,
+                        self::OUTPUT_LENGTH
                     )
                 );
             }
@@ -1049,7 +1033,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
             );
 
             $this->assertTrue(
-                strlen(NativeHkdfSha3::{$method}('1', 0, '', '', false)) === $size
+                strlen(NativeHkdfSha3::{$method}('1', 0, '', '', false)) === $size * 2
             );
 
             /**
@@ -1060,7 +1044,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
             );
 
             $this->assertTrue(
-                strlen(NativeHkdfSha3::{$method}('1', $size, '', '', false)) === $size
+                strlen(NativeHkdfSha3::{$method}('1', $size, '', '', false)) === 2 * $size
             );
 
             /**
@@ -1073,11 +1057,11 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
             );
 
             $this->assertTrue(
-                strlen(NativeHkdfSha3::{$method}('1', $min, '', '', false)) === $min
+                strlen(NativeHkdfSha3::{$method}('1', $min, '', '', false)) === 2 * $min
             );
 
             /**
-             * {@internal The supports `$size * 255` makes the test too slow so using `$size * 2` instead. }}
+             * {@internal The supported `$size * 255` makes the test too slow so using `$size * 2` instead. }}
              */
             $doubled = $size * 2;
 
@@ -1086,7 +1070,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
             );
 
             $this->assertTrue(
-                strlen(NativeHkdfSha3::{$method}('1', $doubled, '', '', false)) === $doubled
+                strlen(NativeHkdfSha3::{$method}('1', $doubled, '', '', false)) === 2 * $doubled
             );
         }
     }

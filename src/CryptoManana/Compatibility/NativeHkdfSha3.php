@@ -130,13 +130,7 @@ class NativeHkdfSha3 extends SingletonPattern
 
         $digest = self::$mbString ? mb_substr($okm, 0, $length, '8bit') : substr($okm, 0, $length);
 
-        if ($rawOutput == false) {
-            $digest = bin2hex($digest);
-
-            $digest = self::$mbString ? mb_substr($digest, 0, $length, '8bit') : substr($digest, 0, $length);
-        }
-
-        return $digest;
+        return ($rawOutput == true) ? $digest : bin2hex($digest);
     }
 
     /**
