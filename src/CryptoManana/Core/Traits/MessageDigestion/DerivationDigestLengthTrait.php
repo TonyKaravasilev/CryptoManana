@@ -15,7 +15,7 @@ use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationDigestLengthInterfa
  *
  * @package CryptoManana\Core\Traits\MessageDigestion
  *
- * @property string $outputLength The derivation output digest size in bytes length property storage.
+ * @property int $outputLength The derivation output digest size in bytes length property storage.
  *
  * @mixin DigestLengthSpecification
  */
