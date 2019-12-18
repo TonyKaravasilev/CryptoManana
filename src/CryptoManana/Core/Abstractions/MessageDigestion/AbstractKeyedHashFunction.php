@@ -66,7 +66,7 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
     protected $key = '';
 
     /**
-     * Unkeyed hash algorithm constructor.
+     * Keyed hash algorithm constructor.
      */
     public function __construct()
     {

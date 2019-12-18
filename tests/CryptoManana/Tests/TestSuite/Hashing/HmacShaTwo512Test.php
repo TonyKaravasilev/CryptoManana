@@ -138,11 +138,23 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('test')->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
 
-        $this->assertEquals(
-            '31b91caf964ce58bf0a5db6cd444bb3191e01e51617eaf8e0c417f627544e74884e6' .
-            'f66d25e190c8f46cd3cd71aabdb0bdb0026d1c98f223ba8e17f4f34916bc',
-            $hasher->hashData('я1Й\`.a$#!x')
-        );
+        $testCases = [true, false];
+
+        foreach ($testCases as $toUse) {
+            $reflectionUseProperty = new \ReflectionProperty(
+                HmacShaTwo512::class,
+                'useNative'
+            );
+
+            $reflectionUseProperty->setAccessible(true);
+            $reflectionUseProperty->setValue($hasher, $toUse);
+
+            $this->assertEquals(
+                '31b91caf964ce58bf0a5db6cd444bb3191e01e51617eaf8e0c417f627544e74884e6' .
+                'f66d25e190c8f46cd3cd71aabdb0bdb0026d1c98f223ba8e17f4f34916bc',
+                $hasher->hashData('я1Й\`.a$#!x')
+            );
+        }
     }
 
     /**
@@ -150,12 +162,13 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testDigestGenerationAndOutputFormatsActions()
+    public function testDigestOutputFormatsForHashingData()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin(
@@ -166,6 +179,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '01917BF85BE0C998598A2332F75C2FE6F662C0900D4391123CA2BC61F073EDE360AF8F3A' .
@@ -174,6 +188,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '01917bf85be0c998598a2332f75c2fe6f662c0900d4391123ca2bc61f073ede360af8f3a' .
@@ -182,6 +197,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'AZF7+FvgyZhZiiMy91wv5vZiwJANQ5ESPKK8YfBz7eNgr486/W5dPyjf9LV8wiiQqnt0mM9' .
@@ -190,6 +206,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'AZF7-FvgyZhZiiMy91wv5vZiwJANQ5ESPKK8YfBz7eNgr486_W5dPyjf9LV8wiiQqnt0mM9' .
@@ -203,7 +220,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testSaltingCapabilitiesForHashingActions()
+    public function testSaltingCapabilitiesForHashingData()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -309,7 +326,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testObjectHashingFeatureActions()
+    public function testObjectHashingFeature()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -330,7 +347,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception|\ReflectionException If the tested class or method does not exist.
      */
-    public function testFileHashingFeatureActions()
+    public function testFileHashingFeature()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -414,7 +431,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidSaltingModeForHashing()
+    public function testValidationCaseForInvalidSaltingModeUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -445,7 +462,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidOutputFormatForDigests()
+    public function testValidationCaseForInvalidOutputFormatUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -476,7 +493,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidInputDataForHashing()
+    public function testValidationCaseForInvalidInputDataUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -538,7 +555,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidFileNameForHashing()
+    public function testValidationCaseForInvalidFileNameUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -569,7 +586,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForNonExistingFileNameForHashing()
+    public function testValidationCaseForNonExistingFileNameUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -600,7 +617,7 @@ final class HmacShaTwo512Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidTypeForHashingObjects()
+    public function testValidationCaseForInvalidTypePassedForHashingObjects()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 

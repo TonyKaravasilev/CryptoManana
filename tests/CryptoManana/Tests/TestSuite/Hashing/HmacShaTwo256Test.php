@@ -138,10 +138,22 @@ final class HmacShaTwo256Test extends AbstractUnitTest
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('test')->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
 
-        $this->assertEquals(
-            'd8a0f9461e7da84a295fe9da5fc708e23d1bb8f37e7726368489f15eaa51b099',
-            $hasher->hashData('я1Й\`.a$#!x')
-        );
+        $testCases = [true, false];
+
+        foreach ($testCases as $toUse) {
+            $reflectionUseProperty = new \ReflectionProperty(
+                HmacShaTwo256::class,
+                'useNative'
+            );
+
+            $reflectionUseProperty->setAccessible(true);
+            $reflectionUseProperty->setValue($hasher, $toUse);
+
+            $this->assertEquals(
+                'd8a0f9461e7da84a295fe9da5fc708e23d1bb8f37e7726368489f15eaa51b099',
+                $hasher->hashData('я1Й\`.a$#!x')
+            );
+        }
     }
 
     /**
@@ -149,12 +161,13 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testDigestGenerationAndOutputFormatsActions()
+    public function testDigestOutputFormatsForHashingData()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin('ad71148c79f21ab9eec51ea5c7dd2b668792f7c0d3534ae66b22f71c61523fb3'),
@@ -162,6 +175,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'AD71148C79F21AB9EEC51EA5C7DD2B668792F7C0D3534AE66B22F71C61523FB3',
@@ -169,6 +183,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'ad71148c79f21ab9eec51ea5c7dd2b668792f7c0d3534ae66b22f71c61523fb3',
@@ -176,6 +191,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'rXEUjHnyGrnuxR6lx90rZoeS98DTU0rmayL3HGFSP7M=',
@@ -183,6 +199,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'rXEUjHnyGrnuxR6lx90rZoeS98DTU0rmayL3HGFSP7M',
@@ -195,7 +212,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testSaltingCapabilitiesForHashingActions()
+    public function testSaltingCapabilitiesForHashingData()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -291,7 +308,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testObjectHashingFeatureActions()
+    public function testObjectHashingFeature()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -312,7 +329,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception|\ReflectionException If the tested class or method does not exist.
      */
-    public function testFileHashingFeatureActions()
+    public function testFileHashingFeature()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -396,7 +413,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidSaltingModeForHashing()
+    public function testValidationCaseForInvalidSaltingModeUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -427,7 +444,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidOutputFormatForDigests()
+    public function testValidationCaseForInvalidOutputFormatUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -458,7 +475,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidInputDataForHashing()
+    public function testValidationCaseForInvalidInputDataUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -520,7 +537,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidFileNameForHashing()
+    public function testValidationCaseForInvalidFileNameUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -551,7 +568,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForNonExistingFileNameForHashing()
+    public function testValidationCaseForNonExistingFileNameUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -582,7 +599,7 @@ final class HmacShaTwo256Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidTypeForHashingObjects()
+    public function testValidationCaseForInvalidTypePassedForHashingObjects()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 

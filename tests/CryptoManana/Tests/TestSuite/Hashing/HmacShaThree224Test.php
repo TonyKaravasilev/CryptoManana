@@ -138,10 +138,22 @@ final class HmacShaThree224Test extends AbstractUnitTest
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('test')->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
 
-        $this->assertEquals(
-            '8516bc817ca9cf24ebd290f6da89f172c6cd674a46ceab870d5aaa68',
-            $hasher->hashData('я1Й\`.a$#!x')
-        );
+        $testCases = in_array('sha3-256', hash_hmac_algos(), true) ? [true, false] : [true];
+
+        foreach ($testCases as $toUse) {
+            $reflectionUseProperty = new \ReflectionProperty(
+                HmacShaThree224::class,
+                'useNative'
+            );
+
+            $reflectionUseProperty->setAccessible(true);
+            $reflectionUseProperty->setValue($hasher, $toUse);
+
+            $this->assertEquals(
+                '8516bc817ca9cf24ebd290f6da89f172c6cd674a46ceab870d5aaa68',
+                $hasher->hashData('я1Й\`.a$#!x')
+            );
+        }
     }
 
     /**
@@ -149,12 +161,13 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testDigestGenerationAndOutputFormatsActions()
+    public function testDigestOutputFormatsForHashingData()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('test');
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
             hex2bin('d30278220969497275016b0287903d08d0274e1afe57cc9729204b31'),
@@ -162,6 +175,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_UPPER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'D30278220969497275016B0287903D08D0274E1AFE57CC9729204B31',
@@ -169,6 +183,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_HEX_LOWER);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
             'd30278220969497275016b0287903d08d0274e1afe57cc9729204b31',
@@ -176,6 +191,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '0wJ4IglpSXJ1AWsCh5A9CNAnThr+V8yXKSBLMQ==',
@@ -183,6 +199,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
         );
 
         $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64_URL);
+        $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
             '0wJ4IglpSXJ1AWsCh5A9CNAnThr-V8yXKSBLMQ',
@@ -195,7 +212,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testSaltingCapabilitiesForHashingActions()
+    public function testSaltingCapabilitiesForHashingData()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -291,7 +308,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testObjectHashingFeatureActions()
+    public function testObjectHashingFeature()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -312,7 +329,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception|\ReflectionException If the tested class or method does not exist.
      */
-    public function testFileHashingFeatureActions()
+    public function testFileHashingFeature()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
         $hasher->setKey('xxx');
@@ -323,7 +340,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
 
         $this->writeToFile($fileName, 'test');
 
-        $testCases = in_array('sha3-256', hash_algos(), true) ? [true, false] : [true];
+        $testCases = in_array('sha3-256', hash_hmac_algos(), true) ? [true, false] : [true];
 
         foreach ($testCases as $toUse) {
             $reflectionUseProperty = new \ReflectionProperty(
@@ -396,7 +413,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidSaltingModeForHashing()
+    public function testValidationCaseForInvalidSaltingModeUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -427,7 +444,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidOutputFormatForDigests()
+    public function testValidationCaseForInvalidOutputFormatUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -458,7 +475,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidInputDataForHashing()
+    public function testValidationCaseForInvalidInputDataUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -520,7 +537,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidFileNameForHashing()
+    public function testValidationCaseForInvalidFileNameUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -551,7 +568,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForNonExistingFileNameForHashing()
+    public function testValidationCaseForNonExistingFileNameUsedForHashing()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 
@@ -582,7 +599,7 @@ final class HmacShaThree224Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForInvalidTypeForHashingObjects()
+    public function testValidationCaseForInvalidTypePassedForHashingObjects()
     {
         $hasher = $this->getHashAlgorithmInstanceForTesting();
 

@@ -3,12 +3,12 @@
 build:
   environment:
     php:
-      version: "7.3"
+      version: "7.4"
 
 filter:
   paths: [src/CryptoManana/*]
-  excluded_paths: [tests/*, vendor/*]
-  dependency_paths: [src/compatibility.php, src/CryptoManana/Compatibility/*]
+  excluded_paths: [tests/*, vendor/*, src/autoload.php]
+  dependency_paths: [src/CryptoManana/Compatibility/*, src/compatibility.php]
 
 checks:
   php: true

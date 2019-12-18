@@ -28,7 +28,7 @@ trait SaltingCapabilitiesTrait
      *
      * @var array Salting mode codes.
      */
-    protected $inFrontCases = [
+    protected static $inFrontCases = [
         self::SALTING_MODE_PREPEND,
         self::SALTING_MODE_REVERSE_PREPEND,
         self::SALTING_MODE_DUPLICATE_PREFIX
@@ -39,7 +39,7 @@ trait SaltingCapabilitiesTrait
      *
      * @var array Salting mode codes.
      */
-    protected $inBackCases = [
+    protected static $inBackCases = [
         self::SALTING_MODE_APPEND,
         self::SALTING_MODE_REVERSE_APPEND,
         self::SALTING_MODE_DUPLICATE_SUFFIX
@@ -50,7 +50,7 @@ trait SaltingCapabilitiesTrait
      *
      * @var array Salting mode codes.
      */
-    protected $inSpecialCases = [
+    protected static $inSpecialCases = [
         self::SALTING_MODE_INFIX_INPUT,
         self::SALTING_MODE_INFIX_SALT,
         self::SALTING_MODE_PALINDROME_MIRRORING
@@ -136,11 +136,11 @@ trait SaltingCapabilitiesTrait
             return $data;
         }
 
-        if (in_array($this->saltingMode, $this->inBackCases)) {
+        if (in_array($this->saltingMode, self::$inBackCases)) {
             $this->saltAtBack($data);
-        } elseif (in_array($this->saltingMode, $this->inFrontCases)) {
+        } elseif (in_array($this->saltingMode, self::$inFrontCases)) {
             $this->saltAtFront($data);
-        } elseif (in_array($this->saltingMode, $this->inSpecialCases)) {
+        } elseif (in_array($this->saltingMode, self::$inSpecialCases)) {
             $this->saltAtSpecial($data);
         }
 

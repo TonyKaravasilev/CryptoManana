@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+v0.5.0, 2019-12-18
+------------------
+- Added a few standardized key material derivation algorithm (HKDF) objects for digest generation;
+- Added unit tests for all newly added key material derivation algorithm object realizations;
+- Added a HKDF-SHA-3 native realization for older versions of PHP or ext-hash;
+- Added a unit test for the NativeHkdfSha3 polyfill object realization;
+- Improved some of the existing unit tests for hash algorithms objects;
+- Fixed an OpCache and performance problem for the StringBuilder class;
+- Switched the framework testing to PHP 7.4 as the main build version;
+- Fixed compatibility issues with PHP 7.4 and PHP 8.0 features;
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.4.0, 2019-12-14
 ------------------
 - Added salting capabilities when hashing files for all digest algorithms and updated the unit tests;
@@ -8,7 +24,7 @@ v0.4.0, 2019-12-14
 - Added unit tests for all newly added keyed hash algorithm object realizations;
 - Added a HMAC-SHA-3 native realization for older versions of PHP or ext-hash;
 - Added a unit test for the NativeHmacSha3 polyfill object realization;
-- Improved the code reuse in some lasses that define the same methods;
+- Improved the code reuse in some classes that define the same methods;
 - Generated an online DOI number via Zenodo and CERN integration;
 - Fixed a few simple typos at existing PHPDoc comments;
 - Purged the image caches for the GitHub repository;
