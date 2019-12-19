@@ -10,9 +10,11 @@ use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFuncti
 use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationSaltingInterface as DerivationSalting;
 use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationContextInterface as DerivationContext;
 use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationDigestLengthInterface as DerivationDigestLength;
+use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RecursiveHashing;
 use \CryptoManana\Core\Traits\MessageDigestion\DerivationSaltingTrait as DerivationSaltingCapabilities;
 use \CryptoManana\Core\Traits\MessageDigestion\DerivationContextTrait as DerivationContextualCapabilities;
 use \CryptoManana\Core\Traits\MessageDigestion\DerivationDigestLengthTrait as DerivationDigestLengthCapabilities;
+use \CryptoManana\Core\Traits\MessageDigestion\RepetitiveHashingTrait as HashRepetitively;
 
 /**
  * Class AbstractKeyMaterialDerivationFunction - Abstraction for output key material derivation classes.
@@ -22,11 +24,13 @@ use \CryptoManana\Core\Traits\MessageDigestion\DerivationDigestLengthTrait as De
  * @mixin DerivationSaltingCapabilities
  * @mixin DerivationContextualCapabilities
  * @mixin DerivationDigestLengthCapabilities
+ * @mixin RecursiveHashing
  */
 abstract class AbstractKeyMaterialDerivationFunction extends KeyStretchingAlgorithm implements
     DerivationSalting,
     DerivationContext,
-    DerivationDigestLength
+    DerivationDigestLength,
+    RecursiveHashing
 {
     /**
      * Derivation data salting capabilities.
@@ -48,6 +52,13 @@ abstract class AbstractKeyMaterialDerivationFunction extends KeyStretchingAlgori
      * {@internal Reusable implementation of `DerivationDigestLengthInterface`. }}
      */
     use DerivationDigestLengthCapabilities;
+
+    /**
+     * Repetitive/recursive hashing capabilities.
+     *
+     * {@internal Reusable implementation of `RepetitiveHashingInterface`. }}
+     */
+    use HashRepetitively;
 
     /**
      * The derivation salt string property storage.
