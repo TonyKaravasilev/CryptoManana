@@ -161,8 +161,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
             $reflectionUseProperty->setValue($hasher, $toUse);
 
             $this->assertEquals(
-                '6aac29fe24e2821f320badddde4e085c7ec6de06e4b549725165a21f7614d03b07ffdc0f' .
-                'ee231052e6de26a6bfb30f6af233e2efb351955d67ec6f9e0741ad34',
+                '6eaf8da15ec5a746ff94926b8c226ae4ea2a8092989b28ebbee7b7cd50b5f58' .
+                'f27598ba02bd092eec6e210d8b36bef86fe5fc7e03f6d74e5652b6b22ea6aa1ea',
                 $hasher->hashData('я1Й\`.a$#!x')
             );
         }
@@ -182,8 +182,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
 
         $this->assertEquals(
             hex2bin(
-                '46e262fef3d69516a54b6b3f34b27fa5c952ff66db8c826b0d3ed486b952e2f729646fd43' .
-                '8620be898d1c8a659b8440b889a33b81b0864fb57f547618f662a66'
+                '09843b7d723b15a8eaf8bdc640b5bdb19ebce9e329ab0e50b5d4c973667c7b' .
+                '8caf8c11f8464cad708ad9606d7cf785b14f78acfaf919bc7015a276ac64541803'
             ),
             $hasher->hashData('')
         );
@@ -192,8 +192,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_UPPER, $hasher->getDigestFormat());
 
         $this->assertEquals(
-            '46E262FEF3D69516A54B6B3F34B27FA5C952FF66DB8C826B0D3ED486B952E2F729646FD43' .
-            '8620BE898D1C8A659B8440B889A33B81B0864FB57F547618F662A66',
+            '09843B7D723B15A8EAF8BDC640B5BDB19EBCE9E329AB0E50B5D4C973667C7B' .
+            '8CAF8C11F8464CAD708AD9606D7CF785B14F78ACFAF919BC7015A276AC64541803',
             $hasher->hashData('')
         );
 
@@ -201,8 +201,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::DIGEST_OUTPUT_HEX_LOWER, $hasher->getDigestFormat());
 
         $this->assertEquals(
-            '46e262fef3d69516a54b6b3f34b27fa5c952ff66db8c826b0d3ed486b952e2f729646fd43' .
-            '8620be898d1c8a659b8440b889a33b81b0864fb57f547618f662a66',
+            '09843b7d723b15a8eaf8bdc640b5bdb19ebce9e329ab0e50b5d4c973667c7b' .
+            '8caf8c11f8464cad708ad9606d7cf785b14f78acfaf919bc7015a276ac64541803',
             $hasher->hashData('')
         );
 
@@ -210,7 +210,7 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64, $hasher->getDigestFormat());
 
         $this->assertEquals(
-            'RuJi/vPWlRalS2s/NLJ/pclS/2bbjIJrDT7UhrlS4vcpZG/UOGIL6JjRyKZZuEQLiJozuBsIZPtX9Udhj2YqZg==',
+            'CYQ7fXI7Fajq+L3GQLW9sZ686eMpqw5QtdTJc2Z8e4yvjBH4RkytcIrZYG1894WxT3is+vkZvHAVonasZFQYAw==',
             $hasher->hashData('')
         );
 
@@ -218,7 +218,7 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::DIGEST_OUTPUT_BASE_64_URL, $hasher->getDigestFormat());
 
         $this->assertEquals(
-            'RuJi_vPWlRalS2s_NLJ_pclS_2bbjIJrDT7UhrlS4vcpZG_UOGIL6JjRyKZZuEQLiJozuBsIZPtX9Udhj2YqZg',
+            'CYQ7fXI7Fajq-L3GQLW9sZ686eMpqw5QtdTJc2Z8e4yvjBH4RkytcIrZYG1894WxT3is-vkZvHAVonasZFQYAw',
             $hasher->hashData('')
         );
     }
@@ -304,8 +304,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_NONE, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            'A2A13644AB1C22BB1C6DFC4E98D2A74E1D9F15F0820D6E7D2C749BF1583549E52D74AAFDB' .
-            '5E617C3846AA7682ED96CC798DDEA888571618AF6D35D2E04A43159',
+            'F90A4BAB7CCE528033823E16AC6938737E7CFA5F61281104DAC837B1890E1' .
+            '7C1C1BC231D0F9029ACD217438EB6E1C35E8C22EE4F3F8816F67FE0EFBC61AE2D51',
             $hasher->hashData($data)
         );
 
@@ -313,8 +313,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_APPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            'B3C158BA3CD28D7F5D4C2D2FD8BBF62E4EE11B1F8CA0EBB28EB38AF8DB271CFB48DC19BE8' .
-            'E58A7884612E1FD2A80337F2F4B9F54A28FB62AB3A18EB285B908E8',
+            'E655B077C856AFA8BE8FFEF97DB5B6C6DF0E8A929ECBFE9827733768B16E4' .
+            '60FD35C4C23A591074BA47172D9014F6801620DCBAE5DFEFB8D1AC18E2D998767A1',
             $hasher->hashData($data)
         );
 
@@ -322,8 +322,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_PREPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '20493DC95CE0C6A169E99D6FD3D4A77F814552E019FB0C7A05AEDAC95F715BBBFF7631B90' .
-            '16EB6B7B82AEDEF0A76BCA51CA6ED28814B35A22C47C54987780802',
+            'FDE4A29F5612E6DF9CFC990FE240DDE4180E28354A58BCEC5304FC3B25A' .
+            'B8BE970476965978C259C53F2349499D134DCECCC04115DD496A0EE565B95B62832ED',
             $hasher->hashData($data)
         );
 
@@ -331,8 +331,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_INFIX_INPUT, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '3AAECADEA2DC521B24B8BAB0852B5C7196995AE73E0EC85561250997D262458DE7931F4CB' .
-            'F800FC768EF1836A3BDCD084A41F05F12526E5BE27CF2374405652D',
+            'D87E9948170CAC014F2E56533FB8CCA303301FE2F0BAEFC8FECA99A10EBE' .
+            'B3926320E05C721DD0D895EACBCB9C2512C10B2E87FC09F769436A442AFEBC195583',
             $hasher->hashData($data)
         );
 
@@ -340,8 +340,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_INFIX_SALT, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '9700385D93CCA3D1FECFED26EE8DC0FB1CE0DED843D18CC0F07053A6CF098A07675AA8EBF' .
-            '047D5D1E42E34BCCD6D30526FDE3D501BB7D3F15A7FEF2B7D03BA72',
+            '069EF4AC2920A798941FEB2C078B607E9322E995D860B8E1F1D947673BDE50' .
+            '5747AA26E492F9F85A84B14788E1AC53AC79559205DA2DBF36DE3D04D68AB7C4DF',
             $hasher->hashData($data)
         );
 
@@ -349,8 +349,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_REVERSE_APPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '66A33956720AF45C73EB6F1EB44B9303A08F7DA493F84DFFD051B2C45DB6F4372ABDDC10F' .
-            '30F85B1AC8B78206BD277FFD64881FF7C82D42257D0D18523D8831A',
+            '1D5B2F011F8CADDA22D7EFE1B441BAB5EC78E5AE652F65640817997B24D046' .
+            'BBCC1EABBBC1AF128E68F98D9008563132BB13EE6F1CBBF218E5DC3A7374E8BD5E',
             $hasher->hashData($data)
         );
 
@@ -358,8 +358,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_REVERSE_PREPEND, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '37AC777708AFAB9DA8A86E3A34AA4B30CC0F19155BE1E43BD1FE04CF5A3A41DB7A4925D128' .
-            '2865250D51F00B10D53BB948346EE5D9243C2477A526A35A774E2C',
+            '52605C71035CC977422F62FC2BEBD2CC9999513D63E10CC546CA7A77E60CDB4' .
+            'F0DD409380DA430E71F6686C5956E1CCA71C044EFE76C7B50163942F5651AC83F',
             $hasher->hashData($data)
         );
 
@@ -367,8 +367,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_DUPLICATE_SUFFIX, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            'E9507D9D564A44B3BD3B78057194A8F63D920986254C2E832A95293FF7ABA641EEF34D9ED' .
-            'DBB60329821CBD343402849FFDBB7DA785347DF6863BECD7E857675',
+            '32D9E92090F57C586C9BCA5ACDB4A8AFC9635D23D9C5737063DBCEF49ADB059' .
+            'E13C56FB7915D0DA245EFB1BA117ADF7F675D2BF8BA86EA882BFABD31E2814DE3',
             $hasher->hashData($data)
         );
 
@@ -376,8 +376,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_DUPLICATE_PREFIX, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '2D70C4F84C8FB35D9988DCD6C8F0EF687E3BE32C1708F71451FE929E0A04596D95AB1B4CB' .
-            'DFDF893539E1AD5C4E53DECB6B178680114594FC24DC69A53E34FC8',
+            '107313E7666A9A382D6A516D81415ECF38255748CFEC61BF9F370F88E9002D5' .
+            '4F515A778783E8748C3F5E42ED555FD508877B332E1DA7E643C000A279A181221',
             $hasher->hashData($data)
         );
 
@@ -385,8 +385,8 @@ final class HkdfWhirlpoolTest extends AbstractUnitTest
         $this->assertEquals($hasher::SALTING_MODE_PALINDROME_MIRRORING, $hasher->getSaltingMode());
 
         $this->assertEquals(
-            '1FCC283CC51CF3A4121B89C9A273D707BE090577456C6CA41A09C8B3F53B5610C530DF0E3' .
-            '8ACC634DD5C561DA16B6CD23CABFA6566FFF4C653D8FB2FD5F38DD9',
+            'E2D7B95211E61106645920B4402ADAE5BDB4556E977CB71B00AFF572245E9496' .
+            'A32D5D9371C5E7926C81421AB111966865F11D797F02E41A7A4DD125EB37FD49',
             $hasher->hashData($data)
         );
     }
