@@ -27,7 +27,7 @@ trait DigestionKeyTrait
      * @param string $key The digestion key string.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setKey($key)
     {

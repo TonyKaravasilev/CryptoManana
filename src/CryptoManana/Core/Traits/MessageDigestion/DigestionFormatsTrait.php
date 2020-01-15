@@ -57,7 +57,7 @@ trait DigestionFormatsTrait
      * @param int $digestFormat The digest format code.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setDigestFormat($digestFormat)
     {

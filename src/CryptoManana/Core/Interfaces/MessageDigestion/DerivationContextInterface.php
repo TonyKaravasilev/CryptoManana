@@ -18,7 +18,7 @@ interface DerivationContextInterface
      *
      * @param string $contextualString The derivation context/application information string.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setContextualString($contextualString);
 

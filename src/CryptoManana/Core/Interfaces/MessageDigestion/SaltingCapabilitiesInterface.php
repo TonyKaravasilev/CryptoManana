@@ -88,7 +88,7 @@ interface SaltingCapabilitiesInterface
      *
      * @param string $salt The salt string.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setSalt($salt);
 
@@ -104,7 +104,7 @@ interface SaltingCapabilitiesInterface
      *
      * @param int $saltingMode The salting mode code.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setSaltingMode($saltingMode);
 

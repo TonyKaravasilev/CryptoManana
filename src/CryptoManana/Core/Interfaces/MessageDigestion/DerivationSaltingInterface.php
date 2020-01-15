@@ -18,7 +18,7 @@ interface DerivationSaltingInterface
      *
      * @param string $derivationSalt The derivation salt string.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setDerivationSalt($derivationSalt);
 

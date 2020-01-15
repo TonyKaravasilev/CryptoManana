@@ -27,7 +27,7 @@ trait DerivationSaltingTrait
      * @param string $derivationSalt The derivation salt string.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setDerivationSalt($derivationSalt)
     {

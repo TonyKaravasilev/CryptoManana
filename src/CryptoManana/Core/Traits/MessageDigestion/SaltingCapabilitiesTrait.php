@@ -153,7 +153,7 @@ trait SaltingCapabilitiesTrait
      * @param string $salt The salt string.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setSalt($salt)
     {
@@ -182,7 +182,7 @@ trait SaltingCapabilitiesTrait
      * @param int $saltingMode The salting mode code.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setSaltingMode($saltingMode)
     {
