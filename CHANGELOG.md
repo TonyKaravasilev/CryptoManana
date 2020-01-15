@@ -1,6 +1,24 @@
 CHANGELOG
 =========
 
+v0.6.0, 2020-01-15
+------------------
+- Added a few standardized password-based derivation algorithm (PBKDF) objects for digest generation;
+- Added unit tests for all newly added password-based derivation algorithm object realizations;
+- Added a PBKDF2-SHA-3 native realization for older versions of PHP or ext-hash;
+- Added a unit test for the NativePbkdf2Sha3 polyfill object realization;
+- Updated the PHP 5.x/7.x backward compatible snippet, autoloaded via Composer;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Added a digest verification feature for all keyed and password-based derivation objects;
+- Added repetitive hashing capabilities for unkeyed, keyed and HKDF hash algorithm objects;
+- Improved the performance of the HMAC-SHA-3 native realization by reducing function calls;
+- Fixed the wrong algorithm realization for the HkdfWhirlpool class;
+- Updated the Composer JSON schema with new keywords and information;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.5.0, 2019-12-18
 ------------------
 - Added a few standardized key material derivation algorithm (HKDF) objects for digest generation;
