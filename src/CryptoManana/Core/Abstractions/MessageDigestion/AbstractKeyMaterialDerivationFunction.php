@@ -47,7 +47,7 @@ abstract class AbstractKeyMaterialDerivationFunction extends KeyStretchingAlgori
     use DerivationContextualCapabilities;
 
     /**
-     * Derivation derivation control over the outputting digest length capabilities.
+     * Derivation control over the outputting digest length capabilities.
      *
      * {@internal Reusable implementation of `DerivationDigestLengthInterface`. }}
      */
@@ -80,6 +80,14 @@ abstract class AbstractKeyMaterialDerivationFunction extends KeyStretchingAlgori
      * @var int The derivation output digest size in bytes length value.
      */
     protected $outputLength = 0;
+
+    /**
+     * Key material derivation algorithm constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Calculates a hash value for the given data.
