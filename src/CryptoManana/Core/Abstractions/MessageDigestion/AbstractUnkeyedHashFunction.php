@@ -9,8 +9,10 @@ namespace CryptoManana\Core\Abstractions\MessageDigestion;
 use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
+use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RecursiveHashing;
 use \CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
 use \CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
+use \CryptoManana\Core\Traits\MessageDigestion\RepetitiveHashingTrait as HashRepetitively;
 
 /**
  * Class AbstractUnkeyedHashFunction - Abstraction for unkeyed hash classes.
@@ -19,8 +21,12 @@ use \CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
  *
  * @mixin HashObjects
  * @mixin HashFiles
+ * @mixin HashRepetitively
  */
-abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements ObjectHashing, FileHashing
+abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements
+    ObjectHashing,
+    FileHashing,
+    RecursiveHashing
 {
     /**
      * Object hashing capabilities.
@@ -35,6 +41,13 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements Obje
      * {@internal Reusable implementation of `FileHashingInterface`. }}
      */
     use HashFiles;
+
+    /**
+     * Repetitive/recursive hashing capabilities.
+     *
+     * {@internal Reusable implementation of `RepetitiveHashingInterface`. }}
+     */
+    use HashRepetitively;
 
     /**
      * The internal name of the algorithm.

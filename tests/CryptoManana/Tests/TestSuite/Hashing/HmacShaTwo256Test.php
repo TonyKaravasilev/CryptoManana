@@ -11,6 +11,8 @@ use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
 use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
+use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
+use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
 use \CryptoManana\Hashing\HmacShaTwo256;
 
 /**
@@ -378,6 +380,41 @@ final class HmacShaTwo256Test extends AbstractUnitTest
     }
 
     /**
+     * Testing repetitive hashing.
+     *
+     * @throws \Exception|\ReflectionException If the tested class or method does not exist.
+     */
+    public function testRepetitiveHashingFeature()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        $this->assertTrue($hasher instanceof RepetitiveHashingInterface);
+
+        $digest = $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_RAW)->hashData('');
+        $digest = $hasher->setDigestFormat($hasher::DIGEST_OUTPUT_BASE_64)->hashData($digest);
+
+        $this->assertEquals($digest, $hasher->repetitiveHashData(''));
+    }
+
+
+    /**
+     * Testing the secure digest verification feature.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSecureDigestVerificationFeature()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        $this->assertTrue($hasher instanceof SecureVerificationInterface);
+
+        $digest = $hasher->hashData('1234');
+
+        $this->assertTrue($hasher->verifyHash('1234', $digest));
+        $this->assertFalse($hasher->verifyHash('1235', $digest));
+    }
+
+    /**
      * Testing validation case for invalid type of salt string used for hashing.
      *
      * @throws \Exception Wrong usage errors.
@@ -613,6 +650,131 @@ final class HmacShaTwo256Test extends AbstractUnitTest
 
             try {
                 $hasher->hashObject(['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for invalid input data used for repetitive hashing.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidInputDataUsedForRepetitiveHashing()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $hasher->repetitiveHashData(['wrong']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $hasher->repetitiveHashData(['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for invalid type or value of the iteration count used for repetitive hashing.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidIterationCountForRepetitiveHashing()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $hasher->repetitiveHashData('', -1);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $hasher->repetitiveHashData('', -1);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for invalid input data for digest verification.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidInputDataForDigestVerification()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $hasher->verifyHash(['wrong'], '1234abcd');
+        } else {
+            $hasThrown = null;
+
+            try {
+                $hasher->verifyHash(['wrong'], '1234abcd');
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+
+    /**
+     * Testing validation case for invalid digestion string for digest verification.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidDigestionStringForDigestVerification()
+    {
+        $hasher = $this->getHashAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $hasher->verifyHash('', ['wrong']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $hasher->verifyHash('', ['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {

@@ -299,6 +299,15 @@ $constantsList = [
     'OPENSSL_ZERO_PADDING',
 ];
 
+if (PHP_VERSION_ID >= 50600) {
+    $constantsList = array_merge(
+        $constantsList,
+        [
+            'PASSWORD_BCRYPT_DEFAULT_COST'
+        ]
+    );
+}
+
 if (PHP_VERSION_ID >= 70200) {
     $constantsList = array_merge(
         $constantsList,
@@ -306,6 +315,25 @@ if (PHP_VERSION_ID >= 70200) {
             'PASSWORD_ARGON2_DEFAULT_MEMORY_COST',
             'PASSWORD_ARGON2_DEFAULT_TIME_COST',
             'PASSWORD_ARGON2_DEFAULT_THREADS',
+            'PASSWORD_ARGON2I'
+        ]
+    );
+}
+
+if (PHP_VERSION_ID >= 70300) {
+    $constantsList = array_merge(
+        $constantsList,
+        [
+            'PASSWORD_ARGON2ID'
+        ]
+    );
+}
+
+if (PHP_VERSION_ID >= 70400) {
+    $constantsList = array_merge(
+        $constantsList,
+        [
+            'PASSWORD_ARGON2_PROVIDER'
         ]
     );
 }
@@ -341,6 +369,7 @@ $functionsList = [
     'password_hash',
     'password_verify',
     'password_needs_rehash',
+    'password_algos',
     'openssl_random_pseudo_bytes',
     'openssl_get_cipher_methods',
     'openssl_encrypt',

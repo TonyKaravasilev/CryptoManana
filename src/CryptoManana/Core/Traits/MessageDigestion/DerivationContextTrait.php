@@ -27,7 +27,7 @@ trait DerivationContextTrait
      * @param string $contextualString The derivation context/application information string.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setContextualString($contextualString)
     {

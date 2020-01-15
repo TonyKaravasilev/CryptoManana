@@ -23,7 +23,7 @@ interface DerivationDigestLengthInterface
      *
      * @param int $byteLength The derivation output digest size in bytes length.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setOutputLength($byteLength);
 

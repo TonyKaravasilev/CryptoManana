@@ -90,7 +90,7 @@ class NativeHmacSha3 extends SingletonPattern
             $key = Sha3::{$method}($key, true);
         } elseif ($length < $blockSize) {
             // Note: mb_chr() is available only in PHP >= 7.2, so using chr() in ASCII 8-bit codes
-            $key = str_pad($key, $blockSize, chr(0x00), STR_PAD_RIGHT);
+            $key = str_pad($key, $blockSize, "\x0", STR_PAD_RIGHT);
         }
 
         // Note: mb_ord() is available only in PHP >= 7.2, so using ord() in ASCII 8-bit codes

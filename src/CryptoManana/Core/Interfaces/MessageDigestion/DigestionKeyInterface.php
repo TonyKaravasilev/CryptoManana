@@ -18,7 +18,7 @@ interface DigestionKeyInterface
      *
      * @param string $key The digestion key string.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setKey($key);
 

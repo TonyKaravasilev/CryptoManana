@@ -53,7 +53,7 @@ interface DigestionFormatsInterface
      *
      * @param int $digestFormat The digest format code.
      *
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setDigestFormat($digestFormat);
 

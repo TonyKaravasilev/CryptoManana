@@ -18,7 +18,7 @@ class HkdfWhirlpool extends KeyDerivationAlgorithm
     /**
      * The internal name of the algorithm.
      */
-    const ALGORITHM_NAME = 'sha1';
+    const ALGORITHM_NAME = 'whirlpool';
 
     /**
      * The internal maximum length in bytes of the output digest for the algorithm.

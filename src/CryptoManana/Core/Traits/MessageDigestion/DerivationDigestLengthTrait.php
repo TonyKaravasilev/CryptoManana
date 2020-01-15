@@ -27,7 +27,7 @@ trait DerivationDigestLengthTrait
      * @param int $byteLength The derivation output digest size in bytes length.
      *
      * @return $this The hash algorithm object.
-     * @throw \Exception Validation errors.
+     * @throws \Exception Validation errors.
      */
     public function setOutputLength($byteLength)
     {

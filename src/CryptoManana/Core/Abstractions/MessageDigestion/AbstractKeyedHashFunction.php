@@ -10,9 +10,13 @@ use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as Ha
 use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionKeyInterface as KeyedHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
 use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
+use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RecursiveHashing;
+use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as DataVerification;
 use \CryptoManana\Core\Traits\MessageDigestion\DigestionKeyTrait as DigestionKey;
 use \CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
 use \CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
+use \CryptoManana\Core\Traits\MessageDigestion\RepetitiveHashingTrait as HashRepetitively;
+use \CryptoManana\Core\Traits\MessageDigestion\SecureVerificationTrait as VerifyDataAndPasswords;
 
 /**
  * Class AbstractKeyedHashFunction - Abstraction for keyed hash classes.
@@ -22,8 +26,15 @@ use \CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
  * @mixin DigestionKey
  * @mixin HashObjects
  * @mixin HashFiles
+ * @mixin HashRepetitively
+ * @mixin VerifyDataAndPasswords
  */
-abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedHashing, ObjectHashing, FileHashing
+abstract class AbstractKeyedHashFunction extends HashAlgorithm implements
+    KeyedHashing,
+    ObjectHashing,
+    FileHashing,
+    RecursiveHashing,
+    DataVerification
 {
     /**
      * Data salting capabilities.
@@ -45,6 +56,20 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements KeyedH
      * {@internal Reusable implementation of `FileHashingInterface`. }}
      */
     use HashFiles;
+
+    /**
+     * Repetitive/recursive hashing capabilities.
+     *
+     * {@internal Reusable implementation of `RepetitiveHashingInterface`. }}
+     */
+    use HashRepetitively;
+
+    /**
+     * Secure password and data verification capabilities.
+     *
+     * {@internal Reusable implementation of `SecureVerificationInterface`. }}
+     */
+    use VerifyDataAndPasswords;
 
     /**
      * The internal name of the algorithm.
