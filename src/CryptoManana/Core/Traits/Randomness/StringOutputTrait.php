@@ -34,7 +34,7 @@ trait StringOutputTrait
                 throw new \InvalidArgumentException(
                     'The provided symbol map must contain only elements of type string.'
                 );
-            } elseif (StringBuilder::stringLength($char) != 1) {
+            } elseif (StringBuilder::stringLength($char) > 1 || $char === '') {
                 throw new \LengthException(
                     'The provided symbol map\'s values must only be of 1 character length.'
                 );

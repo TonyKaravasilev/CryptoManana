@@ -46,7 +46,10 @@ trait IdentifierOutputTrait
         $tmp[6] = StringBuilder::getChr(StringBuilder::getOrd($tmp[6]) & 0x0f | 0x40);
         $tmp[8] = StringBuilder::getChr(StringBuilder::getOrd($tmp[8]) & 0x3f | 0x80);
 
-        $id = vsprintf('%s%s-%s-%s-%s-%s%s%s', StringBuilder::stringSplit(bin2hex($tmp), 4));
+        /**
+         * {@internal Using only the built-in function to make it more encoding friendly (bigger than 8 bytes). }}
+         */
+        $id = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($tmp), 4));
 
         $id = ($withDashes) ? $id : StringBuilder::stringReplace('-', '', $id);
 
