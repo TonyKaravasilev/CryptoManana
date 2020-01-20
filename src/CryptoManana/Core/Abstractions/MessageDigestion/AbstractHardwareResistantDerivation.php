@@ -77,13 +77,7 @@ abstract class AbstractHardwareResistantDerivation extends PasswordDerivation
             $digest = base64_decode($digest);
         } elseif (preg_match($base64UrlFriendlyPattern, $digest)) {
             $digest = StringBuilder::stringReplace(['-', '_'], ['+', '/'], $digest);
-            $times = StringBuilder::stringLength($digest) % 4;
-
-            // Instead of str_pad for encoding friendly appending
-            for ($i = 0; $i < $times; $i++) {
-                $digest .= '=';
-            }
-
+            $digest .= str_repeat('=', StringBuilder::stringLength($digest) % 4);
             $digest = base64_decode($digest);
         }
 

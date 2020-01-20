@@ -91,6 +91,36 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
     }
 
     /**
+     * Internal method for the validation of plain data used at encryption operations.
+     *
+     * @param string $plainData The plain input string.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validatePlainDataForEncryption($plainData)
+    {
+        if (!is_string($plainData)) {
+            throw new \InvalidArgumentException('The data for encryption must be a string or a binary string.');
+        }
+    }
+
+    /**
+     * Internal method for the validation of cipher data used at decryption operations.
+     *
+     * @param string $cipherData The encrypted input string.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validateCipherDataForDecryption($cipherData)
+    {
+        if (!is_string($cipherData)) {
+            throw new \InvalidArgumentException('The data for decryption must be a string or a binary string.');
+        } elseif ($cipherData === '') {
+            throw new \InvalidArgumentException('The string is empty and there is nothing to decrypt from it.');
+        }
+    }
+
+    /**
      * Block cipher algorithm constructor.
      */
     public function __construct()
@@ -127,37 +157,28 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
      */
     public function encryptData($plainData)
     {
-        if (!is_string($plainData)) {
-            throw new \InvalidArgumentException('The data for encryption must be a string or a binary string.');
-        }
+        $this->validatePlainDataForEncryption($plainData);
 
         if ($plainData === '') {
             $plainData = str_pad($plainData, static::BLOCK_SIZE, "\x0", STR_PAD_RIGHT);
         }
 
+        $isZeroPadding = ($this->padding === self::ZERO_PADDING);
+        $iv = ($this->mode === self::ECB_MODE) ? '' : $this->iv;
+
         /**
          * {@internal The encryption standard is 8-bit wise (don not use StringBuilder) and utilizes performance. }}
          */
-        if ($this->padding === self::ZERO_PADDING && strlen($plainData) % static::BLOCK_SIZE !== 0) {
-            $length = (static::BLOCK_SIZE - (strlen($plainData) % static::BLOCK_SIZE));
-
-            for ($i = 0; $i < $length; $i++) {
-                $plainData .= "\x0";
-            }
+        if ($isZeroPadding) {
+            $plainData .= str_repeat("\x0", (static::BLOCK_SIZE - (strlen($plainData) % static::BLOCK_SIZE)));
         }
 
-        $method = $this->fetchAlgorithmMethodName();
-
-        $iv = ($this->mode === self::ECB_MODE) ? '' : $this->iv;
-
-        $cipherData = openssl_encrypt($plainData, $method, $this->key, $this->padding, $iv);
+        $cipherData = openssl_encrypt($plainData, $this->fetchAlgorithmMethodName(), $this->key, $this->padding, $iv);
 
         /**
          * {@internal The zero padding in raw mode comes as Base64 string from OpenSSL by specification. }}
          */
-        if ($this->padding === self::ZERO_PADDING) {
-            $cipherData = base64_decode($cipherData);
-        }
+        $cipherData = ($isZeroPadding) ? base64_decode($cipherData) : $cipherData;
 
         $cipherData = $this->changeOutputFormat($cipherData, true);
 
@@ -174,26 +195,19 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
      */
     public function decryptData($cipherData)
     {
-        if (!is_string($cipherData)) {
-            throw new \InvalidArgumentException('The data for decryption must be a string or a binary string.');
-        } elseif ($cipherData === '') {
-            throw new \InvalidArgumentException('The string is empty and there is nothing to decrypt from it.');
-        }
+        $this->validateCipherDataForDecryption($cipherData);
+
+        $iv = ($this->mode === self::ECB_MODE) ? '' : $this->iv;
+        $isZeroPadding = ($this->padding === self::ZERO_PADDING);
 
         $cipherData = $this->changeOutputFormat($cipherData, false);
 
         /**
          * {@internal The zero padding in raw mode comes as Base64 string from OpenSSL by specification. }}
          */
-        if ($this->padding === self::ZERO_PADDING) {
-            $cipherData = base64_encode($cipherData);
-        }
+        $cipherData = ($isZeroPadding) ? base64_encode($cipherData) : $cipherData;
 
-        $method = $this->fetchAlgorithmMethodName();
-
-        $iv = ($this->mode === self::ECB_MODE) ? '' : $this->iv;
-
-        $plainData = openssl_decrypt($cipherData, $method, $this->key, $this->padding, $iv);
+        $plainData = openssl_decrypt($cipherData, $this->fetchAlgorithmMethodName(), $this->key, $this->padding, $iv);
 
         // Wrong format verification
         if ($plainData === false) {
@@ -202,11 +216,7 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
             );
         }
 
-        if ($this->padding === self::ZERO_PADDING) {
-            $plainData = rtrim($plainData, "\x0");
-        }
-
-        return $plainData;
+        return ($isZeroPadding) ? rtrim($plainData, "\x0") : $plainData;
     }
 
     /**

@@ -39,7 +39,7 @@ class RandomnessFactory extends FactoryPattern
      *
      * @param string|null $type The generator class name as type for creation.
      *
-     * @return RandomnessSource|object|null An exception object or null.
+     * @return RandomnessSource|object|null A generator object or null.
      */
     public function create($type)
     {
@@ -51,7 +51,7 @@ class RandomnessFactory extends FactoryPattern
      *
      * @param string|null $type The generator class name as type for creation.
      *
-     * @return RandomnessSource|object|null An exception object or null.
+     * @return RandomnessSource|object|null A generator object or null.
      */
     public static function createInstance($type)
     {
@@ -63,7 +63,7 @@ class RandomnessFactory extends FactoryPattern
         if (class_exists($type) && is_subclass_of($type, RandomnessSource::class)) {
             $exception = new $type();
         } else {
-            $exception = null; // Invalid exception type given
+            $exception = null; // Invalid type given
         }
 
         return $exception;

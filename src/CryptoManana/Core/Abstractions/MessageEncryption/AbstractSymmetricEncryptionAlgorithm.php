@@ -67,6 +67,24 @@ abstract class AbstractSymmetricEncryptionAlgorithm implements SecretKeyCipher, 
     abstract protected function fetchAlgorithmMethodName();
 
     /**
+     * Internal method for the validation of plain data used at encryption operations.
+     *
+     * @param string $plainData The plain input string.
+     *
+     * @throws \Exception Validation errors.
+     */
+    abstract protected function validatePlainDataForEncryption($plainData);
+
+    /**
+     * Internal method for the validation of cipher data used at decryption operations.
+     *
+     * @param string $cipherData The encrypted input string.
+     *
+     * @throws \Exception Validation errors.
+     */
+    abstract protected function validateCipherDataForDecryption($cipherData);
+
+    /**
      * Symmetrical encryption algorithm constructor.
      */
     abstract public function __construct();

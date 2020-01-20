@@ -93,7 +93,7 @@ class ExceptionFactory extends FactoryPattern
         if (class_exists($type) && is_subclass_of($type, FrameworkException::class)) {
             $exception = new $type();
         } else {
-            $exception = null; // Invalid exception type given
+            $exception = null; // Invalid type given
         }
 
         return $exception;
