@@ -253,11 +253,13 @@ if (PHP_VERSION_ID < 70200) {
     $none = false;
 }
 
-if (!defined('PASSWORD_ARGON2I')) {
+if (PHP_VERSION_ID < 70200) {
     dump('- Migrate to PHP >= 7.2.0 to use the Argon2i digest!', 'purple');
 
     $none = false;
-} elseif (!defined('PASSWORD_ARGON2ID')) {
+}
+
+if (PHP_VERSION_ID < 70300) {
     dump('- Migrate to PHP >= 7.3.0 to use the Argon2id digest!', 'purple');
 
     $none = false;
@@ -407,7 +409,7 @@ foreach ($checkAgainstDigestAlgorithms as $supportedAlgorithms) {
 unset($supportedAlgorithms, $algorithmName);
 
 // PHP encryption algorithms check
-$supportedAlgorithmsList = openssl_get_cipher_methods(true);
+$supportedAlgorithmsList = openssl_get_cipher_methods();
 
 $encryptionAlgorithms = [
     'AES-128-CBC',
@@ -451,8 +453,42 @@ if (PHP_VERSION_ID >= 70200 && OPENSSL_VERSION_NUMBER > 269484191) {
 }
 
 foreach ($encryptionAlgorithms as $algorithmName) {
-    if (!in_array(strtolower($algorithmName), $supportedAlgorithmsList, true)) {
+    if (!in_array($algorithmName, $supportedAlgorithmsList, true)) {
         dump('Please provide an implementation for the encryption algorithm: ' . $algorithmName, 'red');
+
+        dump_an_error();
+    }
+}
+
+unset($algorithmName);
+
+// PHP password digestion algorithms check
+$supportedPasswordAlgorithms = password_algos();
+
+if (PHP_VERSION_ID < 70400) {
+    $passwordAlgorithms = [
+        1, // `BCRYPT`
+    ];
+
+    if (PHP_VERSION_ID >= 70200) {
+        $passwordAlgorithms[] = 2; // PASSWORD_ARGON2I
+    }
+
+    if (PHP_VERSION_ID >= 70300) {
+        $passwordAlgorithms[] = 3; // PASSWORD_ARGON2ID
+    }
+} else {
+    // PHP_VERSION_ID >= 70400
+    $passwordAlgorithms = [
+        '2y', // `BCRYPT`
+        'argon2i', // `PASSWORD_ARGON2I`
+        'argon2id', // `PASSWORD_ARGON2ID`
+    ];
+}
+
+foreach ($passwordAlgorithms as $algorithmName) {
+    if (!in_array($algorithmName, $supportedPasswordAlgorithms, true)) {
+        dump('Please provide an implementation for the password digestion algorithm: ' . $algorithmName, 'red');
 
         dump_an_error();
     }

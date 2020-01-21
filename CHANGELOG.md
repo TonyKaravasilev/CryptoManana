@@ -1,6 +1,23 @@
 CHANGELOG
 =========
 
+v0.7.0, 2020-01-21
+------------------
+- Added a few standardized symmetric encryption algorithm objects for securing data;
+- Added unit tests for the new symmetric encryption algorithm object realizations;
+- Added a SymmetricCipherFactory for easier block cipher algorithm object instancing;
+- Added a HashAlgorithmFactory for easier hash algorithm object instancing;
+- Added a unit test for the SymmetricCipherFactory object testing;
+- Added a unit test for the HashAlgorithmFactory object testing;
+- Component improvements for encodings that use more than 8 bits per character (UTF-16/UTF-32);
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Updated the Composer JSON schema with new keywords and information;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.6.0, 2020-01-15
 ------------------
 - Added a few standardized password-based derivation algorithm (PBKDF) objects for digest generation;

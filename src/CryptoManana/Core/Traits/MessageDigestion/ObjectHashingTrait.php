@@ -34,7 +34,7 @@ trait ObjectHashingTrait
     /**
      * Calculates a hash value for the serialized value of the given object.
      *
-     * @param object|\stdClass $object The full path and name of the file for hashing.
+     * @param object|\stdClass $object The object for hashing.
      *
      * @return string The digest.
      * @throws \Exception Validation errors.

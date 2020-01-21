@@ -28,7 +28,7 @@ matrix:
     - php: 7.4snapshot # <- PHP 7.4.0-dev (Zend Engine v3.4.0-dev)
 
 cache:
-  timeout: 900
+  timeout: 1200
   directories:
     - vendor
     - $HOME/.composer/cache

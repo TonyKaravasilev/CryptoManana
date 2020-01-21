@@ -73,7 +73,10 @@ trait DigestionFormatsTrait
         );
 
         if ($digestFormat === false) {
-            throw new \InvalidArgumentException('Digest output format mode must be an integer between -1 and 3.');
+            throw new \InvalidArgumentException(
+                'Digest output format mode must be an integer between ' .
+                self::DIGEST_OUTPUT_RAW . ' and ' . self::DIGEST_OUTPUT_BASE_64_URL . '.'
+            );
         }
 
         $this->digestFormat = $digestFormat;
