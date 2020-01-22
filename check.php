@@ -299,6 +299,16 @@ $constantsList = [
     'PASSWORD_DEFAULT',
     'OPENSSL_RAW_DATA',
     'OPENSSL_ZERO_PADDING',
+    'OPENSSL_KEYTYPE_RSA',
+    'OPENSSL_PKCS1_PADDING',
+    'OPENSSL_PKCS1_OAEP_PADDING',
+    'OPENSSL_KEYTYPE_DSA',
+    'OPENSSL_ALGO_MD5',
+    'OPENSSL_ALGO_SHA1',
+    'OPENSSL_ALGO_SHA224',
+    'OPENSSL_ALGO_SHA256',
+    'OPENSSL_ALGO_SHA384',
+    'OPENSSL_ALGO_SHA512'
 ];
 
 if (PHP_VERSION_ID >= 50600) {
@@ -408,7 +418,7 @@ foreach ($checkAgainstDigestAlgorithms as $supportedAlgorithms) {
 
 unset($supportedAlgorithms, $algorithmName);
 
-// PHP encryption algorithms check
+// PHP symmetric encryption algorithms check
 $supportedAlgorithmsList = openssl_get_cipher_methods();
 
 $encryptionAlgorithms = [
@@ -495,6 +505,36 @@ foreach ($passwordAlgorithms as $algorithmName) {
 }
 
 unset($algorithmName);
+
+// PHP asymmetric encryption/signature algorithms check
+$encryptionAlgorithms = [
+    OPENSSL_KEYTYPE_RSA, // RSA
+    OPENSSL_KEYTYPE_DSA, // DSA
+];
+
+foreach ($encryptionAlgorithms as $algorithmName) {
+    $opensslResource = openssl_pkey_new([
+        'private_key_bits' => 384, // Size of the key (the minimum)
+        'private_key_type' => $algorithmName
+    ]);
+
+    if ($opensslResource === false) {
+        dump(
+            'Please setup your OpenSSL library correctly by pointing ' .
+            'the environment variable `OPENSSL_CONF` to the location of ' .
+            'the `openssl.cnf` configuration file.',
+            'red'
+        );
+
+        dump_an_error();
+    }
+
+    openssl_free_key($opensslResource);
+    $opensslResource = null;
+    unset($opensslResource);
+}
+
+unset($encryptionAlgorithms);
 
 // Output success!
 dump('PHP is ready for the CryptoManana Framework!');
