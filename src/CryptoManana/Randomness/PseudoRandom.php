@@ -25,7 +25,7 @@ class PseudoRandom extends RandomnessSource implements SeedAction
     protected static $seed = false;
 
     /**
-     * Validates the the given seed value and converts it to an integer.
+     * Validates the given seed value and converts it to an integer.
      *
      * @param int|mixed $seed The initialization value.
      *

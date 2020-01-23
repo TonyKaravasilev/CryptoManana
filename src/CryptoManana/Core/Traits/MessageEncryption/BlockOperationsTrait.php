@@ -133,7 +133,7 @@ trait BlockOperationsTrait
 
         if ($padding === false) {
             throw new \InvalidArgumentException(
-                'The padding standard must must be a valid integer between ' .
+                'The padding standard must be a valid integer between ' .
                 self::PKCS7_PADDING . ' and ' . self::ZERO_PADDING . '.'
             );
         }

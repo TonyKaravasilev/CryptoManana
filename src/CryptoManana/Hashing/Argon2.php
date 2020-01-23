@@ -52,7 +52,7 @@ class Argon2 extends StrongDerivationAlgorithm implements ComplexAlgorithmicCost
     /**
      * The Argon2i variation setting constant.
      *
-     * @see AlgorithmVariationSwitching::VERSION_ONE
+     * @see AlgorithmVariationSwitching::VERSION_ONE For internal value.
      *
      * @internal Same as `Argon2::VERSION_ONE`.
      */
@@ -61,7 +61,7 @@ class Argon2 extends StrongDerivationAlgorithm implements ComplexAlgorithmicCost
     /**
      * The Argon2id variation setting constant.
      *
-     * @see AlgorithmVariationSwitching::VERSION_TWO
+     * @see AlgorithmVariationSwitching::VERSION_TWO For internal value.
      *
      * @internal Same as `Argon2::VERSION_TWO`.
      */

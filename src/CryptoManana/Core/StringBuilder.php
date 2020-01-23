@@ -50,7 +50,7 @@ class StringBuilder extends SingletonPattern implements StringManipulations
     }
 
     /**
-     * Check if the the `mbstring` extension usage is enabled or not.
+     * Check if the `mbstring` extension usage is enabled or not.
      *
      * @return bool Is the component using `mbstring`.
      */

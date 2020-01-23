@@ -94,7 +94,7 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     }
 
     /**
-     * Validates the the given seed value and converts it to an integer.
+     * Validates the given seed value and converts it to an integer.
      *
      * @param int|mixed $seed The initialization value.
      *

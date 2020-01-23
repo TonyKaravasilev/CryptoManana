@@ -14,7 +14,7 @@ namespace CryptoManana\Core\Interfaces\ErrorHandling;
 interface EditableExceptionInterface
 {
     /**
-     * Change the exception's error message via a fluent interface call.
+     * Change the exception's error message via fluent interface call.
      *
      * @param string|mixed $message Set a different error message.
      *
@@ -23,7 +23,7 @@ interface EditableExceptionInterface
     public function setMessage($message);
 
     /**
-     * Change the exception's error code via a fluent interface call.
+     * Change the exception's error code via fluent interface call.
      *
      * @param int $code Set a different exception error code.
      *
@@ -32,7 +32,7 @@ interface EditableExceptionInterface
     public function setCode($code);
 
     /**
-     * Change the file location where the exception occurred via a fluent interface call.
+     * Change the file location where the exception occurred via fluent interface call.
      *
      * @param string|mixed $file Set a different file path for the exception.
      *
@@ -41,7 +41,7 @@ interface EditableExceptionInterface
     public function setFile($file);
 
     /**
-     * Change the file location where the exception occurred via a fluent interface call.
+     * Change the file location where the exception occurred via fluent interface call.
      *
      * @param int $line Set a different file line for the exception.
      *

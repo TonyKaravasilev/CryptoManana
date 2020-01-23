@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trait implementation of the the ability to switch between different variations of a digestion algorithm.
+ * Trait implementation of the ability to switch between different variations of a digestion algorithm.
  */
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
