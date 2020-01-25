@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the SymmetricCipherFactory component used for easier encryption algorithm object instancing.
+ * Testing the SymmetricCipherFactory component used for easier symmetric encryption algorithm object instancing.
  */
 
 namespace CryptoManana\Tests\TestSuite\Factories;
@@ -19,7 +19,7 @@ use \CryptoManana\SymmetricEncryption\Camellia256;
 use \CryptoManana\Factories\SymmetricCipherFactory;
 
 /**
- * Class SymmetricCipherFactoryTest - Tests the encryption algorithm factory class.
+ * Class SymmetricCipherFactoryTest - Tests the symmetric encryption algorithm factory class.
  *
  * @package CryptoManana\Tests\TestSuite\Factories
  */

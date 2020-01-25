@@ -26,7 +26,7 @@ trait SecretKeyTrait
      *
      * @param string $key The encryption key string.
      *
-     * @return $this The encryption algorithm object.
+     * @return $this The symmetric encryption algorithm object.
      * @throws \Exception Validation errors.
      */
     public function setSecretKey($key)

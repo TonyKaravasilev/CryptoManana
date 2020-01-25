@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Trait implementation of object encryption/decryption for symmetric encryption algorithms.
+ * Trait implementation of object encryption/decryption for asymmetric/symmetric encryption algorithms.
  */
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
 use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface as ObjectEncryptionSpecification;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm as AnyEncryptionAlgorithm;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
 
 /**
  * Trait ObjectEncryptionTrait - Reusable implementation of `ObjectEncryptionInterface`.
@@ -18,14 +17,14 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * @package CryptoManana\Core\Traits\MessageEncryption
  *
  * @mixin ObjectEncryptionSpecification
- * @mixin AnyEncryptionAlgorithm
+ * @mixin DataEncryptionSpecification
  */
 trait ObjectEncryptionTrait
 {
     /**
      * Encrypts the serialized value of the given object.
      *
-     * @param object|\stdClass $object The object for hashing.
+     * @param object|\stdClass $object The object for encryption.
      *
      * @return string The encrypted serialized object as a string.
      * @throws \Exception Validation errors.
@@ -63,24 +62,4 @@ trait ObjectEncryptionTrait
 
         return $object;
     }
-
-    /**
-     * Encrypts the given plain data.
-     *
-     * @param string $plainData The plain input string.
-     *
-     * @return string The cipher/encrypted data.
-     * @throws \Exception Validation errors.
-     */
-    abstract public function encryptData($plainData);
-
-    /**
-     * Decrypts the given cipher data.
-     *
-     * @param string $cipherData The encrypted input string.
-     *
-     * @return string The decrypted/plain data.
-     * @throws \Exception Validation errors.
-     */
-    abstract public function decryptData($cipherData);
 }

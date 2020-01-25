@@ -12,6 +12,7 @@ use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptio
 use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
+use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
 use \CryptoManana\SymmetricEncryption\Aes128;
@@ -100,6 +101,7 @@ final class Aes128Test extends AbstractUnitTest
 
         $this->assertTrue($crypter instanceof AbstractSymmetricEncryptionAlgorithm);
         $this->assertTrue($crypter instanceof AbstractBlockCipherAlgorithm);
+        $this->assertTrue($crypter instanceof DataEncryptionInterface);
         $this->assertTrue($crypter instanceof Aes128);
 
         $randomKey = random_bytes($crypter::KEY_SIZE);
@@ -441,7 +443,7 @@ final class Aes128Test extends AbstractUnitTest
      *
      * @throws \Exception|\ReflectionException If the tested class or method does not exist.
      */
-    public function testFileHashingFeature()
+    public function testFileEncryptionFeature()
     {
         $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
 
@@ -570,7 +572,7 @@ final class Aes128Test extends AbstractUnitTest
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
-            $this->expectException(\RuntimeException::class);
+            $this->expectException(\InvalidArgumentException::class);
 
             $crypter->decryptData('яз!');
         } else {
@@ -578,7 +580,7 @@ final class Aes128Test extends AbstractUnitTest
 
             try {
                 $crypter->decryptData('яз!');
-            } catch (\RuntimeException $exception) {
+            } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
                 $hasThrown = $exception->getMessage();

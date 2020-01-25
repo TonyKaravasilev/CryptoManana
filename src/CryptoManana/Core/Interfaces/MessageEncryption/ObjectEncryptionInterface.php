@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Interface for specifying object encryption/decryption for symmetric encryption algorithms.
+ * Interface for specifying object encryption/decryption for asymmetric/symmetric encryption algorithms.
  */
 
 namespace CryptoManana\Core\Interfaces\MessageEncryption;
@@ -16,7 +16,7 @@ interface ObjectEncryptionInterface
     /**
      * Encrypts the serialized value of the given object.
      *
-     * @param object|\stdClass $object The object for hashing.
+     * @param object|\stdClass $object The object for encryption.
      *
      * @return string The encrypted serialized object as a string.
      * @throws \Exception Validation errors.

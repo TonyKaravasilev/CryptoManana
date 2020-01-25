@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Interface for specifying file encryption/decryption for symmetric encryption algorithms.
+ * Interface for specifying file encryption/decryption for asymmetric/symmetric encryption algorithms.
  */
 
 namespace CryptoManana\Core\Interfaces\MessageEncryption;

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Trait implementation of file encryption/decryption for symmetric encryption algorithms.
+ * Trait implementation of file encryption/decryption for asymmetric/symmetric encryption algorithms.
  */
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
 use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface as FileEncryptionSpecification;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm as AnyEncryptionAlgorithm;
+use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
@@ -18,7 +18,7 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * @package CryptoManana\Core\Traits\MessageEncryption
  *
  * @mixin FileEncryptionSpecification
- * @mixin AnyEncryptionAlgorithm
+ * @mixin DataEncryptionSpecification
  */
 trait FileEncryptionTrait
 {
@@ -82,24 +82,4 @@ trait FileEncryptionTrait
 
         return $this->decryptData(file_get_contents($filename));
     }
-
-    /**
-     * Encrypts the given plain data.
-     *
-     * @param string $plainData The plain input string.
-     *
-     * @return string The cipher/encrypted data.
-     * @throws \Exception Validation errors.
-     */
-    abstract public function encryptData($plainData);
-
-    /**
-     * Decrypts the given cipher data.
-     *
-     * @param string $cipherData The encrypted input string.
-     *
-     * @return string The decrypted/plain data.
-     * @throws \Exception Validation errors.
-     */
-    abstract public function decryptData($cipherData);
 }
