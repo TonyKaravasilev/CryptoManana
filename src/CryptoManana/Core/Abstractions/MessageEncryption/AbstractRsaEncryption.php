@@ -98,7 +98,7 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
         if (!is_string($plainData)) {
             throw new \InvalidArgumentException('The data for encryption must be a string or a binary string.');
         } elseif ($this->useChunks === false) {
-            $chunkSize = (int)ceil(static::KEY_SIZE / 8) - (($this->padding === OPENSSL_PKCS1_PADDING) ? 11 : 42);
+            $chunkSize = (int)ceil(static::KEY_SIZE / 8) - $this->getPaddingReservedSize();
 
             if (strlen($plainData) > $chunkSize) {
                 throw new \InvalidArgumentException(
@@ -163,16 +163,11 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
         }
         // @codeCoverageIgnoreEnd
 
-        /**
-         * {@internal The reserved bytes for the PKCS1 standard are 11 and for the OAEP are 42. }}
-         */
-        $reservedSize = ($this->padding === OPENSSL_PKCS1_PADDING) ? 11 : 42;
-        $chunkSize = (int)ceil(static::KEY_SIZE / 8) - $reservedSize;
-
-        $plainData = ($plainData === '') ? ' ' : $plainData;
+        $chunkSize = (int)ceil(static::KEY_SIZE / 8) - $this->getPaddingReservedSize();
+        $needsOnePass = ($plainData === '');
         $cipherData = '';
 
-        while ($plainData) {
+        while ($plainData || $needsOnePass) {
             $dataChunk = substr($plainData, 0, $chunkSize);
             $plainData = substr($plainData, $chunkSize);
             $encryptedChunk = '';
@@ -182,6 +177,7 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
             }
 
             $cipherData .= $encryptedChunk;
+            $needsOnePass = false;
         }
 
         // Free the public key (resource cleanup)

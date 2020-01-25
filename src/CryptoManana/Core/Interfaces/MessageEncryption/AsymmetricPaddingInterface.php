@@ -40,6 +40,13 @@ interface AsymmetricPaddingInterface
     public function getPaddingStandard();
 
     /**
+     * Getter for the minimum size of the padding bytes that are required/reserved by the algorithm.
+     *
+     * @return int The minimum reserved size of the padding bytes.
+     */
+    public function getPaddingReservedSize();
+
+    /**
      * Enable long data processing via small chunks.
      *
      * @internal Using data chunks with asymmetric algorithms is discouraged.

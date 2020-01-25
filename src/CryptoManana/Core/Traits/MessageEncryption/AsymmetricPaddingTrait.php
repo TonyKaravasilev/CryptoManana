@@ -70,6 +70,19 @@ trait AsymmetricPaddingTrait
     }
 
     /**
+     * Getter for the minimum size of the padding bytes that are required/reserved by the algorithm.
+     *
+     * @return int The minimum reserved size of the padding bytes.
+     */
+    public function getPaddingReservedSize()
+    {
+        /**
+         * {@internal The reserved byte size for the PKCS1 standard is 11 and for the OAEP is 42. }}
+         */
+        return ($this->padding === OPENSSL_PKCS1_PADDING) ? 11 : 42;
+    }
+
+    /**
      * Enable long data processing via small chunks.
      *
      * @return $this The asymmetric encryption algorithm object.

@@ -49,7 +49,7 @@ interface AsymmetricKeyPairGenerationInterface
      * @param int $keySize The key size in bits.
      * @param int $algorithmType The asymmetric algorithm type integer code.
      *
-     * @return string Randomly generated asymmetric key pair (private and public keys).
+     * @return \stdClass Randomly generated asymmetric key pair (private and public keys) as an object.
      * @throws \Exception Validation errors.
      */
     public function getAsymmetricKeyPair($keySize = self::KEY_PAIR_4096_BITS, $algorithmType = self::RSA_KEY_PAIR_TYPE);
