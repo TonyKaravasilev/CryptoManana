@@ -96,14 +96,14 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
     protected function validatePlainData($plainData)
     {
         if (!is_string($plainData)) {
-            throw new \InvalidArgumentException('The data for encryption must be a string or a binary string.');
+            throw new \InvalidArgumentException("The data for encryption must be a string or a binary string.");
         } elseif ($this->useChunks === false) {
             $chunkSize = (int)ceil(static::KEY_SIZE / 8) - $this->getPaddingReservedSize();
 
             if (strlen($plainData) > $chunkSize) {
                 throw new \InvalidArgumentException(
-                    'The data for encryption must be less or equal of ' . $chunkSize . ' bytes. Another option is ' .
-                    'to allow chunk processing via the `enableChunkProcessing` method, which is not recommended.'
+                    "The data for encryption must be less or equal of $chunkSize bytes. Another option is " .
+                    "to allow chunk processing via the `enableChunkProcessing` method, which is not recommended."
                 );
             }
         }
@@ -119,9 +119,9 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
     protected function validateCipherOrSignatureData($cipherOrSignatureData)
     {
         if (!is_string($cipherOrSignatureData)) {
-            throw new \InvalidArgumentException('The data for decryption must be a string or a binary string.');
+            throw new \InvalidArgumentException("The data for decryption must be a string or a binary string.");
         } elseif ($cipherOrSignatureData === '') {
-            throw new \InvalidArgumentException('The string is empty and there is nothing to decrypt from it.');
+            throw new \InvalidArgumentException("The string is empty and there is nothing to decrypt from it.");
         }
 
         $chunkSize = (int)ceil(static::KEY_SIZE / 8);
@@ -129,12 +129,12 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
 
         if ($this->useChunks === false && $rawDataSize > $chunkSize) {
             throw new \InvalidArgumentException(
-                'The data for decryption must be less or equal of ' . $chunkSize . ' bytes. Another option is ' .
-                'to allow chunk processing via the `enableChunkProcessing` method, which is not recommended.'
+                "The data for decryption must be less or equal of $chunkSize bytes. Another option is " .
+                "to allow chunk processing via the `enableChunkProcessing` method, which is not recommended."
             );
         } elseif ($rawDataSize % $chunkSize !== 0) {
             throw new \InvalidArgumentException(
-                'The data length for decryption must dividable by ' . $chunkSize . ' byte blocks.'
+                "The data length for decryption must dividable by $chunkSize byte blocks."
             );
         }
     }
