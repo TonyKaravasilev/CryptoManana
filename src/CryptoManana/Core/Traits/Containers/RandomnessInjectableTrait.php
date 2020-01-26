@@ -15,7 +15,7 @@ use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSo
  *
  * @package CryptoManana\Core\Traits\Containers
  *
- * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource The randomness generator.
  */
 trait RandomnessInjectableTrait
 {

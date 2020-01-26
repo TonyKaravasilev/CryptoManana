@@ -15,7 +15,7 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  *
  * @package CryptoManana\Utilities
  *
- * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource The randomness generator.
  */
 class DataShuffler extends RandomnessContainer implements Shuffling
 {

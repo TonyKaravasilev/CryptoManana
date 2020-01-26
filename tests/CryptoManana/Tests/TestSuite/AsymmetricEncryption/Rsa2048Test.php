@@ -1,38 +1,79 @@
 <?php
 
 /**
- * Testing the Camellia-192 realization used for data encryption/decryption.
+ * Testing the RSA-2048 realization used for data encryption/decryption.
  */
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface;
+use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
+use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption;
+use \CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
 use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
-use \CryptoManana\SymmetricEncryption\Camellia192;
+use \CryptoManana\AsymmetricEncryption\Rsa2048;
+use \CryptoManana\Utilities\TokenGenerator;
 
 /**
- * Class Camellia192Test - Testing the Camellia-192 class.
+ * Class Rsa2048Test - Testing the RSA-2048 class.
  *
  * @package CryptoManana\Tests\TestSuite\Hashing
  */
-final class Camellia192Test extends AbstractUnitTest
+final class Rsa2048Test extends AbstractUnitTest
 {
+    /**
+     * The filename for the private key temporary file.
+     */
+    const PRIVATE_KEY_FILENAME_FOR_TESTS = 'rsa_2048_private.key';
+
+    /**
+     * The filename for the public key temporary file.
+     */
+    const PUBLIC_KEY_FILENAME_FOR_TESTS = 'rsa_2048_public.key';
+
+    /**
+     * Internal flag for checking of there is a key pair ready for testing.
+     *
+     * Note: `false` => auto-check on next call, `true` => already generated.
+     *
+     * @var null|bool Is the key pair generated.
+     */
+    protected static $isKeyPairGenerated = false;
+
     /**
      * Creates new instances for testing.
      *
-     * @return Camellia192 Testing instance.
-     * @throws \Exception If the system does not support the algorithm.
+     * @param bool|int|null $withoutKeys Flag for returning the object without any keys set.
+     *
+     * @return Rsa2048 Testing instance.
+     * @throws \Exception If the system can not generate or fetch a proper key pair.
      */
-    private function getSymmetricEncryptionAlgorithmInstanceForTesting()
+    private function getAsymmetricEncryptionAlgorithmInstanceForTesting($withoutKeys = false)
     {
-        return new Camellia192();
+        $rsa = new Rsa2048();
+
+        if (self::$isKeyPairGenerated === false) {
+            $generator = new TokenGenerator();
+
+            $keyPair = $generator->getAsymmetricKeyPair($rsa::KEY_SIZE, $rsa::ALGORITHM_NAME);
+
+            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->{$rsa::PRIVATE_KEY_INDEX_NAME});
+            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->{$rsa::PUBLIC_KEY_INDEX_NAME});
+
+            self::$isKeyPairGenerated = true;
+        }
+
+        if ($withoutKeys == false) {
+            $privateKey = $this->readFromFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
+            $publicKey = $this->readFromFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
+
+            $rsa->setKeyPair($privateKey, $publicKey);
+        }
+
+        return $rsa;
     }
 
     /**
@@ -42,7 +83,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testCloningCapabilities()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $tmp = clone $crypter;
 
@@ -60,7 +101,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testSerializationCapabilities()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $tmp = serialize($crypter);
         $tmp = unserialize($tmp);
@@ -79,7 +120,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testDebugCapabilities()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $this->assertNotEmpty(var_export($crypter, true));
 
@@ -91,39 +132,72 @@ final class Camellia192Test extends AbstractUnitTest
     }
 
     /**
+     * Testing the import and export of the key pair.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testKeyPairImportAndExportFeature()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        $crypter->checkIfThePrivateKeyIsSet();
+        $crypter->checkIfThePublicKeyIsSet();
+
+        $keyPair = $crypter->getKeyPair();
+
+        $this->assertTrue($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME} === $crypter->getPrivateKey());
+        $this->assertTrue($keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME} === $crypter->getPublicKey());
+
+        $crypter->setKeyPair($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME}, $keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME});
+        $keyPairCopy = $crypter->getKeyPair(true);
+
+        $this->assertTrue(
+            $keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME} === $keyPairCopy[$crypter::PRIVATE_KEY_INDEX_NAME]
+        );
+        $this->assertTrue(
+            $keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME} === $keyPairCopy[$crypter::PUBLIC_KEY_INDEX_NAME]
+        );
+
+        $crypter->setPrivateKey($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME});
+        $crypter->setPublicKey($keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME});
+        $this->assertEquals($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME}, $crypter->getPrivateKey());
+        $this->assertEquals($keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME}, $crypter->getPublicKey());
+
+        unset($keyPair, $keyPairCopy);
+    }
+
+    /**
      * Testing if the basic data encryption and decryption process works.
      *
      * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
     public function testBasicDataEncryptionAndDataDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
-        $this->assertTrue($crypter instanceof AbstractSymmetricEncryptionAlgorithm);
-        $this->assertTrue($crypter instanceof AbstractBlockCipherAlgorithm);
+        $this->assertTrue($crypter instanceof AbstractAsymmetricEncryptionAlgorithm);
+        $this->assertTrue($crypter instanceof AbstractRsaEncryption);
         $this->assertTrue($crypter instanceof DataEncryptionInterface);
-        $this->assertTrue($crypter instanceof Camellia192);
+        $this->assertTrue($crypter instanceof Rsa2048);
 
-        $randomKey = random_bytes($crypter::KEY_SIZE);
-        $randomIv = random_bytes($crypter::IV_SIZE);
-        $randomData = random_bytes($crypter::BLOCK_SIZE);
+        $testCases = [true, false];
 
-        $crypter->setSecretKey($randomKey)
-            ->setInitializationVector($randomIv)
-            ->setBlockOperationMode($crypter::CBC_MODE)
-            ->setPaddingStandard($crypter::PKCS7_PADDING)
-            ->setCipherFormat($crypter::ENCRYPTION_OUTPUT_RAW);
+        foreach ($testCases as $chunkProcessingFlag) {
+            ($chunkProcessingFlag) ? $crypter->enableChunkProcessing() : $crypter->disableChunkProcessing();
 
-        $this->assertEquals($randomKey, $crypter->getSecretKey());
-        $this->assertEquals($randomIv, $crypter->getInitializationVector());
-        $this->assertEquals($crypter::CBC_MODE, $crypter->getBlockOperationMode());
-        $this->assertEquals($crypter::PKCS7_PADDING, $crypter->getPaddingStandard());
-        $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
+            $dataLength = ($chunkProcessingFlag) ? ($crypter::KEY_SIZE * 8 + 10) : 5;
+            $dummyData = str_repeat('1', $dataLength);
 
-        $encryptedData = $crypter->encryptData($randomData);
-        $decryptedData = $crypter->decryptData($encryptedData);
+            $crypter->setPaddingStandard($crypter::OAEP_PADDING)->setCipherFormat($crypter::ENCRYPTION_OUTPUT_RAW);
 
-        $this->assertEquals($randomData, $decryptedData);
+            $this->assertEquals($crypter::OAEP_PADDING, $crypter->getPaddingStandard());
+            $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
+
+            $encryptedData = $crypter->encryptData($dummyData);
+            $decryptedData = $crypter->decryptData($encryptedData);
+
+            $this->assertEquals($dummyData, $decryptedData);
+        }
     }
 
     /**
@@ -133,191 +207,102 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testUnicodeDataEncryptionAndDataDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
-        $randomKey = random_bytes($crypter::KEY_SIZE);
-        $randomIv = random_bytes($crypter::IV_SIZE);
-        $unicodeData = "яJx 3!Й$\v@UdrЯЗЮ"; // length => $crypter::BLOCK_SIZE
+        $this->assertTrue($crypter instanceof AbstractAsymmetricEncryptionAlgorithm);
+        $this->assertTrue($crypter instanceof AbstractRsaEncryption);
+        $this->assertTrue($crypter instanceof Rsa2048);
 
-        $crypter->setSecretKey($randomKey)
-            ->setInitializationVector($randomIv)
-            ->setBlockOperationMode($crypter::CBC_MODE)
-            ->setPaddingStandard($crypter::PKCS7_PADDING)
-            ->setCipherFormat($crypter::ENCRYPTION_OUTPUT_RAW);
+        $unicodeData = "АJx 9,Й$\v@UdrЯЙЮ";
+        $testCases = [true, false];
 
-        $this->assertEquals($randomKey, $crypter->getSecretKey());
-        $this->assertEquals($randomIv, $crypter->getInitializationVector());
-        $this->assertEquals($crypter::CBC_MODE, $crypter->getBlockOperationMode());
-        $this->assertEquals($crypter::PKCS7_PADDING, $crypter->getPaddingStandard());
-        $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
+        foreach ($testCases as $chunkProcessingFlag) {
+            ($chunkProcessingFlag) ? $crypter->enableChunkProcessing() : $crypter->disableChunkProcessing();
 
-        $encryptedData = $crypter->encryptData($unicodeData);
-        $decryptedData = $crypter->decryptData($encryptedData);
+            $crypter->setPaddingStandard($crypter::OAEP_PADDING)->setCipherFormat($crypter::ENCRYPTION_OUTPUT_RAW);
 
-        $this->assertEquals($unicodeData, $decryptedData);
+            $this->assertEquals($crypter::OAEP_PADDING, $crypter->getPaddingStandard());
+            $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
+
+            $encryptedData = $crypter->encryptData($unicodeData);
+            $decryptedData = $crypter->decryptData($encryptedData);
+
+            $this->assertEquals($unicodeData, $decryptedData);
+        }
     }
 
     /**
-     * Testing if encrypting twice the same input returns the same result.
+     * Testing if encrypting twice the same input returns different result.
      *
      * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testEncryptingTheSameDataTwice()
+    public function testEncryptingTheSameDataTwiceReturnsDifferentPaddingData()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
-        $randomData = random_bytes($crypter::BLOCK_SIZE);
+        $randomData = random_bytes(16);
 
-        $this->assertEquals(
-            $crypter->encryptData($randomData),
-            $crypter->encryptData($randomData)
-        );
+        $this->assertTrue($crypter->encryptData($randomData) !== $crypter->encryptData($randomData));
     }
 
     /**
-     * Testing if encrypting twice the same input returns the same result.
+     * Testing if decrypting twice the cipher data from two separate encryption will return the same input result.
      *
      * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testDecryptingTheSameDataTwice()
+    public function testDecryptingTheCipherDataTwiceReturnsTheCorrectInputData()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
-        $randomData = random_bytes($crypter::BLOCK_SIZE);
+        $randomData = random_bytes(16);
         $encryptedData = $crypter->encryptData($randomData);
+        $encryptedDataSecond = $crypter->encryptData($randomData);
 
         $this->assertEquals(
             $crypter->decryptData($encryptedData),
             $crypter->decryptData($encryptedData)
         );
-    }
 
-    /**
-     * Testing the internal transformations for the used key size when a non-exact values was passed.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testKeySizeAndInternalTransformations()
-    {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
-
-        $this->assertTrue($crypter instanceof SecretKeyInterface);
-
-        $emptyKey = '';
-        $crypter->setSecretKey($emptyKey);
-
-        $this->assertTrue(strlen($crypter->getSecretKey()) === $crypter::KEY_SIZE);
-        $this->assertEquals(str_repeat("\0", $crypter::KEY_SIZE), $crypter->getSecretKey());
-
-        $shortKey = '1234';
-        $crypter->setSecretKey($shortKey);
-
-        $this->assertTrue(strlen($crypter->getSecretKey()) === $crypter::KEY_SIZE);
         $this->assertEquals(
-            '1234' . str_repeat("\0", $crypter::KEY_SIZE - 4),
-            $crypter->getSecretKey()
-        );
-
-        $exactKey = str_repeat('1', $crypter::KEY_SIZE);
-        $crypter->setSecretKey($exactKey);
-
-        $this->assertTrue(strlen($crypter->getSecretKey()) === $crypter::KEY_SIZE);
-        $this->assertEquals($exactKey, $crypter->getSecretKey());
-
-        $longKey = str_repeat('1', $crypter::KEY_SIZE * 2);
-        $crypter->setSecretKey($longKey);
-
-        $this->assertTrue(strlen($crypter->getSecretKey()) === $crypter::KEY_SIZE);
-        $this->assertEquals(
-            hash_hkdf('sha256', $longKey, $crypter::KEY_SIZE, 'CryptoMañana', ''),
-            $crypter->getSecretKey()
+            $crypter->decryptData($encryptedData),
+            $crypter->decryptData($encryptedDataSecond)
         );
     }
 
     /**
-     * Testing the internal transformations for the used initialization vector size when a non-exact values was passed.
+     * Testing if the encrypting of data with importing just the public key works.
      *
-     * @throws \Exception Wrong usage errors.
+     * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testInitializationVectorSizeAndInternalTransformations()
+    public function testEncryptingTheDataWithJustThePublicKeyImported()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting(false);
 
-        $this->assertTrue($crypter instanceof BlockOperationsInterface);
+        $crypter->setPublicKey($this->readFromFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS));
 
-        $this->assertEquals($crypter::BLOCK_SIZE, $crypter::IV_SIZE);
+        $randomData = random_bytes(16);
 
-        $emptyIv = '';
-        $crypter->setInitializationVector($emptyIv);
-
-        $this->assertTrue(strlen($crypter->getInitializationVector()) === $crypter::IV_SIZE);
-        $this->assertEquals(str_repeat("\0", $crypter::IV_SIZE), $crypter->getInitializationVector());
-
-        $shortIv = '1234';
-        $crypter->setInitializationVector($shortIv);
-
-        $this->assertTrue(strlen($crypter->getInitializationVector()) === $crypter::IV_SIZE);
-        $this->assertEquals(
-            '1234' . str_repeat("\0", $crypter::IV_SIZE - 4),
-            $crypter->getInitializationVector()
-        );
-
-        $exactIv = str_repeat('1', $crypter::IV_SIZE);
-        $crypter->setInitializationVector($exactIv);
-
-        $this->assertTrue(strlen($crypter->getInitializationVector()) === $crypter::IV_SIZE);
-        $this->assertEquals($exactIv, $crypter->getInitializationVector());
-
-        $longIv = str_repeat('1', $crypter::IV_SIZE * 2);
-        $crypter->setInitializationVector($longIv);
-
-        $this->assertTrue(strlen($crypter->getInitializationVector()) === $crypter::IV_SIZE);
-        $this->assertEquals(
-            hash_hkdf('sha256', $longIv, $crypter::IV_SIZE, 'CryptoMañana', ''),
-            $crypter->getInitializationVector()
-        );
+        $this->assertNotEmpty($crypter->encryptData($randomData));
     }
 
     /**
-     * Testing the algorithm encryption and decryption for all block operation modes.
+     * Testing if the decrypting of cipher data with importing just the private key works.
      *
-     * @throws \Exception Wrong usage errors.
+     * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testBlockOperationModes()
+    public function testDecryptingTheCipherDataWithJustThePrivateKeyImported()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting(false);
 
-        $this->assertTrue($crypter instanceof BlockOperationsInterface);
+        $randomData = random_bytes(16);
+        $encryptedData = $crypter->encryptData($randomData);
 
-        $randomData = random_bytes($crypter::BLOCK_SIZE);
+        $crypter = null;
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting(true);
 
-        $validModes = [
-            $crypter::CBC_MODE,
-            $crypter::CFB_MODE,
-            $crypter::OFB_MODE,
-            $crypter::CTR_MODE,
-            $crypter::ECB_MODE
-        ];
+        $crypter->setPrivateKey($this->readFromFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS));
 
-        $testedModes = 0;
-
-        foreach ($validModes as $blockMode) {
-            $methodName = $crypter::ALGORITHM_NAME . '-' . ($crypter::KEY_SIZE * 8) . '-' . $blockMode;
-
-            if (in_array($methodName, openssl_get_cipher_methods(), true)) {
-                $crypter->setBlockOperationMode($blockMode);
-                $this->assertEquals($blockMode, $crypter->getBlockOperationMode());
-
-                $encryptedData = $crypter->encryptData($randomData);
-                $decryptedData = $crypter->decryptData($encryptedData);
-
-                $this->assertEquals($randomData, $decryptedData);
-
-                $testedModes++;
-            }
-        }
-
-        $this->assertTrue($testedModes !== 0);
+        $this->assertEquals($randomData, $crypter->decryptData($encryptedData));
     }
 
     /**
@@ -325,18 +310,17 @@ final class Camellia192Test extends AbstractUnitTest
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testFinalBlockPaddingStandards()
+    public function testAsymmetricPaddingStandards()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
-        $this->assertTrue($crypter instanceof BlockOperationsInterface);
+        $this->assertTrue($crypter instanceof AsymmetricPaddingInterface);
 
-        $randomData = random_bytes($crypter::BLOCK_SIZE - 1);
-        $randomData = rtrim($randomData, "\x0"); // For zero padding
+        $randomData = random_bytes(16);
 
         $validPaddingStandards = [
-            $crypter::ZERO_PADDING,
-            $crypter::PKCS7_PADDING,
+            $crypter::PKCS1_PADDING,
+            $crypter::OAEP_PADDING,
         ];
 
         foreach ($validPaddingStandards as $paddingStandard) {
@@ -357,11 +341,11 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testCipherOutputFormats()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $this->assertTrue($crypter instanceof CipherDataFormatsInterface);
 
-        $randomData = random_bytes($crypter::BLOCK_SIZE);
+        $randomData = random_bytes(16);
 
         $hexLowerCasePattern = '/^[a-f0-9]+$/';
         $hexUpperCasePattern = '/^[A-F0-9]+$/';
@@ -420,7 +404,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testObjectEncryptionFeature()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $this->assertTrue($crypter instanceof ObjectEncryptionInterface);
 
@@ -430,7 +414,7 @@ final class Camellia192Test extends AbstractUnitTest
         $encryptedString = $crypter->encryptData(serialize($object));
         $encryptedObject = $crypter->encryptObject($object);
 
-        $this->assertEquals($encryptedString, $encryptedObject);
+        $this->assertTrue($encryptedString !== $encryptedObject); // padding bytes
 
         $this->assertEquals(
             unserialize($crypter->decryptData($encryptedString)),
@@ -445,7 +429,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testFileEncryptionFeature()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $this->assertTrue($crypter instanceof FileEncryptionInterface);
 
@@ -456,7 +440,7 @@ final class Camellia192Test extends AbstractUnitTest
         $encryptedString = $crypter->encryptData($this->readFromFile($fileName));
         $encryptedFileContent = $crypter->encryptFile($fileName);
 
-        $this->assertEquals($encryptedString, $encryptedFileContent);
+        $this->assertTrue($encryptedString !== $encryptedFileContent); // padding bytes
 
         $this->writeToFile($fileName, $encryptedFileContent);
 
@@ -475,7 +459,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForInvalidPlainDataUsedForEncryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -506,7 +490,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForInvalidCipherDataUsedForDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -537,7 +521,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForEmptyStringCipherDataUsedForDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -568,7 +552,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForNonCipherDataStringUsedForDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -593,24 +577,26 @@ final class Camellia192Test extends AbstractUnitTest
     }
 
     /**
-     * Testing validation case for setting an invalid secret key.
+     * Testing validation case for trying to encrypt an unsupported input data size when not using chunk processing.
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForSettingAnInvalidSecretKey()
+    public function testValidationCaseForAttemptingToEncryptHugeDataWithoutChunkProcessing()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        $crypter->disableChunkProcessing();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setSecretKey(['wrong']);
+            $crypter->encryptData(str_repeat('1', $crypter::KEY_SIZE * 8 + 10));
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setSecretKey(['wrong']);
+                $crypter->encryptData(str_repeat('1', $crypter::KEY_SIZE * 8 + 10));
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -624,24 +610,30 @@ final class Camellia192Test extends AbstractUnitTest
     }
 
     /**
-     * Testing validation case for setting an invalid initialization vector.
+     * Testing validation case for trying to decrypt an unsupported cipher data size when not using chunk processing.
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForSettingAnInvalidInitializationVector()
+    public function testValidationCaseForAttemptingToDecryptHugeCipherDataWithoutChunkProcessing()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        $crypter->enableChunkProcessing();
+
+        $cipherData = $crypter->encryptData(str_repeat('1', $crypter::KEY_SIZE * 8 + 10));
+
+        $crypter->disableChunkProcessing();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setInitializationVector(['wrong']);
+            $crypter->decryptData($cipherData);
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setInitializationVector(['wrong']);
+                $crypter->decryptData($cipherData);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -655,24 +647,91 @@ final class Camellia192Test extends AbstractUnitTest
     }
 
     /**
-     * Testing validation case for setting an invalid block operation mode.
+     * Testing validation case for trying to encrypt without setting keys first.
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForSettingAnInvalidBlockOperationMode()
+    public function testValidationCaseForAttemptingToEncryptWithoutAnyKeysSet()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting(true);
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\RuntimeException::class);
+
+            $crypter->encryptData('1234');
+        } else {
+            $hasThrown = null;
+
+            try {
+                $crypter->encryptData('1234');
+            } catch (\RuntimeException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for trying to decrypt without setting keys first.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForAttemptingToDecryptWithoutAnyKeysSet()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting(false);
+
+        $cipherData = $crypter->encryptData('1234');
+        $crypter = null;
+
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting(true);
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\RuntimeException::class);
+
+            $crypter->decryptData($cipherData);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $crypter->decryptData($cipherData);
+            } catch (\RuntimeException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for setting an invalid private key.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForSettingAnInvalidPrivateKey()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setBlockOperationMode(['wrong']);
+            $crypter->setKeyPair(['wrong'], $crypter->getPublicKey());
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setBlockOperationMode(['wrong']);
+                $crypter->setKeyPair(['wrong'], $crypter->getPublicKey());
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -686,24 +745,86 @@ final class Camellia192Test extends AbstractUnitTest
     }
 
     /**
-     * Testing validation case for setting an unsupported block operation mode.
+     * Testing validation case for setting an invalid public key.
      *
      * @throws \Exception Wrong usage errors.
      */
-    public function testValidationCaseForSettingAnUnsupportedBlockOperationMode()
+    public function testValidationCaseForSettingAnInvalidPublicKey()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setBlockOperationMode('YDRI');
+            $crypter->setKeyPair($crypter->getPrivateKey(), ['wrong']);
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setBlockOperationMode('YDRI');
+                $crypter->setKeyPair($crypter->getPrivateKey(), ['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for setting an invalid format of a private key.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForSettingWrongFormattedStringForPrivateKey()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $crypter->setKeyPair('яаьц', $crypter->getPublicKey());
+        } else {
+            $hasThrown = null;
+
+            try {
+                $crypter->setKeyPair('яаьц', $crypter->getPublicKey());
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for setting an invalid format of a public key.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForSettingWrongFormattedStringForPublicKey()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $crypter->setKeyPair($crypter->getPrivateKey(), 'яаьц');
+        } else {
+            $hasThrown = null;
+
+            try {
+                $crypter->setKeyPair($crypter->getPrivateKey(), 'яаьц');
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -723,7 +844,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForSettingAnInvalidPaddingStandard()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -754,7 +875,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForSettingAnInvalidCipherOutputFormat()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -779,13 +900,91 @@ final class Camellia192Test extends AbstractUnitTest
     }
 
     /**
+     * Testing validation case for trying to encrypt an unsupported or defected plain data.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForAttemptingToEncryptDefectedPlainData()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        $crypter->setCipherFormat($crypter::ENCRYPTION_OUTPUT_HEX_UPPER);
+
+        // Simulating defection from library or invalid encoding via changing the padding mode to an invalid one
+        $reflectionMbString = new \ReflectionProperty(
+            $crypter,
+            'padding'
+        );
+
+        $reflectionMbString->setAccessible(true);
+        $reflectionMbString->setValue($crypter, -1000);
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $crypter->encryptData('1234');
+        } else {
+            $hasThrown = null;
+
+            try {
+                $crypter->encryptData('1234');
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for trying to decrypt an unsupported or defected cipher data.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForAttemptingToDecryptDefectedCipherData()
+    {
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
+
+        $crypter->setCipherFormat($crypter::ENCRYPTION_OUTPUT_HEX_UPPER);
+        $cipherData = $crypter->encryptData('');
+
+        $cipherData = strrev($cipherData);
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $crypter->decryptData($cipherData);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $crypter->decryptData($cipherData);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
      * Testing validation case for invalid type of filename used for file encryption.
      *
      * @throws \Exception Wrong usage errors.
      */
     public function testValidationCaseForInvalidFileNameUsedForFileEncryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -816,7 +1015,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForInvalidFileNameUsedForFileDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -847,7 +1046,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForNonExistingFileNameUsedForFileEncryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -878,7 +1077,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForNonExistingFileNameUsedForFileDecryption()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -909,7 +1108,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForInvalidTypePassedForEncryptingObjects()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -940,7 +1139,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForInvalidTypePassedForDecryptingObjects()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
@@ -971,7 +1170,7 @@ final class Camellia192Test extends AbstractUnitTest
      */
     public function testValidationCaseForInvalidSerializedDataPassedForDecryptingObjects()
     {
-        $crypter = $this->getSymmetricEncryptionAlgorithmInstanceForTesting();
+        $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
         $invalidSerializedData = $crypter->encryptData(serialize(['wrong']));
 
@@ -995,5 +1194,20 @@ final class Camellia192Test extends AbstractUnitTest
 
             return;
         }
+    }
+
+    /**
+     * Testing the resource cleanup operation.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testKeyPairResourceCleanupOperation()
+    {
+        $this->assertTrue(self::$isKeyPairGenerated);
+
+        $this->deleteTheFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
+        $this->deleteTheFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
+
+        self::$isKeyPairGenerated = null;
     }
 }

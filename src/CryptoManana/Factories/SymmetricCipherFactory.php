@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Factory object encryption algorithm object instancing.
+ * Factory for object symmetric encryption algorithm object instancing.
  */
 
 namespace CryptoManana\Factories;
@@ -16,7 +16,7 @@ use \CryptoManana\SymmetricEncryption\Camellia192 as Camellia192;
 use \CryptoManana\SymmetricEncryption\Camellia256 as Camellia256;
 
 /**
- * Class SymmetricCipherFactory - Factory object encryption algorithm object instancing.
+ * Class SymmetricCipherFactory - Factory for object symmetric encryption algorithm object instancing.
  *
  * @package CryptoManana\Factories
  */

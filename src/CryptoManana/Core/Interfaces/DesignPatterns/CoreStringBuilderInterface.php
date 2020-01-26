@@ -16,7 +16,7 @@ namespace CryptoManana\Core\Interfaces\DesignPatterns;
 interface CoreStringBuilderInterface
 {
     /**
-     * Check if the the `mbstring` extension usage is enabled or not.
+     * Check if the `mbstring` extension usage is enabled or not.
      *
      * @return bool Is the component using `mbstring`.
      */

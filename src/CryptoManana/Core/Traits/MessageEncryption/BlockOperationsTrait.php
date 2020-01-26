@@ -28,7 +28,7 @@ trait BlockOperationsTrait
      *
      * @param string $iv The initialization vector (IV) string.
      *
-     * @return $this The encryption algorithm object.
+     * @return $this The symmetric encryption algorithm object.
      * @throws \Exception Validation errors.
      */
     public function setInitializationVector($iv)
@@ -66,7 +66,7 @@ trait BlockOperationsTrait
      *
      * @param string $mode The block operation mode string.
      *
-     * @return $this The encryption algorithm object.
+     * @return $this The symmetric encryption algorithm object.
      * @throws \Exception Validation errors.
      */
     public function setBlockOperationMode($mode)
@@ -115,7 +115,7 @@ trait BlockOperationsTrait
      *
      * @param int $padding The padding standard integer code value.
      *
-     * @return $this The encryption algorithm object.
+     * @return $this The symmetric encryption algorithm object.
      * @throws \Exception Validation errors.
      */
     public function setPaddingStandard($padding)
@@ -133,7 +133,7 @@ trait BlockOperationsTrait
 
         if ($padding === false) {
             throw new \InvalidArgumentException(
-                'The padding standard must must be a valid integer between ' .
+                'The padding standard must be a valid integer between ' .
                 self::PKCS7_PADDING . ' and ' . self::ZERO_PADDING . '.'
             );
         }

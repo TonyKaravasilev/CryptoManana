@@ -6,6 +6,7 @@
 
 namespace CryptoManana\Core\Abstractions\MessageEncryption;
 
+use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as SymmetricDataEncryption;
 use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface as CipherDataFormatting;
 use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface as SecretKeyCipher;
 use \CryptoManana\Core\Traits\MessageEncryption\CipherDataFormatsTrait as CipherDataFormats;
@@ -19,7 +20,10 @@ use \CryptoManana\Core\Traits\MessageEncryption\SecretKeyTrait as TwoWaySecretKe
  * @mixin TwoWaySecretKey
  * @mixin CipherDataFormats
  */
-abstract class AbstractSymmetricEncryptionAlgorithm implements SecretKeyCipher, CipherDataFormatting
+abstract class AbstractSymmetricEncryptionAlgorithm implements
+    SymmetricDataEncryption,
+    SecretKeyCipher,
+    CipherDataFormatting
 {
     /**
      * Secret encryption key capabilities.
@@ -88,24 +92,4 @@ abstract class AbstractSymmetricEncryptionAlgorithm implements SecretKeyCipher, 
      * Symmetrical encryption algorithm constructor.
      */
     abstract public function __construct();
-
-    /**
-     * Encrypts the given plain data.
-     *
-     * @param string $plainData The plain input string.
-     *
-     * @return string The cipher/encrypted data.
-     * @throws \Exception Validation errors.
-     */
-    abstract public function encryptData($plainData);
-
-    /**
-     * Decrypts the given cipher data.
-     *
-     * @param string $cipherData The encrypted input string.
-     *
-     * @return string The decrypted/plain data.
-     * @throws \Exception Validation errors.
-     */
-    abstract public function decryptData($cipherData);
 }

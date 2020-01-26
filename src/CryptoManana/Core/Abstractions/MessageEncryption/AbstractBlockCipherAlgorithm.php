@@ -76,7 +76,7 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
     /**
      * The final block padding operation property.
      *
-     * @var int The final block padding operation string value.
+     * @var int The final block padding operation integer code value.
      */
     protected $padding = self::PKCS7_PADDING;
 
@@ -211,7 +211,7 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
 
         // Wrong format verification
         if ($plainData === false) {
-            throw new \RuntimeException(
+            throw new \InvalidArgumentException(
                 "The passed string was not from the chosen outputting format `{$this->getCipherFormat()}`."
             );
         }

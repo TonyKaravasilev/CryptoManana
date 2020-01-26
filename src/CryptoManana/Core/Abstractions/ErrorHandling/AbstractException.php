@@ -29,7 +29,7 @@ abstract class AbstractException extends PhpException implements EditablePropert
     abstract public function getFrameworkErrorCode();
 
     /**
-     * Change the exception's error message via a fluent interface call.
+     * Change the exception's error message via fluent interface call.
      *
      * @param string|mixed $message Set a different error message.
      *
@@ -45,7 +45,7 @@ abstract class AbstractException extends PhpException implements EditablePropert
     }
 
     /**
-     * Change the exception's error code via a fluent interface call.
+     * Change the exception's error code via fluent interface call.
      *
      * @param int $code Set a different exception error code.
      *
@@ -59,7 +59,7 @@ abstract class AbstractException extends PhpException implements EditablePropert
     }
 
     /**
-     * Change the file location where the exception occurred via a fluent interface call.
+     * Change the file location where the exception occurred via fluent interface call.
      *
      * @param string|mixed $file Set a different file path for the exception.
      *
@@ -75,7 +75,7 @@ abstract class AbstractException extends PhpException implements EditablePropert
     }
 
     /**
-     * Change the file location where the exception occurred via a fluent interface call.
+     * Change the file location where the exception occurred via fluent interface call.
      *
      * @param int $line Set a different file line for the exception.
      *

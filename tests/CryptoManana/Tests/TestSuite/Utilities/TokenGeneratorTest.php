@@ -9,6 +9,7 @@ namespace CryptoManana\Tests\TestSuite\Utilities;
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
 use \CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
+use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface;
 use \CryptoManana\Randomness\CryptoRandom;
 use \CryptoManana\Randomness\PseudoRandom;
 use \CryptoManana\Randomness\QuasiRandom;
@@ -274,6 +275,38 @@ final class TokenGeneratorTest extends AbstractUnitTest
     }
 
     /**
+     * Testing secure asymmetric key pair generation.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testAsymmetricKeyPairGeneration()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        $keyPair = $generator->getAsymmetricKeyPair(
+            $generator::KEY_PAIR_1024_BITS,
+            $generator::RSA_KEY_PAIR_TYPE
+        );
+
+        $this->assertTrue(
+            is_object($keyPair) &&
+            $keyPair instanceof \stdClass &&
+            isset($keyPair->{KeyPairInterface::PRIVATE_KEY_INDEX_NAME}) &&
+            isset($keyPair->{KeyPairInterface::PUBLIC_KEY_INDEX_NAME})
+        );
+
+        $privateKey = $keyPair->{KeyPairInterface::PRIVATE_KEY_INDEX_NAME};
+        $publicKey = $keyPair->{KeyPairInterface::PUBLIC_KEY_INDEX_NAME};
+
+        $this->assertTrue(
+            preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $privateKey) && strlen($privateKey) % 4 === 0
+        );
+        $this->assertTrue(
+            preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $publicKey) && strlen($publicKey) % 4 === 0
+        );
+    }
+
+    /**
      * Testing validation case for non-positive output length.
      *
      * @throws \Exception Wrong usage errors.
@@ -293,6 +326,131 @@ final class TokenGeneratorTest extends AbstractUnitTest
             try {
                 $generator->getTokenString(0);
             } catch (\LengthException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case invalid asymmetric key pair type.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidAsymmetricKeyPairAlgorithmType()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $generator->getAsymmetricKeyPair(384, ['wrong']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $generator->getAsymmetricKeyPair(384, ['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+
+    /**
+     * Testing validation case invalid asymmetric key pair size.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidAsymmetricKeyPairSize()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $generator->getAsymmetricKeyPair(['wrong']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $generator->getAsymmetricKeyPair(['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for too big asymmetric key pair size.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForTooBigAsymmetricKeyPairSize()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $generator->getAsymmetricKeyPair(30000);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $generator->getAsymmetricKeyPair(30000);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing validation case for too small asymmetric key pair size.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForTooSmallAsymmetricKeyPairSize()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $generator->getAsymmetricKeyPair(128);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $generator->getAsymmetricKeyPair(128);
+            } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
                 $hasThrown = $exception->getMessage();

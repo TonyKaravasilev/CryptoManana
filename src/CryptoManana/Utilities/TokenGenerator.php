@@ -7,9 +7,11 @@
 namespace CryptoManana\Utilities;
 
 use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
+use \CryptoManana\Core\Interfaces\Randomness\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
 use \CryptoManana\Core\Interfaces\Randomness\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
 use \CryptoManana\Core\Interfaces\Randomness\HashingKeyGenerationInterface as HashingKeyGeneration;
 use \CryptoManana\Core\Interfaces\Randomness\TokenGenerationInterface as TokenStringGeneration;
+use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairSpecification;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
@@ -17,12 +19,13 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  *
  * @package CryptoManana\Utilities
  *
- * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource
+ * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource The randomness generator.
  */
 class TokenGenerator extends RandomnessContainer implements
     TokenStringGeneration,
     HashingKeyGeneration,
-    EncryptionKeyGeneration
+    EncryptionKeyGeneration,
+    KeyPairGeneration
 {
     /**
      * Internal method for validation of positive output length.
@@ -49,6 +52,122 @@ class TokenGenerator extends RandomnessContainer implements
                 'The length of the desired output data must me at least 1 character long.'
             );
         }
+    }
+
+    /**
+     * Internal method for asymmetric algorithm type validation.
+     *
+     * @param int $algorithmType The asymmetric algorithm type integer code.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validateAsymmetricAlgorithmType($algorithmType)
+    {
+        $algorithmType = filter_var(
+            $algorithmType,
+            FILTER_VALIDATE_INT,
+            [
+                "options" => [
+                    "min_range" => self::RSA_KEY_PAIR_TYPE,
+                    "max_range" => self::DSA_KEY_PAIR_TYPE,
+                ],
+            ]
+        );
+
+        if ($algorithmType === false) {
+            throw new \InvalidArgumentException(
+                'The asymmetric algorithm type must be a valid integer between ' .
+                self::RSA_KEY_PAIR_TYPE . ' and ' . self::DSA_KEY_PAIR_TYPE . '.'
+            );
+        }
+    }
+
+    /**
+     * Internal method for asymmetric algorithm type validation.
+     *
+     * @param int $keySize The key size in bits.
+     *
+     * @throws \Exception Validation errors.
+     */
+    protected function validateKeyPairSize($keySize)
+    {
+        $keySize = filter_var(
+            $keySize,
+            FILTER_VALIDATE_INT,
+            [
+                "options" => [
+                    "min_range" => 384,
+                    "max_range" => 15360,
+                ],
+            ]
+        );
+
+        if ($keySize === false || $keySize % 128 !== 0) {
+            throw new \InvalidArgumentException(
+                'The key size must be between 384 (fastest but weakest) ' .
+                'and 15360 (slowest but strongest) bits and be dividable by 128 bits.'
+            );
+        }
+    }
+
+    /**
+     * Internal method for generating a fresh private key pair of the given size and type.
+     *
+     * @param int $keySize The private key size in bits.
+     * @param string $algorithmType The asymmetric algorithm type.
+     *
+     * @return resource The private key resource.
+     * @throws \Exception Validation or system errors.
+     *
+     * @codeCoverageIgnore
+     */
+    protected function generatePrivateKey($keySize, $algorithmType)
+    {
+        $privateKeyResource = openssl_pkey_new([
+            'private_key_bits' => $keySize, // Size of the key (>= 384)
+            'private_key_type' => $algorithmType, // The algorithm type (RSA/DSA) type
+        ]);
+
+        if ($privateKeyResource === false) {
+            throw new \RuntimeException(
+                'Failed to generate a private key, probably because of a misconfigured OpenSSL library.'
+            );
+        }
+
+        return $privateKeyResource;
+    }
+
+    /**
+     * Internal method for generating a fresh public key pair of the given size by extracting it from the  private key.
+     *
+     * @param int $keySize The private key size in bits.
+     * @param resource $privateKeyResource The private key resource.
+     *
+     * @return string The extracted public key string.
+     * @throws \Exception Validation or system errors.
+     *
+     * @internal The private key resource is passed via reference from the main logical method for performance reasons.
+     *
+     * @codeCoverageIgnore
+     */
+    protected function generatePublicKey($keySize, &$privateKeyResource)
+    {
+        $privateKeyInformation = openssl_pkey_get_details($privateKeyResource);
+
+        if ($privateKeyInformation === false) {
+            throw new \RuntimeException(
+                'Failed to generate/extract and export a public key, probably because of a misconfigured ' .
+                'OpenSSL library or an invalid private key.'
+            );
+        } elseif ($privateKeyInformation['bits'] !== $keySize) {
+            throw new \DomainException('The extracted public key is not of the correct size: `' . $keySize . '`.');
+        }
+
+        // Free the private key (resource cleanup)
+        openssl_free_key($privateKeyResource);
+        $privateKeyResource = null;
+
+        return (string)$privateKeyInformation['key']; // <- The public key
     }
 
     /**
@@ -79,13 +198,13 @@ class TokenGenerator extends RandomnessContainer implements
      *
      * Note: This method can generate HEX output if the `$useAlphaNumeric` parameter is set to `false`.
      *
-     * @param int $length The desired output length (default => 40).
+     * @param int $length The desired output length (default => 32).
      * @param bool|int $useAlphaNumeric Flag for switching to alphanumerical (default => true).
      *
      * @return string Randomly generated alphanumeric/hexadecimal token string.
      * @throws \Exception Validation errors.
      */
-    public function getTokenString($length = 40, $useAlphaNumeric = true)
+    public function getTokenString($length = self::MODERATE_TOKEN_LENGTH, $useAlphaNumeric = true)
     {
         $this->applyLengthValidation($length);
 
@@ -103,13 +222,13 @@ class TokenGenerator extends RandomnessContainer implements
      *
      * Note: This method can use more special symbols on generation if the `$stronger` parameter is set to `true`.
      *
-     * @param int $length The desired output length (default => 10).
+     * @param int $length The desired output length (default => 12).
      * @param bool|int $stronger Flag for using all printable ASCII characters (default => true).
      *
      * @return string Randomly generated password string.
      * @throws \Exception Validation errors.
      */
-    public function getPasswordString($length = 10, $stronger = true)
+    public function getPasswordString($length = self::MODERATE_PASSWORD_LENGTH, $stronger = true)
     {
         $this->applyLengthValidation($length);
 
@@ -133,13 +252,13 @@ class TokenGenerator extends RandomnessContainer implements
      *
      * Note: The output string can be in raw bytes of the `$printable` parameter is set to `true`.
      *
-     * @param int $length The desired output length (default => 128).
+     * @param int $length The desired output length (default => 16).
      * @param bool|int $printable Flag for using only printable characters instead of bytes (default => true).
      *
      * @return string Randomly generated HMAC key.
      * @throws \Exception Validation errors.
      */
-    public function getHashingKey($length = 128, $printable = true)
+    public function getHashingKey($length = self::DIGESTION_KEY_128_BITS, $printable = true)
     {
         $this->applyLengthValidation($length);
 
@@ -151,13 +270,13 @@ class TokenGenerator extends RandomnessContainer implements
      *
      * Note: The output string can be in raw bytes of the `$printable` parameter is set to `true`.
      *
-     * @param int $length The desired output length (default => 128).
+     * @param int $length The desired output length (default => 16).
      * @param bool|int $printable Flag for using only printable characters instead of bytes (default => true).
      *
      * @return string Randomly generated hashing salt.
      * @throws \Exception Validation errors.
      */
-    public function getHashingSalt($length = 128, $printable = true)
+    public function getHashingSalt($length = self::DIGESTION_SALT_128_BITS, $printable = true)
     {
         $this->applyLengthValidation($length);
 
@@ -169,13 +288,13 @@ class TokenGenerator extends RandomnessContainer implements
      *
      * Note: The output string can be in raw bytes of the `$printable` parameter is set to `true`.
      *
-     * @param int $length The desired output length (default => 128).
+     * @param int $length The desired output length (default => 16).
      * @param bool|int $printable Flag for using only printable characters instead of bytes (default => true).
      *
      * @return string Randomly generated encryption key.
      * @throws \Exception Validation errors.
      */
-    public function getEncryptionKey($length = 128, $printable = true)
+    public function getEncryptionKey($length = self::SECRET_KEY_128_BITS, $printable = true)
     {
         $this->applyLengthValidation($length);
 
@@ -187,16 +306,53 @@ class TokenGenerator extends RandomnessContainer implements
      *
      * Note: The output string can be in raw bytes of the `$printable` parameter is set to `true`.
      *
-     * @param int $length The desired output length (default => 128).
+     * @param int $length The desired output length (default => 16).
      * @param bool|int $printable Flag for using only printable characters instead of bytes (default => true).
      *
      * @return string Randomly generated encryption initialization vector.
      * @throws \Exception Validation errors.
      */
-    public function getEncryptionInitializationVector($length = 128, $printable = true)
+    public function getEncryptionInitializationVector($length = self::IV_128_BITS, $printable = true)
     {
         $this->applyLengthValidation($length);
 
         return ($printable) ? $this->randomnessSource->getAscii($length) : $this->randomnessSource->getBytes($length);
+    }
+
+    /**
+     * Generate a random key pair for asymmetrical cyphers.
+     *
+     * @param int $keySize The key size in bits.
+     * @param int $algorithmType The asymmetric algorithm type integer code.
+     *
+     * @return \stdClass Randomly generated asymmetric key pair (private and public keys) as an object.
+     * @throws \Exception Validation errors.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getAsymmetricKeyPair($keySize = self::KEY_PAIR_4096_BITS, $algorithmType = self::RSA_KEY_PAIR_TYPE)
+    {
+        $this->validateAsymmetricAlgorithmType($algorithmType);
+        $this->validateKeyPairSize($keySize);
+
+        $privateKeyResource = $this->generatePrivateKey((int)$keySize, (int)$algorithmType);
+
+        $privateKeyString = '';
+        $privateExport = openssl_pkey_export($privateKeyResource, $privateKeyString);
+
+        if (empty($privateKeyString) || $privateExport === false) {
+            throw new \RuntimeException(
+                'Failed to export the private key to a string, probably because of a misconfigured OpenSSL library.'
+            );
+        }
+
+        $publicKeyString = $this->generatePublicKey((int)$keySize, $privateKeyResource);
+
+        $object = new \stdClass();
+
+        $object->{KeyPairSpecification::PRIVATE_KEY_INDEX_NAME} = base64_encode($privateKeyString);
+        $object->{KeyPairSpecification::PUBLIC_KEY_INDEX_NAME} = base64_encode($publicKeyString);
+
+        return $object;
     }
 }
