@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+v0.8.0, 2020-01-26
+------------------
+- Added the ability to generate asymmetric key pairs for RSA/DSA at the TokenGenerator class;
+- Added a the standardized RSA asymmetric encryption algorithm objects for securing data;
+- Added unit tests for the new RSA asymmetric encryption algorithm object realizations;
+- Reused the DataEncryptionInterface for both symmetric and asymmetric encryption algorithms;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Updated the Composer JSON schema with new keywords and information;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.7.0, 2020-01-21
 ------------------
 - Added a few standardized symmetric encryption algorithm objects for securing data;
