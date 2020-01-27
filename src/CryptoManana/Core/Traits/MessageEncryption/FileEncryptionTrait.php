@@ -8,7 +8,7 @@ namespace CryptoManana\Core\Traits\MessageEncryption;
 
 use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface as FileEncryptionSpecification;
 use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use \CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
 
 /**
  * Trait FileEncryptionTrait - Reusable implementation of `FileEncryptionInterface`.
@@ -19,31 +19,16 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  *
  * @mixin FileEncryptionSpecification
  * @mixin DataEncryptionSpecification
+ * @mixin ValidateFileNames
  */
 trait FileEncryptionTrait
 {
     /**
-     * Internal method for location and filename validation.
+     * File name and path validations.
      *
-     * @param string $filename The filename and location.
-     *
-     * @throws \Exception Validation errors.
+     * {@internal Reusable implementation of the common file name validation. }}
      */
-    protected function validateFileNamePath($filename)
-    {
-        $filename = StringBuilder::stringReplace("\0", '', $filename); // (ASCII 0 (0x00))
-        $filename = realpath($filename); // Path traversal escape and absolute path fetching
-
-        // Clear path cache
-        if (!empty($filename)) {
-            clearstatcache(true, $filename);
-        }
-
-        // Check if path is valid and the file is readable
-        if ($filename === false || !file_exists($filename) || !is_readable($filename) || !is_file($filename)) {
-            throw new \RuntimeException('File is not found or can not be accessed.');
-        }
-    }
+    use ValidateFileNames;
 
     /**
      * Encrypts the content of a given plain file.
