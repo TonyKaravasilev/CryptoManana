@@ -29,7 +29,7 @@ php vendor/karavasilev/cryptomanana/check.php
 ```
 
 ## Project Requirements
-- `PHP Version`: 5.5, 5.6, 7.0, 7.1, 7.2, 7.3 or 7.4-dev (snapshot);
+- `PHP Version`: 5.5, 5.6, 7.0, 7.1, 7.2, 7.3 or 7.4;
 - The `spl` extension (bundles with PHP >= 5.0.0, added to core since PHP >= 5.3.0);
 - The `hash` extension (bundled with PHP >= 5.1.2, added to core since PHP >= 7.4.0);
 - The `openssl` extension (added by default for PHP >= 5.0.0, needs the OpenSSL Library);
@@ -38,7 +38,7 @@ php vendor/karavasilev/cryptomanana/check.php
 - *Optional Extensions:* `libsodium` or`sodium`, `mbstring`, `zend-opcache` and `apcu`.
 
 ## Project Documentation
-- [**Framework Documentation**](https://cryptomanana.karavasilev.info/);
+- [**Framework Manual and Documentation**](https://cryptomanana.karavasilev.info/);
 - [**Technical API Documentation**](https://cryptomanana.karavasilev.info/api/).
 
 ## Project Citation via DOI

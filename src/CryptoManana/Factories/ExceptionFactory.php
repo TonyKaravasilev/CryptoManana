@@ -88,7 +88,7 @@ class ExceptionFactory extends FactoryPattern
         /**
          * Check if class exists and has a correct base class
          *
-         * @var \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException|null $exception Object instance.
+         * @var FrameworkException|null $exception Object instance.
          */
         if (class_exists($type) && is_subclass_of($type, FrameworkException::class)) {
             $exception = new $type();
