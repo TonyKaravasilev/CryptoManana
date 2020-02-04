@@ -10,12 +10,14 @@ use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
 use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
 use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
+use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm;
 use \CryptoManana\SymmetricEncryption\Aes128;
 use \CryptoManana\SymmetricEncryption\Aes192;
 use \CryptoManana\SymmetricEncryption\Aes256;
 use \CryptoManana\SymmetricEncryption\Camellia128;
 use \CryptoManana\SymmetricEncryption\Camellia192;
 use \CryptoManana\SymmetricEncryption\Camellia256;
+use \CryptoManana\SymmetricEncryption\Rc4;
 use \CryptoManana\Factories\SymmetricCipherFactory;
 
 /**
@@ -126,6 +128,11 @@ final class SymmetricCipherFactoryTest extends AbstractUnitTest
         $this->assertTrue($tmp instanceof AbstractBlockCipherAlgorithm);
         $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
 
+        $tmp = $factory->create(SymmetricCipherFactory::RC4_128);
+        $this->assertTrue($tmp instanceof Rc4);
+        $this->assertTrue($tmp instanceof AbstractStreamCipherAlgorithm);
+        $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
+
         $this->assertNull($factory->create(\stdClass::class));
     }
 
@@ -162,6 +169,11 @@ final class SymmetricCipherFactoryTest extends AbstractUnitTest
         $tmp = SymmetricCipherFactory::createInstance(SymmetricCipherFactory::CAMELLIA_256);
         $this->assertTrue($tmp instanceof Camellia256);
         $this->assertTrue($tmp instanceof AbstractBlockCipherAlgorithm);
+        $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
+
+        $tmp = SymmetricCipherFactory::createInstance(SymmetricCipherFactory::RC4_128);
+        $this->assertTrue($tmp instanceof Rc4);
+        $this->assertTrue($tmp instanceof AbstractStreamCipherAlgorithm);
         $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
 
         $this->assertNull(SymmetricCipherFactory::createInstance(\stdClass::class));
