@@ -46,7 +46,7 @@ if (!function_exists('dump') && !function_exists('dd')) {
                     $colour = "1;36m";
                     break;
                 case 'white':
-                    $colour = "1;36m";
+                    $colour = "1;37m";
                     break;
                 default:
                     $colour = "0m";

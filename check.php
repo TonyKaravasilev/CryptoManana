@@ -462,6 +462,11 @@ if (PHP_VERSION_ID >= 70200 && OPENSSL_VERSION_NUMBER > 269484191) {
     );
 }
 
+if (PHP_VERSION_ID < 80000 || OPENSSL_VERSION_NUMBER <= 269488207) {
+    // The algorithm is marked as deprecated in OpenSSL and may be removed later
+    $encryptionAlgorithms = array_merge($encryptionAlgorithms, ['RC4']);
+}
+
 foreach ($encryptionAlgorithms as $algorithmName) {
     if (!in_array($algorithmName, $supportedAlgorithmsList, true)) {
         dump('Please provide an implementation for the encryption algorithm: ' . $algorithmName, 'red');

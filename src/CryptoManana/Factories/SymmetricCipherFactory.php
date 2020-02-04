@@ -14,6 +14,7 @@ use \CryptoManana\SymmetricEncryption\Aes256 as Aes256;
 use \CryptoManana\SymmetricEncryption\Camellia128 as Camellia128;
 use \CryptoManana\SymmetricEncryption\Camellia192 as Camellia192;
 use \CryptoManana\SymmetricEncryption\Camellia256 as Camellia256;
+use \CryptoManana\SymmetricEncryption\Rc4 as Rc4;
 
 /**
  * Class SymmetricCipherFactory - Factory for object symmetric encryption algorithm object instancing.
@@ -51,6 +52,11 @@ class SymmetricCipherFactory extends FactoryPattern
      * The CAMELLIA-256 type.
      */
     const CAMELLIA_256 = Camellia256::class;
+
+    /**
+     * The RC4-128 type.
+     */
+    const RC4_128 = Rc4::class;
 
     /**
      * Create an encryption algorithm object
@@ -101,6 +107,7 @@ class SymmetricCipherFactory extends FactoryPattern
             self::class . '::CAMELLIA_128' => self::CAMELLIA_128,
             self::class . '::CAMELLIA_192' => self::CAMELLIA_192,
             self::class . '::CAMELLIA_256' => self::CAMELLIA_256,
+            self::class . '::RC4_128' => self::RC4_128,
         ];
     }
 }

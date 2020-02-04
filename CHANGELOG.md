@@ -1,6 +1,25 @@
 CHANGELOG
 =========
 
+v0.9.0, 2020-02-04
+------------------
+- Added a standardized symmetric stream encryption algorithm object for securing data;
+- Added a unit test for the new symmetric stream encryption algorithm object realization;
+- Added standardized DSA/DSS asymmetric signature algorithm objects for signing and verification;
+- Added unit tests for the new DSA/DSS asymmetric digital signature algorithm object realizations;
+- Added an AsymmetricCipherFactory for easier asymmetric algorithm object instancing;
+- Added a unit test for the AsymmetricCipherFactory object testing;
+- Added a RC4 native realization for newer versions of PHP or ext-openssl;
+- Added a unit test for the NativeRc4 polyfill object realization;
+- Added a trait for file name validations for easier reuse by multiple classes;
+- Fixed an OpCache and performance problem for the AbstractRsaEncryption class;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Updated the Composer JSON schema with new keywords and information;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.8.0, 2020-01-26
 ------------------
 - Added the ability to generate asymmetric key pairs for RSA/DSA at the TokenGenerator class;
