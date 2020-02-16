@@ -6,6 +6,8 @@
 
 namespace CryptoManana\Core\Interfaces\Randomness;
 
+use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
+
 /**
  * Interface AsymmetricKeyPairGenerationInterface - Interface for asymmetric key pair generation.
  *
@@ -49,7 +51,7 @@ interface AsymmetricKeyPairGenerationInterface
      * @param int $keySize The key size in bits.
      * @param int $algorithmType The asymmetric algorithm type integer code.
      *
-     * @return \stdClass Randomly generated asymmetric key pair (private and public keys) as an object.
+     * @return KeyPairStructure Randomly generated asymmetric key pair (private and public keys) as an object.
      * @throws \Exception Validation errors.
      */
     public function getAsymmetricKeyPair($keySize = self::KEY_PAIR_4096_BITS, $algorithmType = self::RSA_KEY_PAIR_TYPE);
