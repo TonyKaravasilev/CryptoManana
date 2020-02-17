@@ -37,16 +37,13 @@ class AuthenticationToken extends BasicDataStructure
      *
      * @param string $rawToken The raw token string.
      * @param string $encryptedToken The encrypted token string.
+     *
+     * @throws \Exception Validation errors.
      */
     public function __construct($rawToken = '', $encryptedToken = '')
     {
-        if (is_string($rawToken)) {
-            $this->tokenData = $rawToken;
-        }
-
-        if (is_string($encryptedToken)) {
-            $this->cipherData = $encryptedToken;
-        }
+        $this->__set('tokenData', $rawToken);
+        $this->__set('cipherData', $encryptedToken);
     }
 
     /**

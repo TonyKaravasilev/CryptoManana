@@ -37,16 +37,13 @@ class SignedData extends BasicDataStructure
      *
      * @param string $plainData The plain message.
      * @param string $signatureData The message's signature.
+     *
+     * @throws \Exception Validation errors.
      */
     public function __construct($plainData = '', $signatureData = '')
     {
-        if (is_string($plainData)) {
-            $this->data = $plainData;
-        }
-
-        if (is_string($signatureData)) {
-            $this->signature = $signatureData;
-        }
+        $this->__set('data', $plainData);
+        $this->__set('signature', $signatureData);
     }
 
     /**

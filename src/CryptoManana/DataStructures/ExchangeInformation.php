@@ -55,24 +55,15 @@ class ExchangeInformation extends BasicDataStructure
      * @param string $generator The hexadecimal generator number, a primitive root modulo of `p`, also known as `g`.
      * @param string $privateKey The private key.
      * @param string $publicKey The public key.
+     *
+     * @throws \Exception Validation errors.
      */
     public function __construct($prime = '', $generator = '', $privateKey = '', $publicKey = '')
     {
-        if (is_string($prime)) {
-            $this->prime = $prime;
-        }
-
-        if (is_string($generator)) {
-            $this->generator = $generator;
-        }
-
-        if (is_string($privateKey)) {
-            $this->private = $privateKey;
-        }
-
-        if (is_string($publicKey)) {
-            $this->public = $publicKey;
-        }
+        $this->__set('prime', $prime);
+        $this->__set('generator', $generator);
+        $this->__set('private', $privateKey);
+        $this->__set('public', $publicKey);
     }
 
     /**

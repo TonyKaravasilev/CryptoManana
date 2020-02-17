@@ -55,24 +55,15 @@ class EnvelopeData extends BasicDataStructure
      * @param string $encryptedIv The encrypted initialization vector.
      * @param string $encryptedData The encrypted message data information.
      * @param string $digestionTag The message authentication code (tag).
+     *
+     * @throws \Exception Validation errors.
      */
     public function __construct($encryptedKey = '', $encryptedIv = '', $encryptedData = '', $digestionTag = '')
     {
-        if (is_string($encryptedKey)) {
-            $this->key = $encryptedKey;
-        }
-
-        if (is_string($encryptedIv)) {
-            $this->iv = $encryptedIv;
-        }
-
-        if (is_string($encryptedData)) {
-            $this->cipherData = $encryptedData;
-        }
-
-        if (is_string($digestionTag)) {
-            $this->authenticationTag = $digestionTag;
-        }
+        $this->__set('key', $encryptedKey);
+        $this->__set('iv', $encryptedIv);
+        $this->__set('cipherData', $encryptedData);
+        $this->__set('authenticationTag', $digestionTag);
     }
 
     /**

@@ -28,6 +28,8 @@ abstract class AbstractBasicStructure implements PropertyOverloading
     /**
      * Structure constructor.
      *
+     * @throws \Exception Validation errors.
+     *
      * @internal The PHP syntax allows `__construct()` methods to be safely overridden with different parameters.
      */
     abstract public function __construct();

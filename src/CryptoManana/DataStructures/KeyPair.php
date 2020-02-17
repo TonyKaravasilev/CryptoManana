@@ -37,16 +37,13 @@ class KeyPair extends BasicDataStructure
      *
      * @param string $privateKey The private key string.
      * @param string $publicKey The public key string.
+     *
+     * @throws \Exception Validation errors.
      */
     public function __construct($privateKey = '', $publicKey = '')
     {
-        if (is_string($privateKey)) {
-            $this->private = $privateKey;
-        }
-
-        if (is_string($publicKey)) {
-            $this->public = $publicKey;
-        }
+        $this->__set('private', $privateKey);
+        $this->__set('public', $publicKey);
     }
 
     /**

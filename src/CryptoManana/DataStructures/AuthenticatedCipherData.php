@@ -37,16 +37,13 @@ class AuthenticatedCipherData extends BasicDataStructure
      *
      * @param string $encryptedData The encrypted data information.
      * @param string $digestionTag The message authentication code (tag).
+     *
+     * @throws \Exception Validation errors.
      */
     public function __construct($encryptedData = '', $digestionTag = '')
     {
-        if (is_string($encryptedData)) {
-            $this->cipherData = $encryptedData;
-        }
-
-        if (is_string($digestionTag)) {
-            $this->authenticationTag = $digestionTag;
-        }
+        $this->__set('cipherData', $encryptedData);
+        $this->__set('authenticationTag', $digestionTag);
     }
 
     /**
