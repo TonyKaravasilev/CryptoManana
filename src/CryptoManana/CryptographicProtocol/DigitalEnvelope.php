@@ -129,12 +129,8 @@ class DigitalEnvelope extends CryptographicProtocol implements
      */
     public function __destruct()
     {
-        unset(
-            $this->randomnessSource,
-            $this->keyedDigestionSource,
-            $this->symmetricCipherSource,
-            $this->asymmetricCipherSource
-        );
+        unset($this->randomnessSource, $this->keyedDigestionSource);
+        unset($this->symmetricCipherSource, $this->asymmetricCipherSource);
     }
 
     /**
