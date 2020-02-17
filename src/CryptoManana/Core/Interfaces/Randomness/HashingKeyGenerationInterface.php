@@ -34,6 +34,11 @@ interface HashingKeyGenerationInterface
     const DIGESTION_KEY_256_BITS = 32;
 
     /**
+     * The hash digestion key 320-bit size.
+     */
+    const DIGESTION_KEY_320_BITS = 40;
+
+    /**
      * The hash digestion key 384-bit size.
      */
     const DIGESTION_KEY_384_BITS = 48;
@@ -62,6 +67,11 @@ interface HashingKeyGenerationInterface
      * The hash digestion salt 256-bit size.
      */
     const DIGESTION_SALT_256_BITS = 32;
+
+    /**
+     * The hash digestion salt 320-bit size.
+     */
+    const DIGESTION_SALT_320_BITS = 40;
 
     /**
      * The hash digestion salt 384-bit size.

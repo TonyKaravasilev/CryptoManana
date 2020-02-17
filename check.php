@@ -398,7 +398,19 @@ foreach ($functionsList as $functionName) {
 unset($functionName);
 
 // PHP hashing algorithms check
-$hashingAlgorithms = ['whirlpool', 'md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512'];
+$hashingAlgorithms = [
+    'whirlpool',
+    'md5',
+    'sha1',
+    'sha224',
+    'sha256',
+    'sha384',
+    'sha512',
+    'ripemd128',
+    'ripemd160',
+    'ripemd256',
+    'ripemd320'
+];
 
 if (PHP_VERSION_ID >= 70100) {
     $hashingAlgorithms = array_merge($hashingAlgorithms, ['sha3-224', 'sha3-256', 'sha3-384', 'sha3-512']);

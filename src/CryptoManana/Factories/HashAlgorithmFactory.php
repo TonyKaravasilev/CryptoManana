@@ -18,6 +18,10 @@ use \CryptoManana\Hashing\ShaThree224 as ShaThree224;
 use \CryptoManana\Hashing\ShaThree256 as ShaThree256;
 use \CryptoManana\Hashing\ShaThree384 as ShaThree384;
 use \CryptoManana\Hashing\ShaThree512 as ShaThree512;
+use \CryptoManana\Hashing\Ripemd128 as Ripemd128;
+use \CryptoManana\Hashing\Ripemd160 as Ripemd160;
+use \CryptoManana\Hashing\Ripemd256 as Ripemd256;
+use \CryptoManana\Hashing\Ripemd320 as Ripemd320;
 use \CryptoManana\Hashing\Whirlpool as Whirlpool;
 use \CryptoManana\Hashing\HmacMd5 as HmacMd5;
 use \CryptoManana\Hashing\HmacSha1 as HmacSha1;
@@ -29,6 +33,10 @@ use \CryptoManana\Hashing\HmacShaTwo224 as HmacShaTwo224;
 use \CryptoManana\Hashing\HmacShaTwo256 as HmacShaTwo256;
 use \CryptoManana\Hashing\HmacShaTwo384 as HmacShaTwo384;
 use \CryptoManana\Hashing\HmacShaTwo512 as HmacShaTwo512;
+use \CryptoManana\Hashing\HmacRipemd128 as HmacRipemd128;
+use \CryptoManana\Hashing\HmacRipemd160 as HmacRipemd160;
+use \CryptoManana\Hashing\HmacRipemd256 as HmacRipemd256;
+use \CryptoManana\Hashing\HmacRipemd320 as HmacRipemd320;
 use \CryptoManana\Hashing\HmacWhirlpool as HmacWhirlpool;
 use \CryptoManana\Hashing\HkdfMd5 as HkdfMd5;
 use \CryptoManana\Hashing\HkdfSha1 as HkdfSha1;
@@ -40,6 +48,10 @@ use \CryptoManana\Hashing\HkdfShaTwo224 as HkdfShaTwo224;
 use \CryptoManana\Hashing\HkdfShaTwo256 as HkdfShaTwo256;
 use \CryptoManana\Hashing\HkdfShaTwo384 as HkdfShaTwo384;
 use \CryptoManana\Hashing\HkdfShaTwo512 as HkdfShaTwo512;
+use \CryptoManana\Hashing\HkdfRipemd128 as HkdfRipemd128;
+use \CryptoManana\Hashing\HkdfRipemd160 as HkdfRipemd160;
+use \CryptoManana\Hashing\HkdfRipemd256 as HkdfRipemd256;
+use \CryptoManana\Hashing\HkdfRipemd320 as HkdfRipemd320;
 use \CryptoManana\Hashing\HkdfWhirlpool as HkdfWhirlpool;
 use \CryptoManana\Hashing\Pbkdf2Md5 as Pbkdf2Md5;
 use \CryptoManana\Hashing\Pbkdf2Sha1 as Pbkdf2Sha1;
@@ -51,6 +63,10 @@ use \CryptoManana\Hashing\Pbkdf2ShaTwo224 as Pbkdf2ShaTwo224;
 use \CryptoManana\Hashing\Pbkdf2ShaTwo256 as Pbkdf2ShaTwo256;
 use \CryptoManana\Hashing\Pbkdf2ShaTwo384 as Pbkdf2ShaTwo384;
 use \CryptoManana\Hashing\Pbkdf2ShaTwo512 as Pbkdf2ShaTwo512;
+use \CryptoManana\Hashing\Pbkdf2Ripemd128 as Pbkdf2Ripemd128;
+use \CryptoManana\Hashing\Pbkdf2Ripemd160 as Pbkdf2Ripemd160;
+use \CryptoManana\Hashing\Pbkdf2Ripemd256 as Pbkdf2Ripemd256;
+use \CryptoManana\Hashing\Pbkdf2Ripemd320 as Pbkdf2Ripemd320;
 use \CryptoManana\Hashing\Pbkdf2Whirlpool as Pbkdf2Whirlpool;
 use \CryptoManana\Hashing\Bcrypt as Bcrypt;
 use \CryptoManana\Hashing\Argon2 as Argon2;
@@ -263,6 +279,86 @@ class HashAlgorithmFactory extends FactoryPattern
     const PBKDF2_SHA3_512 = Pbkdf2ShaThree512::class;
 
     /**
+     * The RIPEMD-128 type.
+     */
+    const RIPEMD_128 = Ripemd128::class;
+
+    /**
+     * The HMAC-RIPEMD-128 type.
+     */
+    const HMAC_RIPEMD_128 = HmacRipemd128::class;
+
+    /**
+     * The HKDF-RIPEMD-128 type.
+     */
+    const HKDF_RIPEMD_128 = HkdfRipemd128::class;
+
+    /**
+     * The PBKDF2-RIPEMD-128 type.
+     */
+    const PBKDF2_RIPEMD_128 = Pbkdf2Ripemd128::class;
+
+    /**
+     * The RIPEMD-160 type.
+     */
+    const RIPEMD_160 = Ripemd160::class;
+
+    /**
+     * The HMAC-RIPEMD-160 type.
+     */
+    const HMAC_RIPEMD_160 = HmacRipemd160::class;
+
+    /**
+     * The HKDF-RIPEMD-160 type.
+     */
+    const HKDF_RIPEMD_160 = HkdfRipemd160::class;
+
+    /**
+     * The PBKDF2-RIPEMD-160 type.
+     */
+    const PBKDF2_RIPEMD_160 = Pbkdf2Ripemd160::class;
+
+    /**
+     * The RIPEMD-256 type.
+     */
+    const RIPEMD_256 = Ripemd256::class;
+
+    /**
+     * The HMAC-RIPEMD-256 type.
+     */
+    const HMAC_RIPEMD_256 = HmacRipemd256::class;
+
+    /**
+     * The HKDF-RIPEMD-256 type.
+     */
+    const HKDF_RIPEMD_256 = HkdfRipemd256::class;
+
+    /**
+     * The PBKDF2-RIPEMD-256 type.
+     */
+    const PBKDF2_RIPEMD_256 = Pbkdf2Ripemd256::class;
+
+    /**
+     * The RIPEMD-320 type.
+     */
+    const RIPEMD_320 = Ripemd320::class;
+
+    /**
+     * The HMAC-RIPEMD-320 type.
+     */
+    const HMAC_RIPEMD_320 = HmacRipemd320::class;
+
+    /**
+     * The HKDF-RIPEMD-320 type.
+     */
+    const HKDF_RIPEMD_320 = HkdfRipemd320::class;
+
+    /**
+     * The PBKDF2-RIPEMD-320 type.
+     */
+    const PBKDF2_RIPEMD_320 = Pbkdf2Ripemd320::class;
+
+    /**
      * The Whirlpool type.
      */
     const WHIRLPOOL = Whirlpool::class;
@@ -375,6 +471,22 @@ class HashAlgorithmFactory extends FactoryPattern
             self::class . '::HMAC_SHA3_512' => self::HMAC_SHA3_512,
             self::class . '::HKDF_SHA3_512' => self::HKDF_SHA3_512,
             self::class . '::PBKDF2_SHA3_512' => self::PBKDF2_SHA3_512,
+            self::class . '::RIPEMD_128' => self::RIPEMD_128,
+            self::class . '::HMAC_RIPEMD_128' => self::HMAC_RIPEMD_128,
+            self::class . '::HKDF_RIPEMD_128' => self::HKDF_RIPEMD_128,
+            self::class . '::PBKDF2_RIPEMD_128' => self::PBKDF2_RIPEMD_128,
+            self::class . '::RIPEMD_160' => self::RIPEMD_160,
+            self::class . '::HMAC_RIPEMD_160' => self::HMAC_RIPEMD_160,
+            self::class . '::HKDF_RIPEMD_160' => self::HKDF_RIPEMD_160,
+            self::class . '::PBKDF2_RIPEMD_160' => self::PBKDF2_RIPEMD_160,
+            self::class . '::RIPEMD_256' => self::RIPEMD_256,
+            self::class . '::HMAC_RIPEMD_256' => self::HMAC_RIPEMD_256,
+            self::class . '::HKDF_RIPEMD_256' => self::HKDF_RIPEMD_256,
+            self::class . '::PBKDF2_RIPEMD_256' => self::PBKDF2_RIPEMD_256,
+            self::class . '::RIPEMD_320' => self::RIPEMD_320,
+            self::class . '::HMAC_RIPEMD_320' => self::HMAC_RIPEMD_320,
+            self::class . '::HKDF_RIPEMD_320' => self::HKDF_RIPEMD_320,
+            self::class . '::PBKDF2_RIPEMD_320' => self::PBKDF2_RIPEMD_320,
             self::class . '::WHIRLPOOL' => self::WHIRLPOOL,
             self::class . '::HMAC_WHIRLPOOL' => self::HMAC_WHIRLPOOL,
             self::class . '::HKDF_WHIRLPOOL' => self::HKDF_WHIRLPOOL,
