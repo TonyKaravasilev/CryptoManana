@@ -4,14 +4,14 @@
  * Interface for security asymmetric key pair generation capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Interface AsymmetricKeyPairGenerationInterface - Interface for asymmetric key pair generation.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface AsymmetricKeyPairGenerationInterface
 {

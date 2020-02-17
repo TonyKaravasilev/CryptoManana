@@ -4,12 +4,12 @@
  * Interface for security hashing key and salt string generation capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 /**
  * Interface HashingKeyGenerationInterface -  Interface for hashing key and salt string generation.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface HashingKeyGenerationInterface
 {

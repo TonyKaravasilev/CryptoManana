@@ -7,10 +7,10 @@
 namespace CryptoManana\Utilities;
 
 use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Randomness\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
-use \CryptoManana\Core\Interfaces\Randomness\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
-use \CryptoManana\Core\Interfaces\Randomness\HashingKeyGenerationInterface as HashingKeyGeneration;
-use \CryptoManana\Core\Interfaces\Randomness\TokenGenerationInterface as TokenStringGeneration;
+use \CryptoManana\Core\Interfaces\Containers\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
+use \CryptoManana\Core\Interfaces\Containers\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
+use \CryptoManana\Core\Interfaces\Containers\HashingKeyGenerationInterface as HashingKeyGeneration;
+use \CryptoManana\Core\Interfaces\Containers\TokenGenerationInterface as TokenStringGeneration;
 use \CryptoManana\Core\Traits\CommonValidations\KeyPairSizeValidationTrait as KeyPairSizeValidations;
 use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 use \CryptoManana\Core\StringBuilder as StringBuilder;

@@ -4,12 +4,12 @@
  * Interface for security token and password string generation capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 /**
  * Interface TokenGenerationInterface - Interface for security token and password generation.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface TokenGenerationInterface
 {

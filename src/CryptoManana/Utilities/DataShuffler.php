@@ -7,7 +7,7 @@
 namespace CryptoManana\Utilities;
 
 use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Randomness\DataShufflingInterface as Shuffling;
+use \CryptoManana\Core\Interfaces\Containers\DataShufflingInterface as Shuffling;
 use \CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**

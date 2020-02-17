@@ -7,7 +7,7 @@
 namespace CryptoManana\Utilities;
 
 use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Randomness\FileErasureInterface as SecureFileErasure;
+use \CryptoManana\Core\Interfaces\Containers\FileErasureInterface as SecureFileErasure;
 use \CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
 
 /**

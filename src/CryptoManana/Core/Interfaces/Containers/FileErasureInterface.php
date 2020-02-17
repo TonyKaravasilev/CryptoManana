@@ -4,12 +4,12 @@
  * Interface for specifying file erasure capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 /**
  * Interface FileErasureInterface - Interface for file erasure capabilities.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface FileErasureInterface
 {
