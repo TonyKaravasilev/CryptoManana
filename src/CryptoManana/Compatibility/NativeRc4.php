@@ -114,7 +114,7 @@ class NativeRc4 extends SingletonPattern
      * Decrypts the given cipher data.
      *
      * @param string $secretKey The secret key.
-     * @param string $cipherData The encrypted/cipher input string.
+     * @param string $cipherData The encrypted input string.
      *
      * @return string The decrypted/plain data.
      * @throws \Exception Validation errors.

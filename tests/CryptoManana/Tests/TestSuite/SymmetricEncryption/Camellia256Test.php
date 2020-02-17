@@ -4,7 +4,7 @@
  * Testing the Camellia-256 realization used for data encryption/decryption.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\SymmetricEncryption;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
@@ -20,7 +20,7 @@ use \CryptoManana\SymmetricEncryption\Camellia256;
 /**
  * Class Camellia256Test - Testing the Camellia-256 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\SymmetricEncryption
  */
 final class Camellia256Test extends AbstractUnitTest
 {

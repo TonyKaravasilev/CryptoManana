@@ -4,7 +4,7 @@
  * Testing the AES-128 realization used for data encryption/decryption.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\SymmetricEncryption;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
@@ -20,7 +20,7 @@ use \CryptoManana\SymmetricEncryption\Aes128;
 /**
  * Class Aes128Test - Testing the AES-128 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\SymmetricEncryption
  */
 final class Aes128Test extends AbstractUnitTest
 {

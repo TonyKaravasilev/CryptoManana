@@ -4,7 +4,7 @@
  * Testing the AES-256 realization used for data encryption/decryption.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\SymmetricEncryption;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
@@ -20,7 +20,7 @@ use \CryptoManana\SymmetricEncryption\Aes256;
 /**
  * Class Aes256Test - Testing the AES-256 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\SymmetricEncryption
  */
 final class Aes256Test extends AbstractUnitTest
 {
