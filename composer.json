@@ -12,6 +12,7 @@
     "decryption",
     "signing",
     "verification",
+    "identification",
     "authentication",
     "integrity",
     "security",
@@ -60,6 +61,7 @@
     "public-key-encryption",
     "symmetric-ciphers",
     "asymmetric-ciphers",
+    "key-exchange",
     "secret-key",
     "key-pair",
     "encryption-key",
@@ -196,6 +198,8 @@
     "DSA-2048",
     "DSA-3072",
     "DSA-4096",
+    "Diffie-Hellman",
+    "DH",
     "OPENSSL",
     "SODIUM",
     "PHP"
@@ -276,7 +280,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "v0.x-dev"
+      "dev-master": "v1.x-dev"
     }
   }
 }
