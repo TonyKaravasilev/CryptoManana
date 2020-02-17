@@ -18,6 +18,7 @@ use \CryptoManana\SymmetricEncryption\Camellia128;
 use \CryptoManana\SymmetricEncryption\Camellia192;
 use \CryptoManana\SymmetricEncryption\Camellia256;
 use \CryptoManana\SymmetricEncryption\Rc4;
+use \CryptoManana\SymmetricEncryption\TripleDes;
 use \CryptoManana\Factories\SymmetricCipherFactory;
 
 /**
@@ -128,6 +129,11 @@ final class SymmetricCipherFactoryTest extends AbstractUnitTest
         $this->assertTrue($tmp instanceof AbstractBlockCipherAlgorithm);
         $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
 
+        $tmp = $factory->create(SymmetricCipherFactory::TRIPLE_DES_168);
+        $this->assertTrue($tmp instanceof TripleDes);
+        $this->assertTrue($tmp instanceof AbstractBlockCipherAlgorithm);
+        $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
+
         $tmp = $factory->create(SymmetricCipherFactory::RC4_128);
         $this->assertTrue($tmp instanceof Rc4);
         $this->assertTrue($tmp instanceof AbstractStreamCipherAlgorithm);
@@ -168,6 +174,11 @@ final class SymmetricCipherFactoryTest extends AbstractUnitTest
 
         $tmp = SymmetricCipherFactory::createInstance(SymmetricCipherFactory::CAMELLIA_256);
         $this->assertTrue($tmp instanceof Camellia256);
+        $this->assertTrue($tmp instanceof AbstractBlockCipherAlgorithm);
+        $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
+
+        $tmp = SymmetricCipherFactory::createInstance(SymmetricCipherFactory::TRIPLE_DES_168);
+        $this->assertTrue($tmp instanceof TripleDes);
         $this->assertTrue($tmp instanceof AbstractBlockCipherAlgorithm);
         $this->assertTrue($tmp instanceof AbstractSymmetricEncryptionAlgorithm);
 

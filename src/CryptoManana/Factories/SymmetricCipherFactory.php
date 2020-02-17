@@ -14,6 +14,7 @@ use \CryptoManana\SymmetricEncryption\Aes256 as Aes256;
 use \CryptoManana\SymmetricEncryption\Camellia128 as Camellia128;
 use \CryptoManana\SymmetricEncryption\Camellia192 as Camellia192;
 use \CryptoManana\SymmetricEncryption\Camellia256 as Camellia256;
+use \CryptoManana\SymmetricEncryption\TripleDes as TripleDes;
 use \CryptoManana\SymmetricEncryption\Rc4 as Rc4;
 
 /**
@@ -52,6 +53,11 @@ class SymmetricCipherFactory extends FactoryPattern
      * The CAMELLIA-256 type.
      */
     const CAMELLIA_256 = Camellia256::class;
+
+    /**
+     * The 3DES-168 type.
+     */
+    const TRIPLE_DES_168 = TripleDes::class;
 
     /**
      * The RC4-128 type.
@@ -107,6 +113,7 @@ class SymmetricCipherFactory extends FactoryPattern
             self::class . '::CAMELLIA_128' => self::CAMELLIA_128,
             self::class . '::CAMELLIA_192' => self::CAMELLIA_192,
             self::class . '::CAMELLIA_256' => self::CAMELLIA_256,
+            self::class . '::TRIPLE_DES_168' => self::TRIPLE_DES_168,
             self::class . '::RC4_128' => self::RC4_128,
         ];
     }

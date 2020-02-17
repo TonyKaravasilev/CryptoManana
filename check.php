@@ -461,6 +461,10 @@ $encryptionAlgorithms = [
     'CAMELLIA-256-CFB',
     'CAMELLIA-256-OFB',
     'CAMELLIA-256-ECB',
+    'DES-EDE3-CBC',
+    'DES-EDE3-CFB',
+    'DES-EDE3-OFB',
+    'DES-EDE3',
 ];
 
 if (PHP_VERSION_ID >= 70200 && OPENSSL_VERSION_NUMBER > 269484191) {
