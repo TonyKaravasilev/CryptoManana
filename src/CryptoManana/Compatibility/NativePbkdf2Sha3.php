@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Compatibility;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
-use \CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
 
 /**
  * Class NativePbkdf2Sha3 - Pure PHP implementation of the PBKD2-SHA-3 algorithm.

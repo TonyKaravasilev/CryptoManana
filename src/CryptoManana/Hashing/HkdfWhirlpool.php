@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationAlgorithm;
 
 /**
  * Class HkdfWhirlpool - The HKDF-Whirlpool hashing algorithm object.

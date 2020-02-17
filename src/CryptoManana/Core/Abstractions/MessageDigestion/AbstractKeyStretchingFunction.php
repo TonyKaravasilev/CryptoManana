@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Abstractions\MessageDigestion;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
 
 /**
  * Class AbstractKeyStretchingFunction - Abstraction for key stretching classes.

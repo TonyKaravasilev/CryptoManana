@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction as UnkeyedHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction as UnkeyedHashAlgorithm;
 
 /**
  * Class ShaThree224 - The SHA-3 family SHA-224 hashing algorithm object.

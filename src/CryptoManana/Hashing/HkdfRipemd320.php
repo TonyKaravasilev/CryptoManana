@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationAlgorithm;
 
 /**
  * Class HkdfRipemd320 - The HKDF-RIPEMD-320 hashing algorithm object.

@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationAlgorithm;
 
 /**
  * Interface VerificationAlgorithmInjectableInterface - Interface specification for injection via a setter method.

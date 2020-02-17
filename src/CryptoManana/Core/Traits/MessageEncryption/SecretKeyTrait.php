@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface as SecretKeySpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface as SecretKeySpecification;
 
 /**
  * Trait SecretKeyTrait - Reusable implementation of `SecretKeyInterface`.

@@ -6,16 +6,16 @@
 
 namespace CryptoManana\Factories;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory as FactoryPattern;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm as EncryptionAlgorithm;
-use \CryptoManana\SymmetricEncryption\Aes128 as Aes128;
-use \CryptoManana\SymmetricEncryption\Aes192 as Aes192;
-use \CryptoManana\SymmetricEncryption\Aes256 as Aes256;
-use \CryptoManana\SymmetricEncryption\Camellia128 as Camellia128;
-use \CryptoManana\SymmetricEncryption\Camellia192 as Camellia192;
-use \CryptoManana\SymmetricEncryption\Camellia256 as Camellia256;
-use \CryptoManana\SymmetricEncryption\TripleDes as TripleDes;
-use \CryptoManana\SymmetricEncryption\Rc4 as Rc4;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory as FactoryPattern;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm as EncryptionAlgorithm;
+use CryptoManana\SymmetricEncryption\Aes128 as Aes128;
+use CryptoManana\SymmetricEncryption\Aes192 as Aes192;
+use CryptoManana\SymmetricEncryption\Aes256 as Aes256;
+use CryptoManana\SymmetricEncryption\Camellia128 as Camellia128;
+use CryptoManana\SymmetricEncryption\Camellia192 as Camellia192;
+use CryptoManana\SymmetricEncryption\Camellia256 as Camellia256;
+use CryptoManana\SymmetricEncryption\TripleDes as TripleDes;
+use CryptoManana\SymmetricEncryption\Rc4 as Rc4;
 
 /**
  * Class SymmetricCipherFactory - Factory for object symmetric encryption algorithm object instancing.

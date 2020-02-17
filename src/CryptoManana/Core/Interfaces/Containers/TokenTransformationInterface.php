@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\DataStructures\AuthenticationToken as AuthenticationTokenStructure;
+use CryptoManana\DataStructures\AuthenticationToken as AuthenticationTokenStructure;
 
 /**
  * Interface TokenTransformationInterface - Interface specification for authentication token transformation.

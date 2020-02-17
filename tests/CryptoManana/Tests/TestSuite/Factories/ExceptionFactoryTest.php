@@ -6,30 +6,30 @@
 
 namespace CryptoManana\Tests\TestSuite\Factories;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
-use \CryptoManana\Exceptions\BadPracticeException;
-use \CryptoManana\Exceptions\CryptographyException;
-use \CryptoManana\Exceptions\IncompatibleException;
-use \CryptoManana\Exceptions\UnsupportedException;
-use \CryptoManana\Factories\ExceptionFactory;
-use \CryptoManana\Exceptions\AccessDeniedException;
-use \CryptoManana\Exceptions\BreachAttemptException;
-use \CryptoManana\Exceptions\MaliciousPayloadException;
-use \CryptoManana\Exceptions\BotDetectedException;
-use \CryptoManana\Exceptions\IdentificationFailureException;
-use \CryptoManana\Exceptions\AuthenticationFailureException;
-use \CryptoManana\Exceptions\AuthorizationFailureException;
-use \CryptoManana\Exceptions\SessionExpiredException;
-use \CryptoManana\Exceptions\TokenExpiredException;
-use \CryptoManana\Exceptions\WrongConfigurationException;
-use \CryptoManana\Exceptions\InsecureUsageException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
+use CryptoManana\Exceptions\BadPracticeException;
+use CryptoManana\Exceptions\CryptographyException;
+use CryptoManana\Exceptions\IncompatibleException;
+use CryptoManana\Exceptions\UnsupportedException;
+use CryptoManana\Factories\ExceptionFactory;
+use CryptoManana\Exceptions\AccessDeniedException;
+use CryptoManana\Exceptions\BreachAttemptException;
+use CryptoManana\Exceptions\MaliciousPayloadException;
+use CryptoManana\Exceptions\BotDetectedException;
+use CryptoManana\Exceptions\IdentificationFailureException;
+use CryptoManana\Exceptions\AuthenticationFailureException;
+use CryptoManana\Exceptions\AuthorizationFailureException;
+use CryptoManana\Exceptions\SessionExpiredException;
+use CryptoManana\Exceptions\TokenExpiredException;
+use CryptoManana\Exceptions\WrongConfigurationException;
+use CryptoManana\Exceptions\InsecureUsageException;
 
 /**
  * Class ExceptionFactoryTest - Tests the framework exception factory class.

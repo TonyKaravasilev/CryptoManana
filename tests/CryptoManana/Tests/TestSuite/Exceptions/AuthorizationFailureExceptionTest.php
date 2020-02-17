@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
-use \CryptoManana\Exceptions\AuthorizationFailureException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
+use CryptoManana\Exceptions\AuthorizationFailureException;
 
 /**
  * Class AuthorizationFailureExceptionTest - Tests the 'authorization failure' framework exception class.

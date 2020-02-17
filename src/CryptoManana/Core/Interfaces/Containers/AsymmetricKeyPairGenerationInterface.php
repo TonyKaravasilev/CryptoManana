@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Interface AsymmetricKeyPairGenerationInterface - Interface for asymmetric key pair generation.

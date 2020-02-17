@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairSpecification;
-use \CryptoManana\Core\Traits\CommonValidations\KeyPairFormatValidationTrait as KeyFormatValidations;
-use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
+use CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairSpecification;
+use CryptoManana\Core\Traits\CommonValidations\KeyPairFormatValidationTrait as KeyFormatValidations;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Trait KeyPairTrait - Reusable implementation of `KeyPairInterface`.
@@ -164,6 +164,7 @@ trait KeyPairTrait
      * Getter for the whole key pair as an array.
      *
      * @return KeyPairStructure The private and public key pair as an object.
+     * @throws \Exception Validation errors.
      */
     public function getKeyPair()
     {

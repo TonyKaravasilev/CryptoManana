@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation as SlowDerivationAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation as SlowDerivationAlgorithm;
 
 /**
  * Class Pbkdf2Ripemd320 - The PBKDF2-RIPEMD-320 hashing algorithm object.

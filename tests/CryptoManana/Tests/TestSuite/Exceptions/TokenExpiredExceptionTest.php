@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException;
-use \CryptoManana\Exceptions\TokenExpiredException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException;
+use CryptoManana\Exceptions\TokenExpiredException;
 
 /**
  * Class TokenExpiredExceptionTest - Tests the 'token expired' framework exception class.

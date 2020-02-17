@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\DataStructures\ExchangeInformation as ExchangeInformationStructure;
+use CryptoManana\DataStructures\ExchangeInformation as ExchangeInformationStructure;
 
 /**
  * Interface KeyExchangeInterface - Interface specification for key exchange protocols.

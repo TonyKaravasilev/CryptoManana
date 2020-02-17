@@ -6,7 +6,7 @@
 
 namespace CryptoManana\SymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipherAlgorithm;
 
 /**
  * Class TripleDes - The 3DES-168 (T-DES) encryption algorithm object.

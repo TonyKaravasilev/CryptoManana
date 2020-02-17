@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\CryptographicProtocol\KeyExchange;
-use \CryptoManana\Hashing\HkdfShaTwo384;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\CryptographicProtocol\KeyExchange;
+use CryptoManana\Hashing\HkdfShaTwo384;
 
 /**
  * Class KeyExchangeTest - Testing the key exchange cryptographic protocol object.

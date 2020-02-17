@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Abstractions\ErrorHandling;
 
-use \CryptoManana\Core\Interfaces\ErrorHandling\EditableExceptionInterface as EditableProperties;
-use \Exception as PhpException;
+use CryptoManana\Core\Interfaces\ErrorHandling\EditableExceptionInterface as EditableProperties;
+use Exception as PhpException;
 
 /**
  * Class AbstractException - Abstraction for all framework exceptions.

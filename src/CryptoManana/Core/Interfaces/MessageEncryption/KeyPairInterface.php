@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\MessageEncryption;
 
-use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Interface KeyPairInterface - Interface for public and private key pair capabilities.
@@ -28,6 +28,7 @@ interface KeyPairInterface
      * Getter for the whole key pair as an array.
      *
      * @return KeyPairStructure The private and public key pair as an object.
+     * @throws \Exception Validation errors.
      */
     public function getKeyPair();
 

@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\CryptographicProtocol\PasswordBasedAuthentication;
-use \CryptoManana\Hashing\Bcrypt;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\CryptographicProtocol\PasswordBasedAuthentication;
+use CryptoManana\Hashing\Bcrypt;
 
 /**
  * Class PasswordBasedAuthenticationTest - Testing the password-based authentication cryptographic protocol object.

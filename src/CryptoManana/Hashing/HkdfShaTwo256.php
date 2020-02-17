@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationAlgorithm;
 
 /**
  * Class HkdfShaTwo256 - The SHA-2 family HKDF-SHA-256 hashing algorithm object.

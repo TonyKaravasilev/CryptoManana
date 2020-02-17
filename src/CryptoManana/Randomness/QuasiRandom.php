@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Randomness;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Class QuasiRandom - The quasi-random generator object.
@@ -178,7 +178,8 @@ class QuasiRandom extends RandomnessSource implements SeedAction
 
         // Generate range with leap step, from -32768 to 32767 => 16 bits
         self::createQuasiSequence(
-            'randomNumbers', /** @see QuasiRandom::$randomNumbers */
+            'randomNumbers',
+            /** @see QuasiRandom::$randomNumbers */
             $seed,
             self::QUASI_INT_MIN,
             self::QUASI_INT_MAX,
@@ -188,7 +189,8 @@ class QuasiRandom extends RandomnessSource implements SeedAction
 
         // Generate range with leap step, from 0 to 255 => 8 bits
         self::createQuasiSequence(
-            'randomBytes', /** @see QuasiRandom::$randomBytes */
+            'randomBytes',
+            /** @see QuasiRandom::$randomBytes */
             $seed,
             0,
             255,

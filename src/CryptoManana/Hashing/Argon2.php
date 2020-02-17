@@ -6,11 +6,11 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation as StrongDerivationAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageDigestion\ComplexAlgorithmicCostInterface as ComplexAlgorithmicCostTuning;
-use \CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmVariationInterface as AlgorithmVariationSwitching;
-use \CryptoManana\Core\Traits\MessageDigestion\ComplexAlgorithmicCostTrait as ComplexAlgorithmicCostTuningCapabilities;
-use \CryptoManana\Core\Traits\MessageDigestion\AlgorithmVariationTrait as AlgorithmVariationSwitchingCapabilities;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation as StrongDerivationAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\ComplexAlgorithmicCostInterface as ComplexAlgorithmicCostTuning;
+use CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmVariationInterface as AlgorithmVariationSwitching;
+use CryptoManana\Core\Traits\MessageDigestion\ComplexAlgorithmicCostTrait as ComplexAlgorithmicCostTuningCapabilities;
+use CryptoManana\Core\Traits\MessageDigestion\AlgorithmVariationTrait as AlgorithmVariationSwitchingCapabilities;
 
 /**
  * Class Argon2 - The Argon2 hashing algorithm object.

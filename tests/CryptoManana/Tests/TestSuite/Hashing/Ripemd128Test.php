@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
-use \CryptoManana\Hashing\Ripemd128;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
+use CryptoManana\Hashing\Ripemd128;
 
 /**
  * Class Ripemd128Test - Testing the RIPEMD-128 class.

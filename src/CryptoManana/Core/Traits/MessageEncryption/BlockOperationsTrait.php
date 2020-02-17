@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface as BlockOperationsSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface as BlockOperationsSpecification;
 
 /**
  * Trait BlockOperationsTrait - Reusable implementation of `BlockOperationsInterface`.

@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationAlgorithm;
-use \CryptoManana\Core\Interfaces\Containers\VerificationAlgorithmInjectableInterface as VerificationSpecification;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationAlgorithm;
+use CryptoManana\Core\Interfaces\Containers\VerificationAlgorithmInjectableInterface as VerificationSpecification;
 
 /**
  * Trait VerificationAlgorithmInjectableTrait - Reusable implementation of `VerificationAlgorithmInjectableInterface`.

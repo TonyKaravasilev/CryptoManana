@@ -6,7 +6,7 @@
 
 namespace CryptoManana\AsymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption as RsaAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption as RsaAlgorithm;
 
 /**
  * Class Rsa4096 - The RSA-4096 encryption algorithm object.

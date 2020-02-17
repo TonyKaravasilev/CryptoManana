@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException as FrameworkAuthorizationException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException as FrameworkAuthorizationException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class AccessDeniedException - The framework exception for marking security breach attempts.

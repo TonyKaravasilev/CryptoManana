@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException as FrameworkAlgorithmException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException as FrameworkAlgorithmException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class IncompatibleException - The framework exception for marking backward incompatible usages.

@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
-use \CryptoManana\Exceptions\AccessDeniedException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
+use CryptoManana\Exceptions\AccessDeniedException;
 
 /**
  * Class AccessDeniedExceptionTest - Tests the 'access denied' framework exception class.

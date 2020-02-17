@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestSuite\Randomness;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Exceptions\CryptographyException;
-use \CryptoManana\Randomness\CryptoRandom;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Exceptions\CryptographyException;
+use CryptoManana\Randomness\CryptoRandom;
 
 /**
  * Class CryptoRandomTest - Testing the cryptography secure pseudo-randomness class.

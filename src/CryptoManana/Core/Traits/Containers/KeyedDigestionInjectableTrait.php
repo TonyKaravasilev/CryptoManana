@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction as KeyedHashFunction;
-use \CryptoManana\Core\Interfaces\Containers\KeyedDigestionInjectableInterface as KeyedDigestionSpecification;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction as KeyedHashFunction;
+use CryptoManana\Core\Interfaces\Containers\KeyedDigestionInjectableInterface as KeyedDigestionSpecification;
 
 /**
  * Trait KeyedDigestionInjectableTrait - Reusable implementation of `KeyedDigestionInjectableInterface`.

@@ -6,23 +6,23 @@
 
 namespace CryptoManana\Factories;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory as FactoryPattern;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
-use \CryptoManana\Exceptions\BadPracticeException as BadPractice;
-use \CryptoManana\Exceptions\CryptographyException as CryptographyProblem;
-use \CryptoManana\Exceptions\IncompatibleException as BackwardIncompatible;
-use \CryptoManana\Exceptions\UnsupportedException as UnsupportedAlgorithm;
-use \CryptoManana\Exceptions\AccessDeniedException as AccessDenied;
-use \CryptoManana\Exceptions\BreachAttemptException as BreachAttempt;
-use \CryptoManana\Exceptions\MaliciousPayloadException as MaliciousPayload;
-use \CryptoManana\Exceptions\BotDetectedException as BotDetected;
-use \CryptoManana\Exceptions\IdentificationFailureException as IdentificationFailure;
-use \CryptoManana\Exceptions\AuthenticationFailureException as AuthenticationFailure;
-use \CryptoManana\Exceptions\AuthorizationFailureException as AuthorizationFailure;
-use \CryptoManana\Exceptions\SessionExpiredException as SessionExpired;
-use \CryptoManana\Exceptions\TokenExpiredException as TokenExpired;
-use \CryptoManana\Exceptions\WrongConfigurationException as WrongConfiguration;
-use \CryptoManana\Exceptions\InsecureUsageException as InsecureUsage;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory as FactoryPattern;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Exceptions\BadPracticeException as BadPractice;
+use CryptoManana\Exceptions\CryptographyException as CryptographyProblem;
+use CryptoManana\Exceptions\IncompatibleException as BackwardIncompatible;
+use CryptoManana\Exceptions\UnsupportedException as UnsupportedAlgorithm;
+use CryptoManana\Exceptions\AccessDeniedException as AccessDenied;
+use CryptoManana\Exceptions\BreachAttemptException as BreachAttempt;
+use CryptoManana\Exceptions\MaliciousPayloadException as MaliciousPayload;
+use CryptoManana\Exceptions\BotDetectedException as BotDetected;
+use CryptoManana\Exceptions\IdentificationFailureException as IdentificationFailure;
+use CryptoManana\Exceptions\AuthenticationFailureException as AuthenticationFailure;
+use CryptoManana\Exceptions\AuthorizationFailureException as AuthorizationFailure;
+use CryptoManana\Exceptions\SessionExpiredException as SessionExpired;
+use CryptoManana\Exceptions\TokenExpiredException as TokenExpired;
+use CryptoManana\Exceptions\WrongConfigurationException as WrongConfiguration;
+use CryptoManana\Exceptions\InsecureUsageException as InsecureUsage;
 
 /**
  * Class ExceptionFactory - Factory object for framework exception instancing.

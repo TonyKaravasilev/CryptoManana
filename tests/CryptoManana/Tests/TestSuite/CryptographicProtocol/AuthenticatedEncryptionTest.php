@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\CryptographicProtocol\AuthenticatedEncryption;
-use \CryptoManana\DataStructures\AuthenticatedCipherData;
-use \CryptoManana\SymmetricEncryption\Aes128;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\CryptographicProtocol\AuthenticatedEncryption;
+use CryptoManana\DataStructures\AuthenticatedCipherData;
+use CryptoManana\SymmetricEncryption\Aes128;
 
 /**
  * Class AuthenticatedEncryptionTest - Testing the authenticated symmetric encryption cryptographic protocol object.

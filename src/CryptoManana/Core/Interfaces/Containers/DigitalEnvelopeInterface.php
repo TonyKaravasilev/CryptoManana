@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\DataStructures\EnvelopeData as EnvelopeStructure;
+use CryptoManana\DataStructures\EnvelopeData as EnvelopeStructure;
 
 /**
  * Interface DigitalEnvelopeInterface - Interface specification for digital envelope manipulations.

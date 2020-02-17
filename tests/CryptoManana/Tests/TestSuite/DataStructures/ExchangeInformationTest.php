@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Tests\TestSuite\DataStructures;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\DataStructures\ExchangeInformation;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\DataStructures\ExchangeInformation;
 
 /**
  * Class ExchangeInformationTest - Testing the key exchange structure object.

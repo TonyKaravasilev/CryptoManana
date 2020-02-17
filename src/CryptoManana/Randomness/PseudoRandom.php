@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Randomness;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Class PseudoRandom - The pseudo-random generator object.

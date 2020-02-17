@@ -86,8 +86,7 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
                         return $buffer;
                     } elseif ((int)strlen($buffer) === $length) {
                         return $buffer;
-                    } else // Fallback case [really rare]
-                    {
+                    } else { // Fallback case [really rare]
                         if (function_exists('mb_strlen')) {
                             $tmpLength = (int)mb_strlen($buffer, '8bit');
                         } else {
@@ -98,12 +97,10 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
                             $tmpLength = $length - $tmpLength;
 
                             return $buffer . \Sodium\randombytes_buf($tmpLength);
-                        } else { // < case
-                            if (function_exists('mb_substr')) {
-                                return mb_substr($buffer, 0, $length, '8bit');
-                            } else {
-                                return substr($buffer, 0, $length);
-                            }
+                        } elseif (function_exists('mb_substr')) {
+                            return mb_substr($buffer, 0, $length, '8bit');
+                        } else {
+                            return substr($buffer, 0, $length);
                         }
                     }
                 } else {

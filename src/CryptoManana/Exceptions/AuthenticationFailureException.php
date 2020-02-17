@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException as FrameworkAuthenticationException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException as FrameworkAuthenticationException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class AuthenticationFailureException - The framework exception for marking authentication errors.

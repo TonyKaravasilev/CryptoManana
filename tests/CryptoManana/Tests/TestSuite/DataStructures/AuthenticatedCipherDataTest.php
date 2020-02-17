@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Tests\TestSuite\DataStructures;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\DataStructures\AuthenticatedCipherData;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\DataStructures\AuthenticatedCipherData;
 
 /**
  * Class AuthenticatedCipherDataTest - Testing the authenticated cipher structure object.

@@ -6,14 +6,14 @@
 
 namespace CryptoManana\CryptographicProtocol;
 
-use \CryptoManana\Core\Abstractions\Containers\AbstractCryptographicProtocol as CryptographicProtocol;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
-use \CryptoManana\Core\Interfaces\Containers\EntityIdentificationInterface as IdentifyEntities;
-use \CryptoManana\Core\Interfaces\Containers\EntityAuthenticationInterface as AuthenticateEntities;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationAlgorithm;
-use \CryptoManana\Core\Interfaces\Containers\VerificationAlgorithmInjectableInterface as HashAlgorithmSetter;
-use \CryptoManana\Core\Traits\Containers\VerificationAlgorithmInjectableTrait as HashAlgorithmSetterImplementation;
-use \CryptoManana\Core\Traits\Containers\EntityIdentificationTrait as EntityIdentificationProcess;
+use CryptoManana\Core\Abstractions\Containers\AbstractCryptographicProtocol as CryptographicProtocol;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
+use CryptoManana\Core\Interfaces\Containers\EntityIdentificationInterface as IdentifyEntities;
+use CryptoManana\Core\Interfaces\Containers\EntityAuthenticationInterface as AuthenticateEntities;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationAlgorithm;
+use CryptoManana\Core\Interfaces\Containers\VerificationAlgorithmInjectableInterface as HashAlgorithmSetter;
+use CryptoManana\Core\Traits\Containers\VerificationAlgorithmInjectableTrait as HashAlgorithmSetterImplementation;
+use CryptoManana\Core\Traits\Containers\EntityIdentificationTrait as EntityIdentificationProcess;
 
 /**
  * Class PasswordBasedAuthentication - The password-based authentication protocol object.

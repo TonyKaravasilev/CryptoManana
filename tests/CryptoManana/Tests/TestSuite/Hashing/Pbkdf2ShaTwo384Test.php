@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
-use \CryptoManana\Hashing\Pbkdf2ShaTwo384;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
+use CryptoManana\Hashing\Pbkdf2ShaTwo384;
 
 /**
  * Class Pbkdf2ShaTwo384Test - Testing the SHA-2 family PBKDF2-SHA-384 class.

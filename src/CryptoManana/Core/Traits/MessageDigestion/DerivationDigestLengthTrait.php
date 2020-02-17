@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationDigestLengthInterface as DigestLengthSpecification;
+use CryptoManana\Core\Interfaces\MessageDigestion\DerivationDigestLengthInterface as DigestLengthSpecification;
 
 /**
  * Trait DerivationDigestLengthTrait - Reusable implementation of `DerivationDigestLengthInterface`.

@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Tests\TestSuite\DataStructures;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\DataStructures\EnvelopeData;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\DataStructures\EnvelopeData;
 
 /**
  * Class EnvelopeDataTest - Testing the digital envelope structure object.

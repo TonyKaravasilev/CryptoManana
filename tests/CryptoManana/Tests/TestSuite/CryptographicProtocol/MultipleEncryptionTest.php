@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\CryptographicProtocol\MultipleEncryption;
-use \CryptoManana\SymmetricEncryption\Aes128;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\CryptographicProtocol\MultipleEncryption;
+use CryptoManana\SymmetricEncryption\Aes128;
 
 /**
  * Class MultipleEncryptionTest - Testing the multiple symmetric encryption cryptographic protocol object.

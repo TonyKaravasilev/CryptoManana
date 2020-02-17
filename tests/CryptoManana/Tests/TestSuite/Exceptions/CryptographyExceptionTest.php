@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
-use \CryptoManana\Exceptions\CryptographyException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
+use CryptoManana\Exceptions\CryptographyException;
 
 /**
  * Class CryptographyExceptionTest - Tests the 'cryptography' framework exception class.

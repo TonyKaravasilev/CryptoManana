@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Tests\TestSuite\Utilities;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
-use \CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
-use \CryptoManana\Randomness\CryptoRandom;
-use \CryptoManana\Randomness\PseudoRandom;
-use \CryptoManana\Randomness\QuasiRandom;
-use \CryptoManana\Utilities\DataShuffler;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
+use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
+use CryptoManana\Randomness\CryptoRandom;
+use CryptoManana\Randomness\PseudoRandom;
+use CryptoManana\Randomness\QuasiRandom;
+use CryptoManana\Utilities\DataShuffler;
 
 /**
  * Class DataShufflerTest - Tests the data shuffler class.

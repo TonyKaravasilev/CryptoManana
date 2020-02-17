@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\CommonValidations;
 
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait FileNameValidationTrait - Reusable implementation of file name and path validations.

@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Abstractions\ErrorHandling;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class AbstractIdentificationException - Abstraction for all identification related exceptions.

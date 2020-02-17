@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationSaltingInterface as DerivationSaltingSpecification;
+use CryptoManana\Core\Interfaces\MessageDigestion\DerivationSaltingInterface as DerivationSaltingSpecification;
 
 /**
  * Trait SaltingCapabilitiesTrait - Reusable implementation of `DerivationSaltingInterface`.

@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
-use \CryptoManana\Exceptions\UnsupportedException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
+use CryptoManana\Exceptions\UnsupportedException;
 
 /**
  * Class UnsupportedExceptionTest - Tests the 'unsupported' framework exception class.

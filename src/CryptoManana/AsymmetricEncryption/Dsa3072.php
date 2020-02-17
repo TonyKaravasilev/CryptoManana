@@ -6,7 +6,7 @@
 
 namespace CryptoManana\AsymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature as DsaAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature as DsaAlgorithm;
 
 /**
  * Class Dsa3072 - The DSA-3072 digital signature algorithm object.

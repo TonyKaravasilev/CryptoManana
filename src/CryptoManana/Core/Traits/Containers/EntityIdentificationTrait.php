@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Interfaces\Containers\EntityIdentificationInterface as EntityVerificationSpecification;
+use CryptoManana\Core\Interfaces\Containers\EntityIdentificationInterface as EntityVerificationSpecification;
 
 /**
  * Trait EntityIdentificationTrait - Reusable implementation of `EntityIdentificationInterface`.

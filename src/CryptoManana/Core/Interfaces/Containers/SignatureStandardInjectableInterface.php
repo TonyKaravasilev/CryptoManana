@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm as AsymmetricCipher;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataSigningInterface as DataSigning;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm as AsymmetricCipher;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataSigningInterface as DataSigning;
 
 /**
  * Interface SignatureStandardInjectableInterface - Interface specification for injection via a setter method.

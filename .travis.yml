@@ -25,7 +25,7 @@ php:
 matrix:
   fast_finish: true
   allow_failures:
-    - php: 7.4snapshot # <- PHP 7.4.0-dev (Zend Engine v3.4.0-dev)
+    - php: 7.4snapshot # <- PHP 7.4.x-dev (Zend Engine v3.4.x-dev)
 
 cache:
   timeout: 1200

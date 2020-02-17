@@ -6,20 +6,20 @@
 
 namespace CryptoManana\Tests\TestSuite\Factories;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm;
-use \CryptoManana\SymmetricEncryption\Aes128;
-use \CryptoManana\SymmetricEncryption\Aes192;
-use \CryptoManana\SymmetricEncryption\Aes256;
-use \CryptoManana\SymmetricEncryption\Camellia128;
-use \CryptoManana\SymmetricEncryption\Camellia192;
-use \CryptoManana\SymmetricEncryption\Camellia256;
-use \CryptoManana\SymmetricEncryption\Rc4;
-use \CryptoManana\SymmetricEncryption\TripleDes;
-use \CryptoManana\Factories\SymmetricCipherFactory;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm;
+use CryptoManana\SymmetricEncryption\Aes128;
+use CryptoManana\SymmetricEncryption\Aes192;
+use CryptoManana\SymmetricEncryption\Aes256;
+use CryptoManana\SymmetricEncryption\Camellia128;
+use CryptoManana\SymmetricEncryption\Camellia192;
+use CryptoManana\SymmetricEncryption\Camellia256;
+use CryptoManana\SymmetricEncryption\Rc4;
+use CryptoManana\SymmetricEncryption\TripleDes;
+use CryptoManana\Factories\SymmetricCipherFactory;
 
 /**
  * Class SymmetricCipherFactoryTest - Tests the symmetric encryption algorithm factory class.

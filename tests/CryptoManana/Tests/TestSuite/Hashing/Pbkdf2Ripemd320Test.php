@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
-use \CryptoManana\Hashing\Pbkdf2Ripemd320;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
+use CryptoManana\Hashing\Pbkdf2Ripemd320;
 
 /**
  * Class Pbkdf2Ripemd320Test - Testing the PBKDF2-RIPEMD-320 class.

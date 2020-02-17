@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipher;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryption;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipher;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryption;
 
 /**
  * Interface SymmetricEncryptionInjectableInterface - Interface specification for injection via a setter method.

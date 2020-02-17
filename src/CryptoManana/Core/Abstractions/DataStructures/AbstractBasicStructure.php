@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Abstractions\DataStructures;
 
-use \CryptoManana\Core\Interfaces\DataStructures\PropertyOverloadingInterface as PropertyOverloading;
-use \CryptoManana\Core\Traits\DataStructures\DisablePropertyOverloadingTrait as DisablePropertyOverloading;
+use CryptoManana\Core\Interfaces\DataStructures\PropertyOverloadingInterface as PropertyOverloading;
+use CryptoManana\Core\Traits\DataStructures\DisablePropertyOverloadingTrait as DisablePropertyOverloading;
 
 /**
  * Class AbstractBasicStructure - The abstract structure object representation.

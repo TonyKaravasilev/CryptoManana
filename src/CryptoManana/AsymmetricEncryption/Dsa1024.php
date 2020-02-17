@@ -6,7 +6,7 @@
 
 namespace CryptoManana\AsymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature as DsaAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature as DsaAlgorithm;
 
 /**
  * Class Dsa1024 - The DSA-1024 digital signature algorithm object.

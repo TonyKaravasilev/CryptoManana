@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\DataStructures\SignedData as SignedDataStructure;
+use CryptoManana\DataStructures\SignedData as SignedDataStructure;
 
 /**
  * Interface SignedDataInterface - Interface specification for signed data object creation and verification.

@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\DataStructures\AuthenticatedCipherData as CipherDataStructure;
+use CryptoManana\DataStructures\AuthenticatedCipherData as CipherDataStructure;
 
 /**
  * Interface AuthenticatedEncryptionInterface - Interface specification for authenticated encryption.

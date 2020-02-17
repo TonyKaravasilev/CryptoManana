@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
-use \CryptoManana\Exceptions\IdentificationFailureException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
+use CryptoManana\Exceptions\IdentificationFailureException;
 
 /**
  * Class IdentificationFailureExceptionTest - Tests the 'identification failure' framework exception class.

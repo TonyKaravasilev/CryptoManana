@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\SaltingCapabilitiesInterface as SaltingCapabilitiesSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Interfaces\MessageDigestion\SaltingCapabilitiesInterface as SaltingCapabilitiesSpecification;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait SaltingCapabilitiesTrait - Reusable implementation of `SaltingCapabilitiesInterface`.

@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
 
 /**
  * Interface RandomnessInjectableInterface - Interface specification for dependency injection via setter method.

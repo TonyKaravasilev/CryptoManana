@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Randomness;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
-use \CryptoManana\Factories\ExceptionFactory as ExceptionFactory;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
+use CryptoManana\Factories\ExceptionFactory as ExceptionFactory;
 
 /**
  * Class CryptoRandom - The cryptographically secure pseudo-random generator object.

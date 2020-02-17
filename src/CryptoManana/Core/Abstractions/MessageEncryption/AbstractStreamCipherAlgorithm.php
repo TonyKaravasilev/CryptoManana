@@ -6,11 +6,11 @@
 
 namespace CryptoManana\Core\Abstractions\MessageEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm as SymmetricCipherAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface as ObjectEncryption;
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface as FileEncryption;
-use \CryptoManana\Core\Traits\MessageEncryption\ObjectEncryptionTrait as EncryptObjects;
-use \CryptoManana\Core\Traits\MessageEncryption\FileEncryptionTrait as EncryptFiles;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm as SymmetricCipherAlgorithm;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface as ObjectEncryption;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface as FileEncryption;
+use CryptoManana\Core\Traits\MessageEncryption\ObjectEncryptionTrait as EncryptObjects;
+use CryptoManana\Core\Traits\MessageEncryption\FileEncryptionTrait as EncryptFiles;
 
 /**
  * Class AbstractStreamCipherAlgorithm - The symmetric stream cipher algorithm abstraction representation.

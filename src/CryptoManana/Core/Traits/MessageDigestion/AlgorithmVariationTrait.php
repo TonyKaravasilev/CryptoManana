@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmVariationInterface as VariationSwitchingSpecification;
+use CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmVariationInterface as VariationSwitchingSpecification;
 
 /**
  * Trait AlgorithmVariationTrait - Reusable implementation of `AlgorithmVariationInterface`.

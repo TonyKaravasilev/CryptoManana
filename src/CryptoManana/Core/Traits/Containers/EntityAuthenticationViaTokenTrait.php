@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Interfaces\Containers\EntityAuthenticationInterface as EntityAuthenticationSpecification;
+use CryptoManana\Core\Interfaces\Containers\EntityAuthenticationInterface as EntityAuthenticationSpecification;
 
 /**
  * Trait EntityAuthenticationViaTokenTrait - Reusable implementation of `EntityAuthenticationInterface`.

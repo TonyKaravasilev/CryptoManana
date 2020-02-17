@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Tests\TestSuite\DataStructures;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\DataStructures\AuthenticationToken;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\DataStructures\AuthenticationToken;
 
 /**
  * Class AuthenticationTokenTest - Testing the authentication token structure object.
@@ -20,6 +20,7 @@ final class AuthenticationTokenTest extends AbstractUnitTest
      * Creates new instances for testing.
      *
      * @return AuthenticationToken Testing instance.
+     * @throws \Exception Wrong usage errors.
      */
     private function getDataStructureForTesting()
     {

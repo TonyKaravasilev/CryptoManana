@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\DataStructures;
 
-use \CryptoManana\Core\Interfaces\DataStructures\PropertyOverloadingInterface as PropertyOverloading;
+use CryptoManana\Core\Interfaces\DataStructures\PropertyOverloadingInterface as PropertyOverloading;
 
 /**
  * Trait DisablePropertyOverloadingTrait - Reusable implementation of disabling property overloading.

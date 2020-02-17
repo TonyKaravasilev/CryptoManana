@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Utilities;
 
-use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Containers\FileErasureInterface as SecureFileErasure;
-use \CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
+use CryptoManana\Core\Interfaces\Containers\FileErasureInterface as SecureFileErasure;
+use CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
 
 /**
  * Class FileShredder - Utility class for file shredding.

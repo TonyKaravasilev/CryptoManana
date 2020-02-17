@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Abstractions\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as PublicKeyCipher;
-use \CryptoManana\Core\Traits\MessageEncryption\KeyPairTrait as PublicPrivateKeyPair;
+use CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as PublicKeyCipher;
+use CryptoManana\Core\Traits\MessageEncryption\KeyPairTrait as PublicPrivateKeyPair;
 
 /**
  * Class AbstractAsymmetricEncryptionAlgorithm - The asymmetric algorithm abstraction representation.

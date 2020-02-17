@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectSigningInterface as ObjectSigningSpecification;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataSigningInterface as DataSigningSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectSigningInterface as ObjectSigningSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataSigningInterface as DataSigningSpecification;
 
 /**
  * Trait ObjectSigningTrait - Reusable implementation of `ObjectSigningInterface`.

@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException;
-use \CryptoManana\Exceptions\SessionExpiredException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException;
+use CryptoManana\Exceptions\SessionExpiredException;
 
 /**
  * Class SessionExpiredExceptionTest - Tests the 'session expired' framework exception class.

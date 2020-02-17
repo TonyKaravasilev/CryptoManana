@@ -6,14 +6,14 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator;
-use \CryptoManana\CryptographicProtocol\PublicKeyAuthentication;
-use \CryptoManana\AsymmetricEncryption\Rsa1024;
-use \CryptoManana\Utilities\TokenGenerator;
-use \CryptoManana\DataStructures\KeyPair;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator;
+use CryptoManana\CryptographicProtocol\PublicKeyAuthentication;
+use CryptoManana\AsymmetricEncryption\Rsa1024;
+use CryptoManana\Utilities\TokenGenerator;
+use CryptoManana\DataStructures\KeyPair;
 
 /**
  * Class PublicKeyAuthenticationTest - Testing the asymmetric/public key authentication cryptographic protocol object.

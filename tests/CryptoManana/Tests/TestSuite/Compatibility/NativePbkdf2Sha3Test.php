@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Compatibility;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
-use \CryptoManana\Compatibility\NativePbkdf2Sha3;
-use \CryptoManana\Compatibility\NativeSha3;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
+use CryptoManana\Compatibility\NativePbkdf2Sha3;
+use CryptoManana\Compatibility\NativeSha3;
 
 /**
  * Class NativePbkdf2Sha3Test - Tests the pure PHP implementation of the PBKDF2-SHA-3 algorithm.

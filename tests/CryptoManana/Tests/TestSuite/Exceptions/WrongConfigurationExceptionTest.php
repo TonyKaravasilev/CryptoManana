@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
-use \CryptoManana\Exceptions\WrongConfigurationException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
+use CryptoManana\Exceptions\WrongConfigurationException;
 
 /**
  * Class WrongConfigurationExceptionTest - Tests the 'wrong configuration' framework exception class.

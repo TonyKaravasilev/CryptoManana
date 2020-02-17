@@ -6,7 +6,7 @@
 
 namespace CryptoManana\AsymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption as RsaAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption as RsaAlgorithm;
 
 /**
  * Class Rsa2048 - The RSA-2048 encryption algorithm object.

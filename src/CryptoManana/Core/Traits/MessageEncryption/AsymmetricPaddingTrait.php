@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface as AsymmetricPaddingSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface as AsymmetricPaddingSpecification;
 
 /**
  * Trait AsymmetricPaddingTrait - Reusable implementation of `AsymmetricPaddingInterface`.

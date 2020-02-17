@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Tests\TestSuite\DataStructures;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\DataStructures\SignedData;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\DataStructures\SignedData;
 
 /**
  * Class SignedDataTest - Testing the signed data structure object.

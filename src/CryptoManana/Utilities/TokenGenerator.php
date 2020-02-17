@@ -6,14 +6,14 @@
 
 namespace CryptoManana\Utilities;
 
-use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Containers\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
-use \CryptoManana\Core\Interfaces\Containers\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
-use \CryptoManana\Core\Interfaces\Containers\HashingKeyGenerationInterface as HashingKeyGeneration;
-use \CryptoManana\Core\Interfaces\Containers\TokenGenerationInterface as TokenStringGeneration;
-use \CryptoManana\Core\Traits\CommonValidations\KeyPairSizeValidationTrait as KeyPairSizeValidations;
-use \CryptoManana\DataStructures\KeyPair as KeyPairStructure;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
+use CryptoManana\Core\Interfaces\Containers\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
+use CryptoManana\Core\Interfaces\Containers\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
+use CryptoManana\Core\Interfaces\Containers\HashingKeyGenerationInterface as HashingKeyGeneration;
+use CryptoManana\Core\Interfaces\Containers\TokenGenerationInterface as TokenStringGeneration;
+use CryptoManana\Core\Traits\CommonValidations\KeyPairSizeValidationTrait as KeyPairSizeValidations;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Class TokenGenerator - Utility class for cryptography token generation.
@@ -105,10 +105,12 @@ class TokenGenerator extends RandomnessContainer implements
      */
     protected function generatePrivateKey($keySize, $algorithmType)
     {
-        $privateKeyResource = openssl_pkey_new([
-            'private_key_bits' => $keySize, // Size of the key (>= 384)
-            'private_key_type' => $algorithmType, // The algorithm type (RSA/DSA) type
-        ]);
+        $privateKeyResource = openssl_pkey_new(
+            [
+                'private_key_bits' => $keySize, // Size of the key (>= 384)
+                'private_key_type' => $algorithmType, // The algorithm type (RSA/DSA) type
+            ]
+        );
 
         if ($privateKeyResource === false) {
             throw new \RuntimeException(

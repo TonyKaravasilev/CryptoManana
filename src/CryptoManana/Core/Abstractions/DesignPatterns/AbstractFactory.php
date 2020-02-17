@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Abstractions\DesignPatterns;
 
-use \CryptoManana\Core\Interfaces\DesignPatterns\StaticCallInstancingInterface as StaticCalls;
+use CryptoManana\Core\Interfaces\DesignPatterns\StaticCallInstancingInterface as StaticCalls;
 
 /**
  * Class AbstractFactory - Abstraction for the factory design pattern.

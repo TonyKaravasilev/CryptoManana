@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Compatibility;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
 
 /**
  * Class NativeRc4 - Pure PHP implementation of the RC4-128 algorithm.

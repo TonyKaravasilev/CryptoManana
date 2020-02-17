@@ -6,11 +6,11 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipher;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryption;
-use \CryptoManana\Core\Interfaces\Containers\TokenTransformationInterface as TokenTransformationSpecification;
-use \CryptoManana\DataStructures\AuthenticationToken as AuthenticationTokenStructure;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipher;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryption;
+use CryptoManana\Core\Interfaces\Containers\TokenTransformationInterface as TokenTransformationSpecification;
+use CryptoManana\DataStructures\AuthenticationToken as AuthenticationTokenStructure;
 
 /**
  * Trait TokenSymmetricTransformationTrait - Reusable implementation of `TokenTransformationInterface`.

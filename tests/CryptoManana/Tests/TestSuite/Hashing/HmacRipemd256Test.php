@@ -6,14 +6,14 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
-use \CryptoManana\Hashing\HmacRipemd256;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
+use CryptoManana\Hashing\HmacRipemd256;
 
 /**
  * Class HmacRipemd256Test - Testing the HMAC-RIPEMD-256 class.

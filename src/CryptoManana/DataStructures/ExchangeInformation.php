@@ -6,7 +6,7 @@
 
 namespace CryptoManana\DataStructures;
 
-use \CryptoManana\Core\Abstractions\DataStructures\AbstractBasicStructure as BasicDataStructure;
+use CryptoManana\Core\Abstractions\DataStructures\AbstractBasicStructure as BasicDataStructure;
 
 /**
  * Class ExchangeInformation - The key exchange information data object.

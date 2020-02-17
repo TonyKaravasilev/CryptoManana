@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException as FrameworkIdentificationException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException as FrameworkIdentificationException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class MaliciousPayloadException - The framework exception for marking malicious payload requests.

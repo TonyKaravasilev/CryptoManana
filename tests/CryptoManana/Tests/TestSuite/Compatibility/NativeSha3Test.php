@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestSuite\Compatibility;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
-use \CryptoManana\Compatibility\NativeSha3;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
+use CryptoManana\Compatibility\NativeSha3;
 
 /**
  * Class NativeSha3Test - Tests the pure PHP implementation of the SHA-3 algorithm.

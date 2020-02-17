@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
-use \CryptoManana\Exceptions\InsecureUsageException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
+use CryptoManana\Exceptions\InsecureUsageException;
 
 /**
  * Class InsecureUsageExceptionTest - Tests the 'insecure usage' framework exception class.

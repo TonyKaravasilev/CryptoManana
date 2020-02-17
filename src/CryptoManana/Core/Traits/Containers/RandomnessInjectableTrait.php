@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface as RandomnessInjectableSpecification;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface as RandomnessInjectableSpecification;
 
 /**
  * Trait RandomnessInjectableTrait - Reusable implementation of `RandomnessInjectableInterface`.

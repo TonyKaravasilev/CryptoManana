@@ -35,7 +35,7 @@
     <!-- Exclude some local testing files: -->
     <exclude-pattern>./tests/config.php*</exclude-pattern>
 
-    <!-- Include the whole PSR-1/PSR-2 standard: -->
-    <rule ref="PSR2"/>
+    <!-- Include the whole PSR-1 standard: -->
+    <rule ref="PSR12"/>
 
 </ruleset>

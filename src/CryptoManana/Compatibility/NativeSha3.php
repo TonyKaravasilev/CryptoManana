@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Compatibility;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
 
 /**
  * Class NativeSha3 - Pure PHP implementation of the SHA-3 algorithm.

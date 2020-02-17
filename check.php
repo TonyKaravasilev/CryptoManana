@@ -535,10 +535,12 @@ $encryptionAlgorithms = [
 ];
 
 foreach ($encryptionAlgorithms as $algorithmName) {
-    $opensslResource = openssl_pkey_new([
-        'private_key_bits' => 384, // Size of the key (the minimum)
-        'private_key_type' => $algorithmName
-    ]);
+    $opensslResource = openssl_pkey_new(
+        [
+            'private_key_bits' => 384, // Size of the key (the minimum)
+            'private_key_type' => $algorithmName
+        ]
+    );
 
     if ($opensslResource === false) {
         dump(

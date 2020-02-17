@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Core\Abstractions\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\SaltingCapabilitiesInterface as DataSalting;
-use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionFormatsInterface as DigestFormatting;
-use \CryptoManana\Core\Traits\MessageDigestion\SaltingCapabilitiesTrait as SaltingCapabilities;
-use \CryptoManana\Core\Traits\MessageDigestion\DigestionFormatsTrait as DigestOutputFormats;
+use CryptoManana\Core\Interfaces\MessageDigestion\SaltingCapabilitiesInterface as DataSalting;
+use CryptoManana\Core\Interfaces\MessageDigestion\DigestionFormatsInterface as DigestFormatting;
+use CryptoManana\Core\Traits\MessageDigestion\SaltingCapabilitiesTrait as SaltingCapabilities;
+use CryptoManana\Core\Traits\MessageDigestion\DigestionFormatsTrait as DigestOutputFormats;
 
 /**
  * Class AbstractHashAlgorithm - The hash algorithm abstraction representation.

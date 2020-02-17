@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction as KeyedHashFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction as KeyedHashFunction;
 
 /**
  * Interface KeyedDigestionInjectableInterface - Interface specification for injection via a setter method.

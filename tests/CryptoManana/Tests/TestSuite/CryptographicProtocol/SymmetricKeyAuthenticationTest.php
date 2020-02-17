@@ -6,12 +6,12 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator;
-use \CryptoManana\CryptographicProtocol\SymmetricKeyAuthentication;
-use \CryptoManana\SymmetricEncryption\Aes128;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator;
+use CryptoManana\CryptographicProtocol\SymmetricKeyAuthentication;
+use CryptoManana\SymmetricEncryption\Aes128;
 
 /**
  * Class SymmetricKeyAuthenticationTest - Testing the symmetric key authentication cryptographic protocol object.

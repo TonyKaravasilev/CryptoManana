@@ -6,7 +6,7 @@
 
 namespace CryptoManana\DataStructures;
 
-use \CryptoManana\Core\Abstractions\DataStructures\AbstractBasicStructure as BasicDataStructure;
+use CryptoManana\Core\Abstractions\DataStructures\AbstractBasicStructure as BasicDataStructure;
 
 /**
  * Class SignedData - The plain data with included digital signature.

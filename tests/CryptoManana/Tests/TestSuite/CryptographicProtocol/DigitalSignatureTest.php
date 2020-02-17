@@ -6,11 +6,11 @@
 
 namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\CryptographicProtocol\DigitalSignature;
-use \CryptoManana\AsymmetricEncryption\Dsa1024;
-use \CryptoManana\Utilities\TokenGenerator;
-use \CryptoManana\DataStructures\KeyPair;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\CryptographicProtocol\DigitalSignature;
+use CryptoManana\AsymmetricEncryption\Dsa1024;
+use CryptoManana\Utilities\TokenGenerator;
+use CryptoManana\DataStructures\KeyPair;
 
 /**
  * Class DigitalSignatureTest - Testing the digital signature standard cryptographic protocol object.

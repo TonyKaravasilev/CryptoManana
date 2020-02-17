@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationFunction;
-use \CryptoManana\Core\Interfaces\Containers\KeyExpansionInjectableInterface as KeyExpansionSpecification;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction as KeyDerivationFunction;
+use CryptoManana\Core\Interfaces\Containers\KeyExpansionInjectableInterface as KeyExpansionSpecification;
 
 /**
  * Trait KeyExpansionInjectableTrait - Reusable implementation of `KeyExpansionInjectableInterface`.

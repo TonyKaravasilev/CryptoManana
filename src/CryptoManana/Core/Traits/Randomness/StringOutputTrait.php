@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\Randomness;
 
-use \CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait StringOutputTrait - Reusable implementation of `StringOutputInterface`.
@@ -20,6 +20,13 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  */
 trait StringOutputTrait
 {
+    /**
+     * Forcing the implementation of the software abstract randomness.
+     *
+     * {@internal Forcing the implementation of `AbstractRandomness`. }}
+     */
+    use RandomnessSpecification;
+
     /**
      * Internal method for character map validation.
      *
@@ -47,13 +54,6 @@ trait StringOutputTrait
             );
         }
     }
-
-    /**
-     * Forcing the implementation of the software abstract randomness.
-     *
-     * {@internal Forcing the implementation of `AbstractRandomness`. }}
-     */
-    use RandomnessSpecification;
 
     /**
      * Generate a random digit character.

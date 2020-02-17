@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
-use \CryptoManana\Exceptions\MaliciousPayloadException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
+use CryptoManana\Exceptions\MaliciousPayloadException;
 
 /**
  * Class MaliciousPayloadExceptionTest - Tests the 'malicious payload' framework exception class.

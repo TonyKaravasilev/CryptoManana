@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionKeyInterface as DigestionKeySpecification;
+use CryptoManana\Core\Interfaces\MessageDigestion\DigestionKeyInterface as DigestionKeySpecification;
 
 /**
  * Trait DigestionKeyTrait - Reusable implementation of `DigestionKeyInterface`.

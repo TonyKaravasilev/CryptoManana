@@ -6,16 +6,16 @@
 
 namespace CryptoManana\Tests\TestSuite\SymmetricEncryption;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
-use \CryptoManana\SymmetricEncryption\Camellia256;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
+use CryptoManana\SymmetricEncryption\Camellia256;
 
 /**
  * Class Camellia256Test - Testing the Camellia-256 class.

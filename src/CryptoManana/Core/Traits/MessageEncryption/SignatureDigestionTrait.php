@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\SignatureDigestionInterface as SignatureDigestionSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\SignatureDigestionInterface as SignatureDigestionSpecification;
 
 /**
  * Trait SignatureDigestionTrait - Reusable implementation of `SignatureDigestionInterface`.
