@@ -1,25 +1,25 @@
 <?php
 
 /**
- * The framework exception for marking bad security practices.
+ * The framework exception for marking authorization logical errors.
  */
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException as FrameworkCryptologyException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException as FrameworkAuthorizationException;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
- * Class BadPracticeException - The framework exception for marking bad security practices.
+ * Class AuthorizationFailureException - The framework exception for marking authorization errors.
  *
  * @package CryptoManana\Exceptions
  */
-class BadPracticeException extends FrameworkCryptologyException
+class AuthorizationFailureException extends FrameworkAuthorizationException
 {
     /**
      * The framework internal error code.
      */
-    const INTERNAL_CODE = 2;
+    const INTERNAL_CODE = 11;
 
     /**
      * The error code property storage.
@@ -38,6 +38,6 @@ class BadPracticeException extends FrameworkCryptologyException
      */
     public function getFrameworkErrorCode()
     {
-        return static::INTERNAL_CODE;
+        return static::INTERNAL_CODE; // Correct static access
     }
 }

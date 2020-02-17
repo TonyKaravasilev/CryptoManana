@@ -17,8 +17,6 @@ interface EditableExceptionInterface
      * Change the exception's error message via fluent interface call.
      *
      * @param string|mixed $message Set a different error message.
-     *
-     * @return $this The exception object.
      */
     public function setMessage($message);
 
@@ -26,8 +24,6 @@ interface EditableExceptionInterface
      * Change the exception's error code via fluent interface call.
      *
      * @param int $code Set a different exception error code.
-     *
-     * @return $this The exception object.
      */
     public function setCode($code);
 
@@ -35,8 +31,6 @@ interface EditableExceptionInterface
      * Change the file location where the exception occurred via fluent interface call.
      *
      * @param string|mixed $file Set a different file path for the exception.
-     *
-     * @return $this The exception object.
      */
     public function setFile($file);
 
@@ -44,8 +38,6 @@ interface EditableExceptionInterface
      * Change the file location where the exception occurred via fluent interface call.
      *
      * @param int $line Set a different file line for the exception.
-     *
-     * @return $this The exception object.
      */
     public function setLine($line);
 }

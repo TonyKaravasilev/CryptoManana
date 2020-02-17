@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Testing the MaliciousPayloadException type for marking malicious payload requests or other injection attempts.
+ * Testing the WrongConfigurationException type for marking of wrong algorithm/system configuration errors.
  */
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
-use \CryptoManana\Exceptions\MaliciousPayloadException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
+use \CryptoManana\Exceptions\WrongConfigurationException;
 
 /**
- * Class MaliciousPayloadExceptionTest - Tests the 'malicious payload' framework exception class.
+ * Class WrongConfigurationExceptionTest - Tests the 'wrong configuration' framework exception class.
  *
  * @package CryptoManana\Tests\TestSuite\Exceptions
  */
-final class MaliciousPayloadExceptionTest extends AbstractUnitTest
+final class WrongConfigurationExceptionTest extends AbstractUnitTest
 {
     /**
      * Creates new instances for testing.
      *
-     * @return MaliciousPayloadException Testing instance.
+     * @return WrongConfigurationException Testing instance.
      */
     private function getExceptionInstanceForTesting()
     {
-        return new MaliciousPayloadException();
+        return new WrongConfigurationException();
     }
 
     /**
@@ -36,8 +36,8 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue(method_exists($tmp, 'getCode'));
-        $this->assertTrue($tmp->getCode() === MaliciousPayloadException::INTERNAL_CODE);
-        $this->assertTrue($tmp->getFrameworkErrorCode() === MaliciousPayloadException::INTERNAL_CODE);
+        $this->assertTrue($tmp->getCode() === WrongConfigurationException::INTERNAL_CODE);
+        $this->assertTrue($tmp->getFrameworkErrorCode() === WrongConfigurationException::INTERNAL_CODE);
     }
 
     /**
@@ -49,13 +49,13 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
     {
         $tmp = $this->getExceptionInstanceForTesting();
 
-        $this->assertTrue($tmp instanceof MaliciousPayloadException);
-        $this->assertTrue($tmp instanceof AbstractIdentificationException);
+        $this->assertTrue($tmp instanceof WrongConfigurationException);
+        $this->assertTrue($tmp instanceof AbstractAlgorithmException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 
         /**
-         * @var MaliciousPayloadException $same Self-reference from fluent interface implementation.
+         * @var WrongConfigurationException $same Self-reference from fluent interface implementation.
          */
         $same = $tmp->setMessage('Test hard!')->setCode(70)->setFile(__FILE__)->setLine(__LINE__);
         $same = $same->setMessage('Test hard')->setCode(69)->setFile(__FILE__)->setLine(__LINE__);
@@ -71,7 +71,7 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
-            $this->expectException(MaliciousPayloadException::class);
+            $this->expectException(WrongConfigurationException::class);
 
             throw $same;
         } else {
@@ -79,7 +79,7 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
 
             try {
                 throw $same;
-            } catch (MaliciousPayloadException $exception) {
+            } catch (WrongConfigurationException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
                 $hasThrown = $exception->getMessage();

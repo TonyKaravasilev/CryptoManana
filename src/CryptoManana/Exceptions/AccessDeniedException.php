@@ -6,6 +6,7 @@
 
 namespace CryptoManana\Exceptions;
 
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException as FrameworkAuthorizationException;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
@@ -13,7 +14,7 @@ use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as Framework
  *
  * @package CryptoManana\Exceptions
  */
-class AccessDeniedException extends FrameworkException
+class AccessDeniedException extends FrameworkAuthorizationException
 {
     /**
      * The framework internal error code.
@@ -33,7 +34,7 @@ class AccessDeniedException extends FrameworkException
      * Get the default framework error code for this exception instance.
      *
      * @return int The exception's error code.
-     * @see UnsupportedException::INTERNAL_CODE Default error code.
+     * @see FrameworkException::INTERNAL_CODE Default error code.
      */
     public function getFrameworkErrorCode()
     {

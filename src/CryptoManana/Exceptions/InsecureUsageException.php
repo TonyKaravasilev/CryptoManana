@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The framework exception for marking bad security practices.
+ * The framework exception for marking insecure usage cases.
  */
 
 namespace CryptoManana\Exceptions;
@@ -10,16 +10,16 @@ use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException as
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
- * Class BadPracticeException - The framework exception for marking bad security practices.
+ * Class InsecureUsageException - The framework exception for marking insecure usage cases.
  *
  * @package CryptoManana\Exceptions
  */
-class BadPracticeException extends FrameworkCryptologyException
+class InsecureUsageException extends FrameworkCryptologyException
 {
     /**
      * The framework internal error code.
      */
-    const INTERNAL_CODE = 2;
+    const INTERNAL_CODE = 15;
 
     /**
      * The error code property storage.
@@ -38,6 +38,6 @@ class BadPracticeException extends FrameworkCryptologyException
      */
     public function getFrameworkErrorCode()
     {
-        return static::INTERNAL_CODE;
+        return static::INTERNAL_CODE; // Correct static access
     }
 }

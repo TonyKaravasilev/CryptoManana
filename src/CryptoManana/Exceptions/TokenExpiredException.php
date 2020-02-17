@@ -1,25 +1,25 @@
 <?php
 
 /**
- * The framework exception for marking bad security practices.
+ * The framework exception for marking expired access token errors.
  */
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException as FrameworkCryptologyException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthenticationException as FrameworkAuthenticationException;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
- * Class BadPracticeException - The framework exception for marking bad security practices.
+ * Class TokenExpiredException - The framework exception for marking expired access token errors.
  *
  * @package CryptoManana\Exceptions
  */
-class BadPracticeException extends FrameworkCryptologyException
+class TokenExpiredException extends FrameworkAuthenticationException
 {
     /**
      * The framework internal error code.
      */
-    const INTERNAL_CODE = 2;
+    const INTERNAL_CODE = 13;
 
     /**
      * The error code property storage.
@@ -38,6 +38,6 @@ class BadPracticeException extends FrameworkCryptologyException
      */
     public function getFrameworkErrorCode()
     {
-        return static::INTERNAL_CODE;
+        return static::INTERNAL_CODE; // Correct static access
     }
 }

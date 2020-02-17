@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Testing the MaliciousPayloadException type for marking malicious payload requests or other injection attempts.
+ * Testing the AuthorizationFailureException type for marking authorization failures.
  */
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
-use \CryptoManana\Exceptions\MaliciousPayloadException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
+use \CryptoManana\Exceptions\AuthorizationFailureException;
 
 /**
- * Class MaliciousPayloadExceptionTest - Tests the 'malicious payload' framework exception class.
+ * Class AuthorizationFailureExceptionTest - Tests the 'authorization failure' framework exception class.
  *
  * @package CryptoManana\Tests\TestSuite\Exceptions
  */
-final class MaliciousPayloadExceptionTest extends AbstractUnitTest
+final class AuthorizationFailureExceptionTest extends AbstractUnitTest
 {
     /**
      * Creates new instances for testing.
      *
-     * @return MaliciousPayloadException Testing instance.
+     * @return AuthorizationFailureException Testing instance.
      */
     private function getExceptionInstanceForTesting()
     {
-        return new MaliciousPayloadException();
+        return new AuthorizationFailureException();
     }
 
     /**
@@ -36,8 +36,8 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue(method_exists($tmp, 'getCode'));
-        $this->assertTrue($tmp->getCode() === MaliciousPayloadException::INTERNAL_CODE);
-        $this->assertTrue($tmp->getFrameworkErrorCode() === MaliciousPayloadException::INTERNAL_CODE);
+        $this->assertTrue($tmp->getCode() === AuthorizationFailureException::INTERNAL_CODE);
+        $this->assertTrue($tmp->getFrameworkErrorCode() === AuthorizationFailureException::INTERNAL_CODE);
     }
 
     /**
@@ -49,13 +49,13 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
     {
         $tmp = $this->getExceptionInstanceForTesting();
 
-        $this->assertTrue($tmp instanceof MaliciousPayloadException);
-        $this->assertTrue($tmp instanceof AbstractIdentificationException);
+        $this->assertTrue($tmp instanceof AuthorizationFailureException);
+        $this->assertTrue($tmp instanceof AbstractAuthorizationException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 
         /**
-         * @var MaliciousPayloadException $same Self-reference from fluent interface implementation.
+         * @var AuthorizationFailureException $same Self-reference from fluent interface implementation.
          */
         $same = $tmp->setMessage('Test hard!')->setCode(70)->setFile(__FILE__)->setLine(__LINE__);
         $same = $same->setMessage('Test hard')->setCode(69)->setFile(__FILE__)->setLine(__LINE__);
@@ -71,7 +71,7 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
 
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
-            $this->expectException(MaliciousPayloadException::class);
+            $this->expectException(AuthorizationFailureException::class);
 
             throw $same;
         } else {
@@ -79,7 +79,7 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
 
             try {
                 throw $same;
-            } catch (MaliciousPayloadException $exception) {
+            } catch (AuthorizationFailureException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
                 $hasThrown = $exception->getMessage();

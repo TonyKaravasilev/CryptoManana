@@ -8,6 +8,7 @@ namespace CryptoManana\Tests\TestSuite\Exceptions;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAuthorizationException;
 use \CryptoManana\Exceptions\BreachAttemptException;
 
 /**
@@ -49,6 +50,7 @@ final class BreachAttemptExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue($tmp instanceof BreachAttemptException);
+        $this->assertTrue($tmp instanceof AbstractAuthorizationException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

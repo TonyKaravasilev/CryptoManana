@@ -8,6 +8,7 @@ namespace CryptoManana\Tests\TestSuite\Exceptions;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
 use \CryptoManana\Exceptions\BadPracticeException;
 
 /**
@@ -49,6 +50,7 @@ final class BadPracticeExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue($tmp instanceof BadPracticeException);
+        $this->assertTrue($tmp instanceof AbstractCryptologyException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

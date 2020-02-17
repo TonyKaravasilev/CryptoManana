@@ -6,6 +6,7 @@
 
 namespace CryptoManana\Exceptions;
 
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException as FrameworkCryptologyException;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
@@ -13,7 +14,7 @@ use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as Framework
  *
  * @package CryptoManana\Exceptions
  */
-class CryptographyException extends FrameworkException
+class CryptographyException extends FrameworkCryptologyException
 {
     /**
      * The framework internal error code.
@@ -33,7 +34,7 @@ class CryptographyException extends FrameworkException
      * Get the default framework error code for this exception instance.
      *
      * @return int The exception's error code.
-     * @see CryptographyException::INTERNAL_CODE Default error code.
+     * @see FrameworkException::INTERNAL_CODE Default error code.
      */
     public function getFrameworkErrorCode()
     {

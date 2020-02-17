@@ -8,6 +8,7 @@ namespace CryptoManana\Tests\TestSuite\Exceptions;
 
 use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException;
 use \CryptoManana\Exceptions\IncompatibleException;
 
 /**
@@ -49,6 +50,7 @@ final class IncompatibleExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue($tmp instanceof IncompatibleException);
+        $this->assertTrue($tmp instanceof AbstractAlgorithmException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

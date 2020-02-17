@@ -16,6 +16,13 @@ use \CryptoManana\Exceptions\AccessDeniedException as AccessDenied;
 use \CryptoManana\Exceptions\BreachAttemptException as BreachAttempt;
 use \CryptoManana\Exceptions\MaliciousPayloadException as MaliciousPayload;
 use \CryptoManana\Exceptions\BotDetectedException as BotDetected;
+use \CryptoManana\Exceptions\IdentificationFailureException as IdentificationFailure;
+use \CryptoManana\Exceptions\AuthenticationFailureException as AuthenticationFailure;
+use \CryptoManana\Exceptions\AuthorizationFailureException as AuthorizationFailure;
+use \CryptoManana\Exceptions\SessionExpiredException as SessionExpired;
+use \CryptoManana\Exceptions\TokenExpiredException as TokenExpired;
+use \CryptoManana\Exceptions\WrongConfigurationException as WrongConfiguration;
+use \CryptoManana\Exceptions\InsecureUsageException as InsecureUsage;
 
 /**
  * Class ExceptionFactory - Factory object for framework exception instancing.
@@ -63,6 +70,41 @@ class ExceptionFactory extends FactoryPattern
      * The `bot detected` exception type.
      */
     const BOT_DETECTED = BotDetected::class;
+
+    /**
+     * The `identification failure` exception type.
+     */
+    const IDENTIFICATION_FAILURE = IdentificationFailure::class;
+
+    /**
+     * The `authentication failure` exception type.
+     */
+    const AUTHENTICATION_FAILURE = AuthenticationFailure::class;
+
+    /**
+     * The `authorization failure` exception type.
+     */
+    const AUTHORIZATION_FAILURE = AuthorizationFailure::class;
+
+    /**
+     * The `session expired` exception type.
+     */
+    const SESSION_EXPIRED = SessionExpired::class;
+
+    /**
+     * The `token expired` exception type.
+     */
+    const TOKEN_EXPIRED = TokenExpired::class;
+
+    /**
+     * The `wrong configuration` exception type.
+     */
+    const WRONG_CONFIGURATION = WrongConfiguration::class;
+
+    /**
+     * The `insecure usage` exception type.
+     */
+    const INSECURE_USAGE = InsecureUsage::class;
 
     /**
      * Create a framework exception.
@@ -115,6 +157,13 @@ class ExceptionFactory extends FactoryPattern
             self::class . '::BREACH_ATTEMPT' => self::BREACH_ATTEMPT,
             self::class . '::MALICIOUS_PAYLOAD' => self::MALICIOUS_PAYLOAD,
             self::class . '::BOT_DETECTED' => self::BOT_DETECTED,
+            self::class . '::IDENTIFICATION_FAILURE' => self::IDENTIFICATION_FAILURE,
+            self::class . '::AUTHENTICATION_FAILURE' => self::AUTHENTICATION_FAILURE,
+            self::class . '::AUTHORIZATION_FAILURE' => self::AUTHORIZATION_FAILURE,
+            self::class . '::SESSION_EXPIRED' => self::SESSION_EXPIRED,
+            self::class . '::TOKEN_EXPIRED' => self::TOKEN_EXPIRED,
+            self::class . '::WRONG_CONFIGURATION' => self::WRONG_CONFIGURATION,
+            self::class . '::INSECURE_USAGE' => self::INSECURE_USAGE,
         ];
     }
 }

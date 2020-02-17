@@ -6,6 +6,7 @@
 
 namespace CryptoManana\Exceptions;
 
+use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException as FrameworkAlgorithmException;
 use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
@@ -13,7 +14,7 @@ use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as Framework
  *
  * @package CryptoManana\Exceptions
  */
-class IncompatibleException extends FrameworkException
+class IncompatibleException extends FrameworkAlgorithmException
 {
     /**
      * The framework internal error code.
@@ -33,7 +34,7 @@ class IncompatibleException extends FrameworkException
      * Get the default framework error code for this exception instance.
      *
      * @return int The exception's error code.
-     * @see IncompatibleException::INTERNAL_CODE Default error code.
+     * @see FrameworkException::INTERNAL_CODE Default error code.
      */
     public function getFrameworkErrorCode()
     {
