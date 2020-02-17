@@ -18,14 +18,14 @@ interface RandomnessInjectableInterface
     /**
      * Setter for the pseudo-random generator service.
      *
-     * @param RandomnessSource|null $generator The pseudo-random generator service.
+     * @param RandomnessSource $generator The pseudo-random generator service.
      */
     public function setRandomGenerator(RandomnessSource $generator);
 
     /**
      * Getter for the pseudo-random generator service.
      *
-     * @return RandomnessSource The currently injected pseudo-random generator service.
+     * @return RandomnessSource|null The currently injected pseudo-random generator service.
      */
     public function getRandomGenerator();
 }

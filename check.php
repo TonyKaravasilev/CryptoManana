@@ -515,6 +515,7 @@ unset($algorithmName);
 $encryptionAlgorithms = [
     OPENSSL_KEYTYPE_RSA, // RSA
     OPENSSL_KEYTYPE_DSA, // DSA
+    OPENSSL_KEYTYPE_DH, // DH
 ];
 
 foreach ($encryptionAlgorithms as $algorithmName) {

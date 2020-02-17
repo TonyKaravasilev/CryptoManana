@@ -155,7 +155,7 @@ abstract class AbstractGenerator extends RandomnessRepresentation implements
     public function __construct()
     {
         // Fetch the global system precision setting
-        if (is_null(self::$systemPrecision)) {
+        if (self::$systemPrecision === null) {
             self::$systemPrecision = (int)ini_get('precision');
         }
     }
