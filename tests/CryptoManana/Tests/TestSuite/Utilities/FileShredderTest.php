@@ -126,6 +126,26 @@ final class FileShredderTest extends AbstractUnitTest
     }
 
     /**
+     * Testing the empty file erasure.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testEmptyFileErasure()
+    {
+        $shredder = $this->getFileShredderForTesting();
+        $fileName = $this->getTemporaryFilename();
+
+        $this->writeToFile($fileName, '');
+
+        $shredder->eraseFile($fileName);
+
+        $this->assertEquals('', $this->readFromFile($fileName));
+
+        // For safety, if the above assert fails
+        $this->deleteTheFile($fileName);
+    }
+
+    /**
      * Testing validation case for invalid type of filename used for erasure.
      *
      * @throws \Exception Wrong usage errors.

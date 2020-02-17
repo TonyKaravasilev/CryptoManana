@@ -16,6 +16,8 @@ use \CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as Valid
  * @package CryptoManana\Utilities
  *
  * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource The randomness generator.
+ *
+ * @mixin ValidateFileNames
  */
 class FileShredder extends RandomnessContainer implements SecureFileErasure
 {
@@ -48,6 +50,31 @@ class FileShredder extends RandomnessContainer implements SecureFileErasure
     }
 
     /**
+     * Internal method for writing of pseudo-random content to a file.
+     *
+     * @param string $filename The filename and location.
+     * @param int $pass The current iteration pass logic.
+     * @param int $flag The file handle lock flag.
+     *
+     * @return bool The write operation result.
+     * @throws \Exception Validation or filesystem errors.
+     */
+    protected function writeContentToFile($filename, $pass, $flag)
+    {
+        $written = false;
+
+        if ($pass === 1) {
+            $written = file_put_contents($filename, "\x0", $flag);
+        } elseif ($pass === 2) {
+            $written = file_put_contents($filename, "\x1", $flag);
+        } elseif ($pass === 3) {
+            $written = file_put_contents($filename, $this->randomnessSource->getBytes(1), $flag);
+        }
+
+        return is_int($written);
+    }
+
+    /**
      * Internal method for shredding the physical file based on the DOD 5220.22-M (3 passes) standard.
      *
      * @param string $filename The filename and location.
@@ -59,23 +86,15 @@ class FileShredder extends RandomnessContainer implements SecureFileErasure
     {
         $sizeInBytes = $this->calculateFileSize($filename);
 
-        $written = true;
+        for ($pass = 1; $pass <= 3; $pass++) {
+            for ($i = 0; $i < $sizeInBytes; $i++) {
+                $flag = ($i === 0) ? LOCK_EX : (FILE_APPEND | LOCK_EX);
 
-        for ($i = 1; $i <= 3; $i++) {
-            for ($j = 0; $j < $sizeInBytes; $j++) {
-                $flag = ($j === 0) ? LOCK_EX : (FILE_APPEND | LOCK_EX);
-
-                if ($i === 1) {
-                    $written = file_put_contents($filename, "\x0", $flag);
-                } elseif ($i === 2) {
-                    $written = file_put_contents($filename, "\x1", $flag);
-                } elseif ($i === 3) {
-                    $written = file_put_contents($filename, $this->randomnessSource->getBytes(1), $flag);
-                }
+                $written = $this->writeContentToFile($filename, $pass, $flag);
 
                 // @codeCoverageIgnoreStart
                 if ($written === false) {
-                    throw new \RuntimeException('Problem with writing to the filesystem');
+                    throw new \RuntimeException('Problem with writing to the current filesystem.');
                 }
                 // @codeCoverageIgnoreEnd
             }
