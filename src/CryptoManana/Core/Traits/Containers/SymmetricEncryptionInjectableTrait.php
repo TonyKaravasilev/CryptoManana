@@ -32,9 +32,7 @@ trait SymmetricEncryptionInjectableTrait
      */
     public function setSymmetricCipher(SymmetricBlockCipher $cipher)
     {
-        if ($cipher instanceof DataEncryption) {
-            $this->symmetricCipherSource = $cipher;
-        }
+        $this->symmetricCipherSource = $cipher;
 
         return $this;
     }
