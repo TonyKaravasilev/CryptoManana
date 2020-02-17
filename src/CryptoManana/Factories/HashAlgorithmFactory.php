@@ -389,6 +389,112 @@ class HashAlgorithmFactory extends FactoryPattern
     const ARGON2 = Argon2::class;
 
     /**
+     * Get the array of containing all supported unkeyed hash algorithms by the factory.
+     *
+     * @return array An array of available unkeyed hash algorithms.
+     */
+    protected static function getUnkeyedHashAlgorithms()
+    {
+        return [
+            self::class . '::MD5' => self::MD5,
+            self::class . '::SHA1' => self::SHA1,
+            self::class . '::SHA2_224' => self::SHA2_224,
+            self::class . '::SHA2_256' => self::SHA2_256,
+            self::class . '::SHA2_384' => self::SHA2_384,
+            self::class . '::SHA2_512' => self::SHA2_512,
+            self::class . '::SHA3_224' => self::SHA3_224,
+            self::class . '::SHA3_256' => self::SHA3_256,
+            self::class . '::SHA3_384' => self::SHA3_384,
+            self::class . '::SHA3_512' => self::SHA3_512,
+            self::class . '::RIPEMD_128' => self::RIPEMD_128,
+            self::class . '::RIPEMD_160' => self::RIPEMD_160,
+            self::class . '::RIPEMD_256' => self::RIPEMD_256,
+            self::class . '::RIPEMD_320' => self::RIPEMD_320,
+            self::class . '::WHIRLPOOL' => self::WHIRLPOOL,
+        ];
+    }
+
+    /**
+     * Get the array of containing all supported keyed hash algorithms by the factory.
+     *
+     * @return array An array of available keyed hash algorithms.
+     */
+    protected static function getKeyedHashAlgorithms()
+    {
+        return [
+            self::class . '::HMAC_MD5' => self::HMAC_MD5,
+            self::class . '::HMAC_SHA1' => self::HMAC_SHA1,
+            self::class . '::HMAC_SHA2_224' => self::HMAC_SHA2_224,
+            self::class . '::HMAC_SHA2_256' => self::HMAC_SHA2_256,
+            self::class . '::HMAC_SHA2_384' => self::HMAC_SHA2_384,
+            self::class . '::HMAC_SHA2_512' => self::HMAC_SHA2_512,
+            self::class . '::HMAC_SHA3_224' => self::HMAC_SHA3_224,
+            self::class . '::HMAC_SHA3_256' => self::HMAC_SHA3_256,
+            self::class . '::HMAC_SHA3_384' => self::HMAC_SHA3_384,
+            self::class . '::HMAC_SHA3_512' => self::HMAC_SHA3_512,
+            self::class . '::HMAC_RIPEMD_128' => self::HMAC_RIPEMD_128,
+            self::class . '::HMAC_RIPEMD_160' => self::HMAC_RIPEMD_160,
+            self::class . '::HMAC_RIPEMD_256' => self::HMAC_RIPEMD_256,
+            self::class . '::HMAC_RIPEMD_320' => self::HMAC_RIPEMD_320,
+            self::class . '::HMAC_WHIRLPOOL' => self::HMAC_WHIRLPOOL,
+        ];
+    }
+
+    /**
+     * Get the array of containing all supported key derivation algorithms by the factory.
+     *
+     * @return array An array of available key derivation algorithms.
+     */
+    protected static function getKeyDerivationAlgorithms()
+    {
+        return [
+            self::class . '::HKDF_MD5' => self::HKDF_MD5,
+            self::class . '::HKDF_SHA1' => self::HKDF_SHA1,
+            self::class . '::HKDF_SHA2_224' => self::HKDF_SHA2_224,
+            self::class . '::HKDF_SHA2_256' => self::HKDF_SHA2_256,
+            self::class . '::HKDF_SHA2_384' => self::HKDF_SHA2_384,
+            self::class . '::HKDF_SHA2_512' => self::HKDF_SHA2_512,
+            self::class . '::HKDF_SHA3_224' => self::HKDF_SHA3_224,
+            self::class . '::HKDF_SHA3_256' => self::HKDF_SHA3_256,
+            self::class . '::HKDF_SHA3_384' => self::HKDF_SHA3_384,
+            self::class . '::HKDF_SHA3_512' => self::HKDF_SHA3_512,
+            self::class . '::HKDF_RIPEMD_128' => self::HKDF_RIPEMD_128,
+            self::class . '::HKDF_RIPEMD_160' => self::HKDF_RIPEMD_160,
+            self::class . '::HKDF_RIPEMD_256' => self::HKDF_RIPEMD_256,
+            self::class . '::HKDF_RIPEMD_320' => self::HKDF_RIPEMD_320,
+            self::class . '::HKDF_WHIRLPOOL' => self::HKDF_WHIRLPOOL,
+        ];
+    }
+
+    /**
+     * Get the array of containing all supported password-based derivation algorithms by the factory.
+     *
+     * @return array An array of available password-based derivation algorithms.
+     */
+    protected static function getPasswordDerivationAlgorithms()
+    {
+        return [
+            self::class . '::PBKDF2_MD5' => self::PBKDF2_MD5,
+            self::class . '::PBKDF2_SHA1' => self::PBKDF2_SHA1,
+            self::class . '::PBKDF2_SHA2_224' => self::PBKDF2_SHA2_224,
+            self::class . '::PBKDF2_SHA2_256' => self::PBKDF2_SHA2_256,
+            self::class . '::PBKDF2_SHA2_384' => self::PBKDF2_SHA2_384,
+            self::class . '::PBKDF2_SHA2_512' => self::PBKDF2_SHA2_512,
+            self::class . '::PBKDF2_SHA3_224' => self::PBKDF2_SHA3_224,
+            self::class . '::PBKDF2_SHA3_256' => self::PBKDF2_SHA3_256,
+            self::class . '::PBKDF2_SHA3_384' => self::PBKDF2_SHA3_384,
+            self::class . '::PBKDF2_SHA3_512' => self::PBKDF2_SHA3_512,
+            self::class . '::PBKDF2_RIPEMD_128' => self::PBKDF2_RIPEMD_128,
+            self::class . '::PBKDF2_RIPEMD_160' => self::PBKDF2_RIPEMD_160,
+            self::class . '::PBKDF2_RIPEMD_256' => self::PBKDF2_RIPEMD_256,
+            self::class . '::PBKDF2_RIPEMD_320' => self::PBKDF2_RIPEMD_320,
+            self::class . '::PBKDF2_WHIRLPOOL' => self::PBKDF2_WHIRLPOOL,
+            self::class . '::BCRYPT' => self::BCRYPT,
+            self::class . '::ARGON2' => self::ARGON2,
+        ];
+    }
+
+    /**
      * Create a hash algorithm object.
      *
      * @param string|null $type The algorithm class name as type for creation.
@@ -430,69 +536,10 @@ class HashAlgorithmFactory extends FactoryPattern
      */
     public function __debugInfo()
     {
-        return [
-            self::class . '::MD5' => self::MD5,
-            self::class . '::HMAC_MD5' => self::HMAC_MD5,
-            self::class . '::HKDF_MD5' => self::HKDF_MD5,
-            self::class . '::PBKDF2_MD5' => self::PBKDF2_MD5,
-            self::class . '::SHA1' => self::SHA1,
-            self::class . '::SHA1' => self::HMAC_SHA1,
-            self::class . '::SHA1' => self::HKDF_SHA1,
-            self::class . '::SHA1' => self::PBKDF2_SHA1,
-            self::class . '::SHA2_224' => self::SHA2_224,
-            self::class . '::HMAC_SHA2_224' => self::HMAC_SHA2_224,
-            self::class . '::HKDF_SHA2_224' => self::HKDF_SHA2_224,
-            self::class . '::PBKDF2_SHA2_224' => self::PBKDF2_SHA2_224,
-            self::class . '::SHA2_256' => self::SHA2_256,
-            self::class . '::HMAC_SHA2_256' => self::HMAC_SHA2_256,
-            self::class . '::HKDF_SHA2_256' => self::HKDF_SHA2_256,
-            self::class . '::PBKDF2_SHA2_256' => self::PBKDF2_SHA2_256,
-            self::class . '::SHA2_384' => self::SHA2_384,
-            self::class . '::HMAC_SHA2_384' => self::HMAC_SHA2_384,
-            self::class . '::HKDF_SHA2_384' => self::HKDF_SHA2_384,
-            self::class . '::PBKDF2_SHA2_384' => self::PBKDF2_SHA2_384,
-            self::class . '::SHA2_512' => self::SHA2_512,
-            self::class . '::HMAC_SHA2_512' => self::HMAC_SHA2_512,
-            self::class . '::HKDF_SHA2_512' => self::HKDF_SHA2_512,
-            self::class . '::PBKDF2_SHA2_512' => self::PBKDF2_SHA2_512,
-            self::class . '::SHA3_224' => self::SHA3_224,
-            self::class . '::HMAC_SHA3_224' => self::HMAC_SHA3_224,
-            self::class . '::HKDF_SHA3_224' => self::HKDF_SHA3_224,
-            self::class . '::PBKDF2_SHA3_224' => self::PBKDF2_SHA3_224,
-            self::class . '::SHA3_256' => self::SHA3_256,
-            self::class . '::HMAC_SHA3_256' => self::HMAC_SHA3_256,
-            self::class . '::HKDF_SHA3_256' => self::HKDF_SHA3_256,
-            self::class . '::PBKDF2_SHA3_256' => self::PBKDF2_SHA3_256,
-            self::class . '::SHA3_384' => self::SHA3_384,
-            self::class . '::HMAC_SHA3_384' => self::HMAC_SHA3_384,
-            self::class . '::HKDF_SHA3_384' => self::HKDF_SHA3_384,
-            self::class . '::PBKDF2_SHA3_384' => self::PBKDF2_SHA3_384,
-            self::class . '::SHA3_512' => self::SHA3_512,
-            self::class . '::HMAC_SHA3_512' => self::HMAC_SHA3_512,
-            self::class . '::HKDF_SHA3_512' => self::HKDF_SHA3_512,
-            self::class . '::PBKDF2_SHA3_512' => self::PBKDF2_SHA3_512,
-            self::class . '::RIPEMD_128' => self::RIPEMD_128,
-            self::class . '::HMAC_RIPEMD_128' => self::HMAC_RIPEMD_128,
-            self::class . '::HKDF_RIPEMD_128' => self::HKDF_RIPEMD_128,
-            self::class . '::PBKDF2_RIPEMD_128' => self::PBKDF2_RIPEMD_128,
-            self::class . '::RIPEMD_160' => self::RIPEMD_160,
-            self::class . '::HMAC_RIPEMD_160' => self::HMAC_RIPEMD_160,
-            self::class . '::HKDF_RIPEMD_160' => self::HKDF_RIPEMD_160,
-            self::class . '::PBKDF2_RIPEMD_160' => self::PBKDF2_RIPEMD_160,
-            self::class . '::RIPEMD_256' => self::RIPEMD_256,
-            self::class . '::HMAC_RIPEMD_256' => self::HMAC_RIPEMD_256,
-            self::class . '::HKDF_RIPEMD_256' => self::HKDF_RIPEMD_256,
-            self::class . '::PBKDF2_RIPEMD_256' => self::PBKDF2_RIPEMD_256,
-            self::class . '::RIPEMD_320' => self::RIPEMD_320,
-            self::class . '::HMAC_RIPEMD_320' => self::HMAC_RIPEMD_320,
-            self::class . '::HKDF_RIPEMD_320' => self::HKDF_RIPEMD_320,
-            self::class . '::PBKDF2_RIPEMD_320' => self::PBKDF2_RIPEMD_320,
-            self::class . '::WHIRLPOOL' => self::WHIRLPOOL,
-            self::class . '::HMAC_WHIRLPOOL' => self::HMAC_WHIRLPOOL,
-            self::class . '::HKDF_WHIRLPOOL' => self::HKDF_WHIRLPOOL,
-            self::class . '::PBKDF2_WHIRLPOOL' => self::PBKDF2_WHIRLPOOL,
-            self::class . '::BCRYPT' => self::BCRYPT,
-            self::class . '::ARGON2' => self::ARGON2,
-        ];
+        $supportedAlgorithms = array_merge(self::getUnkeyedHashAlgorithms(), self::getKeyedHashAlgorithms());
+        $supportedAlgorithms = array_merge($supportedAlgorithms, self::getKeyDerivationAlgorithms());
+        $supportedAlgorithms = array_merge($supportedAlgorithms, self::getPasswordDerivationAlgorithms());
+
+        return $supportedAlgorithms;
     }
 }
