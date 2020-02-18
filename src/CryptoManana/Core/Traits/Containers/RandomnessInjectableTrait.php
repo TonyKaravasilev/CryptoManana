@@ -6,7 +6,8 @@
 
 namespace CryptoManana\Core\Traits\Containers;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface as RandomnessInjectableSpecification;
 
 /**
  * Trait RandomnessInjectableTrait - Reusable implementation of `RandomnessInjectableInterface`.
@@ -15,23 +16,22 @@ use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSo
  *
  * @package CryptoManana\Core\Traits\Containers
  *
- * @property RandomnessSource $randomnessSource The randomness generator.
+ * @property RandomnessSource|null $randomnessSource The randomness generator.
+ *
+ * @mixin RandomnessInjectableSpecification
  */
 trait RandomnessInjectableTrait
 {
     /**
      * Setter for the pseudo-random generator service.
      *
-     * @param RandomnessSource|null $generator The pseudo-random generator service.
+     * @param RandomnessSource $generator The pseudo-random generator service.
      *
      * @return $this The container object.
-     * @see \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface::setRandomGenerator() Specification.
      */
     public function setRandomGenerator(RandomnessSource $generator)
     {
-        if (!is_null($generator)) {
-            $this->randomnessSource = $generator;
-        }
+        $this->randomnessSource = $generator;
 
         return $this;
     }
@@ -39,8 +39,7 @@ trait RandomnessInjectableTrait
     /**
      * Getter for the pseudo-random generator service.
      *
-     * @return RandomnessSource The currently injected pseudo-random generator service.
-     * @see \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface::getRandomGenerator() Specification.
+     * @return RandomnessSource|null The currently injected pseudo-random generator service.
      */
     public function getRandomGenerator()
     {

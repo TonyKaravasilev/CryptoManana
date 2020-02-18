@@ -21,6 +21,7 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
          * Available since PHP 7.0.0. Usually, PHP_INT_MIN === ~PHP_INT_MAX.
          *
          * @return int The smallest supported integer.
+         *
          * @internal define('PHP_INT_MIN', ~PHP_INT_MAX)
          */
         define('PHP_INT_MIN', ~PHP_INT_MAX);
@@ -32,6 +33,7 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
          * The default cost used for the BCRYPT hashing algorithm.
          *
          * @return int The default algorithmic cost for the Bcrypt password hashing algorithm.
+         *
          * @internal define('PASSWORD_BCRYPT_DEFAULT_COST', 10)
          */
         define('PASSWORD_BCRYPT_DEFAULT_COST', 10);
@@ -86,8 +88,7 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
                         return $buffer;
                     } elseif ((int)strlen($buffer) === $length) {
                         return $buffer;
-                    } else // Fallback case [really rare]
-                    {
+                    } else { // Fallback case [really rare]
                         if (function_exists('mb_strlen')) {
                             $tmpLength = (int)mb_strlen($buffer, '8bit');
                         } else {
@@ -98,12 +99,10 @@ if (PHP_VERSION_ID < 70000 && !$disableCompatibilityScript) {
                             $tmpLength = $length - $tmpLength;
 
                             return $buffer . \Sodium\randombytes_buf($tmpLength);
-                        } else { // < case
-                            if (function_exists('mb_substr')) {
-                                return mb_substr($buffer, 0, $length, '8bit');
-                            } else {
-                                return substr($buffer, 0, $length);
-                            }
+                        } elseif (function_exists('mb_substr')) {
+                            return mb_substr($buffer, 0, $length, '8bit');
+                        } else {
+                            return substr($buffer, 0, $length);
                         }
                     }
                 } else {
@@ -371,6 +370,7 @@ if (PHP_VERSION_ID < 70200 && !$disableCompatibilityScript) {
          * PASSWORD_ARGON2I is used to create new password hashes using the Argon2i algorithm.
          *
          * @return string The Argon2i hashing algorithm internal name.
+         *
          * @internal define('PASSWORD_ARGON2I', 2)
          */
         define('PASSWORD_ARGON2I', 2); // PHP >= 7.4.0 -> `argon2i`
@@ -382,6 +382,7 @@ if (PHP_VERSION_ID < 70200 && !$disableCompatibilityScript) {
          * Default amount of memory in bytes that Argon2lib will use while trying to compute a hash.
          *
          * @return int The default amount of memory usage for the Argon2 password hashing algorithm.
+         *
          * @internal define('PASSWORD_ARGON2_DEFAULT_MEMORY_COST', 65536)
          */
         define('PASSWORD_ARGON2_DEFAULT_MEMORY_COST', 65536);
@@ -393,6 +394,7 @@ if (PHP_VERSION_ID < 70200 && !$disableCompatibilityScript) {
          * Default amount of time that Argon2lib will spend trying to compute a hash.
          *
          * @return int The default amount of time usage for the Argon2 password hashing algorithm.
+         *
          * @internal define('PASSWORD_ARGON2_DEFAULT_TIME_COST', 4)
          */
         define('PASSWORD_ARGON2_DEFAULT_TIME_COST', 4);
@@ -404,6 +406,7 @@ if (PHP_VERSION_ID < 70200 && !$disableCompatibilityScript) {
          * DDefault number of threads that Argon2lib will use.
          *
          * @return int The default number of threads for the Argon2 password hashing algorithm.
+         *
          * @internal define('PASSWORD_ARGON2_DEFAULT_THREADS', 1)
          */
         define('PASSWORD_ARGON2_DEFAULT_THREADS', 1);
@@ -613,6 +616,7 @@ if (PHP_VERSION_ID < 70400 && !$disableCompatibilityScript) {
          * PASSWORD_ARGON2ID is used to create new password hashes using the Argon2id algorithm.
          *
          * @return string The Argon2id hashing algorithm internal name.
+         *
          * @internal define('PASSWORD_ARGON2ID', 3)
          */
         define('PASSWORD_ARGON2ID', 3); // PHP >= 7.4.0 -> `argon2id`
@@ -624,6 +628,7 @@ if (PHP_VERSION_ID < 70400 && !$disableCompatibilityScript) {
          * PASSWORD_ARGON2_PROVIDER is used to point at the default provider for the Argon2 algorithm.
          *
          * @return string The Argon2 hashing algorithm provider internal name.
+         *
          * @internal define('PASSWORD_ARGON2_PROVIDER', (extension_loaded('sodium')) ? 'sodium' : 'standard')
          */
         define('PASSWORD_ARGON2_PROVIDER', (extension_loaded('sodium')) ? 'sodium' : 'standard');

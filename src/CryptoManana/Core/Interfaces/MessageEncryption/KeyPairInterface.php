@@ -6,6 +6,8 @@
 
 namespace CryptoManana\Core\Interfaces\MessageEncryption;
 
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
+
 /**
  * Interface KeyPairInterface - Interface for public and private key pair capabilities.
  *
@@ -14,37 +16,21 @@ namespace CryptoManana\Core\Interfaces\MessageEncryption;
 interface KeyPairInterface
 {
     /**
-     * The internal index name for the private key when exporting the key pair as an array/object.
-     *
-     * @see KeyPairInterface::getKeyPair() For exporting as an array/object.
-     */
-    const PRIVATE_KEY_INDEX_NAME = 'private';
-
-    /**
-     * The internal index name for the public key when exporting the key pair as an array/object.
-     *
-     * @see KeyPairInterface::getKeyPair() For exporting as an array/object.
-     */
-    const PUBLIC_KEY_INDEX_NAME = 'public';
-
-    /**
      * Setter for the whole key pair as an array.
      *
-     * @param string $privateKey The private key string.
-     * @param string $publicKey The public key string.
+     * @param KeyPairStructure $keyPair The private and public key pair as an object.
      *
      * @throws \Exception Validation errors.
      */
-    public function setKeyPair($privateKey, $publicKey);
+    public function setKeyPair(KeyPairStructure $keyPair);
 
     /**
      * Getter for the whole key pair as an array.
      *
-     * @param bool|int|null $asArray Flag for exporting as an array, instead of an object.
-     *
-     * @return \stdClass|array The private and public key pair as an object.
+     * @return KeyPairStructure The private and public key pair as an object.
+     * @throws \Exception Validation errors.
      */
-    public function getKeyPair($asArray = false);
+    public function getKeyPair();
 
     /**
      * Setter for the private key string property.

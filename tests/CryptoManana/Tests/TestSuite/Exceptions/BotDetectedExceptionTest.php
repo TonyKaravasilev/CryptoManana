@@ -6,9 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Exceptions\BotDetectedException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
+use CryptoManana\Exceptions\BotDetectedException;
 
 /**
  * Class BotDetectedExceptionTest - Tests the 'bot detected' framework exception class.
@@ -49,6 +50,7 @@ final class BotDetectedExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue($tmp instanceof BotDetectedException);
+        $this->assertTrue($tmp instanceof AbstractIdentificationException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

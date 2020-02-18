@@ -4,12 +4,12 @@
  * Interface for security encryption key and initialization vector (IV) generation capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 /**
  * Interface EncryptionKeyGenerationInterface - Interface for encryption key and IV generation.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface EncryptionKeyGenerationInterface
 {

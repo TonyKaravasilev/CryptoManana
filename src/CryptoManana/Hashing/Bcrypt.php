@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Hashing;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation as StrongDerivationAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmicCostInterface as AlgorithmicCostTuning;
-use \CryptoManana\Core\Traits\MessageDigestion\AlgorithmicCostTrait as AlgorithmicCostTuningCapabilities;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation as StrongDerivationAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmicCostInterface as AlgorithmicCostTuning;
+use CryptoManana\Core\Traits\MessageDigestion\AlgorithmicCostTrait as AlgorithmicCostTuningCapabilities;
 
 /**
  * Class Bcrypt - The Bcrypt hashing algorithm object.

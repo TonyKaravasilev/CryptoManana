@@ -20,7 +20,7 @@ tools:
   php_mess_detector: true
   php_code_sniffer:
     config:
-      standard: "PSR2"
+      standard: "PSR12"
   external_code_coverage:
     timeout: 1200
     runs: 2 # <- Zend OPcache ON/OFF

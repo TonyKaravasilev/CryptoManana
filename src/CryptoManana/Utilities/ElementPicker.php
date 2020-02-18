@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Utilities;
 
-use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Randomness\ElementPickingInterface as ElementChoosing;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
+use CryptoManana\Core\Interfaces\Containers\ElementPickingInterface as ElementChoosing;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Class ElementPicker - Utility class for random element picking.

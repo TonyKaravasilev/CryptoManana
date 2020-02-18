@@ -4,23 +4,24 @@
  * Testing the RSA-2048 realization used for data encryption/decryption.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\AsymmetricEncryption;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption;
-use \CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
-use \CryptoManana\AsymmetricEncryption\Rsa2048;
-use \CryptoManana\Utilities\TokenGenerator;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption;
+use CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
+use CryptoManana\AsymmetricEncryption\Rsa2048;
+use CryptoManana\Utilities\TokenGenerator;
+use CryptoManana\DataStructures\KeyPair;
 
 /**
  * Class Rsa2048Test - Testing the RSA-2048 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\AsymmetricEncryption
  */
 final class Rsa2048Test extends AbstractUnitTest
 {
@@ -60,8 +61,8 @@ final class Rsa2048Test extends AbstractUnitTest
 
             $keyPair = $generator->getAsymmetricKeyPair($rsa::KEY_SIZE, $rsa::ALGORITHM_NAME);
 
-            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->{$rsa::PRIVATE_KEY_INDEX_NAME});
-            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->{$rsa::PUBLIC_KEY_INDEX_NAME});
+            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->private);
+            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->public);
 
             self::$isKeyPairGenerated = true;
         }
@@ -70,7 +71,9 @@ final class Rsa2048Test extends AbstractUnitTest
             $privateKey = $this->readFromFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
             $publicKey = $this->readFromFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
 
-            $rsa->setKeyPair($privateKey, $publicKey);
+            $keyPair = new KeyPair($privateKey, $publicKey);
+
+            $rsa->setKeyPair($keyPair);
         }
 
         return $rsa;
@@ -145,25 +148,10 @@ final class Rsa2048Test extends AbstractUnitTest
 
         $keyPair = $crypter->getKeyPair();
 
-        $this->assertTrue($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME} === $crypter->getPrivateKey());
-        $this->assertTrue($keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME} === $crypter->getPublicKey());
+        $this->assertTrue($keyPair->private === $crypter->getPrivateKey());
+        $this->assertTrue($keyPair->public === $crypter->getPublicKey());
 
-        $crypter->setKeyPair($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME}, $keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME});
-        $keyPairCopy = $crypter->getKeyPair(true);
-
-        $this->assertTrue(
-            $keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME} === $keyPairCopy[$crypter::PRIVATE_KEY_INDEX_NAME]
-        );
-        $this->assertTrue(
-            $keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME} === $keyPairCopy[$crypter::PUBLIC_KEY_INDEX_NAME]
-        );
-
-        $crypter->setPrivateKey($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME});
-        $crypter->setPublicKey($keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME});
-        $this->assertEquals($keyPair->{$crypter::PRIVATE_KEY_INDEX_NAME}, $crypter->getPrivateKey());
-        $this->assertEquals($keyPair->{$crypter::PUBLIC_KEY_INDEX_NAME}, $crypter->getPublicKey());
-
-        unset($keyPair, $keyPairCopy);
+        $crypter->setKeyPair($keyPair);
     }
 
     /**
@@ -726,12 +714,12 @@ final class Rsa2048Test extends AbstractUnitTest
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setKeyPair(['wrong'], $crypter->getPublicKey());
+            $crypter->setPrivateKey(['wrong']);
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setKeyPair(['wrong'], $crypter->getPublicKey());
+                $crypter->setPrivateKey(['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -757,12 +745,12 @@ final class Rsa2048Test extends AbstractUnitTest
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setKeyPair($crypter->getPrivateKey(), ['wrong']);
+            $crypter->setPublicKey(['wrong']);
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setKeyPair($crypter->getPrivateKey(), ['wrong']);
+                $crypter->setPublicKey(['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -784,16 +772,21 @@ final class Rsa2048Test extends AbstractUnitTest
     {
         $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
+        $keyPair = new KeyPair();
+
+        $keyPair->private = 'яаьц';
+        $keyPair->public = $crypter->getPublicKey();
+
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setKeyPair('яаьц', $crypter->getPublicKey());
+            $crypter->setKeyPair($keyPair);
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setKeyPair('яаьц', $crypter->getPublicKey());
+                $crypter->setKeyPair($keyPair);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -815,16 +808,21 @@ final class Rsa2048Test extends AbstractUnitTest
     {
         $crypter = $this->getAsymmetricEncryptionAlgorithmInstanceForTesting();
 
+        $keyPair = new KeyPair();
+
+        $keyPair->private = $crypter->getPrivateKey();
+        $keyPair->public = 'яаьц';
+
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $crypter->setKeyPair($crypter->getPrivateKey(), 'яаьц');
+            $crypter->setKeyPair($keyPair);
         } else {
             $hasThrown = null;
 
             try {
-                $crypter->setKeyPair($crypter->getPrivateKey(), 'яаьц');
+                $crypter->setKeyPair($keyPair);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {

@@ -6,7 +6,7 @@
 
 namespace CryptoManana\SymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipherAlgorithm;
 
 /**
  * Class Camellia256 - The CAMELLIA-256 encryption algorithm object.

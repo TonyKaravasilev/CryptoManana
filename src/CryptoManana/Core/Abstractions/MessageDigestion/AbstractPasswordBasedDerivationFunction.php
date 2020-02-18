@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Abstractions\MessageDigestion;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction as KeyStretchingAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as PasswordVerification;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction as KeyStretchingAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as PasswordVerification;
 
 /**
  * Class AbstractPasswordBasedDerivationFunction - Abstraction for password-based key derivation classes.

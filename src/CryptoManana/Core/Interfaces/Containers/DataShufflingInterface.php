@@ -4,12 +4,12 @@
  * Interface for specifying data shuffling capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 /**
  * Interface DataShufflingInterface - Interface for data shuffling capabilities.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface DataShufflingInterface
 {

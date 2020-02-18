@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
-use \CryptoManana\Hashing\Bcrypt;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
+use CryptoManana\Hashing\Bcrypt;
 
 /**
  * Class BcryptTest - Testing the Bcrypt class.

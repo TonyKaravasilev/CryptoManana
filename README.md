@@ -9,15 +9,16 @@
 [![PHPDoc Coverage](https://img.shields.io/badge/PHPDoc-100%20%25-success.svg?style=flat)](https://cryptomanana.karavasilev.info/api/)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-Success.svg?style=flat&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BFKJXWRLFTFQA&currency_code=USD&source=url) <br>
-&nbsp;[![CryptoManana Logo](http://karavasilev.info/images/CryptoMananaLogo.jpg)](https://cryptomanana.karavasilev.info)
+&nbsp;[![CryptoManana Logo](https://cryptomanana.karavasilev.info/images/CryptoMananaLogo.jpg)](https://cryptomanana.karavasilev.info)
 
 ## Project Description
 CryptoMañana (CryptoManana) is a PHP cryptography framework that provides object-oriented solutions for boosting your project's security.
-The code base of the project follows the S.O.L.I.D principles and implements a few popular Software Design Patterns.
-It is very useful for secure hashing, encryption, random data generation and even more.
+The code base of the project follows the S.O.L.I.D/KISS/DRY principles and implements a few popular Software Design Patterns.
+The software framework provides a fully functional cryptography model with a vast of cryptography primitives and protocols.
+It is very useful for secure hashing, encryption, key exchange, data signing, random data generation and even more.
 CryptoMañana is here to make your development faster and more secure!
 
-**Developer: [Tony Karavasilev](http://karavasilev.info)**
+**Developer: [Tony Karavasilev](https://karavasilev.info)**
 
 ## Project Installation
 ```bash
@@ -39,7 +40,8 @@ php vendor/karavasilev/cryptomanana/check.php
 
 ## Project Documentation
 - [**Framework Manual and Documentation**](https://cryptomanana.karavasilev.info/);
-- [**Technical API Documentation**](https://cryptomanana.karavasilev.info/api/).
+- [**Technical API Documentation**](https://cryptomanana.karavasilev.info/api/);
+- [**Agile Software Documentation**](https://cryptomanana.karavasilev.info/testdox/).
 
 ## Project Citation via DOI
 **The CryptoMañana Framework** - [DOI 10.5281/zenodo.2604693](https://doi.org/10.5281/zenodo.2604693) *(as a concept)*

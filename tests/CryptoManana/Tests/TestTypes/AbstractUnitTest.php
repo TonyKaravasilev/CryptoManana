@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestTypes;
 
-use \PHPUnit\Framework\TestCase as FrameworkUnitTest;
-use \CryptoManana\Tests\TestInterfaces\UnitTestDebuggingInterface as DataDumping;
-use \CryptoManana\Tests\TestInterfaces\FileManipulationInterface as TemporaryFileManipulation;
+use PHPUnit\Framework\TestCase as FrameworkUnitTest;
+use CryptoManana\Tests\TestInterfaces\UnitTestDebuggingInterface as DataDumping;
+use CryptoManana\Tests\TestInterfaces\FileManipulationInterface as TemporaryFileManipulation;
 
 /**
  * Class AbstractUnitTest - Main class for unit test case creation.

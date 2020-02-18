@@ -6,11 +6,11 @@
 
 namespace CryptoManana\Factories;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory as FactoryPattern;
-use \CryptoManana\Core\Abstractions\Randomness\AbstractRandomness as RandomnessSource;
-use \CryptoManana\Randomness\QuasiRandom as QuasiRandomness;
-use \CryptoManana\Randomness\PseudoRandom as PseudoRandomness;
-use \CryptoManana\Randomness\CryptoRandom as CryptographyRandomness;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory as FactoryPattern;
+use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness as RandomnessSource;
+use CryptoManana\Randomness\QuasiRandom as QuasiRandomness;
+use CryptoManana\Randomness\PseudoRandom as PseudoRandomness;
+use CryptoManana\Randomness\CryptoRandom as CryptographyRandomness;
 
 /**
  * Class RandomnessFactory - Factory object for pseudo-randomness generator instancing.
@@ -33,6 +33,20 @@ class RandomnessFactory extends FactoryPattern
      * The cryptographically secure pseudo-random generator type.
      */
     const CRYPTO_SOURCE = CryptographyRandomness::class;
+
+    /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            self::class . '::QUASI_SOURCE' => self::QUASI_SOURCE,
+            self::class . '::PSEUDO_SOURCE' => self::PSEUDO_SOURCE,
+            self::class . '::CRYPTO_SOURCE' => self::CRYPTO_SOURCE,
+        ];
+    }
 
     /**
      * Create a pseudo-randomness generator.
@@ -67,19 +81,5 @@ class RandomnessFactory extends FactoryPattern
         }
 
         return $exception;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            self::class . '::QUASI_SOURCE' => self::QUASI_SOURCE,
-            self::class . '::PSEUDO_SOURCE' => self::PSEUDO_SOURCE,
-            self::class . '::CRYPTO_SOURCE' => self::CRYPTO_SOURCE,
-        ];
     }
 }

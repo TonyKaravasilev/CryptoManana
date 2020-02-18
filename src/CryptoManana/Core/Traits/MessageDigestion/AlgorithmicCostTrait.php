@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmicCostInterface as AlgorithmicCostSpecification;
+use CryptoManana\Core\Interfaces\MessageDigestion\AlgorithmicCostInterface as AlgorithmicCostSpecification;
 
 /**
  * Trait AlgorithmicCostTrait - Reusable implementation of `AlgorithmicCostInterface`.

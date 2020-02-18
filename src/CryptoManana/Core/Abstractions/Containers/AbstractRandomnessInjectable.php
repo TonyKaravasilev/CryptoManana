@@ -6,13 +6,12 @@
 
 namespace CryptoManana\Core\Abstractions\Containers;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessGenerator;
-use \CryptoManana\Core\Interfaces\Randomness\SeedableContainerInterface as SeedableService;
-use \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedableGenerator;
-use \CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface as SetterInjectable;
-use \CryptoManana\Core\Traits\Containers\RandomnessInjectableTrait as SetterInjectableImplementation;
-use \CryptoManana\Randomness\CryptoRandom as DefaultRandomnessSource;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Randomness\SeedableContainerInterface as SeedableService;
+use CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedableGenerator;
+use CryptoManana\Core\Interfaces\Containers\RandomnessInjectableInterface as SetterInjectable;
+use CryptoManana\Core\Traits\Containers\RandomnessInjectableTrait as SetterInjectableImplementation;
+use CryptoManana\Randomness\CryptoRandom as DefaultRandomnessSource;
 
 /**
  * Class AbstractRandomnessInjectable - Abstraction container for dependency injection of data generator services.
@@ -24,7 +23,7 @@ use \CryptoManana\Randomness\CryptoRandom as DefaultRandomnessSource;
 abstract class AbstractRandomnessInjectable implements SetterInjectable, SeedableService
 {
     /**
-     * Dependency injection via setter method.
+     * Dependency injection via a setter method implementation.
      *
      * {@internal Reusable implementation of `RandomnessInjectableInterface`. }}
      */
@@ -33,7 +32,7 @@ abstract class AbstractRandomnessInjectable implements SetterInjectable, Seedabl
     /**
      * The pseudo-random generator service property storage.
      *
-     * @var RandomnessSource|RandomnessGenerator|null The pseudo-random generator service.
+     * @var RandomnessSource|null The pseudo-random generator service.
      */
     protected $randomnessSource = null;
 
@@ -43,11 +42,12 @@ abstract class AbstractRandomnessInjectable implements SetterInjectable, Seedabl
      * @param RandomnessSource|null $generator The pseudo-random generator service.
      *
      * @throws \Exception Initialization validation.
+     *
      * @internal The default service is always the most secure one available.
      */
     public function __construct(RandomnessSource $generator = null)
     {
-        if (is_null($generator)) {
+        if ($generator === null) {
             $this->randomnessSource = new DefaultRandomnessSource();
         } else {
             $this->randomnessSource = $generator;

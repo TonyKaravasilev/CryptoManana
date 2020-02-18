@@ -6,14 +6,15 @@
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractAlgorithmException as FrameworkAlgorithmException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class UnsupportedException - The framework exception for marking unsupported algorithms.
  *
  * @package CryptoManana\Exceptions
  */
-class UnsupportedException extends FrameworkException
+class UnsupportedException extends FrameworkAlgorithmException
 {
     /**
      * The framework internal error code.
@@ -33,7 +34,7 @@ class UnsupportedException extends FrameworkException
      * Get the default framework error code for this exception instance.
      *
      * @return int The exception's error code.
-     * @see UnsupportedException::INTERNAL_CODE Default error code.
+     * @see FrameworkException::INTERNAL_CODE Default error code.
      */
     public function getFrameworkErrorCode()
     {

@@ -4,23 +4,24 @@
  * Testing the DSA-3072 realization used for data signing/verification.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\AsymmetricEncryption;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature;
-use \CryptoManana\Core\Interfaces\MessageEncryption\SignatureDigestionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\SignatureDataFormatsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataSigningInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileSigningInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectSigningInterface;
-use \CryptoManana\AsymmetricEncryption\Dsa3072;
-use \CryptoManana\Utilities\TokenGenerator;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature;
+use CryptoManana\Core\Interfaces\MessageEncryption\SignatureDigestionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\SignatureDataFormatsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataSigningInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileSigningInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectSigningInterface;
+use CryptoManana\AsymmetricEncryption\Dsa3072;
+use CryptoManana\Utilities\TokenGenerator;
+use CryptoManana\DataStructures\KeyPair;
 
 /**
  * Class Dsa3072Test - Testing the DSA-3072 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\AsymmetricEncryption
  */
 final class Dsa3072Test extends AbstractUnitTest
 {
@@ -60,8 +61,8 @@ final class Dsa3072Test extends AbstractUnitTest
 
             $keyPair = $generator->getAsymmetricKeyPair($dsa::KEY_SIZE, $dsa::ALGORITHM_NAME);
 
-            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->{$dsa::PRIVATE_KEY_INDEX_NAME});
-            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->{$dsa::PUBLIC_KEY_INDEX_NAME});
+            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->private);
+            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->public);
 
             self::$isKeyPairGenerated = true;
         }
@@ -70,7 +71,9 @@ final class Dsa3072Test extends AbstractUnitTest
             $privateKey = $this->readFromFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
             $publicKey = $this->readFromFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
 
-            $dsa->setKeyPair($privateKey, $publicKey);
+            $keyPair = new KeyPair($privateKey, $publicKey);
+
+            $dsa->setKeyPair($keyPair);
         }
 
         return $dsa;
@@ -145,27 +148,10 @@ final class Dsa3072Test extends AbstractUnitTest
 
         $keyPair = $signature->getKeyPair();
 
-        $this->assertTrue($keyPair->{$signature::PRIVATE_KEY_INDEX_NAME} === $signature->getPrivateKey());
-        $this->assertTrue($keyPair->{$signature::PUBLIC_KEY_INDEX_NAME} === $signature->getPublicKey());
+        $this->assertTrue($keyPair->private === $signature->getPrivateKey());
+        $this->assertTrue($keyPair->public === $signature->getPublicKey());
 
-        $signature->setKeyPair(
-            $keyPair->{$signature::PRIVATE_KEY_INDEX_NAME},
-            $keyPair->{$signature::PUBLIC_KEY_INDEX_NAME}
-        );
-
-        $keyPairCopy = $signature->getKeyPair(true);
-
-        $this->assertTrue(
-            $keyPair->{$signature::PRIVATE_KEY_INDEX_NAME} === $keyPairCopy[$signature::PRIVATE_KEY_INDEX_NAME]
-        );
-        $this->assertTrue(
-            $keyPair->{$signature::PUBLIC_KEY_INDEX_NAME} === $keyPairCopy[$signature::PUBLIC_KEY_INDEX_NAME]
-        );
-
-        $signature->setPrivateKey($keyPair->{$signature::PRIVATE_KEY_INDEX_NAME});
-        $signature->setPublicKey($keyPair->{$signature::PUBLIC_KEY_INDEX_NAME});
-        $this->assertEquals($keyPair->{$signature::PRIVATE_KEY_INDEX_NAME}, $signature->getPrivateKey());
-        $this->assertEquals($keyPair->{$signature::PUBLIC_KEY_INDEX_NAME}, $signature->getPublicKey());
+        $signature->setKeyPair($keyPair);
     }
 
     /**
@@ -662,12 +648,12 @@ final class Dsa3072Test extends AbstractUnitTest
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $signature->setKeyPair(['wrong'], $signature->getPublicKey());
+            $signature->setPrivateKey(['wrong']);
         } else {
             $hasThrown = null;
 
             try {
-                $signature->setKeyPair(['wrong'], $signature->getPublicKey());
+                $signature->setPrivateKey(['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -693,12 +679,12 @@ final class Dsa3072Test extends AbstractUnitTest
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $signature->setKeyPair($signature->getPrivateKey(), ['wrong']);
+            $signature->setPublicKey(['wrong']);
         } else {
             $hasThrown = null;
 
             try {
-                $signature->setKeyPair($signature->getPrivateKey(), ['wrong']);
+                $signature->setPublicKey(['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -720,16 +706,21 @@ final class Dsa3072Test extends AbstractUnitTest
     {
         $signature = $this->getDigitalSignatureAlgorithmInstanceForTesting();
 
+        $keyPair = new KeyPair();
+
+        $keyPair->private = 'яаьц';
+        $keyPair->public = $signature->getPublicKey();
+
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $signature->setKeyPair('яаьц', $signature->getPublicKey());
+            $signature->setKeyPair($keyPair);
         } else {
             $hasThrown = null;
 
             try {
-                $signature->setKeyPair('яаьц', $signature->getPublicKey());
+                $signature->setKeyPair($keyPair);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
@@ -751,16 +742,21 @@ final class Dsa3072Test extends AbstractUnitTest
     {
         $signature = $this->getDigitalSignatureAlgorithmInstanceForTesting();
 
+        $keyPair = new KeyPair();
+
+        $keyPair->private = $signature->getPrivateKey();
+        $keyPair->public = 'яаьц';
+
         // Backward compatible for different versions of PHPUnit
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $signature->setKeyPair($signature->getPrivateKey(), 'яаьц');
+            $signature->setKeyPair($keyPair);
         } else {
             $hasThrown = null;
 
             try {
-                $signature->setKeyPair($signature->getPrivateKey(), 'яаьц');
+                $signature->setKeyPair($keyPair);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {

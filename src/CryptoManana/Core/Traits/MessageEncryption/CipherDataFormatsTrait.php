@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface as CipherDataFormatsSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface as CipherDataFormatsSpecification;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait CipherDataFormatsTrait - Reusable implementation of `CipherDataFormatsInterface`.

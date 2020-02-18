@@ -6,7 +6,7 @@
 
 namespace CryptoManana\SymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm as SymmetricStreamCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm as SymmetricStreamCipherAlgorithm;
 
 /**
  * Class Rc4 - The RC4-128 encryption algorithm object.

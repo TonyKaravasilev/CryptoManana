@@ -6,7 +6,7 @@
 
 namespace CryptoManana\SymmetricEncryption;
 
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm as SymmetricBlockCipherAlgorithm;
 
 /**
  * Class Aes128 - The AES-128 encryption algorithm object.

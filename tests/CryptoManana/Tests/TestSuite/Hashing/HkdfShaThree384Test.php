@@ -6,12 +6,12 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
-use \CryptoManana\Hashing\HkdfShaThree384;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
+use CryptoManana\Hashing\HkdfShaThree384;
 
 /**
  * Class HkdfShaThree384Test - Testing the SHA-3 family HKDF-SHA-384 class.
@@ -181,8 +181,10 @@ final class HkdfShaThree384Test extends AbstractUnitTest
         $this->assertEquals($hasher::DIGEST_OUTPUT_RAW, $hasher->getDigestFormat());
 
         $this->assertEquals(
-            hex2bin('d9d8a3eb6899893eeb2309464f7078430ce141087fad7d6cfc390059fc3d348' .
-                'e6249954ec9905ef7793d11b42def4052'),
+            hex2bin(
+                'd9d8a3eb6899893eeb2309464f7078430ce141087fad7d6cfc390059fc3d348' .
+                'e6249954ec9905ef7793d11b42def4052'
+            ),
             $hasher->hashData('')
         );
 

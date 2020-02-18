@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\DerivationIterationControlInterface as IterationControlSpecification;
+use CryptoManana\Core\Interfaces\MessageDigestion\DerivationIterationControlInterface as IterationControlSpecification;
 
 /**
  * Trait DerivationIterationControlTrait - Reusable implementation of `DerivationIterationControlInterface`.

@@ -6,7 +6,9 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairSpecification;
+use CryptoManana\Core\Traits\CommonValidations\KeyPairFormatValidationTrait as KeyFormatValidations;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Trait KeyPairTrait - Reusable implementation of `KeyPairInterface`.
@@ -19,56 +21,16 @@ use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairS
  * @property string $publicKey The public key string property storage.
  *
  * @mixin KeyPairSpecification
+ * @mixin KeyFormatValidations
  */
 trait KeyPairTrait
 {
     /**
-     * Internal method for the validation of the private key string representation format.
+     * Asymmetric key pair format validations.
      *
-     * @param string $privateKey The private key input string.
-     *
-     * @throws \Exception Validation errors.
-     *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * {@internal Reusable implementation of the common key pair format validation. }}
      */
-    protected function validatePrivateKeyFormat(&$privateKey)
-    {
-        if (!is_string($privateKey)) {
-            throw new \InvalidArgumentException('The private key must be a string or a binary string.');
-        }
-
-        $isPrivateBase64String = (
-            !empty($privateKey) && preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $privateKey) && strlen($privateKey) % 4 === 0
-        );
-
-        if (!$isPrivateBase64String) {
-            throw new \InvalidArgumentException('The private key must be a valid Base64 formatted string.');
-        }
-    }
-
-    /**
-     * Internal method for the validation of the public key string representation format.
-     *
-     * @param string $publicKey The public key input string.
-     *
-     * @throws \Exception Validation errors.
-     *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
-     */
-    protected function validatePublicKeyFormat(&$publicKey)
-    {
-        if (!is_string($publicKey)) {
-            throw new \InvalidArgumentException('The public key must be a string or a binary string.');
-        }
-
-        $isPublicBase64String = (
-            !empty($publicKey) && preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $publicKey) && strlen($publicKey) % 4 === 0
-        );
-
-        if (!$isPublicBase64String) {
-            throw new \InvalidArgumentException('The public key must be a valid Base64 formatted string.');
-        }
-    }
+    use KeyFormatValidations;
 
     /**
      * Internal method for the validation of the private key resource.
@@ -84,7 +46,6 @@ trait KeyPairTrait
      */
     protected function validatePrivateKeyResource(&$privateKey)
     {
-        // Get the private key
         $privateKeyResource = openssl_pkey_get_private(base64_decode($privateKey));
 
         if ($privateKeyResource === false) {
@@ -183,19 +144,18 @@ trait KeyPairTrait
     /**
      * Setter for the whole key pair as an array.
      *
-     * @param string $privateKey The private key string.
-     * @param string $publicKey The public key string.
+     * @param KeyPairStructure $keyPair The private and public key pair as an object.
      *
      * @return $this The encryption/signature algorithm object.
      * @throws \Exception Validation errors.
      */
-    public function setKeyPair($privateKey, $publicKey)
+    public function setKeyPair(KeyPairStructure $keyPair)
     {
-        $this->validateKeyPair($privateKey, $publicKey);
+        $this->validateKeyPair($keyPair->private, $keyPair->public);
 
         // Set the key pair
-        $this->privateKey = $privateKey;
-        $this->publicKey = $publicKey;
+        $this->privateKey = $keyPair->private;
+        $this->publicKey = $keyPair->public;
 
         return $this;
     }
@@ -203,25 +163,12 @@ trait KeyPairTrait
     /**
      * Getter for the whole key pair as an array.
      *
-     * @param bool|int|null $asArray Flag for exporting as an array, instead of an object.
-     *
-     * @return \stdClass|array The private and public key pair as an object/array.
+     * @return KeyPairStructure The private and public key pair as an object.
+     * @throws \Exception Validation errors.
      */
-    public function getKeyPair($asArray = false)
+    public function getKeyPair()
     {
-        if ($asArray == true) {
-            return [
-                self::PRIVATE_KEY_INDEX_NAME => $this->privateKey,
-                self::PUBLIC_KEY_INDEX_NAME => $this->publicKey
-            ];
-        } else {
-            $object = new \stdClass();
-
-            $object->{self::PRIVATE_KEY_INDEX_NAME} = $this->privateKey;
-            $object->{self::PUBLIC_KEY_INDEX_NAME} = $this->publicKey;
-
-            return $object;
-        }
+        return new KeyPairStructure($this->privateKey, $this->publicKey);
     }
 
     /**

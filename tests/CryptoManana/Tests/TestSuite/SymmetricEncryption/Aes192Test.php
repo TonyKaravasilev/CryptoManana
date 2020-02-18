@@ -4,23 +4,23 @@
  * Testing the AES-192 realization used for data encryption/decryption.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\SymmetricEncryption;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
-use \CryptoManana\SymmetricEncryption\Aes192;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractBlockCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
+use CryptoManana\SymmetricEncryption\Aes192;
 
 /**
  * Class Aes192Test - Testing the AES-192 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\SymmetricEncryption
  */
 final class Aes192Test extends AbstractUnitTest
 {

@@ -1,6 +1,32 @@
 CHANGELOG
 =========
 
+v1.0.0, 2020-02-18
+------------------
+- Added a FileShredder object for DOD-5220.22-M  secure deletion of hard disk drives and solid state drives;
+- Added a huge variety of cryptographic protocols that can injection all cryptography primitives as dependencies;
+- Added a few data structures based on the needs of some of the created primitives and protocols;
+- Added a unit test for the new file shredder deletion standard object realization;
+- Added unit tests for the new cryptographic protocol object realizations;
+- Added unit tests for the new data structure object realizations;
+- Added a vast variety of new framework exceptions and reorganized their hierarchy;
+- Added unit tests for all the new framework exception objects realizations;
+- Added the RIPEMD family of hash functions and created unit tests form them;
+- Added the 3DES (TDES) legacy encryption standard and created an unit test for it;
+- Updated all factory objects and their unit tests for the newly implemented classes;
+- Migrated from the deprecated PSR-2 code guide to the new PSR-12 coding style standard;
+- Enabled the running of unit tests with PHPUnit 9.x under PHP 7.3 and PHP 7.4 versions;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Synced the staging branch to the current stable state of the released framework;
+- Updated the Composer JSON schema with new keywords and information;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Fixed compatibility issues with PHP 7.4 and PHP 8.0 features;
+- Major code refactoring, object optimization and analysis;
+- Fixed a few simple typos at existing PHPDoc comments;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v0.9.0, 2020-02-04
 ------------------
 - Added a standardized symmetric stream encryption algorithm object for securing data;

@@ -6,13 +6,14 @@
 
 namespace CryptoManana\Utilities;
 
-use \CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
-use \CryptoManana\Core\Interfaces\Randomness\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
-use \CryptoManana\Core\Interfaces\Randomness\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
-use \CryptoManana\Core\Interfaces\Randomness\HashingKeyGenerationInterface as HashingKeyGeneration;
-use \CryptoManana\Core\Interfaces\Randomness\TokenGenerationInterface as TokenStringGeneration;
-use \CryptoManana\Core\Interfaces\MessageEncryption\KeyPairInterface as KeyPairSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable as RandomnessContainer;
+use CryptoManana\Core\Interfaces\Containers\AsymmetricKeyPairGenerationInterface as KeyPairGeneration;
+use CryptoManana\Core\Interfaces\Containers\EncryptionKeyGenerationInterface as EncryptionKeyGeneration;
+use CryptoManana\Core\Interfaces\Containers\HashingKeyGenerationInterface as HashingKeyGeneration;
+use CryptoManana\Core\Interfaces\Containers\TokenGenerationInterface as TokenStringGeneration;
+use CryptoManana\Core\Traits\CommonValidations\KeyPairSizeValidationTrait as KeyPairSizeValidations;
+use CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Class TokenGenerator - Utility class for cryptography token generation.
@@ -20,6 +21,8 @@ use \CryptoManana\Core\StringBuilder as StringBuilder;
  * @package CryptoManana\Utilities
  *
  * @property \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator $randomnessSource The randomness generator.
+ *
+ * @mixin KeyPairSizeValidations
  */
 class TokenGenerator extends RandomnessContainer implements
     TokenStringGeneration,
@@ -27,6 +30,13 @@ class TokenGenerator extends RandomnessContainer implements
     EncryptionKeyGeneration,
     KeyPairGeneration
 {
+    /**
+     * Asymmetric key pair size in bits validations.
+     *
+     * {@internal Reusable implementation of the common key pair size in bits validation. }}
+     */
+    use KeyPairSizeValidations;
+
     /**
      * Internal method for validation of positive output length.
      *
@@ -83,34 +93,6 @@ class TokenGenerator extends RandomnessContainer implements
     }
 
     /**
-     * Internal method for asymmetric algorithm type validation.
-     *
-     * @param int $keySize The key size in bits.
-     *
-     * @throws \Exception Validation errors.
-     */
-    protected function validateKeyPairSize($keySize)
-    {
-        $keySize = filter_var(
-            $keySize,
-            FILTER_VALIDATE_INT,
-            [
-                "options" => [
-                    "min_range" => 384,
-                    "max_range" => 15360,
-                ],
-            ]
-        );
-
-        if ($keySize === false || $keySize % 128 !== 0) {
-            throw new \InvalidArgumentException(
-                'The key size must be between 384 (fastest but weakest) ' .
-                'and 15360 (slowest but strongest) bits and be dividable by 128 bits.'
-            );
-        }
-    }
-
-    /**
      * Internal method for generating a fresh private key pair of the given size and type.
      *
      * @param int $keySize The private key size in bits.
@@ -123,10 +105,12 @@ class TokenGenerator extends RandomnessContainer implements
      */
     protected function generatePrivateKey($keySize, $algorithmType)
     {
-        $privateKeyResource = openssl_pkey_new([
-            'private_key_bits' => $keySize, // Size of the key (>= 384)
-            'private_key_type' => $algorithmType, // The algorithm type (RSA/DSA) type
-        ]);
+        $privateKeyResource = openssl_pkey_new(
+            [
+                'private_key_bits' => $keySize, // Size of the key (>= 384)
+                'private_key_type' => $algorithmType, // The algorithm type (RSA/DSA) type
+            ]
+        );
 
         if ($privateKeyResource === false) {
             throw new \RuntimeException(
@@ -138,7 +122,7 @@ class TokenGenerator extends RandomnessContainer implements
     }
 
     /**
-     * Internal method for generating a fresh public key pair of the given size by extracting it from the  private key.
+     * Internal method for generating a fresh public key pair of the given size by extracting it from the private key.
      *
      * @param int $keySize The private key size in bits.
      * @param resource $privateKeyResource The private key resource.
@@ -325,7 +309,7 @@ class TokenGenerator extends RandomnessContainer implements
      * @param int $keySize The key size in bits.
      * @param int $algorithmType The asymmetric algorithm type integer code.
      *
-     * @return \stdClass Randomly generated asymmetric key pair (private and public keys) as an object.
+     * @return KeyPairStructure Randomly generated asymmetric key pair (private and public keys) as an object.
      * @throws \Exception Validation errors.
      *
      * @codeCoverageIgnore
@@ -348,10 +332,10 @@ class TokenGenerator extends RandomnessContainer implements
 
         $publicKeyString = $this->generatePublicKey((int)$keySize, $privateKeyResource);
 
-        $object = new \stdClass();
+        $object = new KeyPairStructure();
 
-        $object->{KeyPairSpecification::PRIVATE_KEY_INDEX_NAME} = base64_encode($privateKeyString);
-        $object->{KeyPairSpecification::PUBLIC_KEY_INDEX_NAME} = base64_encode($publicKeyString);
+        $object->private = base64_encode($privateKeyString);
+        $object->public = base64_encode($publicKeyString);
 
         return $object;
     }

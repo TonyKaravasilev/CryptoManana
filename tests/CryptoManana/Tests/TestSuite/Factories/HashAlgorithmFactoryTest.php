@@ -6,63 +6,79 @@
 
 namespace CryptoManana\Tests\TestSuite\Factories;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation;
-use \CryptoManana\Hashing\Md5;
-use \CryptoManana\Hashing\Sha1;
-use \CryptoManana\Hashing\ShaTwo224;
-use \CryptoManana\Hashing\ShaTwo256;
-use \CryptoManana\Hashing\ShaTwo384;
-use \CryptoManana\Hashing\ShaTwo512;
-use \CryptoManana\Hashing\ShaThree224;
-use \CryptoManana\Hashing\ShaThree256;
-use \CryptoManana\Hashing\ShaThree384;
-use \CryptoManana\Hashing\ShaThree512;
-use \CryptoManana\Hashing\Whirlpool;
-use \CryptoManana\Hashing\HmacMd5;
-use \CryptoManana\Hashing\HmacSha1;
-use \CryptoManana\Hashing\HmacShaThree224;
-use \CryptoManana\Hashing\HmacShaThree256;
-use \CryptoManana\Hashing\HmacShaThree384;
-use \CryptoManana\Hashing\HmacShaThree512;
-use \CryptoManana\Hashing\HmacShaTwo224;
-use \CryptoManana\Hashing\HmacShaTwo256;
-use \CryptoManana\Hashing\HmacShaTwo384;
-use \CryptoManana\Hashing\HmacShaTwo512;
-use \CryptoManana\Hashing\HmacWhirlpool;
-use \CryptoManana\Hashing\HkdfMd5;
-use \CryptoManana\Hashing\HkdfSha1;
-use \CryptoManana\Hashing\HkdfShaThree224;
-use \CryptoManana\Hashing\HkdfShaThree256;
-use \CryptoManana\Hashing\HkdfShaThree384;
-use \CryptoManana\Hashing\HkdfShaThree512;
-use \CryptoManana\Hashing\HkdfShaTwo224;
-use \CryptoManana\Hashing\HkdfShaTwo256;
-use \CryptoManana\Hashing\HkdfShaTwo384;
-use \CryptoManana\Hashing\HkdfShaTwo512;
-use \CryptoManana\Hashing\HkdfWhirlpool;
-use \CryptoManana\Hashing\Pbkdf2Md5;
-use \CryptoManana\Hashing\Pbkdf2Sha1;
-use \CryptoManana\Hashing\Pbkdf2ShaThree224;
-use \CryptoManana\Hashing\Pbkdf2ShaThree256;
-use \CryptoManana\Hashing\Pbkdf2ShaThree384;
-use \CryptoManana\Hashing\Pbkdf2ShaThree512;
-use \CryptoManana\Hashing\Pbkdf2ShaTwo224;
-use \CryptoManana\Hashing\Pbkdf2ShaTwo256;
-use \CryptoManana\Hashing\Pbkdf2ShaTwo384;
-use \CryptoManana\Hashing\Pbkdf2ShaTwo512;
-use \CryptoManana\Hashing\Pbkdf2Whirlpool;
-use \CryptoManana\Hashing\Bcrypt;
-use \CryptoManana\Hashing\Argon2;
-use \CryptoManana\Factories\HashAlgorithmFactory;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractFactory;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyStretchingFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyMaterialDerivationFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractPasswordBasedDerivationFunction;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHardwareResistantDerivation;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractIterativeSlowDerivation;
+use CryptoManana\Hashing\Md5;
+use CryptoManana\Hashing\Sha1;
+use CryptoManana\Hashing\ShaTwo224;
+use CryptoManana\Hashing\ShaTwo256;
+use CryptoManana\Hashing\ShaTwo384;
+use CryptoManana\Hashing\ShaTwo512;
+use CryptoManana\Hashing\ShaThree224;
+use CryptoManana\Hashing\ShaThree256;
+use CryptoManana\Hashing\ShaThree384;
+use CryptoManana\Hashing\ShaThree512;
+use CryptoManana\Hashing\Ripemd128;
+use CryptoManana\Hashing\Ripemd160;
+use CryptoManana\Hashing\Ripemd256;
+use CryptoManana\Hashing\Ripemd320;
+use CryptoManana\Hashing\Whirlpool;
+use CryptoManana\Hashing\HmacMd5;
+use CryptoManana\Hashing\HmacSha1;
+use CryptoManana\Hashing\HmacShaThree224;
+use CryptoManana\Hashing\HmacShaThree256;
+use CryptoManana\Hashing\HmacShaThree384;
+use CryptoManana\Hashing\HmacShaThree512;
+use CryptoManana\Hashing\HmacShaTwo224;
+use CryptoManana\Hashing\HmacShaTwo256;
+use CryptoManana\Hashing\HmacShaTwo384;
+use CryptoManana\Hashing\HmacShaTwo512;
+use CryptoManana\Hashing\HmacRipemd128;
+use CryptoManana\Hashing\HmacRipemd160;
+use CryptoManana\Hashing\HmacRipemd256;
+use CryptoManana\Hashing\HmacRipemd320;
+use CryptoManana\Hashing\HmacWhirlpool;
+use CryptoManana\Hashing\HkdfMd5;
+use CryptoManana\Hashing\HkdfSha1;
+use CryptoManana\Hashing\HkdfShaThree224;
+use CryptoManana\Hashing\HkdfShaThree256;
+use CryptoManana\Hashing\HkdfShaThree384;
+use CryptoManana\Hashing\HkdfShaThree512;
+use CryptoManana\Hashing\HkdfShaTwo224;
+use CryptoManana\Hashing\HkdfShaTwo256;
+use CryptoManana\Hashing\HkdfShaTwo384;
+use CryptoManana\Hashing\HkdfShaTwo512;
+use CryptoManana\Hashing\HkdfRipemd128;
+use CryptoManana\Hashing\HkdfRipemd160;
+use CryptoManana\Hashing\HkdfRipemd256;
+use CryptoManana\Hashing\HkdfRipemd320;
+use CryptoManana\Hashing\HkdfWhirlpool;
+use CryptoManana\Hashing\Pbkdf2Md5;
+use CryptoManana\Hashing\Pbkdf2Sha1;
+use CryptoManana\Hashing\Pbkdf2ShaThree224;
+use CryptoManana\Hashing\Pbkdf2ShaThree256;
+use CryptoManana\Hashing\Pbkdf2ShaThree384;
+use CryptoManana\Hashing\Pbkdf2ShaThree512;
+use CryptoManana\Hashing\Pbkdf2ShaTwo224;
+use CryptoManana\Hashing\Pbkdf2ShaTwo256;
+use CryptoManana\Hashing\Pbkdf2ShaTwo384;
+use CryptoManana\Hashing\Pbkdf2ShaTwo512;
+use CryptoManana\Hashing\Pbkdf2Ripemd128;
+use CryptoManana\Hashing\Pbkdf2Ripemd160;
+use CryptoManana\Hashing\Pbkdf2Ripemd256;
+use CryptoManana\Hashing\Pbkdf2Ripemd320;
+use CryptoManana\Hashing\Pbkdf2Whirlpool;
+use CryptoManana\Hashing\Bcrypt;
+use CryptoManana\Hashing\Argon2;
+use CryptoManana\Factories\HashAlgorithmFactory;
 
 /**
  * Class HashAlgorithmFactoryTest - Tests the hash algorithm factory class.
@@ -372,6 +388,98 @@ final class HashAlgorithmFactoryTest extends AbstractUnitTest
         $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
         $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
 
+        $tmp = $factory->create(HashAlgorithmFactory::RIPEMD_128);
+        $this->assertTrue($tmp instanceof Ripemd128);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HMAC_RIPEMD_128);
+        $this->assertTrue($tmp instanceof HmacRipemd128);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HKDF_RIPEMD_128);
+        $this->assertTrue($tmp instanceof HkdfRipemd128);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::PBKDF2_RIPEMD_128);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd128);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::RIPEMD_160);
+        $this->assertTrue($tmp instanceof Ripemd160);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HMAC_RIPEMD_160);
+        $this->assertTrue($tmp instanceof HmacRipemd160);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HKDF_RIPEMD_160);
+        $this->assertTrue($tmp instanceof HkdfRipemd160);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::PBKDF2_RIPEMD_160);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd160);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::RIPEMD_256);
+        $this->assertTrue($tmp instanceof Ripemd256);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HMAC_RIPEMD_256);
+        $this->assertTrue($tmp instanceof HmacRipemd256);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HKDF_RIPEMD_256);
+        $this->assertTrue($tmp instanceof HkdfRipemd256);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::PBKDF2_RIPEMD_256);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd256);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::RIPEMD_320);
+        $this->assertTrue($tmp instanceof Ripemd320);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HMAC_RIPEMD_320);
+        $this->assertTrue($tmp instanceof HmacRipemd320);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::HKDF_RIPEMD_320);
+        $this->assertTrue($tmp instanceof HkdfRipemd320);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = $factory->create(HashAlgorithmFactory::PBKDF2_RIPEMD_320);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd320);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
         $tmp = $factory->create(HashAlgorithmFactory::WHIRLPOOL);
         $this->assertTrue($tmp instanceof Whirlpool);
         $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
@@ -644,6 +752,98 @@ final class HashAlgorithmFactoryTest extends AbstractUnitTest
 
         $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::PBKDF2_SHA3_512);
         $this->assertTrue($tmp instanceof Pbkdf2ShaThree512);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::RIPEMD_128);
+        $this->assertTrue($tmp instanceof Ripemd128);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HMAC_RIPEMD_128);
+        $this->assertTrue($tmp instanceof HmacRipemd128);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HKDF_RIPEMD_128);
+        $this->assertTrue($tmp instanceof HkdfRipemd128);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::PBKDF2_RIPEMD_128);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd128);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::RIPEMD_160);
+        $this->assertTrue($tmp instanceof Ripemd160);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HMAC_RIPEMD_160);
+        $this->assertTrue($tmp instanceof HmacRipemd160);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HKDF_RIPEMD_160);
+        $this->assertTrue($tmp instanceof HkdfRipemd160);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::PBKDF2_RIPEMD_160);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd160);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::RIPEMD_256);
+        $this->assertTrue($tmp instanceof Ripemd256);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HMAC_RIPEMD_256);
+        $this->assertTrue($tmp instanceof HmacRipemd256);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HKDF_RIPEMD_256);
+        $this->assertTrue($tmp instanceof HkdfRipemd256);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::PBKDF2_RIPEMD_256);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd256);
+        $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
+        $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::RIPEMD_320);
+        $this->assertTrue($tmp instanceof Ripemd320);
+        $this->assertTrue($tmp instanceof AbstractUnkeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HMAC_RIPEMD_320);
+        $this->assertTrue($tmp instanceof HmacRipemd320);
+        $this->assertTrue($tmp instanceof AbstractKeyedHashFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::HKDF_RIPEMD_320);
+        $this->assertTrue($tmp instanceof HkdfRipemd320);
+        $this->assertTrue($tmp instanceof AbstractKeyMaterialDerivationFunction);
+        $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);
+        $this->assertTrue($tmp instanceof AbstractHashAlgorithm);
+
+        $tmp = HashAlgorithmFactory::createInstance(HashAlgorithmFactory::PBKDF2_RIPEMD_320);
+        $this->assertTrue($tmp instanceof Pbkdf2Ripemd320);
         $this->assertTrue($tmp instanceof AbstractIterativeSlowDerivation);
         $this->assertTrue($tmp instanceof AbstractPasswordBasedDerivationFunction);
         $this->assertTrue($tmp instanceof AbstractKeyStretchingFunction);

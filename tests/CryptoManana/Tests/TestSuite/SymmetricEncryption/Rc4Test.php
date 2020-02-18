@@ -4,22 +4,22 @@
  * Testing the RC4-128 realization used for data encryption/decryption.
  */
 
-namespace CryptoManana\Tests\TestSuite\Hashing;
+namespace CryptoManana\Tests\TestSuite\SymmetricEncryption;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
-use \CryptoManana\SymmetricEncryption\Rc4;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractStreamCipherAlgorithm;
+use CryptoManana\Core\Abstractions\MessageEncryption\AbstractSymmetricEncryptionAlgorithm;
+use CryptoManana\Core\Interfaces\MessageEncryption\SecretKeyInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\CipherDataFormatsInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface;
+use CryptoManana\SymmetricEncryption\Rc4;
 
 /**
  * Class Rc4Test - Testing the RC4-128 class.
  *
- * @package CryptoManana\Tests\TestSuite\Hashing
+ * @package CryptoManana\Tests\TestSuite\SymmetricEncryption
  */
 final class Rc4Test extends AbstractUnitTest
 {

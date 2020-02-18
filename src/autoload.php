@@ -21,30 +21,31 @@ require 'compatibility.php';
  *
  * @link https://www.php-fig.org/psr/psr-4/examples/#closure-example
  */
-spl_autoload_register(function ($className) {
+spl_autoload_register(
+    function ($className) {
+        // The project-specific namespace prefix
+        $prefix = 'CryptoManana\\';
 
-    // The project-specific namespace prefix
-    $prefix = 'CryptoManana\\';
+        // Base directory for the namespace prefix recursive lookup
+        $baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'CryptoManana' . DIRECTORY_SEPARATOR;
 
-    // Base directory for the namespace prefix recursive lookup
-    $baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'CryptoManana' . DIRECTORY_SEPARATOR;
+        // Does the class use the namespace prefix?
+        $len = strlen($prefix);
 
-    // Does the class use the namespace prefix?
-    $len = strlen($prefix);
+        // If no then move to the next registered autoloader
+        if (strncmp($prefix, $className, $len) !== 0) {
+            return;
+        }
 
-    // If no then move to the next registered autoloader
-    if (strncmp($prefix, $className, $len) !== 0) {
-        return;
+        // Get the relative class name
+        $relativeClass = substr($className, $len);
+
+        // Build the autoloading path to file
+        $file = $baseDir . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
+
+        // If the file exists then require it
+        if (file_exists($file)) {
+            require $file; // Fastest
+        }
     }
-
-    // Get the relative class name
-    $relativeClass = substr($className, $len);
-
-    // Build the autoloading path to file
-    $file = $baseDir . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
-
-    // If the file exists then require it
-    if (file_exists($file)) {
-        require $file; // Fastest
-    }
-});
+);

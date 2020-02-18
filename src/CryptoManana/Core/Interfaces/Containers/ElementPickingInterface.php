@@ -4,12 +4,12 @@
  * Interface for specifying element picking/choosing capabilities.
  */
 
-namespace CryptoManana\Core\Interfaces\Randomness;
+namespace CryptoManana\Core\Interfaces\Containers;
 
 /**
  * Interface ElementPickingInterface - Interface for element picking capabilities.
  *
- * @package CryptoManana\Core\Interfaces\Randomness
+ * @package CryptoManana\Core\Interfaces\Containers
  */
 interface ElementPickingInterface
 {

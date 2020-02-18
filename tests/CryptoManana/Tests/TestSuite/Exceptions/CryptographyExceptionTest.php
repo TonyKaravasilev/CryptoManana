@@ -6,9 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Exceptions\CryptographyException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractCryptologyException;
+use CryptoManana\Exceptions\CryptographyException;
 
 /**
  * Class CryptographyExceptionTest - Tests the 'cryptography' framework exception class.
@@ -49,6 +50,7 @@ final class CryptographyExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue($tmp instanceof CryptographyException);
+        $this->assertTrue($tmp instanceof AbstractCryptologyException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RepetitiveHashingSpecification;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as AnyDerivedHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as AnyDerivedHashAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RepetitiveHashingSpecification;
 
 /**
  * Trait RepetitiveHashingTrait - Reusable implementation of `RepetitiveHashingInterface`.

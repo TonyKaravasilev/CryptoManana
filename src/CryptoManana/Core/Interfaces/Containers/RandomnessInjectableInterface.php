@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Interfaces\Containers;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
 
 /**
  * Interface RandomnessInjectableInterface - Interface specification for dependency injection via setter method.
@@ -18,14 +18,14 @@ interface RandomnessInjectableInterface
     /**
      * Setter for the pseudo-random generator service.
      *
-     * @param RandomnessSource|null $generator The pseudo-random generator service.
+     * @param RandomnessSource $generator The pseudo-random generator service.
      */
     public function setRandomGenerator(RandomnessSource $generator);
 
     /**
      * Getter for the pseudo-random generator service.
      *
-     * @return RandomnessSource The currently injected pseudo-random generator service.
+     * @return RandomnessSource|null The currently injected pseudo-random generator service.
      */
     public function getRandomGenerator();
 }

@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface as AsymmetricPaddingSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\AsymmetricPaddingInterface as AsymmetricPaddingSpecification;
 
 /**
  * Trait AsymmetricPaddingTrait - Reusable implementation of `AsymmetricPaddingInterface`.
@@ -100,6 +100,7 @@ trait AsymmetricPaddingTrait
      * Disable long data processing via small chunks.
      *
      * @return $this The asymmetric encryption algorithm object.
+     *
      * @internal Using data chunks with asymmetric algorithms is discouraged.
      */
     public function disableChunkProcessing()

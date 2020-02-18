@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\Randomness;
 
-use \CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
+use CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
 
 /**
  * Trait RgbOutputTrait - Reusable implementation of `RgbOutputInterface`.

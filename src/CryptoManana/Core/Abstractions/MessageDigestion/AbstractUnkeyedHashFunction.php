@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Core\Abstractions\MessageDigestion;
 
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
-use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
-use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RecursiveHashing;
-use \CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
-use \CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
-use \CryptoManana\Core\Traits\MessageDigestion\RepetitiveHashingTrait as HashRepetitively;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as HashAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface as ObjectHashing;
+use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashing;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface as RecursiveHashing;
+use CryptoManana\Core\Traits\MessageDigestion\ObjectHashingTrait as HashObjects;
+use CryptoManana\Core\Traits\MessageDigestion\FileHashingTrait as HashFiles;
+use CryptoManana\Core\Traits\MessageDigestion\RepetitiveHashingTrait as HashRepetitively;
 
 /**
  * Class AbstractUnkeyedHashFunction - Abstraction for unkeyed hash classes.
@@ -66,6 +66,21 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements
      */
     public function __construct()
     {
+    }
+
+    /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'unkeyed digestion or checksum',
+            'salt' => $this->salt,
+            'mode' => $this->saltingMode,
+        ];
     }
 
     /**
@@ -134,20 +149,5 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements
         }
 
         return $digest;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'unkeyed digestion or checksum',
-            'salt' => $this->salt,
-            'mode' => $this->saltingMode,
-        ];
     }
 }

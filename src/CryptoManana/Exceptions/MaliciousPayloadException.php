@@ -6,14 +6,15 @@
 
 namespace CryptoManana\Exceptions;
 
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException as FrameworkIdentificationException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException as FrameworkException;
 
 /**
  * Class MaliciousPayloadException - The framework exception for marking malicious payload requests.
  *
  * @package CryptoManana\Exceptions
  */
-class MaliciousPayloadException extends FrameworkException
+class MaliciousPayloadException extends FrameworkIdentificationException
 {
     /**
      * The framework internal error code.
@@ -33,7 +34,7 @@ class MaliciousPayloadException extends FrameworkException
      * Get the default framework error code for this exception instance.
      *
      * @return int The exception's error code.
-     * @see UnsupportedException::INTERNAL_CODE Default error code.
+     * @see FrameworkException::INTERNAL_CODE Default error code.
      */
     public function getFrameworkErrorCode()
     {

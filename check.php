@@ -398,7 +398,19 @@ foreach ($functionsList as $functionName) {
 unset($functionName);
 
 // PHP hashing algorithms check
-$hashingAlgorithms = ['whirlpool', 'md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512'];
+$hashingAlgorithms = [
+    'whirlpool',
+    'md5',
+    'sha1',
+    'sha224',
+    'sha256',
+    'sha384',
+    'sha512',
+    'ripemd128',
+    'ripemd160',
+    'ripemd256',
+    'ripemd320'
+];
 
 if (PHP_VERSION_ID >= 70100) {
     $hashingAlgorithms = array_merge($hashingAlgorithms, ['sha3-224', 'sha3-256', 'sha3-384', 'sha3-512']);
@@ -449,6 +461,10 @@ $encryptionAlgorithms = [
     'CAMELLIA-256-CFB',
     'CAMELLIA-256-OFB',
     'CAMELLIA-256-ECB',
+    'DES-EDE3-CBC',
+    'DES-EDE3-CFB',
+    'DES-EDE3-OFB',
+    'DES-EDE3',
 ];
 
 if (PHP_VERSION_ID >= 70200 && OPENSSL_VERSION_NUMBER > 269484191) {
@@ -515,13 +531,16 @@ unset($algorithmName);
 $encryptionAlgorithms = [
     OPENSSL_KEYTYPE_RSA, // RSA
     OPENSSL_KEYTYPE_DSA, // DSA
+    OPENSSL_KEYTYPE_DH, // DH
 ];
 
 foreach ($encryptionAlgorithms as $algorithmName) {
-    $opensslResource = openssl_pkey_new([
-        'private_key_bits' => 384, // Size of the key (the minimum)
-        'private_key_type' => $algorithmName
-    ]);
+    $opensslResource = openssl_pkey_new(
+        [
+            'private_key_bits' => 384, // Size of the key (the minimum)
+            'private_key_type' => $algorithmName
+        ]
+    );
 
     if ($opensslResource === false) {
         dump(

@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Compatibility;
 
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
 
 /**
  * Class NativeRc4 - Pure PHP implementation of the RC4-128 algorithm.
@@ -114,7 +114,7 @@ class NativeRc4 extends SingletonPattern
      * Decrypts the given cipher data.
      *
      * @param string $secretKey The secret key.
-     * @param string $cipherData The encrypted/cipher input string.
+     * @param string $cipherData The encrypted input string.
      *
      * @return string The decrypted/plain data.
      * @throws \Exception Validation errors.

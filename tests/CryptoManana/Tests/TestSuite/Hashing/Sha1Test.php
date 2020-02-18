@@ -6,13 +6,13 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
-use \CryptoManana\Hashing\Sha1;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractUnkeyedHashFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
+use CryptoManana\Hashing\Sha1;
 
 /**
  * Class Sha1Test - Testing the SHA-1 class.

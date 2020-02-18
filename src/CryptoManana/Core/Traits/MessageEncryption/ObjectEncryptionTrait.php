@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface as ObjectEncryptionSpecification;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\ObjectEncryptionInterface as ObjectEncryptionSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
 
 /**
  * Trait ObjectEncryptionTrait - Reusable implementation of `ObjectEncryptionInterface`.

@@ -6,14 +6,14 @@
 
 namespace CryptoManana\Tests\TestSuite\Hashing;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
-use \CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
-use \CryptoManana\Hashing\HmacShaThree384;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractKeyedHashFunction;
+use CryptoManana\Core\Interfaces\MessageDigestion\ObjectHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\RepetitiveHashingInterface;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface;
+use CryptoManana\Hashing\HmacShaThree384;
 
 /**
  * Class HmacShaThree384Test - Testing the SHA-3 family HMAC-SHA-384 class.

@@ -6,9 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Exceptions;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
-use \CryptoManana\Exceptions\MaliciousPayloadException;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractException;
+use CryptoManana\Core\Abstractions\ErrorHandling\AbstractIdentificationException;
+use CryptoManana\Exceptions\MaliciousPayloadException;
 
 /**
  * Class MaliciousPayloadExceptionTest - Tests the 'malicious payload' framework exception class.
@@ -49,6 +50,7 @@ final class MaliciousPayloadExceptionTest extends AbstractUnitTest
         $tmp = $this->getExceptionInstanceForTesting();
 
         $this->assertTrue($tmp instanceof MaliciousPayloadException);
+        $this->assertTrue($tmp instanceof AbstractIdentificationException);
         $this->assertTrue($tmp instanceof AbstractException);
         $this->assertTrue($tmp instanceof \Exception);
 

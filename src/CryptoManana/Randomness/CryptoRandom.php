@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Randomness;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
-use \CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
-use \CryptoManana\Factories\ExceptionFactory as ExceptionFactory;
+use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator as RandomnessSource;
+use CryptoManana\Core\Interfaces\Randomness\SeedableGeneratorInterface as SeedAction;
+use CryptoManana\Factories\ExceptionFactory as ExceptionFactory;
 
 /**
  * Class CryptoRandom - The cryptographically secure pseudo-random generator object.
@@ -88,11 +88,25 @@ class CryptoRandom extends RandomnessSource implements SeedAction
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'systemPrecision' => self::$systemPrecision,
+            'seed' => 'NOT SUPPORTED',
+        ];
+    }
+
+    /**
      * Invoking the auto-seeding of the generator via source consumption.
      *
      * @param null|int $seed Auto-seeding.
      *
      * @throws \Exception|\CryptoManana\Exceptions\CryptographyException On seed with other value than `null`.
+     *
      * @internal This type of generator does not support controllable seeding.
      */
     public static function setSeed($seed = null)
@@ -164,18 +178,5 @@ class CryptoRandom extends RandomnessSource implements SeedAction
         $this->validatePositiveInteger($length);
 
         return self::getEightBits($length);
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'systemPrecision' => self::$systemPrecision,
-            'seed' => 'NOT SUPPORTED',
-        ];
     }
 }

@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface as FileEncryptionSpecification;
-use \CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
-use \CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
+use CryptoManana\Core\Interfaces\MessageEncryption\FileEncryptionInterface as FileEncryptionSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface as DataEncryptionSpecification;
+use CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
 
 /**
  * Trait FileEncryptionTrait - Reusable implementation of `FileEncryptionInterface`.

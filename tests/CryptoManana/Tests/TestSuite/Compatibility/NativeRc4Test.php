@@ -6,9 +6,9 @@
 
 namespace CryptoManana\Tests\TestSuite\Compatibility;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
-use \CryptoManana\Compatibility\NativeRc4;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
+use CryptoManana\Compatibility\NativeRc4;
 
 /**
  * Class NativeRc4Test - Tests the pure PHP implementation of the RC4 algorithm.

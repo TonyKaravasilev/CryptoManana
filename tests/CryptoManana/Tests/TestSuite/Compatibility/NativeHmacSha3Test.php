@@ -6,10 +6,10 @@
 
 namespace CryptoManana\Tests\TestSuite\Compatibility;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
-use \CryptoManana\Compatibility\NativeHmacSha3;
-use \CryptoManana\Compatibility\NativeSha3;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
+use CryptoManana\Compatibility\NativeHmacSha3;
+use CryptoManana\Compatibility\NativeSha3;
 
 /**
  * Class NativeHmacSha3Test - Tests the pure PHP implementation of the HMAC-SHA-3 algorithm.

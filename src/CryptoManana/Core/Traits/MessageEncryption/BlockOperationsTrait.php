@@ -6,7 +6,7 @@
 
 namespace CryptoManana\Core\Traits\MessageEncryption;
 
-use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface as BlockOperationsSpecification;
+use CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface as BlockOperationsSpecification;
 
 /**
  * Trait BlockOperationsTrait - Reusable implementation of `BlockOperationsInterface`.
@@ -23,6 +23,39 @@ use \CryptoManana\Core\Interfaces\MessageEncryption\BlockOperationsInterface as 
  */
 trait BlockOperationsTrait
 {
+    /**
+     * List of valid block operation modes.
+     *
+     * @var array Block mode codes.
+     */
+    protected static $validBlockModes = [
+        self::CBC_MODE,
+        self::CFB_MODE,
+        self::OFB_MODE,
+        self::CTR_MODE,
+        self::ECB_MODE
+    ];
+
+    /**
+     * Internal method for the validation of the system support of the given block operation mode.
+     *
+     * @param string $mode The block mode name.
+     *
+     * @throws \Exception Validation errors.
+     *
+     * @codeCoverageIgnore
+     */
+    protected function validateBlockModeSupport($mode)
+    {
+        $methodName = static::ALGORITHM_NAME . '-' . (static::KEY_SIZE * 8) . '-' . strtoupper($mode);
+
+        if (!in_array($methodName, openssl_get_cipher_methods(), true)) {
+            throw new \RuntimeException(
+                'The algorithm `' . $methodName . '`is not supported under the current system configuration.'
+            );
+        }
+    }
+
     /**
      * Setter for the initialization vector (IV) string property.
      *
@@ -71,29 +104,13 @@ trait BlockOperationsTrait
      */
     public function setBlockOperationMode($mode)
     {
-        $validModes = [
-            self::CBC_MODE,
-            self::CFB_MODE,
-            self::OFB_MODE,
-            self::CTR_MODE,
-            self::ECB_MODE
-        ];
-
-        if (!is_string($mode) || !in_array(strtoupper($mode), $validModes, true)) {
+        if (!is_string($mode) || !in_array(strtoupper($mode), static::$validBlockModes, true)) {
             throw new \InvalidArgumentException(
                 'The mode of operation must be a string and be a standardized block mode name.'
             );
         }
 
-        $newMethodName = static::ALGORITHM_NAME . '-' . (static::KEY_SIZE * 8) . '-' . $mode;
-
-        // @codeCoverageIgnoreStart
-        if (!in_array($newMethodName, openssl_get_cipher_methods(), true)) {
-            throw new \RuntimeException(
-                'The algorithm `' . $newMethodName . '`is not supported under the current system configuration.'
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        $this->validateBlockModeSupport($mode);
 
         $this->mode = strtoupper($mode);
 

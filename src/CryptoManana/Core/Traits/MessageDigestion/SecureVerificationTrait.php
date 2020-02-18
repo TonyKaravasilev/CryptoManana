@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationSpecification;
-use \CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as AnyDerivedHashAlgorithm;
+use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as AnyDerivedHashAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\SecureVerificationInterface as VerificationSpecification;
 
 /**
  * Trait SecureVerificationTrait - Reusable implementation of `SecureVerificationInterface`.

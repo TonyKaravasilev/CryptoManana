@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use \CryptoManana\Core\Interfaces\MessageDigestion\DigestionFormatsInterface as DigestionFormatsSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Interfaces\MessageDigestion\DigestionFormatsInterface as DigestionFormatsSpecification;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait DigestionFormatsTrait - Reusable implementation of `DigestionFormatsInterface`.

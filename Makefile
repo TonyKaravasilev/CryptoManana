@@ -7,8 +7,8 @@ install: vendor/autoload.php
 
 .PHONY: psr
 psr: vendor/autoload.php
-	vendor/bin/phpcs --standard=PSR2 src/ -n
-	vendor/bin/phpcs --standard=PSR2 tests/ -n
+	vendor/bin/phpcs --standard=PSR12 src/ -n
+	vendor/bin/phpcs --standard=PSR12 tests/ -n
 
 .PHONY: tests
 tests: vendor/autoload.php

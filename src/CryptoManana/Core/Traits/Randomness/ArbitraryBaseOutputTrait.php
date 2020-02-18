@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\Randomness;
 
-use \CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
-use \CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\Core\Traits\Randomness\RandomnessTrait as RandomnessSpecification;
+use CryptoManana\Core\StringBuilder as StringBuilder;
 
 /**
  * Trait ArbitraryBaseOutputTrait - Reusable implementation of `ArbitraryBaseOutputInterface`.

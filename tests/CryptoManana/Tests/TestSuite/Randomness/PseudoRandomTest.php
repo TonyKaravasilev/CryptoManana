@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Tests\TestSuite\Randomness;
 
-use \CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use \CryptoManana\Randomness\PseudoRandom;
+use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Randomness\PseudoRandom;
 
 /**
  * Class PseudoRandomTest - Testing the pseudo-randomness class.

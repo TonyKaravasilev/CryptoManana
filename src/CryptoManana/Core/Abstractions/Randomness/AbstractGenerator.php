@@ -6,17 +6,17 @@
 
 namespace CryptoManana\Core\Abstractions\Randomness;
 
-use \CryptoManana\Core\Abstractions\Randomness\AbstractRandomness as RandomnessRepresentation;
-use \CryptoManana\Core\Interfaces\Randomness\FloatOutputInterface as FloatOutput;
-use \CryptoManana\Core\Interfaces\Randomness\ArbitraryBaseOutputInterface as BaseOutput;
-use \CryptoManana\Core\Interfaces\Randomness\StringOutputInterface as StringOutput;
-use \CryptoManana\Core\Interfaces\Randomness\IdentifierOutputInterface as UuidOutput;
-use \CryptoManana\Core\Interfaces\Randomness\RgbOutputInterface as RgbOutput;
-use \CryptoManana\Core\Traits\Randomness\FloatOutputTrait as FloatGeneration;
-use \CryptoManana\Core\Traits\Randomness\ArbitraryBaseOutputTrait as BaseGeneration;
-use \CryptoManana\Core\Traits\Randomness\StringOutputTrait as StringGeneration;
-use \CryptoManana\Core\Traits\Randomness\IdentifierOutputTrait as UuidGeneration;
-use \CryptoManana\Core\Traits\Randomness\RgbOutputTrait as RgbGeneration;
+use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness as RandomnessRepresentation;
+use CryptoManana\Core\Interfaces\Randomness\FloatOutputInterface as FloatOutput;
+use CryptoManana\Core\Interfaces\Randomness\ArbitraryBaseOutputInterface as BaseOutput;
+use CryptoManana\Core\Interfaces\Randomness\StringOutputInterface as StringOutput;
+use CryptoManana\Core\Interfaces\Randomness\IdentifierOutputInterface as UuidOutput;
+use CryptoManana\Core\Interfaces\Randomness\RgbOutputInterface as RgbOutput;
+use CryptoManana\Core\Traits\Randomness\FloatOutputTrait as FloatGeneration;
+use CryptoManana\Core\Traits\Randomness\ArbitraryBaseOutputTrait as BaseGeneration;
+use CryptoManana\Core\Traits\Randomness\StringOutputTrait as StringGeneration;
+use CryptoManana\Core\Traits\Randomness\IdentifierOutputTrait as UuidGeneration;
+use CryptoManana\Core\Traits\Randomness\RgbOutputTrait as RgbGeneration;
 
 /**
  * Class AbstractGenerator - Abstraction for pseudo-random generator classes.
@@ -155,7 +155,7 @@ abstract class AbstractGenerator extends RandomnessRepresentation implements
     public function __construct()
     {
         // Fetch the global system precision setting
-        if (is_null(self::$systemPrecision)) {
+        if (self::$systemPrecision === null) {
             self::$systemPrecision = (int)ini_get('precision');
         }
     }
