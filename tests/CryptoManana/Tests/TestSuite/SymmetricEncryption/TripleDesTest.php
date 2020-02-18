@@ -301,7 +301,11 @@ final class TripleDesTest extends AbstractUnitTest
         $testedModes = 0;
 
         foreach ($validModes as $blockMode) {
-            $methodName = ($blockMode === $crypter::ECB_MODE) ? $crypter::ALGORITHM_NAME : $crypter::ALGORITHM_NAME . '-' . $blockMode;
+            if ($blockMode === $crypter::ECB_MODE) {
+                $methodName = $crypter::ALGORITHM_NAME;
+            } else {
+                $methodName = $crypter::ALGORITHM_NAME . '-' . $blockMode;
+            }
 
             if (in_array($methodName, openssl_get_cipher_methods(), true)) {
                 $crypter->setBlockOperationMode($blockMode);

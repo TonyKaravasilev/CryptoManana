@@ -47,6 +47,8 @@ final class AuthenticationTokenTest extends AbstractUnitTest
 
     /**
      * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
      */
     public function testSerializationCapabilities()
     {
