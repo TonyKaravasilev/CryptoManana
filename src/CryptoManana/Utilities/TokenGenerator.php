@@ -12,8 +12,8 @@ use CryptoManana\Core\Interfaces\Containers\EncryptionKeyGenerationInterface as 
 use CryptoManana\Core\Interfaces\Containers\HashingKeyGenerationInterface as HashingKeyGeneration;
 use CryptoManana\Core\Interfaces\Containers\TokenGenerationInterface as TokenStringGeneration;
 use CryptoManana\Core\Traits\CommonValidations\KeyPairSizeValidationTrait as KeyPairSizeValidations;
-use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 use CryptoManana\Core\StringBuilder as StringBuilder;
+use CryptoManana\DataStructures\KeyPair as KeyPairStructure;
 
 /**
  * Class TokenGenerator - Utility class for cryptography token generation.

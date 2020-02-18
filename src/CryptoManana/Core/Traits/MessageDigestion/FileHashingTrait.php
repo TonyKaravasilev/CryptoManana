@@ -6,8 +6,8 @@
 
 namespace CryptoManana\Core\Traits\MessageDigestion;
 
-use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashingSpecification;
 use CryptoManana\Core\Abstractions\MessageDigestion\AbstractHashAlgorithm as AnyDerivedHashAlgorithm;
+use CryptoManana\Core\Interfaces\MessageDigestion\FileHashingInterface as FileHashingSpecification;
 use CryptoManana\Core\Traits\CommonValidations\FileNameValidationTrait as ValidateFileNames;
 
 /**

@@ -8,8 +8,8 @@ namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
 use CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
-use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
 use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator;
+use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
 use CryptoManana\CryptographicProtocol\PublicKeyAuthentication;
 use CryptoManana\AsymmetricEncryption\Rsa1024;
 use CryptoManana\Utilities\TokenGenerator;
