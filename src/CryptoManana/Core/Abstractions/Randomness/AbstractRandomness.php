@@ -48,6 +48,11 @@ abstract class AbstractRandomness
     abstract public function getMinNumber();
 
     /**
+     * Randomness source constructor.
+     */
+    abstract public function __construct();
+
+    /**
      * Generate a random integer number in a certain range.
      *
      * Note: Passing `null` will use the default parameter value.
@@ -69,9 +74,4 @@ abstract class AbstractRandomness
      * @return string Randomly generated string containing the requested number of bytes.
      */
     abstract public function getBytes($length = 1);
-
-    /**
-     * Randomness source constructor.
-     */
-    abstract public function __construct();
 }

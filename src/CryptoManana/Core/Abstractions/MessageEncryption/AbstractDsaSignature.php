@@ -114,6 +114,30 @@ abstract class AbstractDsaSignature extends AsymmetricAlgorithm implements
     }
 
     /**
+     * DSA asymmetric algorithm constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => 'DSA/DSS',
+            'type' => 'asymmetrical signing or digital signature algorithm',
+            'key size in bits' => static::KEY_SIZE,
+            'signature digestion algorithm' => $this->digestion,
+            'private key' => $this->privateKey,
+            'public key' => $this->publicKey,
+        ];
+    }
+
+    /**
      * Generates a signature of the given plain data.
      *
      * @param string $plainData The plain input string.
@@ -181,29 +205,5 @@ abstract class AbstractDsaSignature extends AsymmetricAlgorithm implements
         $publicKeyResource = null;
 
         return $verified;
-    }
-
-    /**
-     * DSA asymmetric algorithm constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => 'DSA/DSS',
-            'type' => 'asymmetrical signing or digital signature algorithm',
-            'key size in bits' => static::KEY_SIZE,
-            'signature digestion algorithm' => $this->digestion,
-            'private key' => $this->privateKey,
-            'public key' => $this->publicKey,
-        ];
     }
 }

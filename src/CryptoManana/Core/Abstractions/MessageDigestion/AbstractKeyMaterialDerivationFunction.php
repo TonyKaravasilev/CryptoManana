@@ -90,6 +90,24 @@ abstract class AbstractKeyMaterialDerivationFunction extends KeyStretchingAlgori
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'key stretching or key material derivation',
+            'salt' => $this->salt,
+            'mode' => $this->saltingMode,
+            'derivation salt' => $this->derivationSalt,
+            'context information string' => $this->contextualString,
+            'digestion output length in bytes' => $this->outputLength,
+        ];
+    }
+
+    /**
      * Calculates a hash value for the given data.
      *
      * @param string $data The input string.
@@ -120,23 +138,5 @@ abstract class AbstractKeyMaterialDerivationFunction extends KeyStretchingAlgori
         $digest = $this->changeOutputFormat($digest);
 
         return $digest;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'key stretching or key material derivation',
-            'salt' => $this->salt,
-            'mode' => $this->saltingMode,
-            'derivation salt' => $this->derivationSalt,
-            'context information string' => $this->contextualString,
-            'digestion output length in bytes' => $this->outputLength,
-        ];
     }
 }

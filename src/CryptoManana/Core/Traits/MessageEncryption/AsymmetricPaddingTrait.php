@@ -100,6 +100,7 @@ trait AsymmetricPaddingTrait
      * Disable long data processing via small chunks.
      *
      * @return $this The asymmetric encryption algorithm object.
+     *
      * @internal Using data chunks with asymmetric algorithms is discouraged.
      */
     public function disableChunkProcessing()

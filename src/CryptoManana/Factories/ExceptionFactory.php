@@ -107,6 +107,32 @@ class ExceptionFactory extends FactoryPattern
     const INSECURE_USAGE = InsecureUsage::class;
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            self::class . '::BAD_PRACTICE' => self::BAD_PRACTICE,
+            self::class . '::CRYPTOGRAPHY_PROBLEM' => self::CRYPTOGRAPHY_PROBLEM,
+            self::class . '::BACKWARD_INCOMPATIBLE' => self::BACKWARD_INCOMPATIBLE,
+            self::class . '::UNSUPPORTED_ALGORITHM' => self::UNSUPPORTED_ALGORITHM,
+            self::class . '::ACCESS_DENIED' => self::ACCESS_DENIED,
+            self::class . '::BREACH_ATTEMPT' => self::BREACH_ATTEMPT,
+            self::class . '::MALICIOUS_PAYLOAD' => self::MALICIOUS_PAYLOAD,
+            self::class . '::BOT_DETECTED' => self::BOT_DETECTED,
+            self::class . '::IDENTIFICATION_FAILURE' => self::IDENTIFICATION_FAILURE,
+            self::class . '::AUTHENTICATION_FAILURE' => self::AUTHENTICATION_FAILURE,
+            self::class . '::AUTHORIZATION_FAILURE' => self::AUTHORIZATION_FAILURE,
+            self::class . '::SESSION_EXPIRED' => self::SESSION_EXPIRED,
+            self::class . '::TOKEN_EXPIRED' => self::TOKEN_EXPIRED,
+            self::class . '::WRONG_CONFIGURATION' => self::WRONG_CONFIGURATION,
+            self::class . '::INSECURE_USAGE' => self::INSECURE_USAGE,
+        ];
+    }
+
+    /**
      * Create a framework exception.
      *
      * @param string|null $type The exception class name as type for creation.
@@ -139,31 +165,5 @@ class ExceptionFactory extends FactoryPattern
         }
 
         return $exception;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            self::class . '::BAD_PRACTICE' => self::BAD_PRACTICE,
-            self::class . '::CRYPTOGRAPHY_PROBLEM' => self::CRYPTOGRAPHY_PROBLEM,
-            self::class . '::BACKWARD_INCOMPATIBLE' => self::BACKWARD_INCOMPATIBLE,
-            self::class . '::UNSUPPORTED_ALGORITHM' => self::UNSUPPORTED_ALGORITHM,
-            self::class . '::ACCESS_DENIED' => self::ACCESS_DENIED,
-            self::class . '::BREACH_ATTEMPT' => self::BREACH_ATTEMPT,
-            self::class . '::MALICIOUS_PAYLOAD' => self::MALICIOUS_PAYLOAD,
-            self::class . '::BOT_DETECTED' => self::BOT_DETECTED,
-            self::class . '::IDENTIFICATION_FAILURE' => self::IDENTIFICATION_FAILURE,
-            self::class . '::AUTHENTICATION_FAILURE' => self::AUTHENTICATION_FAILURE,
-            self::class . '::AUTHORIZATION_FAILURE' => self::AUTHORIZATION_FAILURE,
-            self::class . '::SESSION_EXPIRED' => self::SESSION_EXPIRED,
-            self::class . '::TOKEN_EXPIRED' => self::TOKEN_EXPIRED,
-            self::class . '::WRONG_CONFIGURATION' => self::WRONG_CONFIGURATION,
-            self::class . '::INSECURE_USAGE' => self::INSECURE_USAGE,
-        ];
     }
 }

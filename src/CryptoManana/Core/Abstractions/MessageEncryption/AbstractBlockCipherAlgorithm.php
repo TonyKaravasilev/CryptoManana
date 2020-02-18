@@ -148,6 +148,28 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'symmetrical encryption or two-way block cipher',
+            'block size in bits' => static::BLOCK_SIZE * 8,
+            'key size in bits' => static::KEY_SIZE * 8,
+            'iv size in bits' => static::IV_SIZE * 8,
+            'block operation mode' => $this->mode,
+            'padding standard' => $this->padding === self::PKCS7_PADDING ? 'PKCS7' : 'zero padding',
+            'secret key' => $this->key,
+            'initialization vector' => $this->iv,
+            'internal algorithm full name' => $this->fetchAlgorithmMethodName(),
+            'internal long data digestion algorithm' => 'HKDF-SHA-2-128',
+        ];
+    }
+
+    /**
      * Encrypts the given plain data.
      *
      * @param string $plainData The plain input string.
@@ -217,27 +239,5 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
         }
 
         return ($isZeroPadding) ? rtrim($plainData, "\x0") : $plainData;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'symmetrical encryption or two-way block cipher',
-            'block size in bits' => static::BLOCK_SIZE * 8,
-            'key size in bits' => static::KEY_SIZE * 8,
-            'iv size in bits' => static::IV_SIZE * 8,
-            'block operation mode' => $this->mode,
-            'padding standard' => $this->padding === self::PKCS7_PADDING ? 'PKCS7' : 'zero padding',
-            'secret key' => $this->key,
-            'initialization vector' => $this->iv,
-            'internal algorithm full name' => $this->fetchAlgorithmMethodName(),
-            'internal long data digestion algorithm' => 'HKDF-SHA-2-128',
-        ];
     }
 }

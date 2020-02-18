@@ -65,6 +65,25 @@ class SymmetricCipherFactory extends FactoryPattern
     const RC4_128 = Rc4::class;
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            self::class . '::AES_128' => self::AES_128,
+            self::class . '::AES_192' => self::AES_192,
+            self::class . '::AES_256' => self::AES_256,
+            self::class . '::CAMELLIA_128' => self::CAMELLIA_128,
+            self::class . '::CAMELLIA_192' => self::CAMELLIA_192,
+            self::class . '::CAMELLIA_256' => self::CAMELLIA_256,
+            self::class . '::TRIPLE_DES_168' => self::TRIPLE_DES_168,
+            self::class . '::RC4_128' => self::RC4_128,
+        ];
+    }
+
+    /**
      * Create an encryption algorithm object
      *
      * @param string|null $type The algorithm class name as type for creation.
@@ -97,24 +116,5 @@ class SymmetricCipherFactory extends FactoryPattern
         }
 
         return $exception;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            self::class . '::AES_128' => self::AES_128,
-            self::class . '::AES_192' => self::AES_192,
-            self::class . '::AES_256' => self::AES_256,
-            self::class . '::CAMELLIA_128' => self::CAMELLIA_128,
-            self::class . '::CAMELLIA_192' => self::CAMELLIA_192,
-            self::class . '::CAMELLIA_256' => self::CAMELLIA_256,
-            self::class . '::TRIPLE_DES_168' => self::TRIPLE_DES_168,
-            self::class . '::RC4_128' => self::RC4_128,
-        ];
     }
 }

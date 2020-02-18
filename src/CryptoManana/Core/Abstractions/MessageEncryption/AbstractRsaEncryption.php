@@ -140,6 +140,32 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
     }
 
     /**
+     * RSA asymmetric algorithm constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => 'RSA',
+            'type' => 'asymmetrical encryption or public-key cipher',
+            'key size in bits' => static::KEY_SIZE,
+            'maximum input in bits' => static::KEY_SIZE - (($this->padding === OPENSSL_PKCS1_PADDING) ? 88 : 336),
+            'is chunk processing enabled' => $this->useChunks,
+            'padding standard' => $this->padding === self::OAEP_PADDING ? 'OAEP' : 'PKCS1',
+            'private key' => $this->privateKey,
+            'public key' => $this->publicKey,
+        ];
+    }
+
+    /**
      * Encrypts the given plain data.
      *
      * @param string $plainData The plain input string.
@@ -235,31 +261,5 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
         $privateKeyResource = null;
 
         return $plainData;
-    }
-
-    /**
-     * RSA asymmetric algorithm constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => 'RSA',
-            'type' => 'asymmetrical encryption or public-key cipher',
-            'key size in bits' => static::KEY_SIZE,
-            'maximum input in bits' => static::KEY_SIZE - (($this->padding === OPENSSL_PKCS1_PADDING) ? 88 : 336),
-            'is chunk processing enabled' => $this->useChunks,
-            'padding standard' => $this->padding === self::OAEP_PADDING ? 'OAEP' : 'PKCS1',
-            'private key' => $this->privateKey,
-            'public key' => $this->publicKey,
-        ];
     }
 }

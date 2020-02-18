@@ -98,6 +98,22 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'keyed digestion or HMAC',
+            'key' => $this->key,
+            'salt' => $this->salt,
+            'mode' => $this->saltingMode,
+        ];
+    }
+
+    /**
      * Calculates a hash value for the given data.
      *
      * @param string $data The input string.
@@ -165,21 +181,5 @@ abstract class AbstractKeyedHashFunction extends HashAlgorithm implements
         }
 
         return $digest;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'keyed digestion or HMAC',
-            'key' => $this->key,
-            'salt' => $this->salt,
-            'mode' => $this->saltingMode,
-        ];
     }
 }

@@ -65,6 +65,25 @@ class AsymmetricCipherFactory extends FactoryPattern
     const DSA_4096 = Dsa4096::class;
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            self::class . '::RSA_1024' => self::RSA_1024,
+            self::class . '::RSA_2048' => self::RSA_2048,
+            self::class . '::RSA_3072' => self::RSA_3072,
+            self::class . '::RSA_4096' => self::RSA_4096,
+            self::class . '::DSA_1024' => self::DSA_1024,
+            self::class . '::DSA_2048' => self::DSA_2048,
+            self::class . '::DSA_3072' => self::DSA_3072,
+            self::class . '::DSA_4096' => self::DSA_4096,
+        ];
+    }
+
+    /**
      * Create an encryption or digital signature algorithm object
      *
      * @param string|null $type The algorithm class name as type for creation.
@@ -97,24 +116,5 @@ class AsymmetricCipherFactory extends FactoryPattern
         }
 
         return $exception;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            self::class . '::RSA_1024' => self::RSA_1024,
-            self::class . '::RSA_2048' => self::RSA_2048,
-            self::class . '::RSA_3072' => self::RSA_3072,
-            self::class . '::RSA_4096' => self::RSA_4096,
-            self::class . '::DSA_1024' => self::DSA_1024,
-            self::class . '::DSA_2048' => self::DSA_2048,
-            self::class . '::DSA_3072' => self::DSA_3072,
-            self::class . '::DSA_4096' => self::DSA_4096,
-        ];
     }
 }

@@ -120,6 +120,19 @@ class PseudoRandom extends RandomnessSource implements SeedAction
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'systemPrecision' => self::$systemPrecision,
+            'seed' => self::$seed,
+        ];
+    }
+
+    /**
      * Seed the generator initialization or invoke auto-seeding.
      *
      * Note: Invokes auto-seeding if the `null` value is passed.
@@ -190,18 +203,5 @@ class PseudoRandom extends RandomnessSource implements SeedAction
         $this->validatePositiveInteger($length);
 
         return self::getEightBits($length);
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'systemPrecision' => self::$systemPrecision,
-            'seed' => self::$seed,
-        ];
     }
 }

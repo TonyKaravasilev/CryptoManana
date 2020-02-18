@@ -326,6 +326,21 @@ class QuasiRandom extends RandomnessSource implements SeedAction
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'systemPrecision' => self::$systemPrecision,
+            'quasiNumbersCount' => count(self::$randomNumbers),
+            'quasiBytesCount' => count(self::$randomBytes),
+            'seed' => self::$seed,
+        ];
+    }
+
+    /**
      * Seed the generator initialization or invoke auto-seeding.
      *
      * Note: Invokes auto-seeding if the `null` value is passed.
@@ -423,20 +438,5 @@ class QuasiRandom extends RandomnessSource implements SeedAction
          * {@internal Complete override because of the `$number % 2` is not with ~0.5 probability in the numeric set. }}
          */
         return self::getInteger(0, 255) > 127; // ~0.5 probability
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'systemPrecision' => self::$systemPrecision,
-            'quasiNumbersCount' => count(self::$randomNumbers),
-            'quasiBytesCount' => count(self::$randomBytes),
-            'seed' => self::$seed,
-        ];
     }
 }

@@ -35,6 +35,20 @@ class RandomnessFactory extends FactoryPattern
     const CRYPTO_SOURCE = CryptographyRandomness::class;
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            self::class . '::QUASI_SOURCE' => self::QUASI_SOURCE,
+            self::class . '::PSEUDO_SOURCE' => self::PSEUDO_SOURCE,
+            self::class . '::CRYPTO_SOURCE' => self::CRYPTO_SOURCE,
+        ];
+    }
+
+    /**
      * Create a pseudo-randomness generator.
      *
      * @param string|null $type The generator class name as type for creation.
@@ -67,19 +81,5 @@ class RandomnessFactory extends FactoryPattern
         }
 
         return $exception;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            self::class . '::QUASI_SOURCE' => self::QUASI_SOURCE,
-            self::class . '::PSEUDO_SOURCE' => self::PSEUDO_SOURCE,
-            self::class . '::CRYPTO_SOURCE' => self::CRYPTO_SOURCE,
-        ];
     }
 }

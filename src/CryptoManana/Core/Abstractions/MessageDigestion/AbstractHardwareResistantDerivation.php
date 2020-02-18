@@ -107,6 +107,23 @@ abstract class AbstractHardwareResistantDerivation extends PasswordDerivation
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'key stretching or password-based key derivation',
+            'salt' => $this->salt,
+            'mode' => $this->saltingMode,
+            'algorithm variation version' => $this->fetchAlgorithmVariation(),
+            'digestion parameters' => $this->fetchAlgorithmParameters(),
+        ];
+    }
+
+    /**
      * Calculates a hash value for the given data.
      *
      * @param string $data The input string.
@@ -151,22 +168,5 @@ abstract class AbstractHardwareResistantDerivation extends PasswordDerivation
         $digest = $this->convertFormattedDigest($digest);
 
         return password_verify($data, $digest);
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'key stretching or password-based key derivation',
-            'salt' => $this->salt,
-            'mode' => $this->saltingMode,
-            'algorithm variation version' => $this->fetchAlgorithmVariation(),
-            'digestion parameters' => $this->fetchAlgorithmParameters(),
-        ];
     }
 }

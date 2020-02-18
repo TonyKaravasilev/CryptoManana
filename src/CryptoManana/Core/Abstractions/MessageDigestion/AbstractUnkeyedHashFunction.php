@@ -69,6 +69,21 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'unkeyed digestion or checksum',
+            'salt' => $this->salt,
+            'mode' => $this->saltingMode,
+        ];
+    }
+
+    /**
      * Calculates a hash value for the given data.
      *
      * @param string $data The input string.
@@ -134,20 +149,5 @@ abstract class AbstractUnkeyedHashFunction extends HashAlgorithm implements
         }
 
         return $digest;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'unkeyed digestion or checksum',
-            'salt' => $this->salt,
-            'mode' => $this->saltingMode,
-        ];
     }
 }

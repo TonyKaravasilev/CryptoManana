@@ -93,6 +93,24 @@ abstract class AbstractIterativeSlowDerivation extends PasswordDerivation implem
     }
 
     /**
+     * Get debug information for the class instance.
+     *
+     * @return array Debug information.
+     */
+    public function __debugInfo()
+    {
+        return [
+            'standard' => static::ALGORITHM_NAME,
+            'type' => 'key stretching or password-based key derivation',
+            'salt' => $this->salt,
+            'mode' => $this->saltingMode,
+            'derivation salt' => $this->derivationSalt,
+            'digestion output length in bytes' => $this->outputLength,
+            'number of internal iterations' => $this->numberOfIterations,
+        ];
+    }
+
+    /**
      * Calculates a hash value for the given data.
      *
      * @param string $data The input string.
@@ -148,23 +166,5 @@ abstract class AbstractIterativeSlowDerivation extends PasswordDerivation implem
         $this->derivationSalt = $derivationSalt;
 
         return $this;
-    }
-
-    /**
-     * Get debug information for the class instance.
-     *
-     * @return array Debug information.
-     */
-    public function __debugInfo()
-    {
-        return [
-            'standard' => static::ALGORITHM_NAME,
-            'type' => 'key stretching or password-based key derivation',
-            'salt' => $this->salt,
-            'mode' => $this->saltingMode,
-            'derivation salt' => $this->derivationSalt,
-            'digestion output length in bytes' => $this->outputLength,
-            'number of internal iterations' => $this->numberOfIterations,
-        ];
     }
 }
