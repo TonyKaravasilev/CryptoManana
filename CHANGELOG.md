@@ -3,7 +3,7 @@ CHANGELOG
 
 v1.0.0, 2020-02-18
 ------------------
-- Added a FileShredder object for DOD-5220.22-M  secure deletion of hard disk drives and solid state drives;
+- Added a FileShredder object for DOD-5220.22-M secure deletion of hard disk drives and solid state drives;
 - Added a huge variety of cryptographic protocols that can injection all cryptography primitives as dependencies;
 - Added a few data structures based on the needs of some of the created primitives and protocols;
 - Added a unit test for the new file shredder deletion standard object realization;
