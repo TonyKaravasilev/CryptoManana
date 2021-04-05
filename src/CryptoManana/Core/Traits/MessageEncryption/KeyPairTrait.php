@@ -67,7 +67,7 @@ trait KeyPairTrait
         }
 
         // Free the private key (resource cleanup)
-        openssl_free_key($privateKeyResource);
+        @openssl_free_key($privateKeyResource);
         $privateKeyResource = null;
 
         return base64_encode((string)$privateKeyInformation['key']); // <- The extracted public key
@@ -107,7 +107,7 @@ trait KeyPairTrait
         }
 
         // Free the public key (resource cleanup)
-        openssl_free_key($publicKeyResource);
+        @openssl_free_key($publicKeyResource);
         $publicKeyResource = null;
     }
 

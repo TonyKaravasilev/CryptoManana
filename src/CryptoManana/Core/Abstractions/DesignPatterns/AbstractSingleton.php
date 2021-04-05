@@ -41,7 +41,7 @@ abstract class AbstractSingleton
     /**
      * Lock the reinitialization and unserialization abilities of the class.
      */
-    private function __wakeup()
+    public function __wakeup()
     {
         /* This must remain empty. */
         return null;
@@ -50,7 +50,7 @@ abstract class AbstractSingleton
     /**
      * Lock the serialization abilities of the class.
      */
-    private function __sleep()
+    public function __sleep()
     {
         /* This must remain empty. */
         return null;

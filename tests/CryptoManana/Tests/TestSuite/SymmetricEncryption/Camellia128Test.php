@@ -304,7 +304,7 @@ final class Camellia128Test extends AbstractUnitTest
         foreach ($validModes as $blockMode) {
             $methodName = $crypter::ALGORITHM_NAME . '-' . ($crypter::KEY_SIZE * 8) . '-' . $blockMode;
 
-            if (in_array($methodName, openssl_get_cipher_methods(), true)) {
+            if (in_array(strtolower($methodName), openssl_get_cipher_methods(), true)) {
                 $crypter->setBlockOperationMode($blockMode);
                 $this->assertEquals($blockMode, $crypter->getBlockOperationMode());
 

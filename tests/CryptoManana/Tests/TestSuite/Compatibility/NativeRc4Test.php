@@ -9,6 +9,7 @@ namespace CryptoManana\Tests\TestSuite\Compatibility;
 use CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton;
 use CryptoManana\Compatibility\NativeRc4;
+use CryptoManana\SymmetricEncryption\Rc4;
 
 /**
  * Class NativeRc4Test - Tests the pure PHP implementation of the RC4 algorithm.
@@ -59,7 +60,7 @@ final class NativeRc4Test extends AbstractUnitTest
 
         $this->assertEquals($randomData, $decryptedData);
 
-        if (in_array('RC4', openssl_get_cipher_methods(), true)) {
+        if (in_array(strtolower(Rc4::ALGORITHM_NAME), openssl_get_cipher_methods(), true)) {
             $this->assertEquals(
                 $encryptedData,
                 openssl_encrypt($randomData, 'RC4', $randomKey, OPENSSL_RAW_DATA, '')
@@ -82,7 +83,7 @@ final class NativeRc4Test extends AbstractUnitTest
 
         $this->assertEquals($unicodeData, $decryptedData);
 
-        if (in_array('RC4', openssl_get_cipher_methods(), true)) {
+        if (in_array(strtolower(Rc4::ALGORITHM_NAME), openssl_get_cipher_methods(), true)) {
             $this->assertEquals(
                 $unicodeData,
                 openssl_decrypt($encryptedData, 'RC4', $randomKey, OPENSSL_RAW_DATA, '')
@@ -259,8 +260,8 @@ final class NativeRc4Test extends AbstractUnitTest
 
         $internalMethods = [
             '__clone' => 'isPrivate',
-            '__sleep' => 'isPrivate',
-            '__wakeup' => 'isPrivate',
+            '__sleep' => 'isPublic',
+            '__wakeup' => 'isPublic',
         ];
 
         foreach ($internalMethods as $method => $visibility) {

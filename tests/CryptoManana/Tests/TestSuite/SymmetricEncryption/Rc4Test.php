@@ -111,7 +111,8 @@ final class Rc4Test extends AbstractUnitTest
         $this->assertEquals($randomKey, $crypter->getSecretKey());
         $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
 
-        $testCases = in_array('RC4', openssl_get_cipher_methods(), true) ? [true, false] : [true];
+        $algorithmName = strtolower(Rc4::ALGORITHM_NAME);
+        $testCases = in_array($algorithmName, openssl_get_cipher_methods(), true) ? [true, false] : [true];
 
         foreach ($testCases as $toUse) {
             $reflectionUseProperty = new \ReflectionProperty(
@@ -147,7 +148,8 @@ final class Rc4Test extends AbstractUnitTest
         $this->assertEquals($randomKey, $crypter->getSecretKey());
         $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
 
-        $testCases = in_array('RC4', openssl_get_cipher_methods(), true) ? [true, false] : [true];
+        $algorithmName = strtolower(Rc4::ALGORITHM_NAME);
+        $testCases = in_array($algorithmName, openssl_get_cipher_methods(), true) ? [true, false] : [true];
 
         foreach ($testCases as $toUse) {
             $reflectionUseProperty = new \ReflectionProperty(

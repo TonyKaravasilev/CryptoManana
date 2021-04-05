@@ -49,7 +49,7 @@ trait BlockOperationsTrait
     {
         $methodName = static::ALGORITHM_NAME . '-' . (static::KEY_SIZE * 8) . '-' . strtoupper($mode);
 
-        if (!in_array($methodName, openssl_get_cipher_methods(), true)) {
+        if (!in_array(strtolower($methodName), openssl_get_cipher_methods(), true)) {
             throw new \RuntimeException(
                 'The algorithm `' . $methodName . '`is not supported under the current system configuration.'
             );

@@ -137,7 +137,7 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
         }
 
         // @codeCoverageIgnoreStart
-        if (!in_array($this->fetchAlgorithmMethodName(), openssl_get_cipher_methods(), true)) {
+        if (!in_array(strtolower($this->fetchAlgorithmMethodName()), openssl_get_cipher_methods(), true)) {
             throw new \RuntimeException(
                 'The algorithm `' .
                 $this->fetchAlgorithmMethodName() .

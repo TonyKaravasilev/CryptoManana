@@ -403,7 +403,7 @@ if (PHP_VERSION_ID < 70200 && !$disableCompatibilityScript) {
     // Set constant for default thread cost used by the Argon2 algorithm
     if (!defined('PASSWORD_ARGON2_DEFAULT_THREADS')) {
         /**
-         * DDefault number of threads that Argon2lib will use.
+         * Default number of threads that Argon2lib will use.
          *
          * @return int The default number of threads for the Argon2 password hashing algorithm.
          *
@@ -655,6 +655,39 @@ if (PHP_VERSION_ID < 70400 && !$disableCompatibilityScript) {
             }
 
             return $supported;
+        }
+    }
+}
+
+// Compatibility checks and simple mitigation for PHP < 8.0.0
+if (PHP_VERSION_ID < 80000 && !$disableCompatibilityScript) {
+    // Set the new constant alias for filtering boolean values
+    if (!defined('FILTER_VALIDATE_BOOL')) {
+        /**
+         * ID of "boolean" filter.
+         *
+         * @return string The filter value.
+         *
+         * @internal define('FILTER_VALIDATE_BOOL', FILTER_VALIDATE_BOOLEAN)
+         */
+        define('FILTER_VALIDATE_BOOL', FILTER_VALIDATE_BOOLEAN);
+    }
+}
+
+// Compatibility checks and simple mitigation for PHP >= 8.0.0
+if (PHP_VERSION_ID >= 80000 && !$disableCompatibilityScript) {
+    // Set the OpenSSL asymmetric key clearance function that is marked as deprecated
+    if (!function_exists('openssl_free_key')) {
+        /**
+         * Frees the key associated with the specified key from memory.
+         *
+         * @param resource|OpenSSLAsymmetricKey|mixed $key Key resource.
+         *
+         * @retun void No value is returned.
+         */
+        function openssl_free_key(&$key)
+        {
+            $key = null;
         }
     }
 }

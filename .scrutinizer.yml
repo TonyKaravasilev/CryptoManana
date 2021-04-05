@@ -22,5 +22,5 @@ tools:
     config:
       standard: "PSR12"
   external_code_coverage:
-    timeout: 1200
+    timeout: 3600
     runs: 2 # <- Zend OPcache ON/OFF

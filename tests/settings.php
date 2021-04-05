@@ -27,7 +27,6 @@ if (PHP_SAPI === 'cli') {
         mb_regex_encoding('UTF-8');
         mb_internal_encoding('UTF-8');
         mb_http_output('UTF-8');
-        mb_http_input('UTF-8');
     } else {
         echo 'Please enable the "mbstring" extension to run CLI unit test and code analyses tools.' . PHP_EOL;
 

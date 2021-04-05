@@ -148,7 +148,7 @@ class TokenGenerator extends RandomnessContainer implements
         }
 
         // Free the private key (resource cleanup)
-        openssl_free_key($privateKeyResource);
+        @openssl_free_key($privateKeyResource);
         $privateKeyResource = null;
 
         return (string)$privateKeyInformation['key']; // <- The public key
