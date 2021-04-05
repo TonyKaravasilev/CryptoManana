@@ -171,7 +171,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
         $keyPairDetails = $this->getKeyPairInformation($privateKeyResource);
 
         // Free the private key (resource cleanup)
-        openssl_free_key($privateKeyResource);
+        @openssl_free_key($privateKeyResource);
         $privateKeyResource = null;
 
         /**
@@ -335,7 +335,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
         }
 
         // Free the private key (resource cleanup)
-        openssl_free_key($privateKeyResource);
+        @openssl_free_key($privateKeyResource);
         $privateKeyResource = null;
 
         return $this->keyExpansionSource->hashData($sharedKey);

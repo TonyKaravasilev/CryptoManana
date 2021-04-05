@@ -1,9 +1,24 @@
 CHANGELOG
 =========
 
+v1.0.1, 2020-04-05
+------------------
+
+- Enabled the PHP 8.0 support for the framework and using it with the new JIT compilation OpCache feature;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Enabled the running of unit tests with PHPUnit 9.x under PHP 8.0;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Updated the configuration of Travis CI and of Scrutinizer CI;
+- Fixed compatibility issues with PHP 8.0 features;
+- Fixed compatibility issues with OpenSSL features;
+- Refactoring the changelog file's spacing markdown;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v1.0.0, 2020-02-18
 ------------------
-- Added a FileShredder object for DOD-5220.22-M  secure deletion of hard disk drives and solid state drives;
+
+- Added a FileShredder object for DOD-5220.22-M secure deletion of hard disk drives and solid state drives;
 - Added a huge variety of cryptographic protocols that can injection all cryptography primitives as dependencies;
 - Added a few data structures based on the needs of some of the created primitives and protocols;
 - Added a unit test for the new file shredder deletion standard object realization;
@@ -29,6 +44,7 @@ v1.0.0, 2020-02-18
 
 v0.9.0, 2020-02-04
 ------------------
+
 - Added a standardized symmetric stream encryption algorithm object for securing data;
 - Added a unit test for the new symmetric stream encryption algorithm object realization;
 - Added standardized DSA/DSS asymmetric signature algorithm objects for signing and verification;
@@ -48,6 +64,7 @@ v0.9.0, 2020-02-04
 
 v0.8.0, 2020-01-26
 ------------------
+
 - Added the ability to generate asymmetric key pairs for RSA/DSA at the TokenGenerator class;
 - Added a the standardized RSA asymmetric encryption algorithm objects for securing data;
 - Added unit tests for the new RSA asymmetric encryption algorithm object realizations;
@@ -61,6 +78,7 @@ v0.8.0, 2020-01-26
 
 v0.7.0, 2020-01-21
 ------------------
+
 - Added a few standardized symmetric encryption algorithm objects for securing data;
 - Added unit tests for the new symmetric encryption algorithm object realizations;
 - Added a SymmetricCipherFactory for easier block cipher algorithm object instancing;
@@ -78,6 +96,7 @@ v0.7.0, 2020-01-21
 
 v0.6.0, 2020-01-15
 ------------------
+
 - Added a few standardized password-based derivation algorithm (PBKDF) objects for digest generation;
 - Added unit tests for all newly added password-based derivation algorithm object realizations;
 - Added a PBKDF2-SHA-3 native realization for older versions of PHP or ext-hash;
@@ -96,6 +115,7 @@ v0.6.0, 2020-01-15
 
 v0.5.0, 2019-12-18
 ------------------
+
 - Added a few standardized key material derivation algorithm (HKDF) objects for digest generation;
 - Added unit tests for all newly added key material derivation algorithm object realizations;
 - Added a HKDF-SHA-3 native realization for older versions of PHP or ext-hash;
@@ -112,6 +132,7 @@ v0.5.0, 2019-12-18
 
 v0.4.0, 2019-12-14
 ------------------
+
 - Added salting capabilities when hashing files for all digest algorithms and updated the unit tests;
 - Added a few standardized keyed hash algorithm (HMAC) objects for digest generation;
 - Added unit tests for all newly added keyed hash algorithm object realizations;
@@ -125,6 +146,7 @@ v0.4.0, 2019-12-14
 
 v0.3.0, 2019-12-11
 ------------------
+
 - Changed the creation location of all temporary files related to unit testing;
 - Added an abstraction for the framework’s representation of hash algorithms;
 - Added a few standardized unkeyed hash algorithm objects for digest generation;
@@ -140,11 +162,13 @@ v0.3.0, 2019-12-11
 
 v0.2.4, 2019-06-23
 ------------------
+
 - Updated the configuration of Travis CI and of Scrutinizer CI;
 - Configured testing with and without Zend OPcache for CI checks.
 
 v0.2.3, 2019-06-22
 ------------------
+
 - Fixed compatibility issues with PHP 7.4 and PHP 8.0 features;
 - Updated the configuration of Travis CI to use the valid build names.
 
@@ -192,6 +216,7 @@ v0.1.10, 2019-03-31
 
 v0.1.9, 2019-03-30
 ------------------
+
 - Added a RandomnessFactory for easier data generator instancing;
 - Added a unit test for the RandomnessFactory object.
 

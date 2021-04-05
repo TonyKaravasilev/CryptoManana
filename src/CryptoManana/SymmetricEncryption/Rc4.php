@@ -39,7 +39,7 @@ class Rc4 extends SymmetricStreamCipherAlgorithm
      */
     public function __construct()
     {
-        if (in_array(static::ALGORITHM_NAME, openssl_get_cipher_methods(), true)) {
+        if (in_array(strtolower(static::ALGORITHM_NAME), openssl_get_cipher_methods(), true)) {
             parent::__construct();
         } else {
             // @codeCoverageIgnoreStart

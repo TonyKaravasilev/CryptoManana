@@ -19,6 +19,8 @@
 
     <!-- Change some runtime PHP settings: -->
     <php>
+        <env name="XDEBUG_MODE" value="coverage"/>
+        <ini name="xdebug.mode" value="coverage"/>
         <ini name="default_charset" value="UTF-8"/>
         <ini name="intl.default_locale" value="en"/>
         <ini name="intl.error_level" value="0"/>

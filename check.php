@@ -138,8 +138,8 @@ dump_a_delimiter();
 dump('Starting compatibility check process ...', 'black');
 dump_a_delimiter();
 
-// PHP Version Check (5.5-7.4)
-if (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 70500) {
+// PHP Version Check (5.5-8.0)
+if (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 81000) {
     $versionMessage = IS_X64 ? ' (x64)' : ' (x86)';
     $versionMessage = 'You are using a SUPPORTED PHP version: ' . NEW_LINE . NEW_LINE . PHP_VERSION . $versionMessage;
 
@@ -265,6 +265,12 @@ if (PHP_VERSION_ID < 70300) {
     $none = false;
 }
 
+if (PHP_VERSION_ID < 80000) {
+    dump('- Migrate to PHP >= 8.0.0 to utilize the new JIT compilation feature!', 'purple');
+
+    $none = false;
+}
+
 if ($none) {
     dump('No suggestions were found!', 'purple');
 }
@@ -386,6 +392,7 @@ $functionsList = [
     'openssl_get_cipher_methods',
     'openssl_encrypt',
     'openssl_decrypt',
+    'openssl_free_key',
 ];
 
 foreach ($functionsList as $functionName) {
@@ -484,7 +491,7 @@ if (PHP_VERSION_ID < 80000 || OPENSSL_VERSION_NUMBER <= 269488207) {
 }
 
 foreach ($encryptionAlgorithms as $algorithmName) {
-    if (!in_array($algorithmName, $supportedAlgorithmsList, true)) {
+    if (!in_array(strtolower($algorithmName), $supportedAlgorithmsList, true)) {
         dump('Please provide an implementation for the encryption algorithm: ' . $algorithmName, 'red');
 
         dump_an_error();
@@ -537,7 +544,7 @@ $encryptionAlgorithms = [
 foreach ($encryptionAlgorithms as $algorithmName) {
     $opensslResource = openssl_pkey_new(
         [
-            'private_key_bits' => 384, // Size of the key (the minimum)
+            'private_key_bits' => 512, // Size of the key (the minimum)
             'private_key_type' => $algorithmName
         ]
     );
@@ -553,7 +560,12 @@ foreach ($encryptionAlgorithms as $algorithmName) {
         dump_an_error();
     }
 
-    openssl_free_key($opensslResource);
+    /**
+     * Check if build is broken or the OpenSSL library has defects.
+     *
+     * {@internal Build is broken if function returns empty output or the reference variable is false. }}
+     */
+    @openssl_free_key($opensslResource);
     $opensslResource = null;
     unset($opensslResource);
 }

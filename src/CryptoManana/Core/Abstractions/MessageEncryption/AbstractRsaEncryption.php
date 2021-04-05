@@ -207,7 +207,7 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
         }
 
         // Free the public key (resource cleanup)
-        openssl_free_key($publicKeyResource);
+        @openssl_free_key($publicKeyResource);
         $publicKeyResource = null;
 
         return $this->changeOutputFormat($cipherData, true);
@@ -257,7 +257,7 @@ abstract class AbstractRsaEncryption extends AsymmetricAlgorithm implements
         }
 
         // Free the private key (resource cleanup)
-        openssl_free_key($privateKeyResource);
+        @openssl_free_key($privateKeyResource);
         $privateKeyResource = null;
 
         return $plainData;

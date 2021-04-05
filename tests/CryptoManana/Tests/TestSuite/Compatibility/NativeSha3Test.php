@@ -675,8 +675,8 @@ final class NativeSha3Test extends AbstractUnitTest
 
         $internalMethods = [
             '__clone' => 'isPrivate',
-            '__sleep' => 'isPrivate',
-            '__wakeup' => 'isPrivate',
+            '__sleep' => 'isPublic',
+            '__wakeup' => 'isPublic',
         ];
 
         foreach ($internalMethods as $method => $visibility) {

@@ -165,7 +165,7 @@ abstract class AbstractDsaSignature extends AsymmetricAlgorithm implements
         openssl_sign($plainData, $signatureData, $privateKeyResource, $this->digestion);
 
         // Free the private key (resource cleanup)
-        openssl_free_key($privateKeyResource);
+        @openssl_free_key($privateKeyResource);
         $privateKeyResource = null;
 
         return $this->changeOutputFormat($signatureData, true);
@@ -201,7 +201,7 @@ abstract class AbstractDsaSignature extends AsymmetricAlgorithm implements
         $verified = (openssl_verify($plainData, $signatureData, $publicKeyResource, $this->digestion) === 1);
 
         // Free the public key (resource cleanup)
-        openssl_free_key($publicKeyResource);
+        @openssl_free_key($publicKeyResource);
         $publicKeyResource = null;
 
         return $verified;

@@ -74,11 +74,9 @@ class TripleDes extends SymmetricBlockCipherAlgorithm
      */
     protected function validateBlockModeSupport($mode)
     {
-        $mode = strtoupper($mode);
-
         $methodName = ($mode === self::ECB_MODE) ? static::ALGORITHM_NAME : static::ALGORITHM_NAME . '-' . $mode;
 
-        if (!in_array($methodName, openssl_get_cipher_methods(), true)) {
+        if (!in_array(strtolower($methodName), openssl_get_cipher_methods(), true)) {
             throw new \RuntimeException(
                 'The algorithm `' . $methodName . '`is not supported under the current system configuration.'
             );
