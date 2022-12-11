@@ -225,12 +225,12 @@
     "SODIUM",
     "PHP"
   ],
-  "homepage": "https://cryptomanana.karavasilev.info",
+  "homepage": "https://cryptomanana.karavasilev.eu",
   "license": "MIT",
   "authors": [
     {
       "name": "Tony Karavasilev",
-      "homepage": "https://karavasilev.info"
+      "homepage": "https://www.linkedin.com/in/tony-karavasilev"
     }
   ],
   "require": {
