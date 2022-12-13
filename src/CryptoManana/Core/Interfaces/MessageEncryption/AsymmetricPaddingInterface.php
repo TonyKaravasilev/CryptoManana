@@ -49,14 +49,14 @@ interface AsymmetricPaddingInterface
     /**
      * Enable long data processing via small chunks.
      *
-     * @internal Using data chunks with asymmetric algorithms is discouraged.
+     * @note Using data chunks with asymmetric algorithms is discouraged.
      */
     public function enableChunkProcessing();
 
     /**
      * Disable long data processing via small chunks.
      *
-     * @internal Using data chunks with asymmetric algorithms is discouraged.
+     * @note Using data chunks with asymmetric algorithms is discouraged.
      */
     public function disableChunkProcessing();
 }

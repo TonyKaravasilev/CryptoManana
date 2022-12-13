@@ -16,35 +16,35 @@ interface DigestionFormatsInterface
     /**
      * The digest output format for a raw byte string representation.
      *
-     * @internal Output Format: `�5�a`
+     * @note Output Format: `�5�a`
      */
     const DIGEST_OUTPUT_RAW = -1;
 
     /**
      * The digest output format for a upper case HEX string representation.
      *
-     * @internal Output Format: `DB35`
+     * @note Output Format: `DB35`
      */
     const DIGEST_OUTPUT_HEX_UPPER = 0;
 
     /**
      * The digest output format for a lower case HEX string representation.
      *
-     * @internal Output Format: `8f36`
+     * @note Output Format: `8f36`
      */
     const DIGEST_OUTPUT_HEX_LOWER = 1;
 
     /**
      * The digest output format for a Base64 standard string representation.
      *
-     * @internal Output Format: `C3gGTA==`
+     * @note Output Format: `C3gGTA==`
      */
     const DIGEST_OUTPUT_BASE_64 = 2;
 
     /**
      * The digest output format for a Base64 URL friendly string representation.
      *
-     * @internal Output Format: `C3gGTA`
+     * @note Output Format: `C3gGTA`
      */
     const DIGEST_OUTPUT_BASE_64_URL = 3;
 

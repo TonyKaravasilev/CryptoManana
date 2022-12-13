@@ -23,21 +23,21 @@ class TripleDes extends SymmetricBlockCipherAlgorithm
     /**
      * The internal secret key size measured in raw bytes length for the algorithm
      *
-     * @internal For the current algorithm: 192 bits (24 bytes), but 168 bits (21 bytes) are usable
+     * @note For the current algorithm: 192 bits (24 bytes), but 168 bits (21 bytes) are usable
      */
     const KEY_SIZE = 24;
 
     /**
      * The internal initialization vector (IV) size measured in raw bytes length for the algorithm
      *
-     * @internal For the current algorithm: 64 bits (8 bytes)
+     * @note For the current algorithm: 64 bits (8 bytes)
      */
     const IV_SIZE = 8;
 
     /**
      * The internal operational block size measured in raw bytes length for the algorithm
      *
-     * @internal For the current algorithm: 64 bits (8 bytes)
+     * @note For the current algorithm: 64 bits (8 bytes)
      */
     const BLOCK_SIZE = 8;
 

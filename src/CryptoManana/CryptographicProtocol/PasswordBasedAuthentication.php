@@ -56,7 +56,7 @@ class PasswordBasedAuthentication extends CryptographicProtocol implements
      *
      * @throws \Exception Initialization validation.
      *
-     * @internal If `null` is passed, then the comparison will be raw binary based.
+     * @note If `null` is passed, then the comparison will be raw binary based.
      */
     public function __construct(VerificationAlgorithm $hasher = null)
     {

@@ -10,7 +10,7 @@ use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as Singleton
 use CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
 
 /**
- * Class NativePbkdf2Sha3 - Pure PHP implementation of the PBKD2-SHA-3 algorithm.
+ * Class NativePbkdf2Sha3 - Pure PHP implementation of the PBKDF2-SHA-3 algorithm.
  *
  * @see HmacSha3 For internal plain HMAC-SHA-3 digest generation.
  *

@@ -27,7 +27,7 @@ trait CipherDataFormatsTrait
      *
      * @param string $bytes The bytes for conversion.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function encryptionFormat(&$bytes)
     {
@@ -52,7 +52,7 @@ trait CipherDataFormatsTrait
      *
      * @param string $bytes The bytes for conversion.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function decryptionFormatHex(&$bytes)
     {
@@ -68,7 +68,7 @@ trait CipherDataFormatsTrait
      *
      * @param string $bytes The bytes for conversion.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function decryptionFormatBase64(&$bytes)
     {
@@ -86,7 +86,7 @@ trait CipherDataFormatsTrait
      *
      * @param string $bytes The bytes for conversion.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function decryptionFormat(&$bytes)
     {

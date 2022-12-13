@@ -2,6 +2,8 @@
 
 /**
  * Low-level CLI check of the PHP requirements and the CryptoManana `compatibility.php` script logic.
+ *
+ * @api
  */
 
 // If web request, add MIME type

@@ -16,9 +16,9 @@ use CryptoManana\Core\Abstractions\MessageEncryption\AbstractRsaEncryption as Rs
 class Rsa2048 extends RsaAlgorithm
 {
     /**
-     * The internal key size measured in raw bytes length for the algorithm
+     * The internal key size measured in raw bits length for the algorithm
      *
-     * @internal For the current algorithm: 2048 bits (256 bytes)
+     * @note For the current algorithm: 2048 bits (256 bytes)
      */
     const KEY_SIZE = 2048;
 }

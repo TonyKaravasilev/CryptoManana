@@ -73,7 +73,7 @@ abstract class AbstractIterativeSlowDerivation extends PasswordDerivation implem
      *
      * @var int The derivation output digest size in bytes length value.
      *
-     * @internal The default output size in bytes for this algorithm.
+     * @note The default output size in bytes for this algorithm.
      */
     protected $outputLength = 0;
 

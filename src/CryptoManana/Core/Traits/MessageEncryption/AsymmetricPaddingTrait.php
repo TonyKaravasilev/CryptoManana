@@ -87,7 +87,7 @@ trait AsymmetricPaddingTrait
      *
      * @return $this The asymmetric encryption algorithm object.
      *
-     * @internal Using data chunks with asymmetric algorithms is discouraged.
+     * @note Using data chunks with asymmetric algorithms is discouraged.
      */
     public function enableChunkProcessing()
     {
@@ -101,7 +101,7 @@ trait AsymmetricPaddingTrait
      *
      * @return $this The asymmetric encryption algorithm object.
      *
-     * @internal Using data chunks with asymmetric algorithms is discouraged.
+     * @note Using data chunks with asymmetric algorithms is discouraged.
      */
     public function disableChunkProcessing()
     {

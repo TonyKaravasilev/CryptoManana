@@ -23,7 +23,7 @@ class HkdfShaTwo384 extends KeyDerivationAlgorithm
     /**
      * The internal maximum length in bytes of the output digest for the algorithm.
      *
-     * @internal For the current algorithm: `48 * 255 = 12240`
+     * @note For the current algorithm: `48 * 255 = 12240`
      */
     const ALGORITHM_MAXIMUM_OUTPUT = 12240;
 
@@ -32,7 +32,7 @@ class HkdfShaTwo384 extends KeyDerivationAlgorithm
      *
      * @var int The derivation output digest size in bytes length value.
      *
-     * @internal The default output size in bytes for this algorithm.
+     * @note The default output size in bytes for this algorithm.
      */
     protected $outputLength = 48;
 }

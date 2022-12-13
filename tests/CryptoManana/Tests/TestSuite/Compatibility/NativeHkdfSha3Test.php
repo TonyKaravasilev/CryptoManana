@@ -31,7 +31,7 @@ final class NativeHkdfSha3Test extends AbstractUnitTest
     /**
      * The empty string representation for digest generation.
      *
-     * @internal This type of algorithm does not except an empty string as input.
+     * @note This type of algorithm does not except an empty string as input.
      */
     const SPACE_STRING = ' ';
 

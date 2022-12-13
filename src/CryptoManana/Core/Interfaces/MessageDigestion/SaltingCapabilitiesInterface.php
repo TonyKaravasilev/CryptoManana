@@ -16,70 +16,70 @@ interface SaltingCapabilitiesInterface
     /**
      * The mode to disable salting.
      *
-     * @internal Mode Logic: Salting is disabled.
+     * @note Mode Logic: Salting is disabled.
      */
     const SALTING_MODE_NONE = -1;
 
     /**
      * The mode to append the salt string (after the data).
      *
-     * @internal Mode Logic: `dataSALT`
+     * @note Mode Logic: `dataSALT`
      */
     const SALTING_MODE_APPEND = 0;
 
     /**
      * The mode to prepend the salt string (before the data).
      *
-     * @internal Mode Logic: `SALTdata`
+     * @note Mode Logic: `SALTdata`
      */
     const SALTING_MODE_PREPEND = 1;
 
     /**
      * The mode to infix the salt string (around the data).
      *
-     * @internal Mode Logic: `SALTdataTLAS`
+     * @note Mode Logic: `SALTdataTLAS`
      */
     const SALTING_MODE_INFIX_INPUT = 2;
 
     /**
      * The mode to infix the data string (around the salt).
      *
-     * @internal Mode Logic: `dataSALTatad`
+     * @note Mode Logic: `dataSALTatad`
      */
     const SALTING_MODE_INFIX_SALT = 3;
 
     /**
      * The mode to reverse and append the salt string (after the data).
      *
-     * @internal Mode Logic: `dataTLAS`
+     * @note Mode Logic: `dataTLAS`
      */
     const SALTING_MODE_REVERSE_APPEND = 4;
 
     /**
      * The mode to reverse and prepend the salt string (before the data).
      *
-     * @internal Mode Logic: `TLASdata`
+     * @note Mode Logic: `TLASdata`
      */
     const SALTING_MODE_REVERSE_PREPEND = 5;
 
     /**
-     * The mode to create a suffix via reversing the salt string and concatenating it to its the original value.
+     * The mode to create a suffix via reversing the salt string and concatenating it to its original value.
      *
-     * @internal Mode Logic: `dataSALTTLAS`
+     * @note Mode Logic: `dataSALTTLAS`
      */
     const SALTING_MODE_DUPLICATE_SUFFIX = 6;
 
     /**
-     * The mode to create a prefix via reversing the salt string and concatenating it to its the original value.
+     * The mode to create a prefix via reversing the salt string and concatenating it to its original value.
      *
-     * @internal Mode Logic: `SALTTLASdata`
+     * @note Mode Logic: `SALTTLASdata`
      */
     const SALTING_MODE_DUPLICATE_PREFIX = 7;
 
     /**
      * The mode to use the salting string and the input data to create a palindrome string.
      *
-     * @internal Mode Logic: `SALTdataatadTLAS`
+     * @note Mode Logic: `SALTdataatadTLAS`
      */
     const SALTING_MODE_PALINDROME_MIRRORING = 8;
 

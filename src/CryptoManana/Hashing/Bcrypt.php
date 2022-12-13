@@ -34,7 +34,7 @@ class Bcrypt extends StrongDerivationAlgorithm implements AlgorithmicCostTuning
     /**
      * The internal maximum length in bytes of the raw output digest for the algorithm.
      *
-     * @internal For the current algorithm: `72`
+     * @note For the current algorithm: `72`
      */
     const ALGORITHM_MAXIMUM_OUTPUT = 72;
 

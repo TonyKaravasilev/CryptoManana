@@ -61,7 +61,7 @@ trait SaltingCapabilitiesTrait
      *
      * @param string $data The input data for hashing.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function saltAtFront(&$data)
     {
@@ -83,7 +83,7 @@ trait SaltingCapabilitiesTrait
      *
      * @param string $data The input data for hashing.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function saltAtBack(&$data)
     {
@@ -105,7 +105,7 @@ trait SaltingCapabilitiesTrait
      *
      * @param string $data The input data for hashing.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function saltAtSpecial(&$data)
     {

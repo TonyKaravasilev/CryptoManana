@@ -18,7 +18,7 @@ class NativeRc4 extends SingletonPattern
     /**
      * The internal secret key size measured in raw bytes length for the algorithm
      *
-     * @internal For the current algorithm: 128 bits (16 bytes)
+     * @note For the current algorithm: 128 bits (16 bytes)
      */
     const KEY_SIZE = 16;
 

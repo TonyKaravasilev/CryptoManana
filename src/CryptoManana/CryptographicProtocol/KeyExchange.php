@@ -20,6 +20,7 @@ use CryptoManana\DataStructures\ExchangeInformation as ExchangeInformationStruct
  *
  * @package CryptoManana\CryptographicProtocol
  *
+ * @mixin KeyExchangeInformationProcessing
  * @mixin KeyExpansionFunctionSetterImplementation
  * @mixin KeyFormatValidations
  * @mixin KeyPairSizeValidations
@@ -101,7 +102,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
      * @return array The key pair details as an array.
      * @throws \Exception Validation or system errors.
      *
-     * @internal The private key resource is passed via reference from the main logical method for performance reasons.
+     * @note The private key resource is passed via reference from the main logical method for performance reasons.
      *
      * @codeCoverageIgnore
      */
@@ -127,7 +128,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
      * @return string The exported private key as a Base64 string.
      * @throws \Exception Validation or system errors.
      *
-     * @internal The private key resource is passed via reference from the main logical method for performance reasons.
+     * @note The private key resource is passed via reference from the main logical method for performance reasons.
      *
      * @codeCoverageIgnore
      */
@@ -274,7 +275,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
      * @return ExchangeInformationStructure The key exchange information object.
      * @throws \Exception Validation errors.
      *
-     * @internal Remember never to send the private key to the remote party!
+     * @note Remember never to send the private key to the remote party!
      */
     public function generateExchangeRequestInformation()
     {
@@ -290,7 +291,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
      * @return ExchangeInformationStructure The key exchange information object.
      * @throws \Exception Validation errors.
      *
-     * @internal Remember never to send the private key to the remote party!
+     * @note Remember never to send the private key to the remote party!
      */
     public function generateExchangeResponseInformation($prime, $generator)
     {
@@ -312,7 +313,7 @@ class KeyExchange extends CryptographicProtocol implements KeyExchangeInformatio
      * @return string The shared secret key.
      * @throws \Exception Validation errors.
      *
-     * @internal The key is digested before returning for both authentication, length control and output formatting.
+     * @note The key is digested before returning for both authentication, length control and output formatting.
      */
     public function computeSharedSecret($remotePublicKey, $localPrivateKey)
     {

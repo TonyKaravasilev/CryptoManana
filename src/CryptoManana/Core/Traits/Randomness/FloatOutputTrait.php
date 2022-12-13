@@ -132,7 +132,7 @@ trait FloatOutputTrait
      * @param float $to The highest value to be returned.
      * @param int $precision Rounding precision for epsilon calculation.
      *
-     * @internal The parameters are passed via reference from the main logical method for performance reasons.
+     * @note The parameters are passed via reference from the main logical method for performance reasons.
      */
     protected function improvePoorFloatOutput(&$from, &$to, &$precision)
     {

@@ -43,7 +43,7 @@ abstract class AbstractRandomnessInjectable implements SetterInjectable, Seedabl
      *
      * @throws \Exception Initialization validation.
      *
-     * @internal The default service is always the most secure one available.
+     * @note The default service is always the most secure one available.
      */
     public function __construct(RandomnessSource $generator = null)
     {
