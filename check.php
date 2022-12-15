@@ -140,8 +140,8 @@ dump_a_delimiter();
 dump('Starting compatibility check process ...', 'black');
 dump_a_delimiter();
 
-// PHP Version Check (5.5-8.0)
-if (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 81000) {
+// PHP Version Check (5.5-8.1)
+if (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 80200) {
     $versionMessage = IS_X64 ? ' (x64)' : ' (x86)';
     $versionMessage = 'You are using a SUPPORTED PHP version: ' . NEW_LINE . NEW_LINE . PHP_VERSION . $versionMessage;
 

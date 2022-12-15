@@ -6,29 +6,15 @@
 
 namespace CryptoManana\Core\Abstractions\DesignPatterns;
 
+use CryptoManana\Core\Interfaces\DesignPatterns\SingleInstancingInterface as SingleInstancing;
+
 /**
  * Class AbstractSingleton - Abstraction for the singleton design pattern.
  *
  * @package CryptoManana\Core\Abstractions\DesignPatterns
  */
-abstract class AbstractSingleton
+abstract class AbstractSingleton implements SingleInstancing
 {
-    /**
-     * Gives an unified access point for the current object instance.
-     *
-     * @return null|static|AbstractSingleton An instance.
-     */
-    public static function getInstance()
-    {
-        static $singleInstance = null;
-
-        if ($singleInstance === null) {
-            $singleInstance = new static();
-        }
-
-        return $singleInstance;
-    }
-
     /**
      * Locks the creation of new objects but allows static creation and extending.
      */

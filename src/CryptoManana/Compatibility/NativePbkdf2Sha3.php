@@ -7,6 +7,7 @@
 namespace CryptoManana\Compatibility;
 
 use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Traits\DesignPatterns\SingleInstancingTrait as SingleInstancingImplementation;
 use CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
 
 /**
@@ -18,6 +19,13 @@ use CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
  */
 class NativePbkdf2Sha3 extends SingletonPattern
 {
+    /**
+     * Single instancing implementation.
+     *
+     * {@internal Reusable implementation of `SingleInstancingInterface`. }}
+     */
+    use SingleInstancingImplementation;
+
     /**
      * Internal flag to enable or disable the `mbstring` extension usage.
      *

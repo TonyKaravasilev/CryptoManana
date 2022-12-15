@@ -26,7 +26,7 @@ final class KeyExchangeTest extends AbstractUnitTest
     private function getCryptographicProtocolForTesting()
     {
         $exchange = new KeyExchange(new HkdfShaTwo384());
-        $exchange->setKeyExchangeSize(384);
+        $exchange->setKeyExchangeSize(512);
 
         return $exchange;
     }
@@ -95,8 +95,8 @@ final class KeyExchangeTest extends AbstractUnitTest
         $this->assertEquals(4096, $protocol->getKeyExchangeSize());
         $protocol->setKeyExchangeSize(2048);
         $this->assertEquals(2048, $protocol->getKeyExchangeSize());
-        $protocol->setKeyExchangeSize(384);
-        $this->assertEquals(384, $protocol->getKeyExchangeSize());
+        $protocol->setKeyExchangeSize(512);
+        $this->assertEquals(512, $protocol->getKeyExchangeSize());
 
         // Alice generates key exchange information
         $aliceInformation = $protocol->generateExchangeRequestInformation();

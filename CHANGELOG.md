@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+v1.0.2, 2022-12-15
+------------------
+
+- Enabled the PHP 8.1 support for the framework and using it with the new JIT compilation OpCache feature;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Enabled the running of unit tests with PHPUnit 9.x under PHP 8.1;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed compatibility issues with PHP 8.1 features;
+- Fixed compatibility issues with OpenSSL features;
+- Fixed a few PSR-12 standard errors for line ending;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v1.0.1, 2020-04-05
 ------------------
 
