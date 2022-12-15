@@ -40,7 +40,7 @@ trait SecureVerificationTrait
      * @return bool The result of the secure comparison.
      * @throws \Exception Validation errors.
      *
-     * @internal Do not forget to set the correct digestion settings for the current object before calling this method.
+     * @note Do not forget to set the correct digestion settings for the current object before calling this method.
      */
     public function verifyHash($data, $digest)
     {

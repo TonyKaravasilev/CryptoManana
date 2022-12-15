@@ -7,10 +7,11 @@
 namespace CryptoManana\Compatibility;
 
 use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Traits\DesignPatterns\SingleInstancingTrait as SingleInstancingImplementation;
 use CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
 
 /**
- * Class NativePbkdf2Sha3 - Pure PHP implementation of the PBKD2-SHA-3 algorithm.
+ * Class NativePbkdf2Sha3 - Pure PHP implementation of the PBKDF2-SHA-3 algorithm.
  *
  * @see HmacSha3 For internal plain HMAC-SHA-3 digest generation.
  *
@@ -18,6 +19,13 @@ use CryptoManana\Compatibility\NativeHmacSha3 as HmacSha3;
  */
 class NativePbkdf2Sha3 extends SingletonPattern
 {
+    /**
+     * Single instancing implementation.
+     *
+     * {@internal Reusable implementation of `SingleInstancingInterface`. }}
+     */
+    use SingleInstancingImplementation;
+
     /**
      * Internal flag to enable or disable the `mbstring` extension usage.
      *

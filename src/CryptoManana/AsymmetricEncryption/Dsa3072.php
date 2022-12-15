@@ -16,9 +16,9 @@ use CryptoManana\Core\Abstractions\MessageEncryption\AbstractDsaSignature as Dsa
 class Dsa3072 extends DsaAlgorithm
 {
     /**
-     * The internal key size measured in raw bytes length for the algorithm
+     * The internal key size measured in raw bits length for the algorithm
      *
-     * @internal For the current algorithm: 3072 bits (384 bytes)
+     * @note For the current algorithm: 3072 bits (384 bytes)
      */
     const KEY_SIZE = 3072;
 }

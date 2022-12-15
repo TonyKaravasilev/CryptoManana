@@ -8,14 +8,24 @@ namespace CryptoManana\Core;
 
 use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
 use CryptoManana\Core\Interfaces\DesignPatterns\CoreStringBuilderInterface as StringManipulations;
+use CryptoManana\Core\Traits\DesignPatterns\SingleInstancingTrait as SingleInstancingImplementation;
 
 /**
  * Class StringBuilder - The core component for string manipulations and encoding support.
  *
  * @package CryptoManana\Core
+ *
+ * @mixin StringManipulations
  */
 class StringBuilder extends SingletonPattern implements StringManipulations
 {
+    /**
+     * Single instancing implementation.
+     *
+     * {@internal Reusable implementation of `SingleInstancingInterface`. }}
+     */
+    use SingleInstancingImplementation;
+
     /**
      * Internal flag to enable or disable the `mbstring` extension usage.
      *
@@ -64,7 +74,7 @@ class StringBuilder extends SingletonPattern implements StringManipulations
      *
      * @param bool|int $bool Flag for enabling or disabling the `mbstring` usage.
      *
-     * @internal Use the `mbstring` extension only when you need custom encoding support.
+     * @note Use the `mbstring` extension only when you need custom encoding support.
      */
     public static function useMbString($bool = true)
     {

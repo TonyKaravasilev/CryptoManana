@@ -76,7 +76,7 @@ class CryptoRandom extends RandomnessSource implements SeedAction
      *
      * Note: This type of generator does not support initialization seeding and is auto-seeded.
      *
-     * @internal Consumes the high-entropy source a few times on the first object creation.
+     * @note Consumes the high-entropy source a few times on the first object creation.
      */
     public function __construct()
     {
@@ -107,7 +107,7 @@ class CryptoRandom extends RandomnessSource implements SeedAction
      *
      * @throws \Exception|\CryptoManana\Exceptions\CryptographyException On seed with other value than `null`.
      *
-     * @internal This type of generator does not support controllable seeding.
+     * @note This type of generator does not support controllable seeding.
      */
     public static function setSeed($seed = null)
     {

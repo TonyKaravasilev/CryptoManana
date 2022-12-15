@@ -23,7 +23,7 @@ class HkdfSha1 extends KeyDerivationAlgorithm
     /**
      * The internal maximum length in bytes of the output digest for the algorithm.
      *
-     * @internal For the current algorithm: `20 * 255 = 5100`
+     * @note For the current algorithm: `20 * 255 = 5100`
      */
     const ALGORITHM_MAXIMUM_OUTPUT = 5100;
 
@@ -32,7 +32,7 @@ class HkdfSha1 extends KeyDerivationAlgorithm
      *
      * @var int The derivation output digest size in bytes length value.
      *
-     * @internal The default output size in bytes for this algorithm.
+     * @note The default output size in bytes for this algorithm.
      */
     protected $outputLength = 20;
 }

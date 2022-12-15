@@ -60,7 +60,7 @@ class AuthenticatedEncryption extends CryptographicProtocol implements
      *
      * @return string The plain message containing the MAC tag inside.
      *
-     * @internal Used by the Encrypt-then-MAC (EtM) authenticated encryption mode realization.
+     * @note Used by the Encrypt-then-MAC (EtM) authenticated encryption mode realization.
      */
     protected function injectMacIntoMessageData($plainData, $macTag)
     {
@@ -74,7 +74,7 @@ class AuthenticatedEncryption extends CryptographicProtocol implements
      *
      * @return array The separated message data and MAC tag as a tuple/array representation.
      *
-     * @internal Used by the Encrypt-then-MAC (EtM) authenticated encryption mode realization.
+     * @note Used by the Encrypt-then-MAC (EtM) authenticated encryption mode realization.
      */
     protected function extractConcatenatedMacFromMessageData($plainData)
     {

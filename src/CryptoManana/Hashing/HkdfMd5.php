@@ -23,7 +23,7 @@ class HkdfMd5 extends KeyDerivationAlgorithm
     /**
      * The internal maximum length in bytes of the output digest for the algorithm.
      *
-     * @internal For the current algorithm: `16 * 255 = 4080`
+     * @note For the current algorithm: `16 * 255 = 4080`
      */
     const ALGORITHM_MAXIMUM_OUTPUT = 4080;
 
@@ -32,7 +32,7 @@ class HkdfMd5 extends KeyDerivationAlgorithm
      *
      * @var int The derivation output digest size in bytes length value.
      *
-     * @internal The default output size in bytes for this algorithm.
+     * @note The default output size in bytes for this algorithm.
      */
     protected $outputLength = 16;
 }

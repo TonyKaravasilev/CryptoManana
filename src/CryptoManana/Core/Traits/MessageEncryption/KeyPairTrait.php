@@ -40,7 +40,7 @@ trait KeyPairTrait
      * @return string The extracted public key string from the private key resource.
      * @throws \Exception Validation errors.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      *
      * @codeCoverageIgnore
      */
@@ -80,7 +80,7 @@ trait KeyPairTrait
      *
      * @throws \Exception Validation errors.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      *
      * @codeCoverageIgnore
      */

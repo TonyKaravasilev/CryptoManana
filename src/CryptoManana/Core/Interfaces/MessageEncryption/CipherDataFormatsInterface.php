@@ -16,35 +16,35 @@ interface CipherDataFormatsInterface
     /**
      * The encryption output format for a raw byte string representation.
      *
-     * @internal Output Format: `�6�a`
+     * @note Output Format: `�6�a`
      */
     const ENCRYPTION_OUTPUT_RAW = -1;
 
     /**
      * The encryption output format for a upper case HEX string representation.
      *
-     * @internal Output Format: `AB45`
+     * @note Output Format: `AB45`
      */
     const ENCRYPTION_OUTPUT_HEX_UPPER = 0;
 
     /**
      * The encryption output format for a lower case HEX string representation.
      *
-     * @internal Output Format: `7f39`
+     * @note Output Format: `7f39`
      */
     const ENCRYPTION_OUTPUT_HEX_LOWER = 1;
 
     /**
      * The encryption output format for a Base64 standard string representation.
      *
-     * @internal Output Format: `B3xGTA==`
+     * @note Output Format: `B3xGTA==`
      */
     const ENCRYPTION_OUTPUT_BASE_64 = 2;
 
     /**
      * The encryption output format for a Base64 URL friendly string representation.
      *
-     * @internal Output Format: `B3xGTA`
+     * @note Output Format: `B3xGTA`
      */
     const ENCRYPTION_OUTPUT_BASE_64_URL = 3;
 

@@ -45,7 +45,7 @@ class Argon2 extends StrongDerivationAlgorithm implements ComplexAlgorithmicCost
     /**
      * The internal maximum length in bytes of the raw output digest for the algorithm.
      *
-     * @internal For the current algorithm: `PHP_INT_MAX`
+     * @note For the current algorithm: `PHP_INT_MAX`
      */
     const ALGORITHM_MAXIMUM_OUTPUT = PHP_INT_MAX;
 
@@ -54,7 +54,7 @@ class Argon2 extends StrongDerivationAlgorithm implements ComplexAlgorithmicCost
      *
      * @see AlgorithmVariationSwitching::VERSION_ONE For internal value.
      *
-     * @internal Same as `Argon2::VERSION_ONE`.
+     * @note Same as `Argon2::VERSION_ONE`.
      */
     const VERSION_I = 1;
 
@@ -63,7 +63,7 @@ class Argon2 extends StrongDerivationAlgorithm implements ComplexAlgorithmicCost
      *
      * @see AlgorithmVariationSwitching::VERSION_TWO For internal value.
      *
-     * @internal Same as `Argon2::VERSION_TWO`.
+     * @note Same as `Argon2::VERSION_TWO`.
      */
     const VERSION_ID = 2;
 

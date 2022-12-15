@@ -37,7 +37,7 @@ interface KeyExchangeInterface
      * @return ExchangeInformationStructure The key exchange information object.
      * @throws \Exception Validation errors.
      *
-     * @internal Remember never to send the private key to the remote party.
+     * @note Remember never to send the private key to the remote party.
      */
     public function generateExchangeRequestInformation();
 
@@ -50,7 +50,7 @@ interface KeyExchangeInterface
      * @return ExchangeInformationStructure The key exchange information object.
      * @throws \Exception Validation errors.
      *
-     * @internal Remember never to send the private key to the remote party.
+     * @note Remember never to send the private key to the remote party.
      */
     public function generateExchangeResponseInformation($prime, $generator);
 
@@ -63,7 +63,7 @@ interface KeyExchangeInterface
      * @return string The shared secret key.
      * @throws \Exception Validation errors.
      *
-     * @internal The key is digested before returning for both authentication, length control and output formatting.
+     * @note The key is digested before returning for both authentication, length control and output formatting.
      */
     public function computeSharedSecret($remotePublicKey, $localPrivateKey);
 }

@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
 
     <!-- Project ruleset description: -->
-    <description>Use the PSR-1/PSR-2 set of rules for the CryptoManana Framework.</description>
+    <description>Use the PSR-12 set of rules for the CryptoManana Framework.</description>
 
     <!-- Set other running settings: -->
     <arg name="extensions" value="php"/>
@@ -35,7 +35,7 @@
     <!-- Exclude some local testing files: -->
     <exclude-pattern>./tests/config.php*</exclude-pattern>
 
-    <!-- Include the whole PSR-1 standard: -->
+    <!-- Include the whole PSR-12 standard: -->
     <rule ref="PSR12"/>
 
 </ruleset>

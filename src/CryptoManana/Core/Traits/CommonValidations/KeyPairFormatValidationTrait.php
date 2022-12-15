@@ -20,7 +20,7 @@ trait KeyPairFormatValidationTrait
      *
      * @throws \Exception Validation errors.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function validatePrivateKeyFormat(&$privateKey)
     {
@@ -44,7 +44,7 @@ trait KeyPairFormatValidationTrait
      *
      * @throws \Exception Validation errors.
      *
-     * @internal The parameter is passed via reference from the main logical method for performance reasons.
+     * @note The parameter is passed via reference from the main logical method for performance reasons.
      */
     protected function validatePublicKeyFormat(&$publicKey)
     {

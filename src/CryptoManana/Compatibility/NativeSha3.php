@@ -7,6 +7,7 @@
 namespace CryptoManana\Compatibility;
 
 use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Traits\DesignPatterns\SingleInstancingTrait as SingleInstancingImplementation;
 
 /**
  * Class NativeSha3 - Pure PHP implementation of the SHA-3 algorithm.
@@ -15,6 +16,13 @@ use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as Singleton
  */
 class NativeSha3 extends SingletonPattern
 {
+    /**
+     * Single instancing implementation.
+     *
+     * {@internal Reusable implementation of `SingleInstancingInterface`. }}
+     */
+    use SingleInstancingImplementation;
+
     /**
      * Internal algorithm rounds count.
      */

@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+
+<?php
+/**
+ * Checks for the minimal system requirements for the framework's support.
+ *
+ * @api
+ */
+require(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'check.php'));

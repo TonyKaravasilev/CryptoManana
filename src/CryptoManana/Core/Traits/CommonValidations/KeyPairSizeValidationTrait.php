@@ -27,7 +27,7 @@ trait KeyPairSizeValidationTrait
             FILTER_VALIDATE_INT,
             [
                 "options" => [
-                    "min_range" => 384,
+                    "min_range" => 512,
                     "max_range" => 15360,
                 ],
             ]
@@ -35,7 +35,7 @@ trait KeyPairSizeValidationTrait
 
         if ($keySize === false || $keySize % 128 !== 0) {
             throw new \InvalidArgumentException(
-                'The key size must be between 384 (fastest but weakest) ' .
+                'The key size must be between 512 (fastest but weakest) ' .
                 'and 15360 (slowest but strongest) bits and be dividable by 128 bits.'
             );
         }

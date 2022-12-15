@@ -350,12 +350,12 @@ final class TokenGeneratorTest extends AbstractUnitTest
         if (method_exists($this, 'expectException')) {
             $this->expectException(\InvalidArgumentException::class);
 
-            $generator->getAsymmetricKeyPair(384, ['wrong']);
+            $generator->getAsymmetricKeyPair(512, ['wrong']);
         } else {
             $hasThrown = null;
 
             try {
-                $generator->getAsymmetricKeyPair(384, ['wrong']);
+                $generator->getAsymmetricKeyPair(512, ['wrong']);
             } catch (\InvalidArgumentException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {

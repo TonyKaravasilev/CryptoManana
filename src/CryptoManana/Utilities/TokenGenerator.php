@@ -130,7 +130,7 @@ class TokenGenerator extends RandomnessContainer implements
      * @return string The extracted public key string.
      * @throws \Exception Validation or system errors.
      *
-     * @internal The private key resource is passed via reference from the main logical method for performance reasons.
+     * @note The private key resource is passed via reference from the main logical method for performance reasons.
      *
      * @codeCoverageIgnore
      */

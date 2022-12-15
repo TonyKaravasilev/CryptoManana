@@ -16,35 +16,35 @@ interface SignatureDataFormatsInterface
     /**
      * The signature output format for a raw byte string representation.
      *
-     * @internal Output Format: `�7�f`
+     * @note Output Format: `�7�f`
      */
     const SIGNATURE_OUTPUT_RAW = -1;
 
     /**
      * The signature output format for a upper case HEX string representation.
      *
-     * @internal Output Format: `CF48`
+     * @note Output Format: `CF48`
      */
     const SIGNATURE_OUTPUT_HEX_UPPER = 0;
 
     /**
      * The signature output format for a lower case HEX string representation.
      *
-     * @internal Output Format: `8d37`
+     * @note Output Format: `8d37`
      */
     const SIGNATURE_OUTPUT_HEX_LOWER = 1;
 
     /**
      * The signature output format for a Base64 standard string representation.
      *
-     * @internal Output Format: `C7zGTA==`
+     * @note Output Format: `C7zGTA==`
      */
     const SIGNATURE_OUTPUT_BASE_64 = 2;
 
     /**
      * The signature output format for a Base64 URL friendly string representation.
      *
-     * @internal Output Format: `C7zGTA`
+     * @note Output Format: `C7zGTA`
      */
     const SIGNATURE_OUTPUT_BASE_64_URL = 3;
 

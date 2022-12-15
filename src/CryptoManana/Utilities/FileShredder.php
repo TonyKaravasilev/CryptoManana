@@ -115,7 +115,7 @@ class FileShredder extends RandomnessContainer implements SecureFileErasure
      *
      * @throws \Exception Validation errors.
      *
-     * @internal Files that are bigger than 2 GB may not be deletable or behave irrationally for x86 platforms.
+     * @note Files that are bigger than 2 GB may not be deletable or behave irrationally for x86 platforms.
      */
     public function eraseFile($filename)
     {

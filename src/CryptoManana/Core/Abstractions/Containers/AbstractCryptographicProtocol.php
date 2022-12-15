@@ -18,7 +18,7 @@ abstract class AbstractCryptographicProtocol
      *
      * @throws \Exception Initialization validation.
      *
-     * @internal The PHP syntax allows `__construct()` methods to be safely overridden with different parameters.
+     * @note The PHP syntax allows `__construct()` methods to be safely overridden with different parameters.
      */
     abstract public function __construct();
 

@@ -40,7 +40,8 @@ nbproject/
 Dockerfile
 Dockerfile-tmp
 Dockerfile-dev
-Dockerfile-stag
+Dockerfile-test
+Dockerfile-stage
 Dockerfile-prod
 docker-compose.yaml
 docker-compose.yml
@@ -52,9 +53,14 @@ configuration.json
 credentials.txt
 requirements.txt
 configuration.txt
+todo.txt
 common.env
 app.env
 .env
+.env.dev
+.env.test
+.env.stage
+.env.prod
 build/
 dist/
 test/

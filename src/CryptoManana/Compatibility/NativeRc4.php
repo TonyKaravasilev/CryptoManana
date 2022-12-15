@@ -7,6 +7,7 @@
 namespace CryptoManana\Compatibility;
 
 use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as SingletonPattern;
+use CryptoManana\Core\Traits\DesignPatterns\SingleInstancingTrait as SingleInstancingImplementation;
 
 /**
  * Class NativeRc4 - Pure PHP implementation of the RC4-128 algorithm.
@@ -16,9 +17,16 @@ use CryptoManana\Core\Abstractions\DesignPatterns\AbstractSingleton as Singleton
 class NativeRc4 extends SingletonPattern
 {
     /**
+     * Single instancing implementation.
+     *
+     * {@internal Reusable implementation of `SingleInstancingInterface`. }}
+     */
+    use SingleInstancingImplementation;
+
+    /**
      * The internal secret key size measured in raw bytes length for the algorithm
      *
-     * @internal For the current algorithm: 128 bits (16 bytes)
+     * @note For the current algorithm: 128 bits (16 bytes)
      */
     const KEY_SIZE = 16;
 
