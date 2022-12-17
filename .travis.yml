@@ -2,12 +2,11 @@
 
 language: php
 
+os: linux
+
 dist: trusty
 
-sudo: false
-
 env:
-  - USE_OPCACHE=0
   - USE_OPCACHE=1
 
 php:
@@ -17,13 +16,28 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
-  - '7.4'
-  - master  # <- PHP 8.0.1
 
-matrix:
+jobs:
   fast_finish: true
   allow_failures:
-    - php: master # <- PHP 8.0.x-dev (Zend OPcache v8.0.x-dev, Zend Engine v4.0.x-dev), No Xdebug
+    - php: master
+  include:
+    - php: 7.4
+      dist: focal
+      env:
+        - USE_OPCACHE=1
+    - php: 8.0
+      dist: focal
+      env:
+        - USE_OPCACHE=1
+    - php: 8.1
+      dist: jammy
+      env:
+        - USE_OPCACHE=1
+    - php: master
+      dist: jammy
+      env:
+        - USE_OPCACHE=1
 
 cache:
   timeout: 3600
@@ -35,16 +49,16 @@ git:
   depth: 5
   quiet: true
 
+branches:
+  only:
+    - master
+    - staging
+
 before_script:
   - php -m
   - if [ "$USE_OPCACHE" == 1 ]; then
       echo 'opcache.enable=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
       echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
-      if [ "$TRAVIS_PHP_VERSION" == "master" ]; then
-        echo 'opcache.jit=tracing' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
-        echo 'opcache.jit_buffer_size=128M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
-        php -i | grep -i 'opcache.jit';
-      fi
     fi
   - php -i | grep -i 'OpenSSL Library'
   - php -i | grep -i 'opcache.enable'
@@ -53,7 +67,7 @@ before_script:
   - travis_retry composer validate
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
-  - if [[ "$TRAVIS_PHP_VERSION" =~ ^(7.3|7.4|master)$ ]]; then
+  - if [[ "$TRAVIS_PHP_VERSION" =~ ^(7.3|7.4|8.0|8.1|8.2|master)$ ]]; then
       echo 'xdebug.mode=coverage' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
       cp phpunit.xml.dist phpunit.xml;
       vendor/bin/phpunit --migrate-configuration;
@@ -65,7 +79,7 @@ script:
   - make coverage
 
 after_script:
-  - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then
+  - if [[ "$TRAVIS_PHP_VERSION" =~ ^(5.6|7.4)$ ]]; then
       CLOVER=coverage/clover.xml;
       wget https://scrutinizer-ci.com/ocular.phar;
       php ocular.phar code-coverage:upload --format=php-clover ${CLOVER};

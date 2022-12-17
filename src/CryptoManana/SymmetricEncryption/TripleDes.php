@@ -54,13 +54,25 @@ class TripleDes extends SymmetricBlockCipherAlgorithm
     ];
 
     /**
+     * Fetch the correctly formatted internal encryption algorithm method name for the ECB naming bug at OpenSSL.
+     *
+     * @return string The ECB compatible name for the currently complied OpenSSL library (inside PHP build).
+     */
+    private function calculateEcbModeCompatibleOpenSslName()
+    {
+        return in_array(strtolower(self::ALGORITHM_NAME), openssl_get_cipher_methods(), true)
+            ? self::ALGORITHM_NAME : self::ALGORITHM_NAME . '-' . self::ECB_MODE;
+    }
+
+    /**
      * Fetch the correctly formatted internal encryption algorithm method name.
      *
      * @return string The symmetric encryption algorithm standard.
      */
     protected function fetchAlgorithmMethodName()
     {
-        return ($this->mode === self::ECB_MODE) ? static::ALGORITHM_NAME : static::ALGORITHM_NAME . '-' . $this->mode;
+        return ($this->mode === self::ECB_MODE) ?
+            $this->calculateEcbModeCompatibleOpenSslName() : static::ALGORITHM_NAME . '-' . $this->mode;
     }
 
     /**
@@ -74,7 +86,8 @@ class TripleDes extends SymmetricBlockCipherAlgorithm
      */
     protected function validateBlockModeSupport($mode)
     {
-        $methodName = ($mode === self::ECB_MODE) ? static::ALGORITHM_NAME : static::ALGORITHM_NAME . '-' . $mode;
+        $methodName = ($mode === self::ECB_MODE) ?
+            $this->calculateEcbModeCompatibleOpenSslName() : static::ALGORITHM_NAME . '-' . $mode;
 
         if (!in_array(strtolower($methodName), openssl_get_cipher_methods(), true)) {
             throw new \RuntimeException(

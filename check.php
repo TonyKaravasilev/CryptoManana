@@ -140,8 +140,8 @@ dump_a_delimiter();
 dump('Starting compatibility check process ...', 'black');
 dump_a_delimiter();
 
-// PHP Version Check (5.5-8.1)
-if (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 80200) {
+// PHP Version Check (5.5-8.2)
+if (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 80300) {
     $versionMessage = IS_X64 ? ' (x64)' : ' (x86)';
     $versionMessage = 'You are using a SUPPORTED PHP version: ' . NEW_LINE . NEW_LINE . PHP_VERSION . $versionMessage;
 
@@ -473,7 +473,6 @@ $encryptionAlgorithms = [
     'DES-EDE3-CBC',
     'DES-EDE3-CFB',
     'DES-EDE3-OFB',
-    'DES-EDE3',
 ];
 
 if (PHP_VERSION_ID >= 70200 && OPENSSL_VERSION_NUMBER > 269484191) {
@@ -487,8 +486,15 @@ if (PHP_VERSION_ID >= 70200 && OPENSSL_VERSION_NUMBER > 269484191) {
     );
 }
 
+// Common OpenSSL compilation bug (dependent on local machine while building PHP)
+if (in_array(strtolower('DES-EDE3'), openssl_get_cipher_methods(), true)) {
+    $encryptionAlgorithms [] = 'DES-EDE3';
+} else {
+    $encryptionAlgorithms [] = 'DES-EDE3-ECB';
+}
+
+// The algorithm is marked as deprecated in OpenSSL and may be removed later or not accessible under certain builds
 if (PHP_VERSION_ID < 80000 || OPENSSL_VERSION_NUMBER <= 269488207) {
-    // The algorithm is marked as deprecated in OpenSSL and may be removed later
     $encryptionAlgorithms = array_merge($encryptionAlgorithms, ['RC4']);
 }
 
@@ -546,7 +552,7 @@ $encryptionAlgorithms = [
 foreach ($encryptionAlgorithms as $algorithmName) {
     $opensslResource = openssl_pkey_new(
         [
-            'private_key_bits' => 512, // Size of the key (the minimum)
+            'private_key_bits' => $algorithmName === OPENSSL_KEYTYPE_DSA ? 1024 : 512, // Size of the key (the minimum)
             'private_key_type' => $algorithmName
         ]
     );

@@ -36,13 +36,14 @@ class Rc4 extends SymmetricStreamCipherAlgorithm
 
     /**
      * Stream cipher algorithm constructor.
+     *
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
         if (in_array(strtolower(static::ALGORITHM_NAME), openssl_get_cipher_methods(), true)) {
             parent::__construct();
         } else {
-            // @codeCoverageIgnoreStart
             $this->useNative = true;
 
             /**
@@ -51,7 +52,6 @@ class Rc4 extends SymmetricStreamCipherAlgorithm
             if (strlen($this->key) < static::KEY_SIZE) {
                 $this->key = str_pad($this->key, static::KEY_SIZE, "\x0", STR_PAD_RIGHT);
             }
-            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -65,8 +65,10 @@ class Rc4 extends SymmetricStreamCipherAlgorithm
      */
     public function encryptData($plainData)
     {
-        if ($this->useNative) {
+        if (!$this->useNative) {
+            // @codeCoverageIgnoreStart
             return parent::encryptData($plainData);
+            // @codeCoverageIgnoreEnd
         } else {
             $this->validatePlainDataForEncryption($plainData);
 
@@ -88,8 +90,10 @@ class Rc4 extends SymmetricStreamCipherAlgorithm
      */
     public function decryptData($cipherData)
     {
-        if ($this->useNative) {
+        if (!$this->useNative) {
+            // @codeCoverageIgnoreStart
             return parent::decryptData($cipherData);
+            // @codeCoverageIgnoreEnd
         } else {
             $this->validateCipherDataForDecryption($cipherData);
 

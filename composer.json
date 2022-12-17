@@ -234,7 +234,7 @@
     }
   ],
   "require": {
-    "php": "^5.5 || ^7.0 || 8.0.* || 8.1.*",
+    "php": "^5.5 || ^7.0 || 8.0.* || 8.1.* || 8.2.*",
     "ext-spl": "*",
     "ext-hash": "*",
     "ext-openssl": "*"
@@ -297,7 +297,7 @@
     "check-psr-phar": "php phpcs.phar",
     "fix-psr": "vendor/bin/phpcbf",
     "fix-psr-phar": "php phpcbf.phar",
-    "export-docs-phar": "php phpdoc.phar"
+    "export-docs-phar": "php -ddisplay_errors=0 phpdoc.phar"
   },
   "extra": {
     "branch-alias": {
