@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+v1.0.3, 2022-12-17
+------------------
+
+- Enabled the PHP 8.2 support for the framework and using it with the new JIT compilation OpCache feature;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Enabled the running of unit tests with PHPUnit 9.x under PHP 8.2;
+- Fixed a bug with RC4's native compatability activation logic;
+- Fixed a bug with 3DES OpenSSL build identifier mismatching issue;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Updated the configuration of Scrutinizer CI and migrated analysis;
+- Updated the configuration of Travis CI and migrated the platform;
+- Fixed compatibility issues with PHP 8.2 features;
+- Fixed compatibility issues with OpenSSL features;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v1.0.2, 2022-12-15
 ------------------
 

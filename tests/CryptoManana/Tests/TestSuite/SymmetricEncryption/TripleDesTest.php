@@ -110,14 +110,14 @@ final class TripleDesTest extends AbstractUnitTest
 
         $crypter->setSecretKey($randomKey)
             ->setInitializationVector($randomIv)
-            ->setBlockOperationMode($crypter::CBC_MODE)
-            ->setPaddingStandard($crypter::PKCS7_PADDING)
+            ->setBlockOperationMode($crypter::OFB_MODE)
+            ->setPaddingStandard($crypter::ZERO_PADDING)
             ->setCipherFormat($crypter::ENCRYPTION_OUTPUT_RAW);
 
         $this->assertEquals($randomKey, $crypter->getSecretKey());
         $this->assertEquals($randomIv, $crypter->getInitializationVector());
-        $this->assertEquals($crypter::CBC_MODE, $crypter->getBlockOperationMode());
-        $this->assertEquals($crypter::PKCS7_PADDING, $crypter->getPaddingStandard());
+        $this->assertEquals($crypter::OFB_MODE, $crypter->getBlockOperationMode());
+        $this->assertEquals($crypter::ZERO_PADDING, $crypter->getPaddingStandard());
         $this->assertEquals($crypter::ENCRYPTION_OUTPUT_RAW, $crypter->getCipherFormat());
 
         $encryptedData = $crypter->encryptData($randomData);
@@ -302,7 +302,8 @@ final class TripleDesTest extends AbstractUnitTest
 
         foreach ($validModes as $blockMode) {
             if ($blockMode === $crypter::ECB_MODE) {
-                $methodName = $crypter::ALGORITHM_NAME;
+                $methodName = in_array(strtolower($crypter::ALGORITHM_NAME), openssl_get_cipher_methods(), true)
+                    ? $crypter::ALGORITHM_NAME : $crypter::ALGORITHM_NAME . '-' . $crypter::ECB_MODE;
             } else {
                 $methodName = $crypter::ALGORITHM_NAME . '-' . $blockMode;
             }

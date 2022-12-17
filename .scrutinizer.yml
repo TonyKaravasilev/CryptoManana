@@ -1,9 +1,33 @@
 # CryptoManana Framework Scrutinizer CI YAML Configuration
 
 build:
-  environment:
-    php:
-      version: "7.4"
+  nodes:
+    analysis:
+      image: default-bionic
+      environment:
+        php:
+          version: 8.2
+          ini:
+            'xdebug.mode': 'coverage'
+            'opcache.enable': '1'
+            'opcache.enable_cli': '1'
+            'default_charset': 'UTF-8'
+          pecl_extensions:
+            - apcu
+      cache:
+        directories:
+          - vendor/
+      tests:
+        override:
+          - php-scrutinizer-run
+          - phpcs-run
+          - command: php check.php
+          - command: composer validate
+          - command: vendor/bin/phpunit --migrate-configuration
+          - command: vendor/bin/phpunit --testdox --coverage-text
+            coverage:
+              file: coverage/clover.xml
+              format: php-clover
 
 filter:
   paths: [src/CryptoManana/*]
@@ -14,13 +38,6 @@ checks:
   php: true
 
 tools:
-  php_sim: true
-  php_pdepend: true
-  php_analyzer: true
-  php_mess_detector: true
-  php_code_sniffer:
-    config:
-      standard: "PSR12"
   external_code_coverage:
     timeout: 3600
-    runs: 2 # <- Zend OPcache ON/OFF
+    runs: 2 # 5.6 and 7.4

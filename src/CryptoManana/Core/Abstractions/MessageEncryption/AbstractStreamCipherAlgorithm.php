@@ -80,6 +80,8 @@ abstract class AbstractStreamCipherAlgorithm extends SymmetricCipherAlgorithm im
 
     /**
      * Stream cipher algorithm constructor.
+     *
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
@@ -90,7 +92,6 @@ abstract class AbstractStreamCipherAlgorithm extends SymmetricCipherAlgorithm im
             $this->key = str_pad($this->key, static::KEY_SIZE, "\x0", STR_PAD_RIGHT);
         }
 
-        // @codeCoverageIgnoreStart
         if (!in_array(strtolower($this->fetchAlgorithmMethodName()), openssl_get_cipher_methods(), true)) {
             throw new \RuntimeException(
                 'The algorithm `' .
@@ -98,7 +99,6 @@ abstract class AbstractStreamCipherAlgorithm extends SymmetricCipherAlgorithm im
                 '`is not supported under the current system configuration.'
             );
         }
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -125,6 +125,8 @@ abstract class AbstractStreamCipherAlgorithm extends SymmetricCipherAlgorithm im
      *
      * @return string The cipher/encrypted data.
      * @throws \Exception Validation errors.
+     *
+     * @codeCoverageIgnore
      */
     public function encryptData($plainData)
     {
@@ -144,6 +146,8 @@ abstract class AbstractStreamCipherAlgorithm extends SymmetricCipherAlgorithm im
      *
      * @return string The decrypted/plain data.
      * @throws \Exception Validation errors.
+     *
+     * @codeCoverageIgnore
      */
     public function decryptData($cipherData)
     {
