@@ -92,7 +92,7 @@ interface BlockOperationsInterface
     /**
      * Getter for the final block padding operation property.
      *
-     * @return string The padding standard integer code value.
+     * @return int The padding standard integer code value.
      */
     public function getPaddingStandard();
 }
