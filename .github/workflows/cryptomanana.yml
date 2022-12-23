@@ -1,0 +1,115 @@
+# CryptoManana Framework GitHub Actions Workflow YAML Configuration
+
+name: CryptoManana Framework Workflow
+on:
+  pull_request:
+    types:
+      - opened
+  push:
+    branches:
+      - master
+      - staging
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+jobs:
+  # Ubuntu/UNIX compatability tests
+  linux_unix_coverage_tests:
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-20.04 ]
+        php: [ '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+    runs-on: ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php }} Testing (${{ matrix.operating-system }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring,openssl,hash,spl,fileinfo,dom,json,libxml,xml,xmlwriter,simplexml,reflection,pcre,intl
+          coverage: none
+          tools: composer
+        env:
+          fail-fast: true
+          update: true
+
+      - name: Validate Composer Schema
+        run: composer validate --strict
+
+      - name: Locate Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Project Installation
+        run: composer install --no-progress --no-interaction --prefer-dist
+
+      - name: Running Tests
+        run: vendor/bin/phpunit --no-coverage
+
+  # Windows major compatability tests
+  windows_compatability_tests:
+    strategy:
+      matrix:
+        operating-system: [ windows-2022 ]
+        php: [ '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+    runs-on: ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php }} Testing (${{ matrix.operating-system }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring,openssl,hash,spl,fileinfo,dom,json,libxml,xml,xmlwriter,simplexml,reflection,pcre,intl
+          coverage: none
+          tools: composer
+        env:
+          fail-fast: true
+          update: true
+
+      - name: Project Installation
+        run: composer install --no-progress --no-interaction --prefer-dist
+
+      - name: Running Tests
+        run: vendor/bin/phpunit --no-coverage
+
+  # MacOS major compatability tests
+  mac_compatability_tests:
+    strategy:
+      matrix:
+        operating-system: [ macos-12 ]
+        php: [ '5.6', '7.4', '8.2' ]
+    runs-on: ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php }} Testing (${{ matrix.operating-system }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring,openssl,hash,spl,fileinfo,dom,json,libxml,xml,xmlwriter,simplexml,reflection,pcre,intl
+          coverage: none
+          tools: composer
+        env:
+          fail-fast: true
+          update: true
+
+      - name: Project Installation
+        run: composer install --no-progress --no-interaction --prefer-dist
+
+      - name: Running Tests
+        run: vendor/bin/phpunit --no-coverage

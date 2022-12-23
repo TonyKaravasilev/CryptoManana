@@ -1,15 +1,19 @@
 # CryptoMañana Framework
 
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/tonykaravasilev/cryptomanana.svg?color=blue&label=stable&style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
-[![PHP from Packagist](https://img.shields.io/badge/php-5.5%20--%208.2-blue?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
-[![PHP from Packagist](https://img.shields.io/badge/php-%3C%3D%208.2-blue.svg?style=flat-square)](https://packagist.org/packages/karavasilev/cryptomanana)
-[![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=flat-square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/tonykaravasilev/cryptomanana.svg?color=blue&label=stable&style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
+[![PHP from Packagist](https://img.shields.io/badge/php-5.5%20--%208.2-blue?style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
+[![PHP from Packagist](https://img.shields.io/badge/php-%3C%3D%208.2-blue.svg?style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
+[![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2604693.svg)](https://doi.org/10.5281/zenodo.2604693) <br>
 [![Build Status](https://app.travis-ci.com/TonyKaravasilev/CryptoManana.svg?branch=master)](https://app.travis-ci.com/github/TonyKaravasilev/CryptoManana)
 [![Code Coverage](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
 [![PHPDoc Coverage](https://img.shields.io/badge/PHPDoc-100%20%25-success.svg?style=flat)](http://cryptomanana.karavasilev.eu/api/)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TonyKaravasilev/CryptoManana/?branch=master)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-Success.svg?style=flat&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BFKJXWRLFTFQA&currency_code=USD&source=url) <br>
+[![CryptoManana Framework Workflow](https://github.com/TonyKaravasilev/CryptoManana/actions/workflows/cryptomanana.yml/badge.svg?branch=master)](https://github.com/TonyKaravasilev/CryptoManana/actions/workflows/cryptomanana.yml)
+[![Website](https://img.shields.io/website?down_color=red&down_message=Offline&label=Documentation&up_message=Online&url=https%3A%2F%2Fcryptomanana.karavasilev.eu)](https://cryptomanana.karavasilev.eu?github=badge)
+[![Total Downloads](https://img.shields.io/github/downloads/TonyKaravasilev/CryptoManana/total?color=colour&label=Total%20Downloads)](https://github.com/TonyKaravasilev/CryptoManana) <br>
+
 &nbsp;[![CryptoManana Logo](https://github.com/TonyKaravasilev/CryptoMananaDocs/blob/master/images/CryptoMananaLogo.jpg?raw=true)](http://cryptomanana.karavasilev.eu)
 
 ## Project Description

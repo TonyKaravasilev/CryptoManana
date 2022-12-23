@@ -189,7 +189,7 @@ abstract class AbstractBlockCipherAlgorithm extends SymmetricCipherAlgorithm imp
         $iv = ($this->mode === self::ECB_MODE) ? '' : $this->iv;
 
         /**
-         * {@internal The encryption standard is 8-bit wise (don not use StringBuilder) and utilizes performance. }}
+         * {@internal The encryption standard is 8-bit wise (do not use StringBuilder) and utilizes performance. }}
          */
         if ($isZeroPadding) {
             $plainData .= str_repeat("\x0", (static::BLOCK_SIZE - (strlen($plainData) % static::BLOCK_SIZE)));
