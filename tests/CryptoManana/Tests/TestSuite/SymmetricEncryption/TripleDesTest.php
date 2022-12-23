@@ -123,7 +123,10 @@ final class TripleDesTest extends AbstractUnitTest
         $encryptedData = $crypter->encryptData($randomData);
         $decryptedData = $crypter->decryptData($encryptedData);
 
-        $this->assertEquals($randomData, $decryptedData);
+        $this->assertEquals(
+            $randomData,
+            str_pad($decryptedData, strlen($randomData), "\x0", STR_PAD_RIGHT)
+        );
     }
 
     /**

@@ -17,6 +17,8 @@ build:
       cache:
         directories:
           - vendor/
+      requires:
+        - branch: /master|staging/
       tests:
         override:
           - php-scrutinizer-run

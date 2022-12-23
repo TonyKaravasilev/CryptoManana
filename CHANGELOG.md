@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+v1.1.0, 2022-12-23
+------------------
+
+- Added a LayeredEncryption cryptographic protocol for hybrid multi-layered encryption processing;
+- Added a new input structure based on the needs of the newly created cryptographic protocol;
+- Added unit tests for the new cryptographic protocol and data structure object realizations;
+- Added a new alias for installing phpDocumentor and building the documentation to the Makefile;
+- Updated the low-level CLI script for checking of the PHP requirements for the framework;
+- Added a GitHub actions CI/CD workflow to build on Windows, MacOS and Ubuntu;
+- Fixes a few small bugs and updated some of the framework's tests;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Fixed compatibility issues with OpenSSL features;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v1.0.3, 2022-12-17
 ------------------
 

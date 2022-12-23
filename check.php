@@ -565,6 +565,20 @@ foreach ($encryptionAlgorithms as $algorithmName) {
             'red'
         );
 
+        dump('List of raw OpenSSL errors:', 'red');
+
+        $count = 0;
+
+        while ($error = openssl_error_string()) {
+            dump($error, 'red');
+
+            $count++;
+        }
+
+        if ($count === 0) {
+            dump('No raw errors were returned from OpenSSL.', 'red');
+        }
+
         dump_an_error();
     }
 

@@ -95,8 +95,8 @@ final class MultipleEncryptionTest extends AbstractUnitTest
         $decryptedData = $protocol->multipleDecryptData($encryptedData, 5);
 
         $this->assertEquals($randomData, $decryptedData);
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 4));
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 6));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($randomData, 4));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($randomData, 6));
 
         $protocol->setKeyExpansionFunction($protocol->getKeyExpansionFunction()->setSalt('1234'));
         $protocol = new MultipleEncryption($protocol->getSymmetricCipher(), $protocol->getKeyExpansionFunction());
@@ -105,8 +105,8 @@ final class MultipleEncryptionTest extends AbstractUnitTest
         $decryptedData = $protocol->multipleDecryptData($encryptedData, 5);
 
         $this->assertEquals($randomData, $decryptedData);
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 4));
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 6));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($randomData, 4));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($randomData, 6));
     }
 
     /**
@@ -127,8 +127,8 @@ final class MultipleEncryptionTest extends AbstractUnitTest
         $decryptedData = $protocol->multipleDecryptData($encryptedData, 5);
 
         $this->assertEquals($unicodeData, $decryptedData);
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 4));
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 6));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($unicodeData, 4));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($unicodeData, 6));
 
         $protocol->setKeyExpansionFunction($protocol->getKeyExpansionFunction()->setSalt('1234'));
         $protocol = new MultipleEncryption($protocol->getSymmetricCipher(), $protocol->getKeyExpansionFunction());
@@ -137,8 +137,8 @@ final class MultipleEncryptionTest extends AbstractUnitTest
         $decryptedData = $protocol->multipleDecryptData($encryptedData, 5);
 
         $this->assertEquals($unicodeData, $decryptedData);
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 4));
-        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($encryptedData, 6));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($unicodeData, 4));
+        $this->assertNotEquals($encryptedData, $protocol->multipleEncryptData($unicodeData, 6));
     }
 
     /**
