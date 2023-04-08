@@ -4,18 +4,18 @@
  * Testing the password-based authentication cryptographic protocol object.
  */
 
-namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
+namespace CryptoManana\Tests\IntegrationSuite\CryptographicProtocol;
 
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Tests\TestTypes\AbstractIntegrationTest;
 use CryptoManana\CryptographicProtocol\PasswordBasedAuthentication;
 use CryptoManana\Hashing\Bcrypt;
 
 /**
  * Class PasswordBasedAuthenticationTest - Testing the password-based authentication cryptographic protocol object.
  *
- * @package CryptoManana\Tests\TestSuite\CryptographicProtocol
+ * @package CryptoManana\Tests\IntegrationSuite\CryptographicProtocol
  */
-final class PasswordBasedAuthenticationTest extends AbstractUnitTest
+final class PasswordBasedAuthenticationTest extends AbstractIntegrationTest
 {
     /**
      * Creates new instances for testing.
@@ -45,16 +45,7 @@ final class PasswordBasedAuthenticationTest extends AbstractUnitTest
         unset($tmp);
         $this->assertNotNull($protocol);
 
-        $hasher = $this->getMockBuilder(Bcrypt::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
-
-        $protocol->setVerificationAlgorithm($hasher);
-
-        $this->assertEquals($hasher, $protocol->getVerificationAlgorithm());
-
+        $protocol->setVerificationAlgorithm(new Bcrypt());
         $tmp = clone $protocol;
 
         $this->assertEquals($protocol, $tmp);
@@ -62,6 +53,37 @@ final class PasswordBasedAuthenticationTest extends AbstractUnitTest
 
         unset($tmp);
         $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSerializationCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $tmp = serialize($protocol);
+        $tmp = unserialize($tmp);
+
+        $this->assertEquals($protocol, $tmp);
+        $this->assertNotEmpty($tmp->identifyEntity('', ''));
+
+        unset($tmp);
+        $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the object dumping for debugging.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDebugCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $this->assertNotEmpty(var_export($protocol, true));
     }
 
     /**
@@ -93,18 +115,15 @@ final class PasswordBasedAuthenticationTest extends AbstractUnitTest
         $this->assertTrue($protocol->authenticateEntity($entityPassword, $entityPassword));
         $this->assertFalse($protocol->authenticateEntity($entityPassword, strrev($entityPassword)));
 
-        $hasher = $this->getMockBuilder(Bcrypt::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
+        $hasher = new Bcrypt();
+        $hasher->setAlgorithmicCost($hasher::MINIMUM_ALGORITHMIC_COST)->setSaltingMode($hasher::SALTING_MODE_NONE);
 
-        $hasher->expects($this->atLeast(0))
-            ->method('verifyHash')
-            ->willReturn(true);
-
+        $passwordDigest = $hasher->hashData($entityPassword);
         $protocol->setVerificationAlgorithm($hasher);
-        $this->assertTrue($protocol->authenticateEntity($entityPassword, $entityPassword));
+        $this->assertEquals($hasher, $protocol->getVerificationAlgorithm());
+
+        $this->assertTrue($protocol->authenticateEntity($passwordDigest, $entityPassword));
+        $this->assertFalse($protocol->authenticateEntity($passwordDigest, strrev($entityPassword)));
     }
 
     /**

@@ -7,11 +7,7 @@
 namespace CryptoManana\Tests\TestSuite\Utilities;
 
 use CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
-use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
-use CryptoManana\Randomness\CryptoRandom;
 use CryptoManana\Randomness\PseudoRandom;
-use CryptoManana\Randomness\QuasiRandom;
 use CryptoManana\Utilities\DataShuffler;
 
 /**
@@ -24,13 +20,21 @@ final class DataShufflerTest extends AbstractUnitTest
     /**
      * Creates new instances for testing.
      *
-     * @param AbstractRandomness|CryptoRandom|PseudoRandom|QuasiRandom|null $generator Randomness source.
-     *
      * @return DataShuffler Testing instance.
      * @throws \Exception Wrong usage errors.
      */
-    private function getDataShufflerForTesting($generator = null)
+    private function getDataShufflerForTesting()
     {
+        $generator = $this->getMockBuilder(PseudoRandom::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->getMock();
+
+        $generator->expects($this->atLeast(0))
+            ->method('getInt')
+            ->willReturn(0);
+
         return new DataShuffler($generator);
     }
 
@@ -53,80 +57,21 @@ final class DataShufflerTest extends AbstractUnitTest
     }
 
     /**
-     * Testing the serialization of an instance.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testSerializationCapabilities()
-    {
-        $shuffler = $this->getDataShufflerForTesting();
-
-        $tmp = serialize($shuffler);
-        $tmp = unserialize($tmp);
-
-        $this->assertEquals($shuffler, $tmp);
-        $this->assertNotEmpty($tmp->shuffleString('test'));
-
-        unset($tmp);
-        $this->assertNotNull($shuffler);
-    }
-
-    /**
-     * Testing the object dumping for debugging.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testDebugCapabilities()
-    {
-        $shuffler = $this->getDataShufflerForTesting();
-
-        $this->assertNotEmpty(var_export($shuffler, true));
-    }
-
-    /**
-     * Testing the dependency injection principle realization.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testDependencyInjection()
-    {
-        $shuffler = $this->getDataShufflerForTesting();
-
-        $this->assertTrue($shuffler instanceof AbstractRandomnessInjectable);
-        $this->assertTrue($shuffler->getRandomGenerator() instanceof CryptoRandom);
-
-        $shuffler->setRandomGenerator(new QuasiRandom());
-        $this->assertTrue($shuffler->getRandomGenerator() instanceof QuasiRandom);
-
-        $shuffler->setRandomGenerator(new PseudoRandom());
-        $this->assertTrue($shuffler->getRandomGenerator() instanceof PseudoRandom);
-
-        $shuffler = $shuffler->setRandomGenerator(new CryptoRandom())->seedRandomGenerator();
-        $this->assertTrue($shuffler->getRandomGenerator() instanceof CryptoRandom);
-    }
-
-    /**
      * Testing the string shuffling.
      *
      * @throws \Exception Wrong usage errors.
      */
     public function testStringShuffling()
     {
-        $shuffler = $this->getDataShufflerForTesting(new PseudoRandom());
-        $testString = 'Long string for testing in here!   #ThisIsNaughty';
+        $shuffler = $this->getDataShufflerForTesting();
+        $testArray = '123456789';
 
-        $resultOne = $shuffler->shuffleString($testString);
-        $resultTwo = $shuffler->shuffleString($testString);
-
-        $this->assertNotEquals($resultOne, $resultTwo);
-
-        $shuffler->seedRandomGenerator(42);
-        $resultOne = $shuffler->shuffleString($testString);
-
-        $shuffler->seedRandomGenerator(42);
-        $resultTwo = $shuffler->shuffleString($testString);
+        $resultOne = $shuffler->shuffleString($testArray);
+        $resultTwo = $shuffler->shuffleString($testArray);
 
         $this->assertEquals($resultOne, $resultTwo);
+
+        $this->assertEmpty($shuffler->shuffleString(''));
     }
 
     /**
@@ -136,33 +81,14 @@ final class DataShufflerTest extends AbstractUnitTest
      */
     public function testArrayShuffling()
     {
-        $shuffler = $this->getDataShufflerForTesting(new PseudoRandom());
+        $shuffler = $this->getDataShufflerForTesting();
         $testArray = ['1', [3, 2], new \stdClass(), 33, 'test', [], '1', 69];
 
         $resultOne = $shuffler->shuffleArray($testArray);
         $resultTwo = $shuffler->shuffleArray($testArray);
 
-        $this->assertNotEquals($resultOne, $resultTwo);
-
-        $shuffler->seedRandomGenerator(42);
-        $resultOne = $shuffler->shuffleArray($testArray);
-
-        $shuffler->seedRandomGenerator(42);
-        $resultTwo = $shuffler->shuffleArray($testArray);
-
         $this->assertEquals($resultOne, $resultTwo);
-    }
 
-    /**
-     * Testing the shuffling of supported types with empty values.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testShufflingOfEmptyInput()
-    {
-        $shuffler = $this->getDataShufflerForTesting();
-
-        $this->assertEmpty($shuffler->shuffleString(''));
         $this->assertEmpty($shuffler->shuffleArray([]));
     }
 

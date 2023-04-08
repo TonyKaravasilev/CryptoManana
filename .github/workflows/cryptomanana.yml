@@ -51,7 +51,10 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Project Installation
-        run: composer install --no-progress --no-interaction --prefer-dist
+        run: composer install --no-progress --no-interaction --prefer-dist ; cp phpunit.xml.dist phpunit.xml
+
+      - name: Test Suite Configuration
+        run: if [[ "${{ matrix.php }}" =~ ^(7.3|7.4|8.0|8.1|8.2)$ ]] ; then vendor/bin/phpunit --migrate-configuration; fi
 
       - name: Running Tests
         run: vendor/bin/phpunit --no-coverage
@@ -80,7 +83,10 @@ jobs:
           update: true
 
       - name: Project Installation
-        run: composer install --no-progress --no-interaction --prefer-dist
+        run: composer install --no-progress --no-interaction --prefer-dist ; cp phpunit.xml.dist phpunit.xml
+
+      - name: Test Suite Configuration
+        run: if ( ${{ matrix.php }} -ge 7.3 ) { vendor/bin/phpunit --migrate-configuration }
 
       - name: Running Tests
         run: vendor/bin/phpunit --no-coverage
@@ -109,7 +115,10 @@ jobs:
           update: true
 
       - name: Project Installation
-        run: composer install --no-progress --no-interaction --prefer-dist
+        run: composer install --no-progress --no-interaction --prefer-dist ; cp phpunit.xml.dist phpunit.xml
+
+      - name: Test Suite Configuration
+        run: if [[ "${{ matrix.php }}" =~ ^(7.3|7.4|8.0|8.1|8.2)$ ]] ; then vendor/bin/phpunit --migrate-configuration; fi
 
       - name: Running Tests
         run: vendor/bin/phpunit --no-coverage

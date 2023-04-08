@@ -4,23 +4,42 @@
  * Testing the digital envelope cryptographic protocol object.
  */
 
-namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
+namespace CryptoManana\Tests\IntegrationSuite\CryptographicProtocol;
 
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Tests\TestTypes\AbstractIntegrationTest;
 use CryptoManana\CryptographicProtocol\DigitalEnvelope;
 use CryptoManana\AsymmetricEncryption\Rsa1024;
 use CryptoManana\SymmetricEncryption\Aes128;
-use CryptoManana\Hashing\HmacShaThree384;
-use CryptoManana\Randomness\CryptoRandom;
+use CryptoManana\Utilities\TokenGenerator;
 use CryptoManana\DataStructures\KeyPair;
+use CryptoManana\Hashing\HmacShaTwo384;
 
 /**
  * Class DigitalEnvelopeTest - Testing the digital envelope cryptographic protocol object.
  *
- * @package CryptoManana\Tests\TestSuite\CryptographicProtocol
+ * @package CryptoManana\Tests\IntegrationSuite\CryptographicProtocol
  */
-final class DigitalEnvelopeTest extends AbstractUnitTest
+final class DigitalEnvelopeTest extends AbstractIntegrationTest
 {
+    /**
+     * The filename for the private key temporary file.
+     */
+    const PRIVATE_KEY_FILENAME_FOR_TESTS = 'rsa_1024_private.key';
+
+    /**
+     * The filename for the public key temporary file.
+     */
+    const PUBLIC_KEY_FILENAME_FOR_TESTS = 'rsa_1024_public.key';
+
+    /**
+     * Internal flag for checking of there is a key pair ready for testing.
+     *
+     * Note: `false` => auto-check on next call, `true` => already generated.
+     *
+     * @var null|bool Is the key pair generated.
+     */
+    protected static $isKeyPairGenerated = false;
+
     /**
      * Creates new instances for testing.
      *
@@ -29,74 +48,27 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
      */
     private function getCryptographicProtocolForTesting()
     {
-        $rsa = $this->getMockBuilder(Rsa1024::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
+        $rsa = new Rsa1024();
 
-        $rsa->setKeyPair(new KeyPair(base64_encode('1234'), base64_encode('1234')));
+        if (self::$isKeyPairGenerated === false) {
+            $generator = new TokenGenerator();
 
-        $rsa->expects($this->atLeast(0))
-            ->method('setKeyPair')
-            ->willReturnSelf();
+            $keyPair = $generator->getAsymmetricKeyPair($rsa::KEY_SIZE, $rsa::ALGORITHM_NAME);
 
-        $rsa->expects($this->atLeast(0))
-            ->method('encryptData')
-            ->willReturn('AAAA');
+            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->private);
+            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->public);
 
-        $aes = $this->getMockBuilder(Aes128::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
+            self::$isKeyPairGenerated = true;
+        }
 
-        $aes->expects($this->atLeast(0))
-            ->method('getSecretKey')
-            ->willReturn('secret');
+        $privateKey = $this->readFromFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
+        $publicKey = $this->readFromFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
 
-        $aes->expects($this->atLeast(0))
-            ->method('getInitializationVector')
-            ->willReturn('iv');
+        $keyPair = new KeyPair($privateKey, $publicKey);
 
-        $aes->expects($this->atLeast(0))
-            ->method('setSecretKey')
-            ->willReturnSelf();
+        $rsa->setKeyPair($keyPair);
 
-        $aes->expects($this->atLeast(0))
-            ->method('setInitializationVector')
-            ->willReturnSelf();
-
-        $aes->expects($this->atLeast(0))
-            ->method('encryptData')
-            ->willReturn('FFFF');
-
-        $hasher = $this->getMockBuilder(HmacShaThree384::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
-
-        $hasher->expects($this->atLeast(0))
-            ->method('hashData')
-            ->willReturn('CCCC');
-
-        $randomness = $this->getMockBuilder(CryptoRandom::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
-
-        $randomness->expects($this->atLeast(0))
-            ->method('getBytes')
-            ->willReturn("\0");
-
-        $protocol = new DigitalEnvelope($rsa, $aes);
-
-        $protocol->setKeyedDigestionFunction($hasher)
-            ->setRandomGenerator($randomness);
-
-        return $protocol;
+        return new DigitalEnvelope($rsa, new Aes128());
     }
 
     /**
@@ -116,6 +88,7 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
         unset($tmp);
         $this->assertNotNull($protocol);
 
+        $protocol->setKeyedDigestionFunction(new HmacShaTwo384());
         $tmp = clone $protocol;
 
         $this->assertEquals($protocol, $tmp);
@@ -123,6 +96,37 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
 
         unset($tmp);
         $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSerializationCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $tmp = serialize($protocol);
+        $tmp = unserialize($tmp);
+
+        $this->assertEquals($protocol, $tmp);
+        $this->assertNotEmpty($tmp->sealEnvelope(''));
+
+        unset($tmp);
+        $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the object dumping for debugging.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDebugCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $this->assertNotEmpty(var_export($protocol, true));
     }
 
     /**
@@ -138,24 +142,24 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
         $protocol->setSymmetricCipher($protocol->getSymmetricCipher());
         $protocol->setAsymmetricCipher($protocol->getAsymmetricCipher());
 
-        $data = 'test';
+        $randomData = random_bytes(16);
 
-        $protocol->getSymmetricCipher()
-            ->method('decryptData')
-            ->willReturn($data);
-
-        $protocol->getSymmetricCipher()
-            ->method('decryptData')
-            ->willReturn($data);
-
-        $protocol->getKeyedDigestionFunction()
-            ->method('verifyHash')
-            ->willReturn(true);
-
-        $envelopeObject = $protocol->sealEnvelope($data);
+        $envelopeObject = $protocol->sealEnvelope($randomData);
         $receivedData = $protocol->openEnvelope($envelopeObject);
 
-        $this->assertEquals($data, $receivedData);
+        $this->assertEquals($randomData, $receivedData);
+        $this->assertEmpty($envelopeObject->authenticationTag);
+
+        $hasher = new HmacShaTwo384();
+
+        $protocol->setKeyedDigestionFunction($hasher);
+        $this->assertEquals($hasher, $protocol->getKeyedDigestionFunction());
+
+        $envelopeObject = $protocol->sealEnvelope($randomData);
+        $receivedData = $protocol->openEnvelope($envelopeObject);
+
+        $this->assertEquals($randomData, $receivedData);
+        $this->assertNotEmpty($envelopeObject->authenticationTag);
     }
 
     /**
@@ -219,6 +223,37 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
     }
 
     /**
+     * Testing validation case for invalid type of input data for sealing.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidTypeOfInputDataForEnvelopeSealing()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $protocol->sealEnvelope(['wrong']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $protocol->sealEnvelope(['wrong']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
      * Testing validation case for invalid authentication tag on opening of envelope.
      *
      * @throws \Exception Wrong usage errors.
@@ -226,6 +261,7 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
     public function testValidationCaseForInvalidAuthenticationTagOnEnvelopeOpening()
     {
         $protocol = $this->getCryptographicProtocolForTesting();
+        $protocol->setKeyedDigestionFunction(new HmacShaTwo384());
 
         $envelopeObject = $protocol->sealEnvelope('1234');
         $envelopeObject->authenticationTag = 'FFFF';
@@ -250,5 +286,20 @@ final class DigitalEnvelopeTest extends AbstractUnitTest
 
             return;
         }
+    }
+
+    /**
+     * Testing the resource cleanup operation.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testKeyPairResourceCleanupOperation()
+    {
+        $this->assertTrue(self::$isKeyPairGenerated);
+
+        $this->deleteTheFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
+        $this->deleteTheFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
+
+        self::$isKeyPairGenerated = null;
     }
 }

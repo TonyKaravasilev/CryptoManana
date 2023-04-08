@@ -4,54 +4,34 @@
  * Testing the TokenGenerator component used for cryptographic secure token generation.
  */
 
-namespace CryptoManana\Tests\TestSuite\Utilities;
+namespace CryptoManana\Tests\IntegrationSuite\Utilities;
 
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Tests\TestTypes\AbstractIntegrationTest;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
+use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
+use CryptoManana\Randomness\CryptoRandom;
 use CryptoManana\Randomness\PseudoRandom;
+use CryptoManana\Randomness\QuasiRandom;
 use CryptoManana\Utilities\TokenGenerator;
 use CryptoManana\DataStructures\KeyPair;
 
 /**
  * Class TokenGeneratorTest - Tests the cryptographic secure token generator class.
  *
- * @package CryptoManana\Tests\TestSuite\Utilities
+ * @package CryptoManana\Tests\IntegrationSuite\Utilities
  */
-final class TokenGeneratorTest extends AbstractUnitTest
+final class TokenGeneratorTest extends AbstractIntegrationTest
 {
     /**
      * Creates new instances for testing.
      *
+     * @param AbstractRandomness|CryptoRandom|PseudoRandom|QuasiRandom|null $generator Randomness source.
+     *
      * @return TokenGenerator Testing instance.
      * @throws \Exception Wrong usage errors.
      */
-    private function getTokenGeneratorForTesting()
+    private function getTokenGeneratorForTesting($generator = null)
     {
-        $generator = $this->getMockBuilder(PseudoRandom::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
-
-        $generator->expects($this->atLeast(0))
-            ->method('getInt')
-            ->willReturn(1, 2, 3, 4);
-
-        $generator->expects($this->atLeast(0))
-            ->method('getAlphaNumeric')
-            ->willReturn('A');
-
-        $generator->expects($this->atLeast(0))
-            ->method('getHex')
-            ->willReturn('a');
-
-        $generator->expects($this->atLeast(0))
-            ->method('getAscii')
-            ->willReturn('b');
-
-        $generator->expects($this->atLeast(0))
-            ->method('getBytes')
-            ->willReturn("\0");
-
         return new TokenGenerator($generator);
     }
 
@@ -74,21 +54,82 @@ final class TokenGeneratorTest extends AbstractUnitTest
     }
 
     /**
+     * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSerializationCapabilities()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        $tmp = serialize($generator);
+        $tmp = unserialize($tmp);
+
+        $this->assertEquals($generator, $tmp);
+        $this->assertNotEmpty($tmp->getTokenString(10));
+
+        unset($tmp);
+        $this->assertNotNull($generator);
+    }
+
+    /**
+     * Testing the object dumping for debugging.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDebugCapabilities()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        $this->assertNotEmpty(var_export($generator, true));
+    }
+
+    /**
+     * Testing the dependency injection principle realization.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDependencyInjection()
+    {
+        $generator = $this->getTokenGeneratorForTesting();
+
+        $this->assertTrue($generator instanceof AbstractRandomnessInjectable);
+        $this->assertTrue($generator->getRandomGenerator() instanceof CryptoRandom);
+
+        $generator->setRandomGenerator(new QuasiRandom());
+        $this->assertTrue($generator->getRandomGenerator() instanceof QuasiRandom);
+
+        $generator->setRandomGenerator(new PseudoRandom());
+        $this->assertTrue($generator->getRandomGenerator() instanceof PseudoRandom);
+
+        $generator = $generator->setRandomGenerator(new CryptoRandom())->seedRandomGenerator();
+        $this->assertTrue($generator->getRandomGenerator() instanceof CryptoRandom);
+    }
+
+    /**
      * Testing secure password generation.
      *
      * @throws \Exception Wrong usage errors.
      */
     public function testPasswordStringGeneration()
     {
-        $generator = $this->getTokenGeneratorForTesting();
+        $generator = $this->getTokenGeneratorForTesting(new PseudoRandom());
 
         $resultOne = $generator->getPasswordString(20);
         $resultTwo = $generator->getPasswordString(20);
 
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->assertNotEquals($resultOne, $resultTwo);
 
         $resultOne = $generator->getPasswordString(20, false);
         $resultTwo = $generator->getPasswordString(20, false);
+
+        $this->assertNotEquals($resultOne, $resultTwo);
+
+        $generator->seedRandomGenerator(42);
+        $resultOne = $generator->getPasswordString(20);
+
+        $generator->seedRandomGenerator(42);
+        $resultTwo = $generator->getPasswordString(20);
 
         $this->assertEquals($resultOne, $resultTwo);
     }
@@ -100,15 +141,23 @@ final class TokenGeneratorTest extends AbstractUnitTest
      */
     public function testTokenStringGeneration()
     {
-        $generator = $this->getTokenGeneratorForTesting();
+        $generator = $this->getTokenGeneratorForTesting(new PseudoRandom());
 
         $resultOne = $generator->getTokenString(64);
         $resultTwo = $generator->getTokenString(64);
 
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->assertNotEquals($resultOne, $resultTwo);
 
         $resultOne = $generator->getTokenString(64, false);
         $resultTwo = $generator->getTokenString(64, false);
+
+        $this->assertNotEquals($resultOne, $resultTwo);
+
+        $generator->seedRandomGenerator(42);
+        $resultOne = $generator->getTokenString(64);
+
+        $generator->seedRandomGenerator(42);
+        $resultTwo = $generator->getTokenString(64);
 
         $this->assertEquals($resultOne, $resultTwo);
     }
@@ -120,15 +169,23 @@ final class TokenGeneratorTest extends AbstractUnitTest
      */
     public function testHashingSaltGeneration()
     {
-        $generator = $this->getTokenGeneratorForTesting();
+        $generator = $this->getTokenGeneratorForTesting(new PseudoRandom());
 
         $resultOne = $generator->getHashingSalt(64);
         $resultTwo = $generator->getHashingSalt(64);
 
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->assertNotEquals($resultOne, $resultTwo);
 
         $resultOne = $generator->getHashingSalt(64, false);
         $resultTwo = $generator->getHashingSalt(64, false);
+
+        $this->assertNotEquals($resultOne, $resultTwo);
+
+        $generator->seedRandomGenerator(42);
+        $resultOne = $generator->getHashingSalt(64);
+
+        $generator->seedRandomGenerator(42);
+        $resultTwo = $generator->getHashingSalt(64);
 
         $this->assertEquals($resultOne, $resultTwo);
     }
@@ -140,15 +197,23 @@ final class TokenGeneratorTest extends AbstractUnitTest
      */
     public function testHashingKeyGeneration()
     {
-        $generator = $this->getTokenGeneratorForTesting();
+        $generator = $this->getTokenGeneratorForTesting(new PseudoRandom());
 
         $resultOne = $generator->getHashingKey(64);
         $resultTwo = $generator->getHashingKey(64);
 
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->assertNotEquals($resultOne, $resultTwo);
 
         $resultOne = $generator->getHashingKey(64, false);
         $resultTwo = $generator->getHashingKey(64, false);
+
+        $this->assertNotEquals($resultOne, $resultTwo);
+
+        $generator->seedRandomGenerator(42);
+        $resultOne = $generator->getHashingKey(64);
+
+        $generator->seedRandomGenerator(42);
+        $resultTwo = $generator->getHashingKey(64);
 
         $this->assertEquals($resultOne, $resultTwo);
     }
@@ -160,15 +225,23 @@ final class TokenGeneratorTest extends AbstractUnitTest
      */
     public function testEncryptionKeyGeneration()
     {
-        $generator = $this->getTokenGeneratorForTesting();
+        $generator = $this->getTokenGeneratorForTesting(new PseudoRandom());
 
         $resultOne = $generator->getEncryptionKey(64);
         $resultTwo = $generator->getEncryptionKey(64);
 
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->assertNotEquals($resultOne, $resultTwo);
 
         $resultOne = $generator->getEncryptionKey(64, false);
         $resultTwo = $generator->getEncryptionKey(64, false);
+
+        $this->assertNotEquals($resultOne, $resultTwo);
+
+        $generator->seedRandomGenerator(42);
+        $resultOne = $generator->getEncryptionKey(64);
+
+        $generator->seedRandomGenerator(42);
+        $resultTwo = $generator->getEncryptionKey(64);
 
         $this->assertEquals($resultOne, $resultTwo);
     }
@@ -180,15 +253,23 @@ final class TokenGeneratorTest extends AbstractUnitTest
      */
     public function testInitializationVectorGeneration()
     {
-        $generator = $this->getTokenGeneratorForTesting();
+        $generator = $this->getTokenGeneratorForTesting(new PseudoRandom());
 
         $resultOne = $generator->getEncryptionInitializationVector(64);
         $resultTwo = $generator->getEncryptionInitializationVector(64);
 
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->assertNotEquals($resultOne, $resultTwo);
 
         $resultOne = $generator->getEncryptionInitializationVector(64, false);
         $resultTwo = $generator->getEncryptionInitializationVector(64, false);
+
+        $this->assertNotEquals($resultOne, $resultTwo);
+
+        $generator->seedRandomGenerator(42);
+        $resultOne = $generator->getEncryptionInitializationVector(64);
+
+        $generator->seedRandomGenerator(42);
+        $resultTwo = $generator->getEncryptionInitializationVector(64);
 
         $this->assertEquals($resultOne, $resultTwo);
     }

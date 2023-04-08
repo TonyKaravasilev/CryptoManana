@@ -4,18 +4,18 @@
  * Testing the key exchange cryptographic protocol object.
  */
 
-namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
+namespace CryptoManana\Tests\IntegrationSuite\CryptographicProtocol;
 
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Tests\TestTypes\AbstractIntegrationTest;
 use CryptoManana\CryptographicProtocol\KeyExchange;
 use CryptoManana\Hashing\HkdfShaTwo384;
 
 /**
  * Class KeyExchangeTest - Testing the key exchange cryptographic protocol object.
  *
- * @package CryptoManana\Tests\TestSuite\CryptographicProtocol
+ * @package CryptoManana\Tests\IntegrationSuite\CryptographicProtocol
  */
-final class KeyExchangeTest extends AbstractUnitTest
+final class KeyExchangeTest extends AbstractIntegrationTest
 {
     /**
      * Creates new instances for testing.
@@ -25,17 +25,7 @@ final class KeyExchangeTest extends AbstractUnitTest
      */
     private function getCryptographicProtocolForTesting()
     {
-        $hasher = $this->getMockBuilder(HkdfShaTwo384::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
-
-        $hasher->expects($this->atLeast(0))
-            ->method('hashData')
-            ->willReturn('CCCC');
-
-        $exchange = new KeyExchange($hasher);
+        $exchange = new KeyExchange(new HkdfShaTwo384());
         $exchange->setKeyExchangeSize(512);
 
         return $exchange;
@@ -57,6 +47,37 @@ final class KeyExchangeTest extends AbstractUnitTest
 
         unset($tmp);
         $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSerializationCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $tmp = serialize($protocol);
+        $tmp = unserialize($tmp);
+
+        $this->assertEquals($protocol, $tmp);
+        $this->assertNotEmpty($tmp->generateExchangeRequestInformation());
+
+        unset($tmp);
+        $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the object dumping for debugging.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDebugCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $this->assertNotEmpty(var_export($protocol, true));
     }
 
     /**

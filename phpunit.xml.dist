@@ -34,8 +34,11 @@
     </php>
 
     <!-- Test suite name and location: -->
-    <testsuite name="CryptoManana - Unit Test Suite">
+    <testsuite name="CryptoManana - Test Suite">
+        <!-- Unit Tests -->
         <directory suffix="Test.php">./tests/CryptoManana/Tests/TestSuite/</directory>
+        <!-- Integration Tests -->
+        <directory suffix="Test.php">./tests/CryptoManana/Tests/IntegrationSuite/</directory>
     </testsuite>
 
     <!-- Include directory paths for scanning: -->

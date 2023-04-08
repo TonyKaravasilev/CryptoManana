@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+v1.1.1, 2023-04-08
+------------------
+
+- Moved existing tests for cryptographic services and utilities as a separate integration test suite;
+- Added true unit tests for cryptographic services and utilities via PHPUnit mocks/stubs;
+- Enabled the running of unit tests with PHPUnit 10.x under PHP 8.1 and 8.2;
+- Updated the configuration of Travis CI and GitHub actions CI/CD workflow;
+- Updated the phpDocumentor schema configuration file and its settings;
+- Fixes a few small bugs/typos and updated some of the framework's tests;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v1.1.0, 2022-12-23
 ------------------
 

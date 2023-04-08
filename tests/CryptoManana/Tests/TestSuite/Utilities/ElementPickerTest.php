@@ -7,11 +7,7 @@
 namespace CryptoManana\Tests\TestSuite\Utilities;
 
 use CryptoManana\Tests\TestTypes\AbstractUnitTest;
-use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
-use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
-use CryptoManana\Randomness\CryptoRandom;
 use CryptoManana\Randomness\PseudoRandom;
-use CryptoManana\Randomness\QuasiRandom;
 use CryptoManana\Utilities\ElementPicker;
 
 /**
@@ -24,13 +20,21 @@ final class ElementPickerTest extends AbstractUnitTest
     /**
      * Creates new instances for testing.
      *
-     * @param AbstractRandomness|CryptoRandom|PseudoRandom|QuasiRandom|null $generator Randomness source.
-     *
      * @return ElementPicker Testing instance.
      * @throws \Exception Wrong usage errors.
      */
-    private function getElementPickerForTesting($generator = null)
+    private function getElementPickerForTesting()
     {
+        $generator = $this->getMockBuilder(PseudoRandom::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->getMock();
+
+        $generator->expects($this->atLeast(0))
+            ->method('getInt')
+            ->willReturn(1);
+
         return new ElementPicker($generator);
     }
 
@@ -53,80 +57,21 @@ final class ElementPickerTest extends AbstractUnitTest
     }
 
     /**
-     * Testing the serialization of an instance.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testSerializationCapabilities()
-    {
-        $picker = $this->getElementPickerForTesting();
-
-        $tmp = serialize($picker);
-        $tmp = unserialize($tmp);
-
-        $this->assertEquals($picker, $tmp);
-        $this->assertNotEmpty($tmp->pickCharacterElement('test'));
-
-        unset($tmp);
-        $this->assertNotNull($picker);
-    }
-
-    /**
-     * Testing the object dumping for debugging.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testDebugCapabilities()
-    {
-        $picker = $this->getElementPickerForTesting();
-
-        $this->assertNotEmpty(var_export($picker, true));
-    }
-
-    /**
-     * Testing the dependency injection principle realization.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testDependencyInjection()
-    {
-        $picker = $this->getElementPickerForTesting();
-
-        $this->assertTrue($picker instanceof AbstractRandomnessInjectable);
-        $this->assertTrue($picker->getRandomGenerator() instanceof CryptoRandom);
-
-        $picker->setRandomGenerator(new QuasiRandom());
-        $this->assertTrue($picker->getRandomGenerator() instanceof QuasiRandom);
-
-        $picker->setRandomGenerator(new PseudoRandom());
-        $this->assertTrue($picker->getRandomGenerator() instanceof PseudoRandom);
-
-        $picker = $picker->setRandomGenerator(new CryptoRandom())->seedRandomGenerator();
-        $this->assertTrue($picker->getRandomGenerator() instanceof CryptoRandom);
-    }
-
-    /**
      * Testing the random picking of a character from a string.
      *
      * @throws \Exception Wrong usage errors.
      */
     public function testPickingRandomCharacterFromString()
     {
-        $picker = $this->getElementPickerForTesting(new PseudoRandom());
+        $picker = $this->getElementPickerForTesting();
         $testString = 'Long string for testing in here!   #ThisIsNaughty';
 
         $resultOne = $picker->pickCharacterElement($testString);
         $resultTwo = $picker->pickCharacterElement($testString);
 
-        $this->assertNotEquals($resultOne, $resultTwo);
-
-        $picker->seedRandomGenerator(42);
-        $resultOne = $picker->pickCharacterElement($testString);
-
-        $picker->seedRandomGenerator(42);
-        $resultTwo = $picker->pickCharacterElement($testString);
-
         $this->assertEquals($resultOne, $resultTwo);
+
+        $this->assertEmpty($picker->pickCharacterElement(''));
     }
 
     /**
@@ -136,33 +81,14 @@ final class ElementPickerTest extends AbstractUnitTest
      */
     public function testPickingRandomElementFromArray()
     {
-        $picker = $this->getElementPickerForTesting(new PseudoRandom());
+        $picker = $this->getElementPickerForTesting();
         $testArray = ['1', [3, 2], new \stdClass(), 33, 'test', [], '1', 69];
 
         $resultOne = $picker->pickArrayElement($testArray);
         $resultTwo = $picker->pickArrayElement($testArray);
 
-        $this->assertNotEquals($resultOne, $resultTwo);
-
-        $picker->seedRandomGenerator(42);
-        $resultOne = $picker->pickArrayElement($testArray);
-
-        $picker->seedRandomGenerator(42);
-        $resultTwo = $picker->pickArrayElement($testArray);
-
         $this->assertEquals($resultOne, $resultTwo);
-    }
 
-    /**
-     * Testing the element picking in supported types with empty values.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testPickingFromEmptyInput()
-    {
-        $picker = $this->getElementPickerForTesting();
-
-        $this->assertEmpty($picker->pickCharacterElement(''));
         $this->assertEmpty($picker->pickArrayElement([]));
     }
 
