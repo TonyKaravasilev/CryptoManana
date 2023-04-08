@@ -12,7 +12,7 @@ psr: vendor/autoload.php
 
 .PHONY: tests
 tests: vendor/autoload.php
-	vendor/bin/phpunit --verbose --no-coverage
+	vendor/bin/phpunit --no-coverage
 
 .PHONY: check-system
 check-system:
@@ -42,7 +42,7 @@ download-new-phpdoc:
 generate-docs:
 	@if [ -f ./phpdoc.phar ]; then\
 	  rm -rf docs/ && mkdir docs;\
-	  php -ddisplay_errors=0 -dopcache.enable_cli=0 phpdoc.phar;\
+	  php -ddisplay_errors=0 -dopcache.enable_cli=0 phpdoc.phar --sourcecode;\
 	  if grep -i -q "No errors have been found" ./docs/api/reports/errors.html; then\
 	    echo 'PHPDoc Inspection: 100%';\
 	  else \

@@ -31,13 +31,17 @@ jobs:
       env:
         - USE_OPCACHE=1
     - php: 8.1
-      dist: jammy
+      dist: focal
       env:
         - USE_OPCACHE=1
     - php: master
       dist: jammy
       env:
         - USE_OPCACHE=1
+#    - php: 8.2  <---- months and no valid build is available (installation failure)
+#      dist: focal
+#      env:
+#        - USE_OPCACHE=1
 
 cache:
   timeout: 3600

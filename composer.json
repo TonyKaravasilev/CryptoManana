@@ -243,7 +243,7 @@
     "ext-mbstring": "*",
     "ext-reflection": "*",
     "squizlabs/php_codesniffer": "^3.3",
-    "phpunit/phpunit": "^9 || ^8 || ^7 || ^6 || ^5.7 || ^4.8"
+    "phpunit/phpunit": "^10 || ^9 || ^8 || ^7 || ^6 || ^5.7 || ^4.8"
   },
   "suggest": {
     "ext-mbstring": "Use only for multi-byte string encodings support and implementations.",
@@ -277,10 +277,10 @@
     "install-phar": "php composer.phar install --profile -vv",
     "autoload-dev": "composer dump-autoload --profile -vv",
     "autoload-phar": "php composer.phar dump-autoload --profile -vv",
-    "execute-tests": "vendor/bin/phpunit --verbose --testdox --no-coverage",
-    "execute-tests-phar": "php phpunit.phar --verbose --testdox --no-coverage",
-    "scan-coverage": "vendor/bin/phpunit --coverage-text --verbose --stop-on-failure",
-    "scan-coverage-phar": "php phpunit.phar --coverage-text --verbose --stop-on-failure",
+    "execute-tests": "vendor/bin/phpunit --testdox --no-coverage",
+    "execute-tests-phar": "php phpunit.phar --testdox --no-coverage",
+    "scan-coverage": "vendor/bin/phpunit --coverage-text --stop-on-failure",
+    "scan-coverage-phar": "php phpunit.phar --coverage-text --stop-on-failure",
     "export-testdox": "vendor/bin/phpunit --no-coverage --testdox-html coverage/agile.html",
     "export-testdox-phar": "php phpunit.phar --no-coverage --testdox-html coverage/agile.html",
     "export-coverage": "vendor/bin/phpunit --coverage-html coverage/report/",
@@ -297,7 +297,7 @@
     "check-psr-phar": "php phpcs.phar",
     "fix-psr": "vendor/bin/phpcbf",
     "fix-psr-phar": "php phpcbf.phar",
-    "export-docs-phar": "php -ddisplay_errors=0 phpdoc.phar"
+    "export-docs-phar": "php -ddisplay_errors=0 -dopcache.enable_cli=0 phpdoc.phar --sourcecode"
   },
   "extra": {
     "branch-alias": {

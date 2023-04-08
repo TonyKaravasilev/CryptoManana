@@ -2,7 +2,7 @@
 <phpdoc>
 
     <!-- Project ruleset description: -->
-    <title>PHPDoc scanning for the CryptoManana Framework.</title>
+    <title>Technical API Documentation for the CryptoManana Framework</title>
 
     <!-- Code scanning options: -->
     <parser>

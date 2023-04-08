@@ -4,37 +4,33 @@
  * Testing the FileShredder component used for file erasure operations.
  */
 
-namespace CryptoManana\Tests\TestSuite\Utilities;
+namespace CryptoManana\Tests\IntegrationSuite\Utilities;
 
+use CryptoManana\Tests\TestTypes\AbstractIntegrationTest;
+use CryptoManana\Core\Abstractions\Containers\AbstractRandomnessInjectable;
+use CryptoManana\Core\Abstractions\Randomness\AbstractRandomness;
+use CryptoManana\Randomness\CryptoRandom;
 use CryptoManana\Randomness\PseudoRandom;
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Randomness\QuasiRandom;
 use CryptoManana\Utilities\FileShredder;
 
 /**
  * Class FileShredderTest - Tests the file shredder class.
  *
- * @package CryptoManana\Tests\TestSuite\Utilities
+ * @package CryptoManana\Tests\IntegrationSuite\Utilities
  */
-final class FileShredderTest extends AbstractUnitTest
+final class FileShredderTest extends AbstractIntegrationTest
 {
     /**
      * Creates new instances for testing.
      *
+     * @param AbstractRandomness|CryptoRandom|PseudoRandom|QuasiRandom|null $generator Randomness source.
+     *
      * @return FileShredder Testing instance.
      * @throws \Exception Wrong usage errors.
      */
-    private function getFileShredderForTesting()
+    private function getFileShredderForTesting($generator = null)
     {
-        $generator = $this->getMockBuilder(PseudoRandom::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
-
-        $generator->expects($this->atLeast(0))
-            ->method('getBytes')
-            ->willReturn("\0");
-
         return new FileShredder($generator);
     }
 
@@ -54,6 +50,59 @@ final class FileShredderTest extends AbstractUnitTest
 
         unset($tmp);
         $this->assertNotNull($shredder);
+    }
+
+    /**
+     * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSerializationCapabilities()
+    {
+        $shredder = $this->getFileShredderForTesting();
+
+        $tmp = serialize($shredder);
+        $tmp = unserialize($tmp);
+
+        $this->assertEquals($shredder, $tmp);
+        $this->assertNotEmpty($shredder->getRandomGenerator());
+
+        unset($tmp);
+        $this->assertNotNull($shredder);
+    }
+
+    /**
+     * Testing the object dumping for debugging.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDebugCapabilities()
+    {
+        $shredder = $this->getFileShredderForTesting();
+
+        $this->assertNotEmpty(var_export($shredder, true));
+    }
+
+    /**
+     * Testing the dependency injection principle realization.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDependencyInjection()
+    {
+        $shredder = $this->getFileShredderForTesting();
+
+        $this->assertTrue($shredder instanceof AbstractRandomnessInjectable);
+        $this->assertTrue($shredder->getRandomGenerator() instanceof CryptoRandom);
+
+        $shredder->setRandomGenerator(new QuasiRandom());
+        $this->assertTrue($shredder->getRandomGenerator() instanceof QuasiRandom);
+
+        $shredder->setRandomGenerator(new PseudoRandom());
+        $this->assertTrue($shredder->getRandomGenerator() instanceof PseudoRandom);
+
+        $shredder = $shredder->setRandomGenerator(new CryptoRandom())->seedRandomGenerator();
+        $this->assertTrue($shredder->getRandomGenerator() instanceof CryptoRandom);
     }
 
     /**

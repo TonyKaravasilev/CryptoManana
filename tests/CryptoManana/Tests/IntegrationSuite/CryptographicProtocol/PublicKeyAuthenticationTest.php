@@ -4,24 +4,43 @@
  * Testing the asymmetric/public key authentication cryptographic protocol object.
  */
 
-namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
+namespace CryptoManana\Tests\IntegrationSuite\CryptographicProtocol;
 
-use CryptoManana\Tests\TestTypes\AbstractUnitTest;
+use CryptoManana\Tests\TestTypes\AbstractIntegrationTest;
 use CryptoManana\Core\Abstractions\MessageEncryption\AbstractAsymmetricEncryptionAlgorithm;
 use CryptoManana\Core\Abstractions\Randomness\AbstractGenerator;
 use CryptoManana\Core\Interfaces\MessageEncryption\DataEncryptionInterface;
 use CryptoManana\CryptographicProtocol\PublicKeyAuthentication;
 use CryptoManana\AsymmetricEncryption\Rsa1024;
-use CryptoManana\Randomness\QuasiRandom;
+use CryptoManana\Utilities\TokenGenerator;
 use CryptoManana\DataStructures\KeyPair;
 
 /**
  * Class PublicKeyAuthenticationTest - Testing the asymmetric/public key authentication cryptographic protocol object.
  *
- * @package CryptoManana\Tests\TestSuite\CryptographicProtocol
+ * @package CryptoManana\Tests\IntegrationSuite\CryptographicProtocol
  */
-final class PublicKeyAuthenticationTest extends AbstractUnitTest
+final class PublicKeyAuthenticationTest extends AbstractIntegrationTest
 {
+    /**
+     * The filename for the private key temporary file.
+     */
+    const PRIVATE_KEY_FILENAME_FOR_TESTS = 'rsa_1024_private.key';
+
+    /**
+     * The filename for the public key temporary file.
+     */
+    const PUBLIC_KEY_FILENAME_FOR_TESTS = 'rsa_1024_public.key';
+
+    /**
+     * Internal flag for checking of there is a key pair ready for testing.
+     *
+     * Note: `false` => auto-check on next call, `true` => already generated.
+     *
+     * @var null|bool Is the key pair generated.
+     */
+    protected static $isKeyPairGenerated = false;
+
     /**
      * Creates new instances for testing.
      *
@@ -30,41 +49,27 @@ final class PublicKeyAuthenticationTest extends AbstractUnitTest
      */
     private function getCryptographicProtocolForTesting()
     {
-        $rsa = $this->getMockBuilder(Rsa1024::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
+        $rsa = new Rsa1024();
 
-        $rsa->setKeyPair(new KeyPair(base64_encode('1234'), base64_encode('1234')));
+        if (self::$isKeyPairGenerated === false) {
+            $generator = new TokenGenerator();
 
-        $rsa->expects($this->atLeast(0))
-            ->method('setKeyPair')
-            ->willReturnSelf();
+            $keyPair = $generator->getAsymmetricKeyPair($rsa::KEY_SIZE, $rsa::ALGORITHM_NAME);
 
-        $rsa->expects($this->atLeast(0))
-            ->method('encryptData')
-            ->willReturn('FFFF');
+            $this->writeToFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS, $keyPair->private);
+            $this->writeToFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS, $keyPair->public);
 
-        $randomness = $this->getMockBuilder(QuasiRandom::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
+            self::$isKeyPairGenerated = true;
+        }
 
-        $randomness->expects($this->atLeast(0))
-            ->method('getBytes')
-            ->willReturn("\0");
+        $privateKey = $this->readFromFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
+        $publicKey = $this->readFromFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
 
-        $randomness->expects($this->atLeast(0))
-            ->method('getAlphaNumeric')
-            ->willReturn('A1');
+        $keyPair = new KeyPair($privateKey, $publicKey);
 
-        $protocol = new PublicKeyAuthentication($rsa);
+        $rsa->setKeyPair($keyPair);
 
-        $protocol->setRandomGenerator($randomness);
-
-        return $protocol;
+        return new PublicKeyAuthentication($rsa);
     }
 
     /**
@@ -83,6 +88,37 @@ final class PublicKeyAuthenticationTest extends AbstractUnitTest
 
         unset($tmp);
         $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the serialization of an instance.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testSerializationCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $tmp = serialize($protocol);
+        $tmp = unserialize($tmp);
+
+        $this->assertEquals($protocol, $tmp);
+        $this->assertNotEmpty($tmp->identifyEntity('', ''));
+
+        unset($tmp);
+        $this->assertNotNull($protocol);
+    }
+
+    /**
+     * Testing the object dumping for debugging.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testDebugCapabilities()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        $this->assertNotEmpty(var_export($protocol, true));
     }
 
     /**
@@ -117,11 +153,6 @@ final class PublicKeyAuthenticationTest extends AbstractUnitTest
         $this->assertTrue($protocol->getAsymmetricCipher() instanceof DataEncryptionInterface);
 
         $tokenObject = $protocol->generateAuthenticationToken();
-
-        $protocol->getAsymmetricCipher()
-            ->method('decryptData')
-            ->willReturn($tokenObject->tokenData);
-
         $userDecryptedToken = $protocol->extractAuthenticationToken($tokenObject->cipherData);
 
         $this->assertTrue($protocol->authenticateEntity($tokenObject->tokenData, $userDecryptedToken));
@@ -310,5 +341,51 @@ final class PublicKeyAuthenticationTest extends AbstractUnitTest
 
             return;
         }
+    }
+
+    /**
+     * Testing validation case for invalid cipher token passed for token extraction.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testValidationCaseForInvalidCipherTokenPassedForTokenExtraction()
+    {
+        $protocol = $this->getCryptographicProtocolForTesting();
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\InvalidArgumentException::class);
+
+            $protocol->extractAuthenticationToken(['none']);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $protocol->extractAuthenticationToken(['none']);
+            } catch (\InvalidArgumentException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
+    }
+
+    /**
+     * Testing the resource cleanup operation.
+     *
+     * @throws \Exception Wrong usage errors.
+     */
+    public function testKeyPairResourceCleanupOperation()
+    {
+        $this->assertTrue(self::$isKeyPairGenerated);
+
+        $this->deleteTheFile(self::PRIVATE_KEY_FILENAME_FOR_TESTS);
+        $this->deleteTheFile(self::PUBLIC_KEY_FILENAME_FOR_TESTS);
+
+        self::$isKeyPairGenerated = null;
     }
 }

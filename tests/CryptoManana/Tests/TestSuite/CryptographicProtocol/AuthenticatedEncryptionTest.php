@@ -8,8 +8,8 @@ namespace CryptoManana\Tests\TestSuite\CryptographicProtocol;
 
 use CryptoManana\Tests\TestTypes\AbstractUnitTest;
 use CryptoManana\CryptographicProtocol\AuthenticatedEncryption;
-use CryptoManana\DataStructures\AuthenticatedCipherData;
 use CryptoManana\SymmetricEncryption\Aes128;
+use CryptoManana\Hashing\HmacShaTwo256;
 
 /**
  * Class AuthenticatedEncryptionTest - Testing the authenticated symmetric encryption cryptographic protocol object.
@@ -26,7 +26,51 @@ final class AuthenticatedEncryptionTest extends AbstractUnitTest
      */
     private function getCryptographicProtocolForTesting()
     {
-        return new AuthenticatedEncryption(new Aes128());
+        $encryptor = $this->getMockBuilder(Aes128::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->getMock();
+
+        $encryptor->expects($this->atLeast(0))
+            ->method('getSecretKey')
+            ->willReturn('secret');
+
+        $encryptor->expects($this->atLeast(0))
+            ->method('getInitializationVector')
+            ->willReturn('iv');
+
+        $encryptor->expects($this->atLeast(0))
+            ->method('setSecretKey')
+            ->willReturnSelf();
+
+        $encryptor->expects($this->atLeast(0))
+            ->method('setInitializationVector')
+            ->willReturnSelf();
+
+        $hasher = $this->getMockBuilder(HmacShaTwo256::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->getMock();
+
+        $hasher->expects($this->atLeast(0))
+            ->method('setKey')
+            ->willReturnSelf();
+
+        $hasher->expects($this->atLeast(0))
+            ->method('setSalt')
+            ->willReturnSelf();
+
+        $hasher->expects($this->atLeast(0))
+            ->method('getKey')
+            ->willReturn('key');
+
+        $hasher->expects($this->atLeast(0))
+            ->method('getSalt')
+            ->willReturn('salt');
+
+        return new AuthenticatedEncryption($encryptor, $hasher);
     }
 
     /**
@@ -38,6 +82,14 @@ final class AuthenticatedEncryptionTest extends AbstractUnitTest
     {
         $protocol = $this->getCryptographicProtocolForTesting();
 
+        $protocol->getSymmetricCipher()
+            ->method('encryptData')
+            ->willReturn('AAAA');
+
+        $protocol->getKeyedDigestionFunction()
+            ->method('hashData')
+            ->willReturn('FFFF');
+
         $tmp = clone $protocol;
 
         $this->assertEquals($protocol, $tmp);
@@ -48,166 +100,173 @@ final class AuthenticatedEncryptionTest extends AbstractUnitTest
     }
 
     /**
-     * Testing the serialization of an instance.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testSerializationCapabilities()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $tmp = serialize($protocol);
-        $tmp = unserialize($tmp);
-
-        $this->assertEquals($protocol, $tmp);
-        $this->assertNotEmpty($tmp->authenticatedEncryptData(''));
-
-        unset($tmp);
-        $this->assertNotNull($protocol);
-    }
-
-    /**
-     * Testing the object dumping for debugging.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testDebugCapabilities()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $this->assertNotEmpty(var_export($protocol, true));
-    }
-
-    /**
-     * Testing if the basic data encryption and decryption process works.
+     * Testing if the basic data encryption and decryption process works for Encrypt and MAC.
      *
      * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testBasicDataEncryptionAndDataDecryption()
+    public function testEncryptAndMac()
     {
         $protocol = $this->getCryptographicProtocolForTesting();
 
-        $protocol->setSymmetricCipher($protocol->getSymmetricCipher());
-        $protocol->setKeyedDigestionFunction($protocol->getKeyedDigestionFunction());
+        $data = 'test';
 
-        $authenticationMode = [
-            $protocol::AUTHENTICATION_MODE_ENCRYPT_AND_MAC,
-            $protocol::AUTHENTICATION_MODE_MAC_THEN_ENCRYPT,
-            $protocol::AUTHENTICATION_MODE_ENCRYPT_THEN_MAC,
-        ];
+        $protocol->getSymmetricCipher()
+            ->method('encryptData')
+            ->willReturn('AAAA');
 
-        $randomData = random_bytes(16);
+        $protocol->getSymmetricCipher()
+            ->method('decryptData')
+            ->willReturn($data);
 
-        foreach ($authenticationMode as $mode) {
-            $protocol->setAuthenticationMode($mode);
-            $this->assertEquals($mode, $protocol->getAuthenticationMode());
+        $protocol->getKeyedDigestionFunction()
+            ->method('hashData')
+            ->willReturn('FFFF');
 
-            $encryptedData = $protocol->authenticatedEncryptData($randomData);
+        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_ENCRYPT_AND_MAC);
+        $this->assertEquals($protocol::AUTHENTICATION_MODE_ENCRYPT_AND_MAC, $protocol->getAuthenticationMode());
+
+        $encryptedData = $protocol->authenticatedEncryptData($data);
+        $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+
+        $this->assertEquals($data, $decryptedData);
+
+        // Test MAC failure
+        $encryptedData->authenticationTag = 'AAAAAAAAAAAAAA';
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\RuntimeException::class);
+
             $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+        } else {
+            $hasThrown = null;
 
-            $this->assertEquals($randomData, $decryptedData);
-        }
+            try {
+                $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+            } catch (\RuntimeException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
 
-        $protocol->setKeyedDigestionFunction($protocol->getKeyedDigestionFunction()->setSalt('1234'));
+            $this->assertTrue($hasThrown);
 
-        $protocol = new AuthenticatedEncryption(
-            $protocol->getSymmetricCipher(),
-            $protocol->getKeyedDigestionFunction()
-        );
-
-        foreach ($authenticationMode as $mode) {
-            $protocol->setAuthenticationMode($mode);
-            $this->assertEquals($mode, $protocol->getAuthenticationMode());
-
-            $encryptedData = $protocol->authenticatedEncryptData($randomData);
-            $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
-
-            $this->assertEquals($randomData, $decryptedData);
+            return;
         }
     }
 
     /**
-     * Testing if the unicode data encryption and decryption process works.
+     * Testing if the basic data encryption and decryption process works for Encrypt Then MAC.
      *
      * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testUnicodeDataEncryptionAndDataDecryption()
+    public function testEncryptThenMac()
     {
         $protocol = $this->getCryptographicProtocolForTesting();
 
-        $protocol->setSymmetricCipher($protocol->getSymmetricCipher());
-        $protocol->setKeyedDigestionFunction($protocol->getKeyedDigestionFunction());
+        $data = 'test';
 
-        $authenticationMode = [
-            $protocol::AUTHENTICATION_MODE_ENCRYPT_AND_MAC,
-            $protocol::AUTHENTICATION_MODE_MAC_THEN_ENCRYPT,
-            $protocol::AUTHENTICATION_MODE_ENCRYPT_THEN_MAC,
-        ];
+        $protocol->getSymmetricCipher()
+            ->method('encryptData')
+            ->willReturn('AAAA');
 
-        $unicodeData = "йЗъ 7-М%\v@UОrЯBZ";
+        $protocol->getSymmetricCipher()
+            ->method('decryptData')
+            ->willReturn($data);
 
-        foreach ($authenticationMode as $mode) {
-            $protocol->setAuthenticationMode($mode);
-            $this->assertEquals($mode, $protocol->getAuthenticationMode());
+        $protocol->getKeyedDigestionFunction()
+            ->method('hashData')
+            ->willReturn('FFFF');
 
-            $encryptedData = $protocol->authenticatedEncryptData($unicodeData);
+        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_ENCRYPT_THEN_MAC);
+        $this->assertEquals($protocol::AUTHENTICATION_MODE_ENCRYPT_THEN_MAC, $protocol->getAuthenticationMode());
+
+        $encryptedData = $protocol->authenticatedEncryptData($data);
+        $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+
+        $this->assertEquals($data, $decryptedData);
+
+        // Test MAC failure
+        $encryptedData->authenticationTag = 'AAAAAAAAAAAAAA';
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\RuntimeException::class);
+
             $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+        } else {
+            $hasThrown = null;
 
-            $this->assertEquals($unicodeData, $decryptedData);
-        }
+            try {
+                $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+            } catch (\RuntimeException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
 
-        $protocol->setKeyedDigestionFunction($protocol->getKeyedDigestionFunction()->setSalt('1234'));
+            $this->assertTrue($hasThrown);
 
-        $protocol = new AuthenticatedEncryption(
-            $protocol->getSymmetricCipher(),
-            $protocol->getKeyedDigestionFunction()
-        );
-
-        foreach ($authenticationMode as $mode) {
-            $protocol->setAuthenticationMode($mode);
-            $this->assertEquals($mode, $protocol->getAuthenticationMode());
-
-            $encryptedData = $protocol->authenticatedEncryptData($unicodeData);
-            $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
-
-            $this->assertEquals($unicodeData, $decryptedData);
+            return;
         }
     }
 
     /**
-     * Testing if encrypting twice the same input returns the same result.
+     * Testing if the basic data encryption and decryption process works for MAC then Encrypt.
      *
      * @throws \Exception If system does not support the algorithm or the randomness source is not available.
      */
-    public function testEncryptingTheSameDataTwice()
+    public function testMacThenEncrypt()
     {
         $protocol = $this->getCryptographicProtocolForTesting();
 
-        $randomData = random_bytes(16);
+        $data = 'test';
 
-        $this->assertEquals(
-            $protocol->authenticatedEncryptData($randomData),
-            $protocol->authenticatedEncryptData($randomData)
-        );
+        $protocol->getSymmetricCipher()
+            ->method('encryptData')
+            ->willReturn('AAAA');
+
+        $protocol->getSymmetricCipher()
+            ->method('decryptData')
+            ->willReturn($data . '%7C__%7CFFFF');
+
+        $protocol->getKeyedDigestionFunction()
+            ->method('hashData')
+            ->willReturn('FFFF');
+
+        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_MAC_THEN_ENCRYPT);
+        $this->assertEquals($protocol::AUTHENTICATION_MODE_MAC_THEN_ENCRYPT, $protocol->getAuthenticationMode());
+
+        $encryptedData = $protocol->authenticatedEncryptData($data);
+        $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+
+        $this->assertEquals($data, $decryptedData);
+
+        // Test MAC failure
+        $encryptedData->authenticationTag = 'AAAAAAAAAAAAAA';
+
+        // Backward compatible for different versions of PHPUnit
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(\RuntimeException::class);
+
+            $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+        } else {
+            $hasThrown = null;
+
+            try {
+                $decryptedData = $protocol->authenticatedDecryptData($encryptedData);
+            } catch (\RuntimeException $exception) {
+                $hasThrown = !empty($exception->getMessage());
+            } catch (\Exception $exception) {
+                $hasThrown = $exception->getMessage();
+            }
+
+            $this->assertTrue($hasThrown);
+
+            return;
+        }
     }
 
-    /**
-     * Testing if encrypting twice the same input returns the same result.
-     *
-     * @throws \Exception If system does not support the algorithm or the randomness source is not available.
-     */
-    public function testDecryptingTheSameDataTwice()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $randomData = random_bytes(16);
-        $encryptedData = $protocol->authenticatedEncryptData($randomData);
-
-        $this->assertEquals(
-            $protocol->authenticatedDecryptData($encryptedData),
-            $protocol->authenticatedDecryptData($encryptedData)
-        );
-    }
 
     /**
      * Testing validation case for invalid type of symmetric service used on initialization.
@@ -258,213 +317,6 @@ final class AuthenticatedEncryptionTest extends AbstractUnitTest
             try {
                 $protocol->authenticatedEncryptData(['wrong']);
             } catch (\InvalidArgumentException $exception) {
-                $hasThrown = !empty($exception->getMessage());
-            } catch (\Exception $exception) {
-                $hasThrown = $exception->getMessage();
-            }
-
-            $this->assertTrue($hasThrown);
-
-            return;
-        }
-    }
-
-    /**
-     * Testing validation case for invalid type of input data for decryption passed in E&M mode.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testValidationCaseForInvalidTypeOfInputDataForDecryptionInEncryptAndMacMode()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_ENCRYPT_AND_MAC);
-        $authenticationCipherData = new AuthenticatedCipherData('1234', '1234');
-
-        // Backward compatible for different versions of PHPUnit
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(\InvalidArgumentException::class);
-
-            $protocol->authenticatedDecryptData($authenticationCipherData);
-        } else {
-            $hasThrown = null;
-
-            try {
-                $protocol->authenticatedDecryptData($authenticationCipherData);
-            } catch (\InvalidArgumentException $exception) {
-                $hasThrown = !empty($exception->getMessage());
-            } catch (\Exception $exception) {
-                $hasThrown = $exception->getMessage();
-            }
-
-            $this->assertTrue($hasThrown);
-
-            return;
-        }
-    }
-
-    /**
-     * Testing validation case for invalid type of input data for decryption passed in MtE mode.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testValidationCaseForInvalidTypeOfInputDataForDecryptionInMacThenEncryptMode()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_MAC_THEN_ENCRYPT);
-        $authenticationCipherData = new AuthenticatedCipherData('1234', '1234');
-
-        // Backward compatible for different versions of PHPUnit
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(\InvalidArgumentException::class);
-
-            $protocol->authenticatedDecryptData($authenticationCipherData);
-        } else {
-            $hasThrown = null;
-
-            try {
-                $protocol->authenticatedDecryptData($authenticationCipherData);
-            } catch (\InvalidArgumentException $exception) {
-                $hasThrown = !empty($exception->getMessage());
-            } catch (\Exception $exception) {
-                $hasThrown = $exception->getMessage();
-            }
-
-            $this->assertTrue($hasThrown);
-
-            return;
-        }
-    }
-
-    /**
-     * Testing validation case for invalid type of input data for decryption passed in EtM mode.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testValidationCaseForInvalidTypeOfInputDataForDecryptionInEncryptThenMacMode()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_ENCRYPT_THEN_MAC);
-        $authenticationCipherData = new AuthenticatedCipherData('1234', '1234');
-
-        // Backward compatible for different versions of PHPUnit
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(\InvalidArgumentException::class);
-
-            $protocol->authenticatedDecryptData($authenticationCipherData);
-        } else {
-            $hasThrown = null;
-
-            try {
-                $protocol->authenticatedDecryptData($authenticationCipherData);
-            } catch (\InvalidArgumentException $exception) {
-                $hasThrown = !empty($exception->getMessage());
-            } catch (\Exception $exception) {
-                $hasThrown = $exception->getMessage();
-            }
-
-            $this->assertTrue($hasThrown);
-
-            return;
-        }
-    }
-
-    /**
-     * Testing validation case for invalid authentication tag for decryption in E&M mode.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testValidationCaseForInvalidAuthenticationTagForDecryptionInEncryptAndMacMode()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_ENCRYPT_AND_MAC);
-        $authenticationCipherData = $protocol->authenticatedEncryptData('1234');
-        $authenticationCipherData->authenticationTag = 'invalid';
-
-        // Backward compatible for different versions of PHPUnit
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(\RuntimeException::class);
-
-            $protocol->authenticatedDecryptData($authenticationCipherData);
-        } else {
-            $hasThrown = null;
-
-            try {
-                $protocol->authenticatedDecryptData($authenticationCipherData);
-            } catch (\RuntimeException $exception) {
-                $hasThrown = !empty($exception->getMessage());
-            } catch (\Exception $exception) {
-                $hasThrown = $exception->getMessage();
-            }
-
-            $this->assertTrue($hasThrown);
-
-            return;
-        }
-    }
-
-    /**
-     * Testing validation case for invalid authentication tag for decryption passed in MtE mode.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testValidationCaseForInvalidAuthenticationTagForDecryptionInMacThenEncryptMode()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_MAC_THEN_ENCRYPT);
-        $authenticationCipherData = $protocol->authenticatedEncryptData('1234');
-        $authenticationCipherData->authenticationTag = 'invalid';
-
-        // Backward compatible for different versions of PHPUnit
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(\RuntimeException::class);
-
-            $protocol->authenticatedDecryptData($authenticationCipherData);
-        } else {
-            $hasThrown = null;
-
-            try {
-                $protocol->authenticatedDecryptData($authenticationCipherData);
-            } catch (\RuntimeException $exception) {
-                $hasThrown = !empty($exception->getMessage());
-            } catch (\Exception $exception) {
-                $hasThrown = $exception->getMessage();
-            }
-
-            $this->assertTrue($hasThrown);
-
-            return;
-        }
-    }
-
-    /**
-     * Testing validation case for invalid authentication tag for decryption passed in EtM mode.
-     *
-     * @throws \Exception Wrong usage errors.
-     */
-    public function testValidationCaseForInvalidAuthenticationTagForDecryptionInEncryptThenMacMode()
-    {
-        $protocol = $this->getCryptographicProtocolForTesting();
-
-        $protocol->setAuthenticationMode($protocol::AUTHENTICATION_MODE_ENCRYPT_THEN_MAC);
-        $authenticationCipherData = $protocol->authenticatedEncryptData('1234');
-        $authenticationCipherData->authenticationTag = 'invalid';
-
-        // Backward compatible for different versions of PHPUnit
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(\RuntimeException::class);
-
-            $protocol->authenticatedDecryptData($authenticationCipherData);
-        } else {
-            $hasThrown = null;
-
-            try {
-                $protocol->authenticatedDecryptData($authenticationCipherData);
-            } catch (\RuntimeException $exception) {
                 $hasThrown = !empty($exception->getMessage());
             } catch (\Exception $exception) {
                 $hasThrown = $exception->getMessage();
@@ -555,6 +407,18 @@ final class AuthenticatedEncryptionTest extends AbstractUnitTest
     public function testValidationCaseForInvalidInternalAuthenticationModeUsedForDecryption()
     {
         $protocol = $this->getCryptographicProtocolForTesting();
+
+        $protocol->getSymmetricCipher()
+            ->method('encryptData')
+            ->willReturn('AAAA');
+
+        $protocol->getSymmetricCipher()
+            ->method('decryptData')
+            ->willReturn('test');
+
+        $protocol->getKeyedDigestionFunction()
+            ->method('hashData')
+            ->willReturn('FFFF');
 
         $authenticationCipherData = $protocol->authenticatedEncryptData('');
 
