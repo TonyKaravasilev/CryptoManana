@@ -4,13 +4,12 @@ language: php
 
 os: linux
 
-dist: trusty
+dist: xenial
 
 env:
   - USE_OPCACHE=1
 
 php:
-  - '5.5'
   - '5.6'
   - '7.0'
   - '7.1'
@@ -20,7 +19,8 @@ php:
 jobs:
   fast_finish: true
   allow_failures:
-    - php: master
+    - php: 5.5
+    - php: 8.3.0
   include:
     - php: 7.4
       dist: focal
@@ -34,14 +34,28 @@ jobs:
       dist: focal
       env:
         - USE_OPCACHE=1
-    - php: master
+    - php: 8.2
       dist: jammy
+      addons:
+        apt:
+          update: true
+          packages:
+            - libonig-dev
       env:
         - USE_OPCACHE=1
-#    - php: 8.2  <---- months and no valid build is available (installation failure)
-#      dist: focal
-#      env:
-#        - USE_OPCACHE=1
+    - php: 8.3.0
+      dist: bionic
+      addons:
+        apt:
+          update: true
+          packages:
+            - libonig-dev
+      env:
+        - USE_OPCACHE=1
+    - php: 5.5
+      dist: trusty
+      env:
+        - USE_OPCACHE=1
 
 cache:
   timeout: 3600
@@ -69,9 +83,8 @@ before_script:
   - echo 'sys_temp_dir=/tmp' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo 'upload_tmp_dir=/tmp' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer validate
-  - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
-  - if [[ "$TRAVIS_PHP_VERSION" =~ ^(7.3|7.4|8.0|8.1|8.2|master)$ ]]; then
+  - if [[ "$TRAVIS_PHP_VERSION" =~ ^(7.3|7.4|8.0|8.1|8.2|8.3.0|master)$ ]]; then
       echo 'xdebug.mode=coverage' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
       cp phpunit.xml.dist phpunit.xml;
       vendor/bin/phpunit --migrate-configuration;

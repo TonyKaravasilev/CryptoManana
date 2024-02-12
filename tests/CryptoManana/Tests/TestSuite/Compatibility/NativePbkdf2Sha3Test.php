@@ -84,7 +84,7 @@ final class NativePbkdf2Sha3Test extends AbstractUnitTest
         );
 
         $reflectionMbString->setAccessible(true);
-        $reflectionMbString->setValue($use);
+        $reflectionMbString->setValue(null, $use);
 
         $reflectionMbString = new \ReflectionProperty(
             NativePbkdf2Sha3::class,
@@ -92,7 +92,7 @@ final class NativePbkdf2Sha3Test extends AbstractUnitTest
         );
 
         $reflectionMbString->setAccessible(true);
-        $reflectionMbString->setValue($use);
+        $reflectionMbString->setValue(null, $use);
     }
 
     /**

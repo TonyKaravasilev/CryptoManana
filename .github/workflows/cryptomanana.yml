@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-20.04 ]
-        php: [ '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
     runs-on: ${{ matrix.operating-system }}
     name: PHP ${{ matrix.php }} Testing (${{ matrix.operating-system }})
     steps:
@@ -54,7 +54,7 @@ jobs:
         run: composer install --no-progress --no-interaction --prefer-dist ; cp phpunit.xml.dist phpunit.xml
 
       - name: Test Suite Configuration
-        run: if [[ "${{ matrix.php }}" =~ ^(7.3|7.4|8.0|8.1|8.2)$ ]] ; then vendor/bin/phpunit --migrate-configuration; fi
+        run: if [[ "${{ matrix.php }}" =~ ^(7.3|7.4|8.0|8.1|8.2|8.3)$ ]] ; then vendor/bin/phpunit --migrate-configuration; fi
 
       - name: Running Tests
         run: vendor/bin/phpunit --no-coverage
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ windows-2022 ]
-        php: [ '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
     runs-on: ${{ matrix.operating-system }}
     name: PHP ${{ matrix.php }} Testing (${{ matrix.operating-system }})
     steps:
@@ -95,8 +95,8 @@ jobs:
   mac_compatability_tests:
     strategy:
       matrix:
-        operating-system: [ macos-12 ]
-        php: [ '5.6', '7.4', '8.2' ]
+        operating-system: [ macos-13 ]
+        php: [ '8.2', '8.3' ]
     runs-on: ${{ matrix.operating-system }}
     name: PHP ${{ matrix.php }} Testing (${{ matrix.operating-system }})
     steps:
@@ -118,7 +118,7 @@ jobs:
         run: composer install --no-progress --no-interaction --prefer-dist ; cp phpunit.xml.dist phpunit.xml
 
       - name: Test Suite Configuration
-        run: if [[ "${{ matrix.php }}" =~ ^(7.3|7.4|8.0|8.1|8.2)$ ]] ; then vendor/bin/phpunit --migrate-configuration; fi
+        run: vendor/bin/phpunit --migrate-configuration
 
       - name: Running Tests
         run: vendor/bin/phpunit --no-coverage

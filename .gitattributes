@@ -1,8 +1,8 @@
-* text working-tree-encoding=UTF-8
-*.jpg -text
-*.png -text
-*.ttf -text
-*.woff -text
+* text working-tree-encoding=UTF-8 eol=lf
+*.jpg binary
+*.png binary
+*.ttf binary
+*.woff binary
 /.github export-ignore
 /.gitignore export-ignore
 /.gitattributes export-ignore

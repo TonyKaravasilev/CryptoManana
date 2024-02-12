@@ -74,7 +74,7 @@ final class NativeHmacSha3Test extends AbstractUnitTest
         );
 
         $reflectionMbString->setAccessible(true);
-        $reflectionMbString->setValue($use);
+        $reflectionMbString->setValue(null, $use);
 
         $reflectionMbString = new \ReflectionProperty(
             NativeSha3::class,
@@ -82,7 +82,7 @@ final class NativeHmacSha3Test extends AbstractUnitTest
         );
 
         $reflectionMbString->setAccessible(true);
-        $reflectionMbString->setValue($use);
+        $reflectionMbString->setValue(null, $use);
     }
 
     /**
