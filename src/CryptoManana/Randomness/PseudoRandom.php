@@ -164,7 +164,7 @@ class PseudoRandom extends RandomnessSource implements SeedAction
         /**
          * {@internal Backward compatibility algorithm for seed must be used. }}
          */
-        (PHP_VERSION_ID < 70100) ? mt_srand($seed) : mt_srand($seed, MT_RAND_PHP);
+        (PHP_VERSION_ID < 70100) ? mt_srand($seed) : ((PHP_VERSION_ID < 80300) ? mt_srand($seed, 1) : mt_srand($seed));
     }
 
     /**

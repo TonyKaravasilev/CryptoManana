@@ -73,7 +73,7 @@ final class NativeSha3Test extends AbstractUnitTest
         );
 
         $reflectionMbString->setAccessible(true);
-        $reflectionMbString->setValue($use);
+        $reflectionMbString->setValue(null, $use);
     }
 
     /**
@@ -93,7 +93,7 @@ final class NativeSha3Test extends AbstractUnitTest
         );
 
         $reflectionMbString->setAccessible(true);
-        $reflectionMbString->setValue($use);
+        $reflectionMbString->setValue(null, $use);
     }
 
     /**

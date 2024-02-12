@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+v1.1.2, 2024-01-12
+------------------
+
+- Fixed compatibility issues with PHP 8.3 features;
+- Fixed compatibility issues with OpenSSL features;
+- Fixed compatibility issues with PHPUnit features;
+- Enabled the running of unit tests with PHPUnit 10.x under PHP 8.3;
+- Updated the configuration of Scrutinizer CI and migrated analysis;
+- Updated the configuration of Travis CI and migrated the platform;
+- Updated the GitHub actions CI/CD workflow configuration and migrated the platforms;
+- Generated an online DOI number via Zenodo and CERN integration;
+- Purged the image caches for the GitHub repository;
+- Release is signed with a GitHub GPG signature.
+
 v1.1.1, 2023-04-08
 ------------------
 

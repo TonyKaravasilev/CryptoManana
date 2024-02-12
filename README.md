@@ -1,8 +1,8 @@
 # CryptoMañana Framework
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/tonykaravasilev/cryptomanana.svg?color=blue&label=stable&style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
-[![PHP from Packagist](https://img.shields.io/badge/php-5.5%20--%208.2-blue?style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
-[![PHP from Packagist](https://img.shields.io/badge/php-%3C%3D%208.2-blue.svg?style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
+[![PHP from Packagist](https://img.shields.io/badge/php-5.5%20--%208.3-blue?style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
+[![PHP from Packagist](https://img.shields.io/badge/php-%3C%3D%208.3-blue.svg?style=square)](https://packagist.org/packages/karavasilev/cryptomanana)
 [![GitHub](https://img.shields.io/github/license/tonykaravasilev/cryptomanana.svg?color=blue&label=license&style=square)](https://github.com/TonyKaravasilev/CryptoManana/blob/master/LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2604693.svg)](https://doi.org/10.5281/zenodo.2604693) <br>
 [![Build Status](https://app.travis-ci.com/TonyKaravasilev/CryptoManana.svg?branch=master)](https://app.travis-ci.com/github/TonyKaravasilev/CryptoManana)
@@ -40,7 +40,7 @@ php vendor/karavasilev/cryptomanana/check.php
 
 ## Project Requirements
 
-- `PHP Version`: 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1 or 8.2;
+- `PHP Version`: 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2 or 8.3;
 - The `spl` extension (bundles with PHP >= 5.0.0, added to core since PHP >= 5.3.0);
 - The `hash` extension (bundled with PHP >= 5.1.2, added to core since PHP >= 7.4.0);
 - The `openssl` extension (added by default for PHP >= 5.0.0, needs the OpenSSL Library);
